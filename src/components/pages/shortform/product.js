@@ -8,7 +8,7 @@ const Product = ({ formData, handleChange }) => {
           Can you provide an overview of the products and services your company
           offers?*
         </label>
-        <textarea
+        <textarea style={{ height: "250px" }}
           id="productOverview"
           name="productOverview"
           value={formData.productOverview}

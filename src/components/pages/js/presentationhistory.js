@@ -10,7 +10,7 @@ function History() {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        "https://v4-server.onrender.com/history",
+        "https://zynth.ai/api/history",
         {
           headers: {
             "x-userid": userID,

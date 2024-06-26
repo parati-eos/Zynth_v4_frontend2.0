@@ -45,7 +45,7 @@ const AboutCompany = ({ formData, handleChange, handleNext }) => {
 
   const fetchColorsFromApi = async (imageUrl) => {
     try {
-      const response = await axios.post('https://v4-server.onrender.com/get-colors/', { imageUrl });
+      const response = await axios.post('https://zynth.ai/api/get-colors/', { imageUrl });
       const colors = response.data.map(color => color.hex); // Extract hex values from response
       console.log('Fetched colors:', colors);
       return colors;
@@ -121,18 +121,6 @@ const AboutCompany = ({ formData, handleChange, handleNext }) => {
         )}
       </div>
       <br />
-      <div className="textInputQuestions">
-        <label htmlFor="colors">Fetched Colors:</label>
-        <div className="color-display">
-          <div style={{ backgroundColor: formData.primaryColor }} className="color-box">Primary Color</div>
-          <div style={{ backgroundColor: formData.secondaryColor }} className="color-box">Secondary Color</div>
-          <div style={{ backgroundColor: formData.p50s50 }} className="color-box">50% Primary / 50% Secondary</div>
-          <div style={{ backgroundColor: formData.p75s25 }} className="color-box">75% Primary / 25% Secondary</div>
-          <div style={{ backgroundColor: formData.p25s75 }} className="color-box">25% Primary / 75% Secondary</div>
-        </div>
-      </div>
-      <br />
-      <button onClick={handleContinue}>Continue</button>
     </>
   );
 };
