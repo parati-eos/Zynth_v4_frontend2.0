@@ -53,6 +53,7 @@ const removeBackground = async (file) => {
       const response = await axios.post('https://api.remove.bg/v1.0/removebg', formData, {
         headers: {
           'X-Api-Key': 'pFxcEcmDM6C6xbzpSniFxYR6', // replace with your actual Remove.bg API key
+          'X-Api-Key': 'HvRY8S58wNZCeEushHyqSeqJ', // replace with your actual Remove.bg API key
         },
         responseType: 'blob',
       });

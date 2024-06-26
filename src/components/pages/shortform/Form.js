@@ -374,7 +374,7 @@ const Form = () => {
     );
     if (changedData) {
       try {
-        const response = await fetch("https://zynth.ai/api/submission/short-form", {
+        const response = await fetch("http://127.0.0.1:5000/submission/short-form", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -462,8 +462,6 @@ const Form = () => {
       changedData = false;
     }
 
-    // Proceed to the next section or show success
-    // message
     if (section < 5) {
       setSection((prevSection) => prevSection + 1);
       setIsLoading(false);
