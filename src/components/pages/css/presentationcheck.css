@@ -1,9 +1,21 @@
 /* src/PresentationCheck.css */
+.presentation-check-container1 {
+  padding-top: 4px; /* Adjust this value based on the height of your navbar */
+}
+
 .presentation-check-container {
   display: flex;
-  height: 100vh;
+  height: calc(100vh - 60px); /* Adjust height to account for the fixed navbar */
   overflow: hidden;
 }
+
+.navbar-fixed {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
 .sidebar {
   width: 250px;
   background-color: #001b28;
@@ -50,6 +62,23 @@
   color: yellow;
   border-bottom: 1px solid #ddd;
 }
+.fetch-button {
+  margin-top: 10px;
+  padding: 8px 16px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+
+
+.fetch-button:hover {
+  background-color: #0056b3;
+}
 
 
 /* Custom scrollbar styles for the sidebar and presentation slides */
@@ -69,12 +98,9 @@
   background-color: transparent;
 }
 
-
-
 .content::-webkit-scrollbar,
 .presentation-view-slides::-webkit-scrollbar {
   width: 12px;
-  
 }
 
 .content::-webkit-scrollbar-thumb,
@@ -87,4 +113,29 @@
 .content::-webkit-scrollbar-track,
 .presentation-view-slides::-webkit-scrollbar-track {
   background-color: transparent;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .presentation-check-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    box-shadow: none;
+    order: 1; /* Make sidebar appear first */
+  }
+
+  .content {
+    padding: 10px;
+    order: 2; /* Make content appear second */
+  }
+
+  .sidebar-item {
+    padding: 10px;
+    margin: 5px 0;
+  }
 }

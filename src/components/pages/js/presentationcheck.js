@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../css/presentationcheck.css';
 import ApplicationNavbar from "../../shared/js/ApplicationNavbar.js";
-import { log } from 'tone/build/esm/core/util/Debug.js';
+import FoundingTeamForm from '../shortform/DummyForm.js'; // Import the form component
 
 const slides = [
   'Cover', 'About', 'Problem Areas', 'Solution', 'Market Sizing',
@@ -15,6 +15,7 @@ const slides = [
 const PresentationCheck = () => {
   const [selectedSlide, setSelectedSlide] = useState(slides[0]);
   const [slideContent, setSlideContent] = useState({});
+  const [fetchError, setFetchError] = useState({});
   const slideRefs = useRef([]);
   const formId = localStorage.getItem("submissionId");
 
@@ -50,39 +51,79 @@ const PresentationCheck = () => {
     slideRefs.current[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  useEffect(() => {
-    const fetchSlide = async (section) => {
-      try {
-        const response = await fetch(`http://127.0.0.1:5000/slides/id_by_section?formId=${formId}&section=${section}`);
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        console.log(data)
-        return { section, id: data[0][0], slideId: data[0][1] };
-      } catch (error) {
-        console.error(`Error fetching slide for section ${section}:`, error);
-        return { section, error: true };
+  const handleFetchSlide = async (slide) => {
+    try {
+      const response = await fetch(`https://zynth.ai/api/slides/id_by_section?formId=${formId}&section=${slide}`);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
       }
-    };
+      const data = await response.json();
+      const slideId = data[0][1];
+      setSlideContent(prevState => ({
+        ...prevState,
+        [slide]: { id: data[0][0], slideId }
+      }));
+      // Clear error if previously set
+      setFetchError(prevState => ({
+        ...prevState,
+        [slide]: null
+      }));
+    } catch (error) {
+      console.error(`Error fetching slide for section ${slide}:`, error);
+      // Set error state for the specific slide
+      setFetchError(prevState => ({
+        ...prevState,
+        [slide]: error.message || 'Failed to fetch slide. Please try again later.'
+      }));
+    }
+  };
 
+  useEffect(() => {
     const loadSlides = async () => {
-      const promises = slides.map(slide => fetchSlide(slide));
-      const results = await Promise.all(promises);
-
-      const slideData = results.reduce((acc, curr) => {
-        if (!curr.error) {
-          acc[curr.section] = { id: curr.id, slideId: curr.slideId };
-        }
-        return acc;
-      }, {});
-
-      setSlideContent(slideData);
+      const promises = slides.map(slide => handleFetchSlide(slide));
+      await Promise.all(promises);
     };
 
     loadSlides();
   }, [formId]);
-  console.log(slideContent)
+
+  // Render content based on slide fetch status
+  const renderSlideContent = (slide) => {
+    if (fetchError[slide]) {
+      // Render form component for Founding Team slide error
+      return <FoundingTeamForm onSubmit={handleFormSubmit} />;
+    } else if (slideContent[slide] && slideContent[slide].id && slideContent[slide].slideId) {
+      // Render the iframe once slide is fetched successfully
+      return (
+        <iframe
+          className="slides-iframe"
+          title={`Google Slides Embed ${slide}`}
+          src={`https://docs.google.com/presentation/d/${slideContent[slide].id}/embed?rm=minimal&start=false&loop=false&slide=id.${slideContent[slide].slideId}`}
+          style={{ width: '120vh', height: '70vh' }}
+        ></iframe>
+      );
+    } else {
+      // Initial loading state
+      return (
+        <div>
+          <h2>{slide}</h2>
+          <p>Loading...</p>
+          {/* Show Fetch Slide button only if there's no fetch error */}
+          {!fetchError[slide] && (
+            <button className="fetch-button" onClick={() => handleFetchSlide(slide)}>
+              Fetch Slide
+            </button>
+          )}
+        </div>
+      );
+    }
+  };
+
+  // Dummy function for form submission (replace with actual logic)
+  const handleFormSubmit = (formData) => {
+    console.log('Form submitted with:', formData);
+    // Handle form submission logic here (e.g., send data to backend)
+  };
 
   return (
     <div className="presentation-check-container1">
@@ -107,16 +148,7 @@ const PresentationCheck = () => {
               data-slide={slide}
               ref={el => slideRefs.current[index] = el}
             >
-              <h2>{slide}</h2>
-              {
-              slideContent[slide] && (
-                <iframe
-                  className="slides-iframe"
-                  title={`Google Slides Embed ${slide}`}
-                  src={`https://docs.google.com/presentation/d/${slideContent[slide].id}/embed?rm=minimal&start=false&loop=false&slide=id.${slideContent[slide].slideId}`}
-                ></iframe>
-              )
-              }
+              {renderSlideContent(slide)}
             </div>
           ))}
         </div>
