@@ -46,8 +46,6 @@ const PresentationCheck = () => {
   const formId = localStorage.getItem("submissionId");
   const userEmail = localStorage.getItem("userEmail");
 
-  
-
   const [formData, setFormData] = useState({
     userId: userEmail,
     companyName: "",
@@ -170,23 +168,19 @@ const PresentationCheck = () => {
     loadSlides();
   }, [formId]);
 
-  // Render content based on slide fetch status
-
   const RenderSlideContent = (slide) => {
     const [showForm, setShowForm] = useState(false);
     const handleToggleForm = () => {
       setShowForm(!showForm);
     };
     if (slideContent[slide]?.slideId === undefined) {
-
-
       return (
         <div>
-        <IconButton onClick={handleToggleForm} color="primary" aria-label="add">
-          {showForm ? <RemoveIcon /> : <AddIcon />}
-        </IconButton>
-        {showForm && <Form initialSection={slide} onClose={handleToggleForm} />}
-      </div>
+          <IconButton onClick={handleToggleForm} color="primary" aria-label="add">
+            {showForm ? <RemoveIcon /> : <AddIcon />}
+          </IconButton>
+          {showForm && <Form initialSection={slide} onClose={handleToggleForm} />}
+        </div>
       );
     } else if (
       slideContent[slide] &&
@@ -221,10 +215,8 @@ const PresentationCheck = () => {
     }
   };
 
-  // Dummy function for form submission (replace with actual logic)
   const handleFormSubmit = (formData) => {
     console.log("Form submitted with:", formData);
-    // Handle form submission logic here (e.g., send data to backend)
   };
 
   return (
