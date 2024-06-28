@@ -98,9 +98,14 @@ const Form = () => {
       const responseData = await response.text();
       console.log("API Response:", responseData); // Log the entire response
       await setgeneratedPresentationID(responseData);
+
       // Attempt to parse response data as JSON
       const data = JSON.parse(responseData);
       console.log(data + "is here !");
+
+      // Store the response data in localStorage
+      localStorage.setItem("genaratedPresentationId", JSON.stringify(data));
+
     } catch (error) {
       console.error("Error:", error);
     }
@@ -374,7 +379,7 @@ const Form = () => {
     );
     if (changedData) {
       try {
-        const response = await fetch("https://zynth.ai/api/submission/short-form", {
+        const response = await fetch("http://localhost:5000/submission/short-form", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
