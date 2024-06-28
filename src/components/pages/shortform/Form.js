@@ -104,12 +104,13 @@ const Form = () => {
       console.log(data + "is here !");
 
       // Store the response data in localStorage
-      localStorage.setItem("genaratedPresentationId", JSON.stringify(data));
+      localStorage.setItem("responseData", JSON.stringify(data));
 
     } catch (error) {
       console.error("Error:", error);
     }
   };
+
   useEffect(() => {
     const timer = setTimeout(() => {
       handleHiddenButtonClick(); // Call the function after 3 seconds

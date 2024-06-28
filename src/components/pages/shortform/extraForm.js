@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from "react";
 import "./NativeForm.css"; // Assuming you have a CSS file for styling
-import AboutCompany from "../Native-Form/AboutCom";
-import CoverSlide from "../Native-Form/Coverslide";
-import Problem from "../Native-Form/problem";
+import AboutCompany from "../shortform/AboutCom";
+import CoverSlide from "../shortform/Coverslide";
+import Problem_Overview from "../shortform/ProductOverview";
+import Product_Roadmap from "../shortform/Product_Roadmap";
+import System_arc from "../shortform/System_arc";
 import Solutions from "../Native-Form/solution";
 import Market from "../Native-Form/MarketSize";
+import MobileScreen from "../shortform/Mobile"; // Import MobileScreen
+import WebScreen from "../shortform/web"; // Import WebScreen
 import Product from "../Native-Form/product";
 import ProductScreen from "../Native-Form/productscreen";
 import Business from "../Native-Form/Business";
-import GTM from "../Native-Form/GTM";
+import KeyStakeholders from "../shortform/KeyStakeholders";
+import CustomerPersona from "../shortform/Customa_Persona";
+import GTM from "../shortform/Gtm_extra";
 import { Track } from "../Native-Form/Track";
 import Case from "../Native-Form/case";
 import Testimonials from "../Native-Form/Testimonials";
@@ -20,13 +26,13 @@ import Contact from "../Native-Form/contact"; // Import the Contact component
 import Financials from "../Native-Form/financials"; // Import the Financials component
 import { useNavigate } from "react-router-dom";
 
-const Form = ({ initialSection }) => {
+const Form = ({ initialSection, onClose }) => {
   const [section, setSection] = useState(initialSection);
   const navigate = useNavigate();
   const handleLogoClicked = () => {
     navigate("/applicationLanding");
   };
-  
+
   const [formData, setFormData] = useState({
     companyName: "",
     tagline: "",
@@ -71,7 +77,7 @@ const Form = ({ initialSection }) => {
     useOfFunds: [],
     percentage: "",
   });
-  
+
   const [progress, setProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [isUploadComplete, setIsUploadComplete] = useState(false);
@@ -98,11 +104,41 @@ const Form = ({ initialSection }) => {
     e.preventDefault();
     setIsLoading(true);
 
+    const formId = localStorage.getItem("submissionId");
+    const generatedPresentationId = localStorage.getItem("generatedPresentationId");
+
+    // Map section names to the appropriate keys
+    const sectionMapping = {
+      "Cover": "about",
+      "About": "companyDetails",
+      "Problem Areas": "problemDescription",
+      "Solution": "solutionDescription",
+      "Market Sizing": "market",
+      "Product Overview": "product",
+      "Product Roadmap": "productRoadmap",
+      "System Architecture": "systemArchitecture",
+      "Mobile App Screenshots": "mobileAppScreenshots",
+      "Web App Screenshots": "webAppScreenshots",
+      "Business Model": "businessModel",
+      "Key Stakeholders": "keyStakeholders",
+      "Customer Persona": "customerPersona",
+      "Go-to-market Strategy": "goToMarketStrategy",
+      "Track Record": "trackRecord",
+      "Case Study": "caseStudies",
+      "Testimonials": "testimonials",
+      "Competitive Landscape": "competition",
+      "Competitive Differentiation": "competitiveDiff",
+      "Founding Team": "teamMembers",
+      "Financial Overview": "financialOverview",
+      "Contact Us": "contact",
+    };
+
     // Construct payload
     const payload = {
-      formId: '',
+      formId: formId,
       formResponses: formData,
-      section: section,
+      section: sectionMapping[section],
+      generatedPresentationId: generatedPresentationId,
     };
     console.log("API Payload:", payload);
 
@@ -144,74 +180,77 @@ const Form = ({ initialSection }) => {
           
           <form onSubmit={handleSubmit} className="form">
             <div className="form-area">
-              {section === 1 && (
+              {section === "Cover" && (
+                <CoverSlide formData={formData} handleChange={handleChange} />
+              )}
+              {section === "About" && (
                 <AboutCompany formData={formData} handleChange={handleChange} />
               )}
-              {section === 2 && (
-                <CoverSlide formData={formData} handleChange={handleChange} />
+              {section === "Problem Areas" && (
+                <Market formData={formData} handleChange={handleChange} />
+              )}
+              {section === "Solution" && (
+                <Solutions formData={formData} handleChange={handleChange} />
               )}
               {section === "Market Sizing" && (
                 <Market formData={formData} handleChange={handleChange} />
               )}
+              {section === "Product Overview" && (
+                <Problem_Overview formData={formData} handleChange={handleChange} />
+              )}
               {section === "Product Roadmap" && (
-                <Product formData={formData} handleChange={handleChange} />
+                <Product_Roadmap formData={formData} handleChange={handleChange} />
               )}
               {section === "System Architecture" && (
-                <Product formData={formData} handleChange={handleChange} />
+                <System_arc formData={formData} handleChange={handleChange} />
               )}
-              {section === 5 && (
+              {section === "Contact Us" && (
                 <Contact formData={formData} handleChange={handleChange} />
               )}
-              {section === 7 && (
-                <ProductScreen
-                  formData={formData}
-                  handleChange={handleChange}
-                />
-              )} 
-              {section === 8 && (
+              {section === "Mobile App Screenshots" && (
+                <MobileScreen formData={formData} handleChange={handleChange} />
+              )}
+              {section === "Web App Screenshots" && (
+                <WebScreen formData={formData} handleChange={handleChange} />
+              )}
+              {section === "Business Model" && (
                 <Business formData={formData} handleChange={handleChange} />
               )}
-              {section === 9 && (
+              {section === "Key Stakeholders" && (
+                <KeyStakeholders formData={formData} handleChange={handleChange} />
+              )}
+              {section === "Customer Persona" && (
+                <CustomerPersona formData={formData} handleChange={handleChange} />
+              )}
+              {section === "Go-to-market Strategy" && (
                 <GTM formData={formData} handleChange={handleChange} />
               )}
-              {section === "" && (
-                <Track
-                  formData={formData}
-                  handleChange={handleChange}
-                  setFormData={setFormData} 
-                  isLoading={isLoading}
-                />
+              {section === "Track Record" && (
+                <Track formData={formData} handleChange={handleChange} setFormData={setFormData} isLoading={isLoading} />
               )}
-            {section === 11 && (
+              {section === "Case Study" && (
                 <Case formData={formData} handleChange={handleChange} />
               )}
               {section === "Testimonials" && (
                 <Testimonials formData={formData} handleChange={handleChange} />
               )}
-              {section === 13 && (
+              {section === "Competitive Landscape" && (
                 <Competition formData={formData} handleChange={handleChange} />
               )}
-              {section === 14 && (
-                <CompetitiveDiff
-                  formData={formData}
-                  handleChange={handleChange}
-                />
+              {section === "Competitive Differentiation" && (
+                <CompetitiveDiff formData={formData} handleChange={handleChange} />
               )}
-              {section === 15 && (
+              {section === "Founding Team" && (
                 <Team formData={formData} handleChange={handleChange} />
               )}
-              {section === 16 && <Financials formData={formData} />}{" "}
-             
+              {section === "Financial Overview" && (
+                <Financials formData={formData} handleChange={handleChange} />
+              )}
             </div>
             <div className="form-buttons">
-              <div
-                className={`form-next-button ${
-                  isLoading ? "form-next-button-disabled" : ""
-                }`}
-              >
-                <button type="submit" disabled={isLoading || !isUploadComplete}>
-                  Submit
-                </button>
+              <div className={`form-next-button ${isLoading ? "form-next-button-disabled" : ""}`}>
+                <button type="submit" disabled={isLoading || !isUploadComplete}>Submit</button>
+                <button type="button" onClick={onClose}>Close</button>
               </div>
             </div>
           </form>
