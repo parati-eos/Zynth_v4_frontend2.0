@@ -7,10 +7,8 @@ import Product_Roadmap from "../shortform/Product_Roadmap";
 import System_arc from "../shortform/System_arc";
 import Solutions from "../Native-Form/solution";
 import Market from "../Native-Form/MarketSize";
-import MobileScreen from "../shortform/Mobile"; // Import MobileScreen
-import WebScreen from "../shortform/web"; // Import WebScreen
-import Product from "../Native-Form/product";
-import ProductScreen from "../Native-Form/productscreen";
+import MobileScreen from "../shortform/MobileScreen"; // Correctly import MobileScreen
+import WebScreen from "../shortform/WebScreen"; // Correctly import WebScreen
 import Business from "../Native-Form/Business";
 import KeyStakeholders from "../shortform/KeyStakeholders";
 import CustomerPersona from "../shortform/Customa_Persona";
@@ -150,105 +148,96 @@ const Form = ({ initialSection, onClose }) => {
         body: JSON.stringify(payload),
       });
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
+      if (response.ok) {
+        // Handle successful response
+        const responseData = await response.json();
+        console.log("API Response:", responseData);
+        // Update state or navigate to another page if needed
+      } else {
+        // Handle error response
+        console.error("API Error:", response.statusText);
       }
-
-      const data = await response.json();
-      console.log(data);
-
     } catch (error) {
-      console.error("Error:", error);
+      console.error("API Error:", error);
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="native-form">
-      <div className="form-container">
-        <div className="form-details">
-          <div className="section-name">
-            <h2>{section}</h2>
-          </div>
-          <form onSubmit={handleSubmit} className="form">
-            <div className="form-area">
-              {section === "Cover" && (
-                <CoverSlide formData={formData} handleChange={handleChange} />
-              )}
-              {section === "About" && (
-                <AboutCompany formData={formData} handleChange={handleChange} />
-              )}
-              {section === "Problem Areas" && (
-                <Market formData={formData} handleChange={handleChange} />
-              )}
-              {section === "Solution" && (
-                <Solutions formData={formData} handleChange={handleChange} />
-              )}
-              {section === "Market Sizing" && (
-                <Market formData={formData} handleChange={handleChange} />
-              )}
-              {section === "Product Overview" && (
-                <Problem_Overview formData={formData} handleChange={handleChange} />
-              )}
-              {section === "Product Roadmap" && (
-                <Product_Roadmap formData={formData} handleChange={handleChange} />
-              )}
-              {section === "System Architecture" && (
-                <System_arc formData={formData} handleChange={handleChange} />
-              )}
-              {section === "Contact Us" && (
-                <Contact formData={formData} handleChange={handleChange} />
-              )}
-              {section === "Mobile App Screenshots" && (
-                <MobileScreen formData={formData} handleChange={handleChange} />
-              )}
-              {section === "Web App Screenshots" && (
-                <WebScreen formData={formData} handleChange={handleChange} />
-              )}
-              {section === "Business Model" && (
-                <Business formData={formData} handleChange={handleChange} />
-              )}
-              {section === "Key Stakeholders" && (
-                <KeyStakeholders formData={formData} handleChange={handleChange} />
-              )}
-              {section === "Customer Persona" && (
-                <CustomerPersona formData={formData} handleChange={handleChange} />
-              )}
-              {section === "Go-to-market Strategy" && (
-                <GTM formData={formData} handleChange={handleChange} />
-              )}
-              {section === "Track Record" && (
-                <Track formData={formData} handleChange={handleChange} setFormData={setFormData} isLoading={isLoading} />
-              )}
-              {section === "Case Study" && (
-                <Case formData={formData} handleChange={handleChange} />
-              )}
-              {section === "Testimonials" && (
-                <Testimonials formData={formData} handleChange={handleChange} />
-              )}
-              {section === "Competitive Landscape" && (
-                <Competition formData={formData} handleChange={handleChange} />
-              )}
-              {section === "Competitive Differentiation" && (
-                <CompetitiveDiff formData={formData} handleChange={handleChange} />
-              )}
-              {section === "Founding Team" && (
-                <Team formData={formData} handleChange={handleChange} />
-              )}
-              {section === "Financial Overview" && (
-                <Financials formData={formData} handleChange={handleChange} />
-              )}
-            </div>
-            <div className="form-buttons">
-              <div className={`form-next-button ${isLoading ? "form-next-button-disabled" : ""}`}>
-                <button type="submit" disabled={isLoading}>Submit</button>
-                <button type="button" onClick={onClose}>Close</button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
+    <div className="form-container">
+      <Navbar onLogoClick={handleLogoClicked} />
+      <form onSubmit={handleSubmit}>
+        {section === "Cover" && (
+          <CoverSlide handleChange={handleChange} formData={formData} />
+        )}
+        {section === "About" && (
+          <AboutCompany handleChange={handleChange} formData={formData} />
+        )}
+        {section === "Problem Areas" && (
+          <Problem_Overview handleChange={handleChange} formData={formData} />
+        )}
+        {section === "Solution" && (
+          <Solutions handleChange={handleChange} formData={formData} />
+        )}
+        {section === "Market Sizing" && (
+          <Market handleChange={handleChange} formData={formData} />
+        )}
+        {section === "Product Overview" && (
+          <Product_Roadmap handleChange={handleChange} formData={formData} />
+        )}
+        {section === "Product Roadmap" && (
+          <Product_Roadmap handleChange={handleChange} formData={formData} />
+        )}
+        {section === "System Architecture" && (
+          <System_arc handleChange={handleChange} formData={formData} />
+        )}
+        {section === "Mobile App Screenshots" && (
+          <MobileScreen handleChange={handleChange} />
+        )}
+        {section === "Web App Screenshots" && (
+          <WebScreen handleChange={handleChange} />
+        )}
+        {section === "Business Model" && (
+          <Business handleChange={handleChange} formData={formData} />
+        )}
+        {section === "Key Stakeholders" && (
+          <KeyStakeholders handleChange={handleChange} formData={formData} />
+        )}
+        {section === "Customer Persona" && (
+          <CustomerPersona handleChange={handleChange} formData={formData} />
+        )}
+        {section === "Go-to-market Strategy" && (
+          <GTM handleChange={handleChange} formData={formData} />
+        )}
+        {section === "Track Record" && (
+          <Track handleChange={handleChange} formData={formData} />
+        )}
+        {section === "Case Study" && (
+          <Case handleChange={handleChange} formData={formData} />
+        )}
+        {section === "Testimonials" && (
+          <Testimonials handleChange={handleChange} formData={formData} />
+        )}
+        {section === "Competitive Landscape" && (
+          <Competition handleChange={handleChange} formData={formData} />
+        )}
+        {section === "Competitive Differentiation" && (
+          <CompetitiveDiff handleChange={handleChange} formData={formData} />
+        )}
+        {section === "Founding Team" && (
+          <Team handleChange={handleChange} formData={formData} />
+        )}
+        {section === "Contact Us" && (
+          <Contact handleChange={handleChange} formData={formData} />
+        )}
+        {section === "Financial Overview" && (
+          <Financials handleChange={handleChange} formData={formData} />
+        )}
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? "Submitting..." : "Submit"}
+        </button>
+      </form>
     </div>
   );
 };
