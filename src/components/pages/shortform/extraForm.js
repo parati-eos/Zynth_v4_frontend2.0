@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./NativeForm.css"; // Assuming you have a CSS file for styling
 import AboutCompany from "../shortform/AboutCom";
 import CoverSlide from "../shortform/Coverslide";
@@ -29,11 +29,9 @@ import { useNavigate } from "react-router-dom";
 const Form = ({ initialSection, onClose }) => {
   const [section, setSection] = useState(initialSection);
   const navigate = useNavigate();
-  const handleLogoClicked = () => {
-    navigate("/applicationLanding");
-  };
-
+  const userEmail = localStorage.getItem("userEmail");
   const [formData, setFormData] = useState({
+    userId: userEmail,
     companyName: "",
     tagline: "",
     logo: null,
@@ -80,14 +78,18 @@ const Form = ({ initialSection, onClose }) => {
 
   const [progress, setProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  const [isUploadComplete, setIsUploadComplete] = useState(false);
+  const [isUploadComplete, setIsUploadComplete] = useState(true);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, files } = e.target;
     let newValue = value;
 
     if (name === "primaryColor" || name === "secondaryColor") {
       newValue = value === "" ? "#000000" : value;
+    }
+
+    if (files && files.length > 0) {
+      newValue = files[0];
     }
 
     setFormData((prevState) => ({
@@ -96,7 +98,7 @@ const Form = ({ initialSection, onClose }) => {
     }));
 
     if (name === "logo" || name === "mobileScreenshots" || name === "webScreenshots") {
-      setIsUploadComplete(true);
+      setIsUploadComplete(files.length > 0);
     }
   };
 
@@ -107,7 +109,6 @@ const Form = ({ initialSection, onClose }) => {
     const formId = localStorage.getItem("submissionId");
     const generatedPresentationId = localStorage.getItem("generatedPresentationId");
 
-    // Map section names to the appropriate keys
     const sectionMapping = {
       "Cover": "about",
       "About": "companyDetails",
@@ -129,21 +130,19 @@ const Form = ({ initialSection, onClose }) => {
       "Competitive Landscape": "competition",
       "Competitive Differentiation": "competitiveDiff",
       "Founding Team": "teamMembers",
-      "Financial Overview": "financialOverview",
+      "Financial Overview": "financialInfo",
       "Contact Us": "contact",
     };
-
-    // Construct payload
+    console.log(formData)
     const payload = {
       formId: formId,
       formResponses: formData,
       section: sectionMapping[section],
       generatedPresentationId: generatedPresentationId,
     };
-    console.log("API Payload:", payload);
 
     try {
-      const response = await fetch("https://zynth.ai/api/submission/short-form", {
+      const response = await fetch("http://localhost:5000/submission/section-form", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -157,17 +156,12 @@ const Form = ({ initialSection, onClose }) => {
 
       const data = await response.json();
       console.log(data);
+
     } catch (error) {
       console.error("Error:", error);
+    } finally {
+      setIsLoading(false);
     }
-
-    if (section < 5) {
-      setSection((prevSection) => prevSection + 1);
-    } else {
-      navigate("/pages/presentationcheck");
-    }
-    setProgress((section / 5) * 100);
-    setIsLoading(false);
   };
 
   return (
@@ -175,9 +169,8 @@ const Form = ({ initialSection, onClose }) => {
       <div className="form-container">
         <div className="form-details">
           <div className="section-name">
-           
+            <h2>{section}</h2>
           </div>
-          
           <form onSubmit={handleSubmit} className="form">
             <div className="form-area">
               {section === "Cover" && (
@@ -249,7 +242,7 @@ const Form = ({ initialSection, onClose }) => {
             </div>
             <div className="form-buttons">
               <div className={`form-next-button ${isLoading ? "form-next-button-disabled" : ""}`}>
-                <button type="submit" disabled={isLoading || !isUploadComplete}>Submit</button>
+                <button type="submit" disabled={isLoading}>Submit</button>
                 <button type="button" onClick={onClose}>Close</button>
               </div>
             </div>

@@ -97,14 +97,14 @@ const Form = () => {
 
       const responseData = await response.text();
       console.log("API Response:", responseData); // Log the entire response
-      await setgeneratedPresentationID(responseData);
+      setgeneratedPresentationID(responseData);
+      localStorage.setItem("generatedPresentationId",responseData);
+      
 
-      // Attempt to parse response data as JSON
       const data = JSON.parse(responseData);
       console.log(data + "is here !");
 
-      // Store the response data in localStorage
-      localStorage.setItem("responseData", JSON.stringify(data));
+      
 
     } catch (error) {
       console.error("Error:", error);
