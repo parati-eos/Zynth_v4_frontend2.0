@@ -1,0 +1,26 @@
+
+const sectionMapping = {
+    "Cover": "about",
+    "About": "companyDetails",
+    "Problem Areas": "problemDescription",
+    "Solution": "solutionDescription",
+    "Market Sizing": "market",
+    "Product Overview": "product",
+    "Product Roadmap": "productRoadmap",
+    "System Architecture": "systemArchitecture",
+    "Mobile App Screenshots": "mobileAppScreenshots",
+    "Web App Screenshots": "webAppScreenshots",
+    "Business Model": "businessModel",
+    "Key Stakeholders": "keyStakeholders",
+    "Customer Persona": "customerPersona",
+    "Go-to-market Strategy": "goToMarketStrategy",
+    "Track Record": "trackRecord",
+    "Case Study": "caseStudies",
+    "Testimonials": "testimonials",
+    "Competitive Landscape": "competition",
+    "Competitive Differentiation": "competitiveDiff",
+    "Founding Team": "teamMembers",
+    "Financial Overview": "financialInfo",
+    "Contact Us": "contact",
+  };
+export default sectionMapping
