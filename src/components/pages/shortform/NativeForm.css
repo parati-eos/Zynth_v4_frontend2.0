@@ -305,7 +305,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  width: 40%;
+  width: 100%;
 }
 .testimonial-row {
   display: flex;

@@ -153,7 +153,7 @@ const PresentationCheck = () => {
         [slide]: null,
       }));
     } catch (error) {
-      console.error(`Error fetching slide for section ${slide}:`, error);
+      console.error(`Error fetching slide for section ${slide}:, error`);
       // Set error state for the specific slide
       setFetchError((prevState) => ({
         ...prevState,

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./NativeForm.css"; // Assuming you have a CSS file for styling
+// import "./extraform.css"; // Assuming you have a CSS file for styling
 import AboutCompany from "../shortform/AboutCom";
 import CoverSlide from "../shortform/Coverslide";
 import Problem_Overview from "../shortform/ProductOverview";
@@ -244,8 +244,9 @@ const Form = ({ initialSection, onClose }) => {
             </div>
             <div className="form-buttons">
               <div className={`form-next-button ${isLoading ? "form-next-button-disabled" : ""}`}>
-                <button type="submit" disabled={isLoading}>Submit</button>
+                
                 <button type="button" onClick={onClose}>Close</button>
+                <button type="submit" disabled={isLoading}>Submit</button>
               </div>
             </div>
           </form>
