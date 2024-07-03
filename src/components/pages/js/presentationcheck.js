@@ -11,7 +11,8 @@ import {
   DialogTitle,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from '@mui/icons-material/Remove';
+import RemoveIcon from "@mui/icons-material/Remove";
+import sectionMapping from "../shortform/utils/sectionMapping.js";
 
 const slides = [
   "Cover",
@@ -45,6 +46,9 @@ const PresentationCheck = () => {
   const slideRefs = useRef([]);
   const formId = localStorage.getItem("submissionId");
   const userEmail = localStorage.getItem("userEmail");
+  const generatedPresentationId = localStorage.getItem(
+    "generatedPresentationId"
+  );
 
   const [formData, setFormData] = useState({
     userId: userEmail,
@@ -149,7 +153,7 @@ const PresentationCheck = () => {
         [slide]: null,
       }));
     } catch (error) {
-      console.error(`Error fetching slide for section ${slide}:`, error);
+      console.error(`Error fetching slide for section ${slide}:, error`);
       // Set error state for the specific slide
       setFetchError((prevState) => ({
         ...prevState,
@@ -168,20 +172,85 @@ const PresentationCheck = () => {
     loadSlides();
   }, [formId]);
 
+  const handleTriggerClick = async (section) => {
+    console.log("----------------", section);
+    const data = {
+      section: sectionMapping[section],
+      userId: userEmail,
+      formId,
+      generatedPresentationId,
+    };
+
+    try {
+      const response = await fetch(
+        `http://localhost:5000/appscript/triggerAppScript`, // Use environment variable
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const result = await response.json();
+      console.log("Success:", result);
+      // Provide user feedback
+      alert(`Triggered successfully for ${section}`);
+    } catch (error) {
+      console.error("Error:", error);
+      // Provide user feedback
+      alert(`Failed to trigger for ${section}: ${error.message}`);
+    }
+  };
+
   const RenderSlideContent = (slide) => {
     const [showForm, setShowForm] = useState(false);
     const handleToggleForm = () => {
       setShowForm(!showForm);
     };
+
+    // Check if the slide is one of the specific sections that require the form
+    const requiresForm = [
+      "Track Record",
+      "Testimonials",
+      "Founding Team",
+      "Financial Overview",
+      "Mobile App Screenshots",
+      "Web App Screenshots",
+    ].includes(slide);
+
     if (slideContent[slide]?.slideId === undefined) {
-      return (
-        <div>
-          <IconButton onClick={handleToggleForm} color="primary" aria-label="add">
-            {showForm ? <RemoveIcon /> : <AddIcon />}
+      if (!requiresForm) {
+        return (
+          <IconButton
+            onClick={() => handleTriggerClick(slide)}
+            color="primary"
+            aria-label="add"
+          >
+            <AddIcon />
           </IconButton>
-          {showForm && <Form initialSection={slide} onClose={handleToggleForm} />}
-        </div>
-      );
+        );
+      } else {
+        return (
+          <div>
+            <IconButton
+              onClick={handleToggleForm}
+              color="primary"
+              aria-label="add"
+            >
+              {showForm ? <></> : <AddIcon />}
+            </IconButton>
+            {showForm && (
+              <Form initialSection={slide} onClose={handleToggleForm} />
+            )}
+          </div>
+        );
+      }
     } else if (
       slideContent[slide] &&
       slideContent[slide].id &&
@@ -192,7 +261,7 @@ const PresentationCheck = () => {
           className="slides-iframe"
           title={`Google Slides Embed ${slide}`}
           src={`https://docs.google.com/presentation/d/${slideContent[slide].id}/embed?rm=minimal&start=false&loop=false&slide=id.${slideContent[slide].slideId}`}
-          style={{ width: "120vh", height: "70vh" }}
+          style={{ width: "149.3333vh", height: "84vh" }}
         ></iframe>
       );
     } else {
@@ -215,9 +284,21 @@ const PresentationCheck = () => {
     }
   };
 
-  const handleFormSubmit = (formData) => {
-    console.log("Form submitted with:", formData);
-  };
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const offset = window.scrollY;
+      setIsScrolled(offset > 50); // Adjust the scroll threshold as needed
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <div className="presentation-check-container1">
@@ -225,15 +306,17 @@ const PresentationCheck = () => {
       <div className="presentation-check-container">
         <div className="sidebar">
           {slides.map((slide, index) => (
-            <div
-              key={index}
-              className={`sidebar-item ${
-                selectedSlide === slide ? "active" : ""
-              }`}
-              onClick={() => handleSidebarClick(slide, index)}
-            >
-              {slide}
-            </div>
+            <React.Fragment key={index}>
+              <div
+                className={`sidebar-item ${
+                  selectedSlide === slide ? "active" : ""
+                }`}
+                onClick={() => handleSidebarClick(slide, index)}
+              >
+                {slide}
+              </div>
+              {index < slides.length - 1 && <div className="separator"></div>}
+            </React.Fragment>
           ))}
         </div>
         <div className="content">
