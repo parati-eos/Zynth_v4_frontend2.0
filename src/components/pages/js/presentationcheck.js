@@ -1,18 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../css/presentationcheck.css";
 import ApplicationNavbar from "../../shared/js/ApplicationNavbar.js";
-import { Team, TeamProvider, useTeamData } from "../shortform/Team.js"; // Import the form component
 import Form from "../shortform/extraForm.js";
-import {
-  Button,
-  IconButton,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-} from "@mui/material";
+import { IconButton } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import ShareIcon from "@mui/icons-material/Share";
+import GetAppIcon from "@mui/icons-material/GetApp";
 import sectionMapping from "../shortform/utils/sectionMapping.js";
+import { Grid as Loader } from "react-loader-spinner";
 
 const slides = [
   "Cover",
@@ -43,60 +39,46 @@ const PresentationCheck = () => {
   const [selectedSlide, setSelectedSlide] = useState(slides[0]);
   const [slideContent, setSlideContent] = useState({});
   const [fetchError, setFetchError] = useState({});
+  const [loadingSlides, setLoadingSlides] = useState({});
   const slideRefs = useRef([]);
   const formId = localStorage.getItem("submissionId");
   const userEmail = localStorage.getItem("userEmail");
   const generatedPresentationId = localStorage.getItem(
     "generatedPresentationId"
   );
+  const [PPTName, setPPTName] = useState("Your Presentation Name");
+  const [isEditing, setIsEditing] = useState(false);
 
-  const [formData, setFormData] = useState({
-    userId: userEmail,
-    companyName: "",
-    tagline: "",
-    logo: null,
-    primaryColor: "#000000",
-    secondaryColor: "#000000",
-    establishmentYear: "",
-    companyOverview: "",
-    problemDescription: "",
-    solutionsDescription: "",
-    sector: "",
-    otherSector: "",
-    marketDescription: "",
-    TAM: "",
-    TAMGrowthRate: "",
-    SAM: "",
-    SAMGrowthRate: "",
-    productOverview: "",
-    productRoadmap: "",
-    productRoadmapDescription: "",
-    technicalArchitecture: "",
-    appType: "",
-    mobileScreenshots: [],
-    webScreenshots: [],
-    businessModel: "",
-    keyStakeholders: "",
-    customerPersona: "",
-    goToMarketStrategy: "",
-    trackRecord: [],
-    caseStudies: "",
-    testimonials: [],
-    competitors: [],
-    competitiveDiff: "",
-    teamMembers: [],
-    // Add contact information fields
-    websiteLink: "",
-    linkedinLink: "",
-    contactEmail: "",
-    contactPhone: "",
-    // Add financial information fields
-    financialSnapshot: "",
-    revenueCost: [],
-    plannedRaise: "",
-    useOfFunds: [],
-    percentage: "",
-  });
+  const handleFetchSlide = async (slide) => {
+    setLoadingSlides((prev) => ({ ...prev, [slide]: true }));
+    try {
+      const response = await fetch(
+        `https://zynth.ai/api/slides/id_by_section?formId=${formId}&section=${slide}`
+      );
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      const slideId = data[0][1];
+      setSlideContent((prevState) => ({
+        ...prevState,
+        [slide]: { id: data[0][0], slideId },
+      }));
+      setFetchError((prevState) => ({
+        ...prevState,
+        [slide]: null,
+      }));
+    } catch (error) {
+      console.error(`Error fetching slide for section ${slide}:`, error);
+      setFetchError((prevState) => ({
+        ...prevState,
+        [slide]:
+          error.message || "Failed to fetch slide. Please try again later.",
+      }));
+    } finally {
+      setLoadingSlides((prev) => ({ ...prev, [slide]: false }));
+    }
+  };
 
   useEffect(() => {
     const observerOptions = {
@@ -125,55 +107,11 @@ const PresentationCheck = () => {
     };
   }, []);
 
-  const handleSidebarClick = (slide, index) => {
-    setSelectedSlide(slide);
-    slideRefs.current[index].scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-  };
-
-  const handleFetchSlide = async (slide) => {
-    try {
-      const response = await fetch(
-        `https://zynth.ai/api/slides/id_by_section?formId=${formId}&section=${slide}`
-      );
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const data = await response.json();
-      const slideId = data[0][1];
-      setSlideContent((prevState) => ({
-        ...prevState,
-        [slide]: { id: data[0][0], slideId },
-      }));
-      // Clear error if previously set
-      setFetchError((prevState) => ({
-        ...prevState,
-        [slide]: null,
-      }));
-    } catch (error) {
-      console.error(`Error fetching slide for section ${slide}:, error`);
-      // Set error state for the specific slide
-      setFetchError((prevState) => ({
-        ...prevState,
-        [slide]:
-          error.message || "Failed to fetch slide. Please try again later.",
-      }));
-    }
-  };
-
   useEffect(() => {
-    const loadSlides = async () => {
-      const promises = slides.map((slide) => handleFetchSlide(slide));
-      await Promise.all(promises);
-    };
-
-    loadSlides();
-  }, [formId]);
+    handleFetchSlide(selectedSlide);
+  }, [selectedSlide, formId]);
 
   const handleTriggerClick = async (section) => {
-    console.log("----------------", section);
     const data = {
       section: sectionMapping[section],
       userId: userEmail,
@@ -183,7 +121,7 @@ const PresentationCheck = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/appscript/triggerAppScript`, // Use environment variable
+        `https://zynth.ai/api/appscript/triggerAppScript`,
         {
           method: "POST",
           headers: {
@@ -198,12 +136,8 @@ const PresentationCheck = () => {
       }
 
       const result = await response.json();
-      console.log("Success:", result);
-      // Provide user feedback
       alert(`Triggered successfully for ${section}`);
     } catch (error) {
-      console.error("Error:", error);
-      // Provide user feedback
       alert(`Failed to trigger for ${section}: ${error.message}`);
     }
   };
@@ -214,7 +148,6 @@ const PresentationCheck = () => {
       setShowForm(!showForm);
     };
 
-    // Check if the slide is one of the specific sections that require the form
     const requiresForm = [
       "Track Record",
       "Testimonials",
@@ -247,7 +180,7 @@ const PresentationCheck = () => {
               color="primary"
               aria-label="add"
             >
-              {showForm ? <></> : <AddIcon />}
+              {showForm ? <RemoveIcon /> : <AddIcon />}
             </IconButton>
             {showForm && (
               <Form initialSection={slide} onClose={handleToggleForm} />
@@ -269,12 +202,23 @@ const PresentationCheck = () => {
         ></iframe>
       );
     } else {
-      // Initial loading state
       return (
         <div>
           <h2>{slide}</h2>
-          <p>Loading...</p>
-          {/* Show Fetch Slide button only if there's no fetch error */}
+          {loadingSlides[slide] ? (
+            <Loader
+              visible={true}
+              height="80"
+              width="80"
+              color="#E6A500"
+              ariaLabel="grid-loading"
+              radius="12.5"
+              wrapperStyle={{}}
+              wrapperClass="grid-wrapper"
+            />
+          ) : (
+            <p>Loading...</p>
+          )}
           {!fetchError[slide] && (
             <button
               className="fetch-button"
@@ -288,21 +232,52 @@ const PresentationCheck = () => {
     }
   };
 
-  const [isScrolled, setIsScrolled] = useState(false);
+  const handleSidebarClick = (slide, index) => {
+    setSelectedSlide(slide);
+    slideRefs.current[index].scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const offset = window.scrollY;
-      setIsScrolled(offset > 50); // Adjust the scroll threshold as needed
-    };
+  const handleShare = () => {
+    const uniqueShareableUrl = `https://zynth.ai/share?submissionId=${formId}`;
 
-    window.addEventListener("scroll", handleScroll);
+    if (navigator.share) {
+      navigator
+        .share({
+          title: "Share Presentation",
+          text: "Check out this presentation",
+          url: uniqueShareableUrl,
+        })
+        .then(() => console.log("Shared successfully"))
+        .catch((error) => console.error("Share failed: ", error));
+    } else if (navigator.clipboard && navigator.platform.includes("Mac")) {
+      // For macOS devices where navigator.share is not available
+      navigator.clipboard
+        .writeText(uniqueShareableUrl)
+        .then(() => alert("URL copied to clipboard"))
+        .catch((error) => console.error("Copy failed: ", error));
+    } else {
+      // For other devices where neither navigator.share nor clipboard API is available
+      alert("Sharing is not supported on this device/browser.");
+    }
+  };
 
-    // Clean up the event listener on component unmount
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  const handleDownload = () => {
+    // Implement export/download functionality here
+    alert("Export functionality to be implemented.");
+  };
+
+  const handleSave = () => {
+    // Implement save functionality here
+    // Example:
+    alert(`Saved as: ${PPTName}`);
+  };
+
+  const handleNameChange = (event) => {
+    setPPTName(event.target.value);
+  };
 
   return (
     <div className="presentation-check-container1">
@@ -334,6 +309,28 @@ const PresentationCheck = () => {
               {RenderSlideContent(slide)}
             </div>
           ))}
+        </div>
+      </div>
+      <div className="presentation-footer">
+        {isEditing ? (
+          <input
+            type="text"
+            value={PPTName}
+            onBlur={handleSave}
+            onChange={handleNameChange}
+          />
+        ) : (
+          <h2 onClick={() => setIsEditing(true)}>
+            <span>{PPTName}</span>
+          </h2>
+        )}
+        <div className="share-export">
+          <IconButton onClick={handleShare}>
+            <ShareIcon />
+          </IconButton>
+          <IconButton onClick={handleDownload}>
+            <GetAppIcon />
+          </IconButton>
         </div>
       </div>
     </div>
