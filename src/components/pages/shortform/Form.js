@@ -90,22 +90,16 @@ const Form = () => {
           "userEmail"
         )}&submissionID=${formId}`
       );
-
+ 
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-
       const responseData = await response.text();
       console.log("API Response:", responseData); // Log the entire response
       setgeneratedPresentationID(responseData);
       localStorage.setItem("generatedPresentationId",responseData);
-      
-
       const data = JSON.parse(responseData);
       console.log(data + "is here !");
-
-      
-
     } catch (error) {
       console.error("Error:", error);
     }
@@ -609,7 +603,7 @@ const Form = () => {
                 </button>
               </div>
             </div>
-          </form>
+          </form> 
           {showHiddenButton && (
             <button onClick={handleHiddenButtonClick}>Hidden Button</button>
           )}

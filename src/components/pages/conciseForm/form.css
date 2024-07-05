@@ -1,0 +1,223 @@
+.conciseform{
+  font-family: Arial, sans-serif;
+  background-color: #0d2438;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+.concise-form-container {
+    margin-top: 15vh;
+    /* margin-bottom: 100%; */
+    width: 40vw;
+    height: 60vh;
+    background-color: #0a1c2d;
+    border: 1px solid #5e6b77;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    color: #ffffff;
+    display:flex;
+    flex-direction: column;
+    padding: 2vw;
+  }
+
+.concise-form-container form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+    padding: 1vw;
+}
+  
+  .form-logo {
+    width: 100%;
+    height: 10vh;
+    background-color: #06121d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+  }
+
+  .form-logo img{
+    width: 20vh;
+  }
+  
+  .form-section{
+    height: 70%;
+  }
+
+  
+  .form-section .section-title {
+    display: block;
+    margin-bottom: 4vh;
+    font-weight: bold;
+    font-size: 4vh;
+  }
+  
+  .form-section input[type="text"] {
+      width: 95%;
+      padding: 0.75rem;
+      background-color: #0a1c2d;
+      color: #ffffff;
+      font-size: 1.4vw;
+      border: none;           
+      outline: none;        
+  }
+
+  .form-section .input-line{
+    height: 1.5px;
+    width: 95%;
+    background: linear-gradient(to right,#ffffff,#0a1c2d);
+
+  }
+  
+  /* Navigation buttons */
+  .form-navigation {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+  }
+  
+  .form-navigation button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #eab308;
+    color: #ffffff;
+    font-size: 1.2vw;
+    cursor: pointer;
+  }
+  
+  .form-navigation button:hover {
+    background-color: #cd9c07;
+  }
+  
+ /* Logo Section */
+ .upload{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* flex-direction: column; */
+    
+  }
+  
+  .drop-container {
+    position: relative;
+    display: flex;
+    width: 85%;
+    /* gap: 1vw; */
+    margin-bottom: 4vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 70%;
+    padding: 1.7vw;
+    border-radius: 1vw;
+    border: 0.15vw solid #555;
+    color: #444;
+    cursor: pointer;
+    transition: background .2s ease-in-out, border .2s ease-in-out;
+  }
+  .drop-container img{
+    width: 10%;
+  }
+  
+  
+  .drop-title {
+    color: #444;
+    font-size: 1.1vw;
+    text-align: center;
+    transition: color .2s ease-in-out;
+  }
+  
+  input[type=file] {
+    width:22%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #444;
+    padding: 0.5vw;
+    /* background: #fff; */
+    border-radius: 0.5vw;
+    border: none;
+    font-size: 1.1vw;
+  }
+  
+  .form-section input[type=file]::file-selector-button {
+    /* margin-right: 1vw; */
+    display:none ;
+    border: none;
+    /* background: #ffffff; */
+    padding: 0.7vw 1vw;
+    border-radius: 0.25vw;
+    color: #444;
+    cursor: pointer;
+    transition: background .2s ease-in-out;
+  }
+  
+
+/* industry */
+
+.form-section select {
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.4vw;
+  background-color: #0a1c2d;
+  color: white;
+  appearance: none; /* Remove default styling for better control */
+  cursor: pointer;
+}
+
+.form-section select:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.form-section select::placeholder {
+  color: #888;
+}
+
+.input-line {
+  margin-top: 0.5rem;
+  height: 2px;
+  background-color: #007bff;
+  width: 100%;
+}
+
+/* overview */
+
+.form-section textarea {
+    width: 100%;
+    height: 75%;
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-size: 1.4vw;
+    background-color: #0a1c2d;
+    color: white;
+    resize: none; /* Allow vertical resizing */
+    min-height: 100px; /* Minimum height for the textarea */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+  }
+  
+  .form-section  textarea:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  }
+  
+  .input-line {
+    margin-top: 0.5rem;
+    height: 2px;
+    background-color: #007bff;
+    width: 100%;
+  }

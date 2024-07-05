@@ -15,6 +15,7 @@ import { TrackProvider } from './components/pages/Native-Form/Track';
 import { CompetitionProvider } from './components/pages/Native-Form/Competition';
 import { TeamProvider } from './components/pages/Native-Form/Team';
 import { FinancialDataProvider } from './components/pages/Native-Form/financials'; 
+import ConciseForm from './components/pages/conciseForm/form'
 
 function App() {
   useEffect(() => {
@@ -31,6 +32,7 @@ function App() {
       <Routes>
       <Route path="/share" element={<PresentationShare />} />
         <Route path="/" element={<Home />} />
+        <Route path="/conciseForm" element={<ConciseForm/>} />
         <Route path="/auth/login" element={<Login />} />
         <Route path="/form" element={<FormPage />} />
         <Route path="/applicationLanding" element={<ApplicationLanding />} />

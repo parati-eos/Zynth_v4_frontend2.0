@@ -169,7 +169,7 @@ const Form = ({ initialSection, onClose }) => {
       <div className="form-container">
         <div className="form-details">
           <div className="section-name">
-            <h2>{section}</h2>
+            <h2 className="p-0">{section}</h2>
           </div>
           <form onSubmit={handleSubmit} className="form">
             <div className="form-area">

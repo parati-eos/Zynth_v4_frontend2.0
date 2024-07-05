@@ -227,13 +227,17 @@ const PresentationCheck = () => {
     if (slideContent[slide]?.slideId === undefined) {
       if (!requiresForm) {
         return (
+          <>
           <IconButton
             onClick={() => handleTriggerClick(slide)}
             color="primary"
             aria-label="add"
+            sx={{ fontSize: 40 }} 
           >
-            <AddIcon />
+            <AddIcon fontSize="inherit"/>
           </IconButton>
+          <h3>{slide}</h3>
+          </>
         );
       } else {
         return (
