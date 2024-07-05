@@ -142,7 +142,7 @@ const Form = ({ initialSection, onClose }) => {
     };
 
     try {
-      const response = await fetch("http://localhost:5000/submission/section-form", {
+      const response = await fetch("https://zynth.ai/api/submission/section-form", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
