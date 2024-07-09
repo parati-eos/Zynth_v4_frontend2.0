@@ -4,9 +4,9 @@ import ApplicationNavbar from "../../shared/js/ApplicationNavbar.js";
 // import Form from "../shortform/extraForm.js";
 import { IconButton } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import sectionMapping from "../shortform/utils/sectionMapping.js";
+import sectionMapping from "../utils/sectionMapping.js";
 import { Grid } from 'react-loader-spinner'; // Assuming you're using react-loader-spinner for loading animation
-
+import SectionForm from '../sectionForm/sectionForm.js'
 const slides = [
   "Cover",
   "About",
