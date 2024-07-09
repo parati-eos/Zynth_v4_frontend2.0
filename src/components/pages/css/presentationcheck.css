@@ -91,7 +91,7 @@
 /* Custom scrollbar styles for the sidebar and presentation slides */
 .sidebar::-webkit-scrollbar,
 .presentation-view-slides::-webkit-scrollbar {
-  width: 12px; /* Adjust as needed */
+  width: 6px; /* Adjust as needed */
 }
 
 .sidebar::-webkit-scrollbar-thumb,
@@ -107,7 +107,7 @@
 
 .content::-webkit-scrollbar,
 .presentation-view-slides::-webkit-scrollbar {
-  width: 12px;
+  width: 6px;
 }
 
 .content::-webkit-scrollbar-thumb,
