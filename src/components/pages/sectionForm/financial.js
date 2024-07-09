@@ -16,31 +16,21 @@ const Financials = ({ formData }) => {
   });
 
   // Sync with formData
-  formData["financialSnapshot"] = financialsData["financialSnapshot"];
-  formData["plannedRaise"] = financialsData["plannedRaise"];
-  formData["revenueCost"] = financialsData["revenueCost"];
-  formData["useOfFunds"] = financialsData["useOfFunds"];
+  formData["financialSnapshot"] = financialsData.financialSnapshot;
+  formData["plannedRaise"] = financialsData.plannedRaise;
+  formData["revenueCost"] = financialsData.revenueCost;
+  formData["useOfFunds"] = financialsData.useOfFunds;
 
   const handleRevenueCostChange = (index, field, value) => {
     const updatedRevenueCost = [...financialsData.revenueCost];
     updatedRevenueCost[index][field] = value;
-
-    // Check if the "Revenue Projections" field is filled
-    const revenueFilled = updatedRevenueCost[index].revenue !== "";
-
-    // If "Revenue Projections" is filled, "Cost Projections" becomes optional
-    if (field === "revenue" && !revenueFilled) {
-      // If "Revenue Projections" is empty, reset "Cost Projections" as well
-      updatedRevenueCost[index].cost = "";
-    }
-
-    updateFinancialData({ ...financialsData, revenueCost: updatedRevenueCost });
+    setFinancialsData({ ...financialsData, revenueCost: updatedRevenueCost });
   };
 
   const handleUseOfFundsChange = (index, field, value) => {
     const updatedUseOfFunds = [...financialsData.useOfFunds];
     updatedUseOfFunds[index][field] = value;
-    updateFinancialData({ ...financialsData, useOfFunds: updatedUseOfFunds });
+    setFinancialsData({ ...financialsData, useOfFunds: updatedUseOfFunds });
   };
 
   const addRevenueRow = () => {
@@ -49,7 +39,7 @@ const Financials = ({ formData }) => {
         ...financialsData.revenueCost,
         { year: "", revenue: "", cost: "" },
       ];
-      updateFinancialData({ ...financialsData, revenueCost: newRevenueCost });
+      setFinancialsData({ ...financialsData, revenueCost: newRevenueCost });
     } else {
       alert("You have reached the maximum number of rows.");
     }
@@ -59,12 +49,8 @@ const Financials = ({ formData }) => {
     if (financialsData.revenueCost.length > 1) {
       const newRevenueCost = [...financialsData.revenueCost];
       newRevenueCost.splice(index, 1);
-      updateFinancialData({ ...financialsData, revenueCost: newRevenueCost });
+      setFinancialsData({ ...financialsData, revenueCost: newRevenueCost });
     }
-  };
-
-  const updateFinancialData = (newData) => {
-    setFinancialsData(newData);
   };
 
   const currentYear = new Date().getFullYear();
@@ -86,7 +72,7 @@ const Financials = ({ formData }) => {
           value={financialsData.financialSnapshot}
           placeholder="Financial Snapshot here..."
           onChange={(e) =>
-            updateFinancialData({
+            setFinancialsData({
               ...financialsData,
               financialSnapshot: e.target.value,
             })
@@ -96,7 +82,8 @@ const Financials = ({ formData }) => {
       </div>
       <div className="sectionForm-financial-container">
         <label>
-          Please provide revenue/revenue projections for the following years.Please enter the numbers in millions USD.
+          Please provide revenue/revenue projections for the following years.
+          Please enter the numbers in millions USD.
         </label>
         <table className="sectionForm-table-contents">
           <thead>
@@ -134,6 +121,7 @@ const Financials = ({ formData }) => {
                     onChange={(e) =>
                       handleRevenueCostChange(index, "revenue", e.target.value)
                     }
+                    required
                   />
                 </td>
                 <td>
@@ -149,9 +137,14 @@ const Financials = ({ formData }) => {
                 </td>
                 <td>
                   {index === financialsData.revenueCost.length - 1 ? (
-                    <button onClick={addRevenueRow} className="add-bg-button">Add Row</button>
+                    <button onClick={addRevenueRow} className="add-bg-button">
+                      Add Row
+                    </button>
                   ) : (
-                    <button onClick={() => removeRevenueRow(index)} className="yellow-bg-button">
+                    <button
+                      onClick={() => removeRevenueRow(index)}
+                      className="yellow-bg-button"
+                    >
                       Remove
                     </button>
                   )}
@@ -172,7 +165,7 @@ const Financials = ({ formData }) => {
           name="plannedRaise"
           value={financialsData.plannedRaise}
           onChange={(e) =>
-            updateFinancialData({
+            setFinancialsData({
               ...financialsData,
               plannedRaise: e.target.value,
             })
@@ -199,12 +192,9 @@ const Financials = ({ formData }) => {
                     name="percentage"
                     value={use.percentage}
                     onChange={(e) =>
-                      handleUseOfFundsChange(
-                        index,
-                        "percentage",
-                        e.target.value
-                      )
+                      handleUseOfFundsChange(index, "percentage", e.target.value)
                     }
+                    required
                   />
                 </td>
               </tr>

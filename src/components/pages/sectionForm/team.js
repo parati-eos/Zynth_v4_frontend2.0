@@ -58,70 +58,65 @@ const Team = ({ formData }) => {
           expertise, and experience that contribute to the company's success?*
         </label>
         {teamMembers.map((member, index) => (
-          <>
-            <div key={index} className="sectionForm-team-row">
+          <div key={index} className="sectionForm-team-row">
             {teamMembers.length > 2 && (
-                <div
-                  className="close-button"
-                  onClick={() => handleRemoveMember(index)}
-                >
-                  <img src={close} alt="Remove" />
-                </div>
-              )}
-            <label>{`Team Member ${index + 1}`}</label>
-              <input
-                type="text"
-                value={member.name}
-                placeholder={`Name`}
-                onChange={(e) =>
-                  handleTeamMemberChange(index, "name", e.target.value)
-                }
-                required
-              />
-              <input
-                type="text"
-                value={member.title}
-                placeholder={`Title`}
-                onChange={(e) =>
-                  handleTeamMemberChange(index, "title", e.target.value)
-                }
-                required
-              />
-              <input
-                type="text"
-                value={member.linkedin}
-                placeholder={`LinkedIn`}
-                onChange={(e) =>
-                  handleTeamMemberChange(index, "linkedin", e.target.value)
-                }
-              />
-              <textarea
-                type="text"
-                value={member.experience}
-                placeholder={`Experience`}
-                onChange={(e) =>
-                  handleTeamMemberChange(index, "experience", e.target.value)
-                }
-                required
-              />
-              <div className=".sectionForm-file-close-container">
-                <input
-                  type="file"
-                  accept="image/*, application/pdf"
-                  onChange={(e) =>
-                    handleTeamMemberChange(index, "photo", e.target.files[0])
-                  }
-                  className="file-inp"
-                />
-                {member.photoUrl && (
-                  <img
-                    src={member.photoUrl}
-                    alt={`Photo of ${member.name}`}
-                  />
-                )}
+              <div
+                className="close-button"
+                onClick={() => handleRemoveMember(index)}
+              >
+                <img src={close} alt="Remove" />
               </div>
+            )}
+            <label>{`Team Member ${index + 1}`}</label>
+            <input
+              type="text"
+              value={member.name}
+              placeholder={`Name`}
+              onChange={(e) =>
+                handleTeamMemberChange(index, "name", e.target.value)
+              }
+              required
+            />
+            <input
+              type="text"
+              value={member.title}
+              placeholder={`Title`}
+              onChange={(e) =>
+                handleTeamMemberChange(index, "title", e.target.value)
+              }
+              required
+            />
+            <input
+              type="text"
+              value={member.linkedin}
+              placeholder={`LinkedIn`}
+              onChange={(e) =>
+                handleTeamMemberChange(index, "linkedin", e.target.value)
+              }
+            />
+            <textarea
+              type="text"
+              value={member.experience}
+              placeholder={`Experience`}
+              onChange={(e) =>
+                handleTeamMemberChange(index, "experience", e.target.value)
+              }
+              required
+            />
+            <div className=".sectionForm-file-close-container">
+              <input
+                type="file"
+                accept="image/*, application/pdf"
+                onChange={(e) =>
+                  handleTeamMemberChange(index, "photo", e.target.files[0])
+                }
+                className="file-inp"
+              />
+              {member.photoUrl && (
+                <img src={member.photoUrl} alt={`Photo of ${member.name}`} />
+              )}
             </div>
-          </>
+          </div>
         ))}
         {teamMembers.length < 6 && (
           <button

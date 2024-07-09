@@ -52,22 +52,6 @@ const Testimonials = ({ formData, handleChange }) => {
     });
   };
 
-  const handleSubmit = () => {
-    // Check if at least two testimonials are filled
-    const filledTestimonials = testimonials.filter(
-      (testimonial) => testimonial.name.trim() && testimonial.testimonial.trim()
-    );
-
-    if (isFillingStarted && filledTestimonials.length < 2) {
-      console.log(
-        "Please fill in at least two testimonials before submitting."
-      );
-      return; // Don't proceed if filling started but not enough testimonials
-    }
-
-    // Proceed with submitting data to DB or other actions
-    console.log("Testimonials submitted with valid data:", testimonials);
-  };
 
   // Conditionally add testimonial rows if less than two testimonials are present
   useEffect(() => {
