@@ -81,11 +81,6 @@ const PresentationCheck = () => {
   };
 
   const handleFetchSlide = async (slide) => {
-    // Check if slide content is already fetched
-    if (slideContent[slide]) {
-      return; // Skip fetching if already fetched
-    }
-
     try {
       const response = await fetch(`https://zynth.ai/api/slides/id_by_section?formId=${formId}&section=${slide}`);
       if (!response.ok) {
@@ -114,25 +109,27 @@ const PresentationCheck = () => {
 
   useEffect(() => {
     const loadSlides = async () => {
-      // Fetch slides in batches
-      const batchSize = 4; // Adjust batch size as needed
-      for (let i = 0; i < slides.length; i += batchSize) {
-        const batchSlides = slides.slice(i, i + batchSize);
-        const promises = batchSlides.map((slide) => handleFetchSlide(slide));
-        await Promise.all(promises);
-      }
+      const promises = slides.map((slide) => {
+        // Check if slide has already been fetched
+        if (!slideContent[slide]) {
+          return handleFetchSlide(slide);
+        }
+        return Promise.resolve();
+      });
+      await Promise.all(promises);
     };
 
     loadSlides();
 
     // Polling mechanism to check for new slides every 10 seconds
-    const intervalId = setInterval(loadSlides, 10000); // 10000 ms = 10 seconds
+    const intervalId = setInterval(loadSlides, 30000); // 10000 ms = 10 seconds
 
     // Cleanup interval on component unmount
     return () => clearInterval(intervalId);
-  }, [formId]);
+  }, [formId, slideContent]);
 
   const handleTriggerClick = async (section) => {
+    console.log("----------------", section);
     const data = {
       section: sectionMapping[section],
       userId: userEmail,
