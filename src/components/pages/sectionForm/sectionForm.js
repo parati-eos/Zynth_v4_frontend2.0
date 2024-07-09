@@ -4,6 +4,7 @@ import Team from "./team";
 import Testimonials from "./testimonials";
 import TrackRecord from "./trackRecord";
 import MobileScreen from "./mobileScreenshot";
+import WebScreen from "./webScreenshots";
 import { useState } from "react";
 
 function SectionForm({ Title, onClose }) {
@@ -96,23 +97,23 @@ function SectionForm({ Title, onClose }) {
     );
 
     const sectionMapping = {
-      Cover: "about",
-      About: "companyDetails",
+      "Cover": "about",
+      "About": "companyDetails",
       "Problem Areas": "problemDescription",
-      Solution: "solutionDescription",
+      "Solution": "solutionDescription",
       "Market Sizing": "market",
       "Product Overview": "product",
       "Product Roadmap": "productRoadmap",
       "System Architecture": "systemArchitecture",
-      "Mobile App Screenshots": "mobileAppScreenshots",
-      "Web App Screenshots": "webAppScreenshots",
+      "Mobile App Screenshots": "mobileScreenshots",
+      "Web App Screenshots": "webScreenshots",
       "Business Model": "businessModel",
       "Key Stakeholders": "keyStakeholders",
       "Customer Persona": "customerPersona",
       "Go-to-market Strategy": "goToMarketStrategy",
       "Track Record": "trackRecord",
       "Case Study": "caseStudies",
-      Testimonials: "testimonials",
+      "Testimonials": "testimonials",
       "Competitive Landscape": "competition",
       "Competitive Differentiation": "competitiveDiff",
       "Founding Team": "teamMembers",
@@ -126,6 +127,7 @@ function SectionForm({ Title, onClose }) {
       section: sectionMapping[section],
       generatedPresentationId: generatedPresentationId,
     };
+    console.log('sectionForm:',payload)
 
     try {
       const response = await fetch(
@@ -166,6 +168,9 @@ function SectionForm({ Title, onClose }) {
               return <Financials formData={formData} />;
             }else if (Title === "Mobile App Screenshots") {
               return <MobileScreen handleChange={handleChange}/>;
+            }
+            else if (Title === "Web App Screenshots") {
+              return <WebScreen handleChange={handleChange}/>;
             }
              else if (Title === "Testimonials") {
               return (
