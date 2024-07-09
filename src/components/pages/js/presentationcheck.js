@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../css/presentationcheck.css";
 import ApplicationNavbar from "../../shared/js/ApplicationNavbar.js";
-// import Form from "../shortform/extraForm.js";
+import SectionForm from "../sectionForm/sectionForm.js";
 import { IconButton } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import sectionMapping from "../utils/sectionMapping.js";
-import { Grid } from 'react-loader-spinner'; // Assuming you're using react-loader-spinner for loading animation
-import SectionForm from '../sectionForm/sectionForm.js'
+import { Grid } from "react-loader-spinner"; // Assuming you're using react-loader-spinner for loading animation
+
 const slides = [
   "Cover",
   "About",
@@ -39,7 +39,9 @@ const PresentationCheck = () => {
   const slideRefs = useRef([]);
   const formId = localStorage.getItem("submissionId");
   const userEmail = localStorage.getItem("userEmail");
-  const generatedPresentationId = localStorage.getItem("generatedPresentationId");
+  const generatedPresentationId = localStorage.getItem(
+    "generatedPresentationId"
+  );
 
   const [formData, setFormData] = useState({
     // Your form data fields here
@@ -82,7 +84,9 @@ const PresentationCheck = () => {
 
   const handleFetchSlide = async (slide) => {
     try {
-      const response = await fetch(`https://zynth.ai/api/slides/id_by_section?formId=${formId}&section=${slide}`);
+      const response = await fetch(
+        `https://zynth.ai/api/slides/id_by_section?formId=${formId}&section=${slide}`
+      );
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -102,7 +106,8 @@ const PresentationCheck = () => {
       // Set error state for the specific slide
       setFetchError((prevState) => ({
         ...prevState,
-        [slide]: error.message || "Failed to fetch slide. Please try again later.",
+        [slide]:
+          error.message || "Failed to fetch slide. Please try again later.",
       }));
     }
   };
@@ -138,13 +143,16 @@ const PresentationCheck = () => {
     };
 
     try {
-      const response = await fetch(`https://zynth.ai/api/appscript/triggerAppScript`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        `https://zynth.ai/api/appscript/triggerAppScript`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -202,42 +210,41 @@ const PresentationCheck = () => {
     } else if (slideContent[slide]?.slideId === undefined) {
       if (!requiresForm) {
         return (
-          <div className="w-[40%] flex flex-col justify-center items-center border border-blue-600 p-4 rounded-lg">
-          <IconButton
-            onClick={() => handleTriggerClick(slide)}
-            color="inherit"
-            aria-label="add"
-            sx={{ fontSize: 40, color: 'white' }}
-          >
-            <AddIcon fontSize="inherit" />
-          </IconButton>
-          <h3>{slide}</h3>
+          <div className="w-[40%] flex flex-col justify-center items-center">
+            <div className="h-max w-max flex justify-center items-center border border-blue-600 rounded-[50%]">
+            <IconButton
+              onClick={() => handleTriggerClick(slide)}
+              color="inherit"
+              aria-label="add"
+              sx={{ fontSize: 40, color: "white" }}
+            >
+              <AddIcon fontSize="inherit" />
+            </IconButton>
+            </div>
+            <h3>{slide}</h3>
           </div>
         );
       } else {
         return (
           <div>
-            {
-              !showForm &&(
-<div className="w-[30vw] flex flex-col justify-center items-center border border-blue-600 p-4 rounded-lg">
-  <div className="h-max w-max flex justify-center items-center">
-    <IconButton
-      onClick={handleToggleForm}
-      color="inherit"
-      aria-label="add"
-      sx={{ fontSize: 40, color: 'white' }} 
-    >
-      <AddIcon fontSize="inherit"/>
-    </IconButton>
-  </div>
-  <h3>{slide}</h3>  
-</div>
-
-              )
-            }
+            {!showForm && (
+              <div className="w-[30vw] flex flex-col justify-center items-center ">
+                <div className="h-max w-max flex justify-center items-center border border-blue-600 rounded-[50%]">
+                  <IconButton
+                    onClick={handleToggleForm}
+                    color="inherit"
+                    aria-label="add"
+                    sx={{ fontSize: 40, color: "white" }}
+                  >
+                    <AddIcon fontSize="inherit" />
+                  </IconButton>
+                </div>
+                <h3>{slide}</h3>
+              </div>
+            )}
             {showForm && (
               // <Form initialSection={slide} onClose={handleToggleForm} />
-              <SectionForm Title={slide} onClose={handleToggleForm}/>
+              <SectionForm Title={slide} onClose={handleToggleForm} />
             )}
           </div>
         );
@@ -278,7 +285,9 @@ const PresentationCheck = () => {
           {slides.map((slide, index) => (
             <React.Fragment key={index}>
               <div
-                className={`sidebar-item ${selectedSlide === slide ? "active" : ""}`}
+                className={`sidebar-item ${
+                  selectedSlide === slide ? "active" : ""
+                }`}
                 onClick={() => handleSidebarClick(slide, index)}
               >
                 {slide}

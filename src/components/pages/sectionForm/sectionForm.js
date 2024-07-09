@@ -3,12 +3,14 @@ import "./sectionForm.css";
 import Team from "./team";
 import Testimonials from "./testimonials";
 import TrackRecord from "./trackRecord";
+import MobileScreen from "./mobileScreenshot";
 import { useState } from "react";
 
 function SectionForm({ Title, onClose }) {
   const [section, setSection] = useState(Title);
+  const userEmail = localStorage.getItem("userEmail");
   const [formData, setFormData] = useState({
-    userId: "userEmail",
+    userId: userEmail,
     companyName: "",
     tagline: "",
     logo: null,
@@ -162,7 +164,10 @@ function SectionForm({ Title, onClose }) {
               return <Team formData={formData} />;
             } else if (Title === "Financial Overview") {
               return <Financials formData={formData} />;
-            } else if (Title === "Testimonials") {
+            }else if (Title === "Mobile App Screenshots") {
+              return <MobileScreen handleChange={handleChange}/>;
+            }
+             else if (Title === "Testimonials") {
               return (
                 <Testimonials formData={formData} handleChange={handleChange} />
               );
