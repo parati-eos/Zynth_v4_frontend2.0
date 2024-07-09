@@ -122,7 +122,7 @@ const PresentationCheck = () => {
     loadSlides();
 
     // Polling mechanism to check for new slides every 10 seconds
-    const intervalId = setInterval(loadSlides, 10000); // 10000 ms = 10 seconds
+    const intervalId = setInterval(loadSlides, 30000); // 10000 ms = 10 seconds
 
     // Cleanup interval on component unmount
     return () => clearInterval(intervalId);
