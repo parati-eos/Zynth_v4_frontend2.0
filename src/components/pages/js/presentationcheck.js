@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../css/presentationcheck.css";
 import ApplicationNavbar from "../../shared/js/ApplicationNavbar.js";
-import Form from "../shortform/extraForm.js";
+// import Form from "../shortform/extraForm.js";
 import { IconButton } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import ShareIcon from "@mui/icons-material/Share";
 import GetAppIcon from "@mui/icons-material/GetApp";
-import sectionMapping from "../shortform/utils/sectionMapping.js";
+import sectionMapping from "../utils/sectionMapping.js";
 import { Grid as Loader } from "react-loader-spinner";
+import SectionForm from "../sectionForm/sectionForm.js";
 
 const slides = [
   "Cover",
@@ -160,30 +161,42 @@ const PresentationCheck = () => {
     if (slideContent[slide]?.slideId === undefined) {
       if (!requiresForm) {
         return (
-          <>
+          <div className="w-[40%] flex flex-col justify-center items-center border border-blue-600 p-4 rounded-lg">
           <IconButton
             onClick={() => handleTriggerClick(slide)}
-            color="primary"
+            color="inherit"
             aria-label="add"
-            sx={{ fontSize: 40 }} 
+            sx={{ fontSize: 40, color: 'white' }}
           >
-            <AddIcon fontSize="inherit"/>
+            <AddIcon fontSize="inherit" />
           </IconButton>
           <h3>{slide}</h3>
-          </>
+          </div>
         );
       } else {
         return (
           <div>
-            <IconButton
-              onClick={handleToggleForm}
-              color="primary"
-              aria-label="add"
-            >
-              {showForm ? <RemoveIcon /> : <AddIcon />}
-            </IconButton>
+            {
+              !showForm &&(
+<div className="w-[30vw] flex flex-col justify-center items-center border border-blue-600 p-4 rounded-lg">
+  <div className="h-max w-max flex justify-center items-center">
+    <IconButton
+      onClick={handleToggleForm}
+      color="inherit"
+      aria-label="add"
+      sx={{ fontSize: 40, color: 'white' }} 
+    >
+      <AddIcon fontSize="inherit"/>
+    </IconButton>
+  </div>
+  <h3>{slide}</h3>  
+</div>
+
+              )
+            }
             {showForm && (
-              <Form initialSection={slide} onClose={handleToggleForm} />
+              // <Form initialSection={slide} onClose={handleToggleForm} />
+              <SectionForm Title={slide} onClose={handleToggleForm}/>
             )}
           </div>
         );

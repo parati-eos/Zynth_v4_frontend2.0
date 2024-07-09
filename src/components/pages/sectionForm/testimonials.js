@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import close from "../../Asset/close.png";
+import './testimonials.css'
 
 const Testimonials = ({ formData, handleChange }) => {
   const [testimonials, setTestimonials] = useState(
@@ -77,14 +78,24 @@ const Testimonials = ({ formData, handleChange }) => {
 
   return (
     <>
-      <div className="textInputQuestions">
+      <div className="sectionForm-testimonials-container">
         <label>
           Do you have any testimonials or success stories from these clients?
           List at least 2 of them.{" "}
         </label>
-        <br />
         {testimonials.map((testimonial, index) => (
-            <div key={index} className="testimonial-row">
+            <div key={index} className="sectionForm-testimonial-row">
+                {testimonials.length > 2 && (
+                <div
+                className="close-button"
+                type="button"
+                onClick={() => removeTestimonialRow(index)}
+                style={{ width: "20px", height: "20px" }} // Adjust width and height as needed
+              >
+                <img src={close} alt="close" style={{ width: "100%", height: "100%", padding:"30%"}} />
+              </div>
+              
+              )}
               <label>Testimonial {` ${index + 1}`}</label>
               <input
                 type="text"
@@ -113,17 +124,7 @@ const Testimonials = ({ formData, handleChange }) => {
                 }
                 // required={isFillingStarted} // Make it required if filling started
               />
-              {testimonials.length > 2 && (
-                <div
-                className="close-button"
-                type="button"
-                onClick={() => removeTestimonialRow(index)}
-                style={{ width: "20px", height: "20px" }} // Adjust width and height as needed
-              >
-                <img src={close} alt="close" style={{ width: "100%", height: "100%", padding:"30%"}} />
-              </div>
               
-              )}
               <textarea
                 placeholder={`Testimonial `}
                 value={testimonial.testimonial}
@@ -132,12 +133,10 @@ const Testimonials = ({ formData, handleChange }) => {
                 }
                 required={isFillingStarted} // Make it required if filling started
               ></textarea>
-              <br />
             </div>
         ))}
         {testimonials.length < 4 && (
           <>
-            <br />
             <button
               className="add-row-button"
               type="button"

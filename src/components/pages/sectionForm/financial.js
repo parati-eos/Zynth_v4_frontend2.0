@@ -1,13 +1,8 @@
-import React, { useState, useContext } from "react";
-import "./Financials.css";
-const FinancialDataContext = React.createContext();
+import React, { useState } from "react";
+import "./financial.css";
 
-const useFinancialData = () => {
-  return useContext(FinancialDataContext);
-};
-
-const FinancialDataProvider = ({ children }) => {
-  const [FinancialsData, setFinancialsData] = useState({
+const Financials = ({ formData }) => {
+  const [financialsData, setFinancialsData] = useState({
     financialSnapshot: "",
     plannedRaise: "",
     revenueCost: [{ year: "", revenue: "", cost: "" }],
@@ -20,24 +15,14 @@ const FinancialDataProvider = ({ children }) => {
     ],
   });
 
-  return (
-    <FinancialDataContext.Provider
-      value={{ FinancialsData, setFinancialsData }}
-    >
-      {children}
-    </FinancialDataContext.Provider>
-  );
-};
-
-const Financials = ({ formData }) => {
-  const { FinancialsData, setFinancialsData } = useFinancialData();
-  formData["financialSnapshot"] = FinancialsData["financialSnapshot"];
-  formData["plannedRaise"] = FinancialsData["plannedRaise"];
-  formData["revenueCost"] = FinancialsData["revenueCost"];
-  formData["useOfFunds"] = FinancialsData["useOfFunds"];
+  // Sync with formData
+  formData["financialSnapshot"] = financialsData["financialSnapshot"];
+  formData["plannedRaise"] = financialsData["plannedRaise"];
+  formData["revenueCost"] = financialsData["revenueCost"];
+  formData["useOfFunds"] = financialsData["useOfFunds"];
 
   const handleRevenueCostChange = (index, field, value) => {
-    const updatedRevenueCost = [...FinancialsData.revenueCost];
+    const updatedRevenueCost = [...financialsData.revenueCost];
     updatedRevenueCost[index][field] = value;
 
     // Check if the "Revenue Projections" field is filled
@@ -49,32 +34,32 @@ const Financials = ({ formData }) => {
       updatedRevenueCost[index].cost = "";
     }
 
-    updateFinancialData({ ...FinancialsData, revenueCost: updatedRevenueCost });
+    updateFinancialData({ ...financialsData, revenueCost: updatedRevenueCost });
   };
 
   const handleUseOfFundsChange = (index, field, value) => {
-    const updatedUseOfFunds = [...FinancialsData.useOfFunds];
+    const updatedUseOfFunds = [...financialsData.useOfFunds];
     updatedUseOfFunds[index][field] = value;
-    updateFinancialData({ ...FinancialsData, useOfFunds: updatedUseOfFunds });
+    updateFinancialData({ ...financialsData, useOfFunds: updatedUseOfFunds });
   };
 
   const addRevenueRow = () => {
-    if (FinancialsData.revenueCost.length < 11) {
+    if (financialsData.revenueCost.length < 11) {
       const newRevenueCost = [
-        ...FinancialsData.revenueCost,
+        ...financialsData.revenueCost,
         { year: "", revenue: "", cost: "" },
       ];
-      updateFinancialData({ ...FinancialsData, revenueCost: newRevenueCost });
+      updateFinancialData({ ...financialsData, revenueCost: newRevenueCost });
     } else {
       alert("You have reached the maximum number of rows.");
     }
   };
 
   const removeRevenueRow = (index) => {
-    if (FinancialsData.revenueCost.length > 1) {
-      const newRevenueCost = [...FinancialsData.revenueCost];
+    if (financialsData.revenueCost.length > 1) {
+      const newRevenueCost = [...financialsData.revenueCost];
       newRevenueCost.splice(index, 1);
-      updateFinancialData({ ...FinancialsData, revenueCost: newRevenueCost });
+      updateFinancialData({ ...financialsData, revenueCost: newRevenueCost });
     }
   };
 
@@ -89,8 +74,8 @@ const Financials = ({ formData }) => {
   );
 
   return (
-    <div className="form-section">
-      <div className="textInputQuestions">
+    <div className="sectionForm-financial">
+      <div className="sectionForm-financial-container">
         <label htmlFor="financialSnapshot">
           Please provide a financial snapshot of the company.*
         </label>
@@ -98,24 +83,22 @@ const Financials = ({ formData }) => {
           id="financialSnapshot"
           name="financialSnapshot"
           rows="4"
-          value={FinancialsData.financialSnapshot}
+          value={financialsData.financialSnapshot}
+          placeholder="Financial Snapshot here..."
           onChange={(e) =>
             updateFinancialData({
-              ...FinancialsData,
+              ...financialsData,
               financialSnapshot: e.target.value,
             })
           }
           required
         ></textarea>
       </div>
-      <br />
-      <div className="textInputQuestions">
+      <div className="sectionForm-financial-container">
         <label>
-          Please provide revenue/revenue projections for the following years.
-          Leave the fields blank for the years where you do not have the
-          required information. Please enter the numbers in millions USD.
+          Please provide revenue/revenue projections for the following years.Please enter the numbers in millions USD.
         </label>
-        <table className="table-contents">
+        <table className="sectionForm-table-contents">
           <thead>
             <tr>
               <th>Years</th>
@@ -125,7 +108,7 @@ const Financials = ({ formData }) => {
             </tr>
           </thead>
           <tbody>
-            {FinancialsData.revenueCost.map((row, index) => (
+            {financialsData.revenueCost.map((row, index) => (
               <tr key={index}>
                 <td>
                   <select
@@ -135,7 +118,7 @@ const Financials = ({ formData }) => {
                       handleRevenueCostChange(index, "year", e.target.value)
                     }
                   >
-                    <option value="">Select a Year</option>
+                    <option value="">Year</option>
                     {years.map((year) => (
                       <option key={year} value={year}>
                         {year}
@@ -165,7 +148,7 @@ const Financials = ({ formData }) => {
                   />
                 </td>
                 <td>
-                  {index === FinancialsData.revenueCost.length - 1 ? (
+                  {index === financialsData.revenueCost.length - 1 ? (
                     <button onClick={addRevenueRow} className="add-bg-button">Add Row</button>
                   ) : (
                     <button onClick={() => removeRevenueRow(index)} className="yellow-bg-button">
@@ -178,8 +161,7 @@ const Financials = ({ formData }) => {
           </tbody>
         </table>
       </div>
-      <br />
-      <div className="textInputQuestions">
+      <div className="sectionForm-financial-container">
         <label htmlFor="plannedRaise">
           How much money do you plan to raise? Please enter the number in
           millions USD.*
@@ -188,20 +170,19 @@ const Financials = ({ formData }) => {
           type="number"
           id="plannedRaise"
           name="plannedRaise"
-          value={FinancialsData.plannedRaise}
+          value={financialsData.plannedRaise}
           onChange={(e) =>
             updateFinancialData({
-              ...FinancialsData,
+              ...financialsData,
               plannedRaise: e.target.value,
             })
           }
           required
         />
       </div>
-      <br />
-      <div className="textInputQuestions">
+      <div className="sectionForm-financial-container">
         <label>Breakdown in percentages for the use of funds:</label>
-        <table className="table-contents-useoffunds">
+        <table className="sectionForm-table-contents-useoffunds">
           <thead>
             <tr>
               <th>Use</th>
@@ -209,7 +190,7 @@ const Financials = ({ formData }) => {
             </tr>
           </thead>
           <tbody>
-            {FinancialsData.useOfFunds.map((use, index) => (
+            {financialsData.useOfFunds.map((use, index) => (
               <tr key={index}>
                 <td>{use.use}</td>
                 <td>
@@ -236,4 +217,3 @@ const Financials = ({ formData }) => {
 };
 
 export default Financials;
-export { FinancialDataProvider, useFinancialData };

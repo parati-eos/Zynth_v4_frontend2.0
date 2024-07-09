@@ -1,15 +1,16 @@
 // src/components/ConciseForm.js
-import './form.css';
 import React, { useState, useEffect } from 'react';
 import Section from './Section';
 import LogoSection from './logoSection';
 import IndustrySection from './IndustrySection';
 import OverviewSection from './overviewSection';
-import Navbar from "../../shared/js/LoginNavbar";
-import { useNavigate } from "react-router-dom";
+import Navbar from '../../shared/js/LoginNavbar';
+import ProgressBar from './progressBar';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import uploadFileToS3 from "../shortform/uploadFileToS3"; // Import the function for uploading files to S3
-import removeBackground from "../shortform/removeBackground"; 
+import uploadFileToS3 from '../utils/uploadFileToS3';
+import removeBackground from '../utils/removeBackground';
+import './form.css';
 
 const steps = {
   COMPANY_NAME: 1,
@@ -22,58 +23,58 @@ const steps = {
 };
 
 const generateFormId = () => {
-  return "Parati-" + Date.now();
+  return 'Parati-' + Date.now();
 };
 
 const ConciseForm = () => {
   const [step, setStep] = useState(steps.COMPANY_NAME);
   const [formData, setFormData] = useState({
-    userId: localStorage.getItem("userEmail"),
-    companyName: "",
-    tagline: "",
+    userId: localStorage.getItem('userEmail'),
+    companyName: '',
+    tagline: '',
     logo: null,
-    companyOverview: "",
-    sector: "",
-    productOverview: "",
-    websiteLink: "",
-    linkedinLink: "",
-    contactEmail: "",
-    contactPhone: "",
+    companyOverview: '',
+    sector: '',
+    productOverview: '',
+    websiteLink: '',
+    linkedinLink: '',
+    contactEmail: '',
+    contactPhone: '',
   });
-  const [formId, setFormId] = useState("");
+  const [formId, setFormId] = useState('');
   const [generatedPresentationID, setgeneratedPresentationID] = useState(null);
   const [logoUrl, setLogoUrl] = useState(formData.logo || null);
 
   useEffect(() => {
     const newFormId = generateFormId();
-    localStorage.setItem("submissionId", newFormId);
+    localStorage.setItem('submissionId', newFormId);
     setFormId(newFormId);
-    console.log("Form ID:", newFormId);
-    const userEmail = localStorage.getItem("userEmail");
-    console.log("User Email:", userEmail);
+    console.log('Form ID:', newFormId);
+    const userEmail = localStorage.getItem('userEmail');
+    console.log('User Email:', userEmail);
   }, []);
 
   const navigate = useNavigate();
   const handleLogoClicked = () => {
-    navigate("/applicationLanding");
+    navigate('/applicationLanding');
   };
 
   const validateStep = () => {
     switch (step) {
       case steps.COMPANY_NAME:
-        return formData.companyName.trim() !== "";
+        return formData.companyName.trim() !== '';
       case steps.LOGO:
         return formData.logo !== null;
       case steps.TAGLINE:
-        return formData.tagline.trim() !== "";
+        return true;
       case steps.ABOUT_COMPANY:
-        return formData.companyOverview.trim() !== "";
+        return formData.companyOverview.trim() !== '';
       case steps.INDUSTRY:
-        return formData.sector.trim() !== "";
+        return formData.sector.trim() !== '';
       case steps.PRODUCT_SERVICE:
-        return formData.productOverview.trim() !== "";
+        return formData.productOverview.trim() !== '';
       case steps.WEBSITE:
-        return formData.websiteLink.trim() !== "";
+        return formData.websiteLink.trim() !== '';
       default:
         return false;
     }
@@ -99,21 +100,21 @@ const ConciseForm = () => {
     try {
       const response = await fetch(
         `https://script.google.com/macros/s/AKfycbx4hxwmEMxDckdgCO4eR_RoXnT92Ewl0rr4x2trb-fGbd6rUqATaS_e5rHIM2lUTsYQ/exec?userID=${localStorage.getItem(
-          "userEmail"
+          'userEmail'
         )}&submissionID=${formId}`
       );
- 
+
       if (!response.ok) {
-        throw new Error("Network response was not ok");
+        throw new Error('Network response was not ok');
       }
       const responseData = await response.text();
-      console.log("API Response:", responseData); // Log the entire response
+      console.log('API Response:', responseData); // Log the entire response
       setgeneratedPresentationID(responseData);
-      localStorage.setItem("generatedPresentationId",responseData);
+      localStorage.setItem('generatedPresentationId', responseData);
       const data = JSON.parse(responseData);
-      console.log(data + "is here !");
+      console.log(data + 'is here !');
     } catch (error) {
-      console.error("Error:", error);
+      console.error('Error:', error);
     }
   };
 
@@ -129,26 +130,26 @@ const ConciseForm = () => {
       console.log('Uploaded logo URL:', uploadedLogoUrl);
 
       setLogoUrl(uploadedLogoUrl); // Set the URL of the uploaded logo
-      handleChange({ target: { name: "logo", value: uploadedLogoUrl } }); // Update form data with the logo URL
+      handleChange({ target: { name: 'logo', value: uploadedLogoUrl } }); // Update form data with the logo URL
 
       // Fetch colors from the API
       const colors = await fetchColorsFromApi(uploadedLogoUrl);
       if (colors) {
-        handleChange({ target: { name: "primaryColor", value: colors[0] } });
-        handleChange({ target: { name: "secondaryColor", value: colors[1] } });
-        handleChange({ target: { name: "p50s50", value: colors[2] } });
-        handleChange({ target: { name: "p75s25", value: colors[3] } });
-        handleChange({ target: { name: "p25s75", value: colors[4] } });
+        handleChange({ target: { name: 'primaryColor', value: colors[0] } });
+        handleChange({ target: { name: 'secondaryColor', value: colors[1] } });
+        handleChange({ target: { name: 'p50s50', value: colors[2] } });
+        handleChange({ target: { name: 'p75s25', value: colors[3] } });
+        handleChange({ target: { name: 'p25s75', value: colors[4] } });
       }
     } catch (error) {
-      console.error("Error uploading logo:", error);
+      console.error('Error uploading logo:', error);
     }
   };
 
   const fetchColorsFromApi = async (imageUrl) => {
     try {
       const response = await axios.post('https://zynth.ai/api/get-colors/', { imageUrl });
-      const colors = response.data.map(color => color.hex); // Extract hex values from response
+      const colors = response.data.map((color) => color.hex); // Extract hex values from response
       console.log('Fetched colors:', colors);
       return colors;
     } catch (error) {
@@ -157,7 +158,7 @@ const ConciseForm = () => {
     }
   };
 
-  const handleSubmit = async (e,section) => {
+  const handleSubmit = async (e, section) => {
     e.preventDefault();
     const payload = {
       formId: formId,
@@ -166,24 +167,24 @@ const ConciseForm = () => {
       section: section,
     };
     if (validateStep()) {
-      console.log("API Payload:", payload);
+      console.log('API Payload:', payload);
       try {
-        const response = await fetch("http://localhost:5000/submission/short-form", {
-          method: "POST",
+        const response = await fetch('http://localhost:5000/submission/short-form', {
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify(payload),
         });
 
         if (!response.ok) {
-          throw new Error("Network response was not ok");
+          throw new Error('Network response was not ok');
         }
 
         const data = await response.json();
         console.log(data);
       } catch (error) {
-        console.error("Error:", error);
+        console.error('Error:', error);
       }
     }
   };
@@ -191,34 +192,30 @@ const ConciseForm = () => {
   const handleNext = (e) => {
     e.preventDefault();
     if (validateStep()) {
-        if(step==steps.COMPANY_NAME){
-          handleBlankSlideGeneration()
-        }
-        else if(step==steps.TAGLINE){
-          handleSubmit(e,'about'); 
-        }
-        else if(step==steps.ABOUT_COMPANY){
-          handleSubmit(e,'companyDetails');
-        }
-        else if(step==steps.INDUSTRY){
-          handleSubmit(e,'market');
-        }
-        else if(step==steps.PRODUCT_SERVICE){
-          handleSubmit(e,'product');
-        }
-        else if(step==steps.WEBSITE){
-          handleSubmit(e,'contactInfo');
-        }
-        step<7?setStep(step + 1):navigate("/pages/presentationcheck");;
+      if (step === steps.COMPANY_NAME) {
+        handleBlankSlideGeneration();
+      } else if (step === steps.TAGLINE) {
+        handleSubmit(e, 'about');
+      } else if (step === steps.ABOUT_COMPANY) {
+        handleSubmit(e, 'companyDetails');
+      } else if (step === steps.INDUSTRY) {
+        handleSubmit(e, 'market');
+      } else if (step === steps.PRODUCT_SERVICE) {
+        handleSubmit(e, 'product');
+      } else if (step === steps.WEBSITE) {
+        handleSubmit(e, 'contactInfo');
+      }
+      step < 7 ? setStep(step + 1) : navigate('/pages/presentationcheck');
     } else {
       alert('Field cannot be empty');
     }
   };
 
   return (
-    <div className='conciseform'>
+    <div className="conciseform">
       <Navbar handleClick={handleLogoClicked} />
       <div className="concise-form-container">
+      <ProgressBar step={step} totalSteps={Object.keys(steps).length} />
         <form onSubmit={handleSubmit}>
           {step === steps.COMPANY_NAME && (
             <Section
@@ -288,10 +285,13 @@ const ConciseForm = () => {
               {step === steps.WEBSITE ? 'Submit' : 'Next'}
             </button>
             {step > steps.COMPANY_NAME && (
-              <button type="button" onClick={handlePrev}>Back</button>
+              <button type="button" onClick={handlePrev}>
+                Back
+              </button>
             )}
           </div>
         </form>
+        
       </div>
     </div>
   );

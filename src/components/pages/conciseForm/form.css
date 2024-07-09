@@ -51,6 +51,22 @@
     height: 70%;
   }
 
+  /* src/components/progressbar.css */
+.progress-bar {
+  width: 100%;
+  height: 5px;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress-bar__fill {
+  height: 100%;
+  background-color: #cd9c07;
+  width: 0;
+  transition: width 0.3s ease;
+}
+
   
   .form-section .section-title {
     display: block;
@@ -138,13 +154,14 @@
   }
   
   input[type=file] {
-    width:22%;
+    width:32%;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #444;
+    color: #ffffff;
     padding: 0.5vw;
     /* background: #fff; */
+    text-align: center;
     border-radius: 0.5vw;
     border: none;
     font-size: 1.1vw;
@@ -173,7 +190,7 @@
   font-size: 1.4vw;
   background-color: #0a1c2d;
   color: white;
-  appearance: none; /* Remove default styling for better control */
+  appearance: none; 
   cursor: pointer;
 }
 

@@ -146,27 +146,6 @@ function ApplicationLanding() {
               </div>
             </div>
           </div>
-{/* 2nd */}
-          <div className="button-shade">
-            <div className="button-shade1">
-              <div className="button-shade2">
-                <div className="button-shade3">
-                  <div className="button-container1">
-                    <button
-                      className="overlay-button1"
-                      onClick={handleBuildPresentation}
-                      style={{ marginTop: "1rem" }} // Added margin-top to create space between buttons
-                    >
-                      <div>
-                        <img src={magicWand} alt="Magic Wand" />
-                      </div>
-                      <div>Generate Extended Deck</div>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>

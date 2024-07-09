@@ -1,33 +1,14 @@
-// Track.js
-import React, { useState, createContext, useContext } from "react";
-
-const TrackDataContext = createContext();
-
-const TrackProvider = ({ children }) => {
+import React, { useState } from "react";
+import './trackRecord.css'
+const TrackRecord = ({ formData }) => {
   const [phaseRows, setPhaseRows] = useState([
     { year1: "", year2: "", TR: "" },
     { year1: "", year2: "", TR: "" },
     { year1: "", year2: "", TR: "" },
   ]);
 
-  const updatePhaseRows = (updatedRows) => {
-    setPhaseRows(updatedRows);
-  };
-
-  return (
-    <TrackDataContext.Provider value={{ phaseRows, updatePhaseRows }}>
-      {children}
-    </TrackDataContext.Provider>
-  );
-};
-
-const useTrackData = () => {
-  return useContext(TrackDataContext);
-};
-
-const Track = ({ formData }) => {
-  const { phaseRows, updatePhaseRows } = useTrackData();
   formData["trackRecord"] = phaseRows;
+
   const generateYears = () => {
     const currentYear = new Date().getFullYear();
     const years = ["Select Year"];
@@ -40,11 +21,11 @@ const Track = ({ formData }) => {
   const handlePhaseRowsChange = (index, field, value) => {
     const updatedPhaseRows = [...phaseRows];
     updatedPhaseRows[index][field] = value;
-    updatePhaseRows(updatedPhaseRows);
+    setPhaseRows(updatedPhaseRows);
   };
 
   return (
-    <div className="textInputQuestions">
+    <div className="trackRecord-container">
       <label htmlFor="productOverview">
         Can you provide company's track record in terms of traction across
         different phases and their timeline?
@@ -90,6 +71,7 @@ const Track = ({ formData }) => {
               id={`TR_${index}`}
               name={`TR_${index}`}
               value={row.TR}
+              placeholder="Track Record Here..."
               onChange={(e) =>
                 handlePhaseRowsChange(index, "TR", e.target.value)
               }
@@ -101,4 +83,4 @@ const Track = ({ formData }) => {
   );
 };
 
-export { TrackProvider, useTrackData, Track };
+export default TrackRecord;
