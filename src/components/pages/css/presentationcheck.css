@@ -81,7 +81,9 @@
   transition: background-color 0.3s;
 }
 
-
+/* .loadingIcon{
+  position:absolute;
+} */
 
 .fetch-button:hover {
   background-color: #0056b3;
