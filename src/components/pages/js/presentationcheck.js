@@ -5,7 +5,7 @@ import SectionForm from "../sectionForm/sectionForm.js";
 import { IconButton } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import sectionMapping from "../utils/sectionMapping.js";
-import { Grid } from "react-loader-spinner"; // Assuming you're using react-loader-spinner for loading animation
+import { Grid } from 'react-loader-spinner'; // Assuming you're using react-loader-spinner for loading animation
 
 const slides = [
   "Cover",
@@ -39,9 +39,7 @@ const PresentationCheck = () => {
   const slideRefs = useRef([]);
   const formId = localStorage.getItem("submissionId");
   const userEmail = localStorage.getItem("userEmail");
-  const generatedPresentationId = localStorage.getItem(
-    "generatedPresentationId"
-  );
+  const generatedPresentationId = localStorage.getItem("generatedPresentationId");
 
   const [formData, setFormData] = useState({
     // Your form data fields here
@@ -84,9 +82,7 @@ const PresentationCheck = () => {
 
   const handleFetchSlide = async (slide) => {
     try {
-      const response = await fetch(
-        `https://zynth.ai/api/slides/id_by_section?formId=${formId}&section=${slide}`
-      );
+      const response = await fetch(`https://zynth.ai/api/slides/id_by_section?formId=${formId}&section=${slide}`);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -106,32 +102,25 @@ const PresentationCheck = () => {
       // Set error state for the specific slide
       setFetchError((prevState) => ({
         ...prevState,
-        [slide]:
-          error.message || "Failed to fetch slide. Please try again later.",
+        [slide]: error.message || "Failed to fetch slide. Please try again later.",
       }));
     }
   };
 
   useEffect(() => {
-    const loadSlides = async () => {
-      const promises = slides.map((slide) => {
-        // Check if slide has already been fetched
-        if (!slideContent[slide]) {
-          return handleFetchSlide(slide);
-        }
-        return Promise.resolve();
-      });
-      await Promise.all(promises);
-    };
+    // Fetch slide content for the selected slide only
+    handleFetchSlide(selectedSlide);
 
-    loadSlides();
+    // Set a timeout to show AddIcon after 1.2 minutes (72,000 ms)
+    const timeout = setTimeout(() => {
+      setFetchError((prevState) => ({
+        ...prevState,
+        [selectedSlide]: "timeout",
+      }));
+    }, 72000);
 
-    // Polling mechanism to check for new slides every 10 seconds
-    const intervalId = setInterval(loadSlides, 30000); // 10000 ms = 10 seconds
-
-    // Cleanup interval on component unmount
-    return () => clearInterval(intervalId);
-  }, [formId, slideContent]);
+    return () => clearTimeout(timeout); // Clear timeout on component unmount or slide change
+  }, [selectedSlide, formId]);
 
   const handleTriggerClick = async (section) => {
     console.log("----------------", section);
@@ -143,16 +132,13 @@ const PresentationCheck = () => {
     };
 
     try {
-      const response = await fetch(
-        `https://zynth.ai/api/appscript/triggerAppScript`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
+      const response = await fetch(`https://zynth.ai/api/appscript/triggerAppScript`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -184,6 +170,7 @@ const PresentationCheck = () => {
       "Financial Overview",
       "Mobile App Screenshots",
       "Web App Screenshots",
+      "Case Study"
     ].includes(slide);
 
     useEffect(() => {
@@ -192,7 +179,34 @@ const PresentationCheck = () => {
       }
     }, [slideContent[slide], requiresForm]);
 
-    if (loading && !requiresForm) {
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        if (loading && !requiresForm && fetchError[slide] !== "timeout") {
+          setFetchError((prevState) => ({
+            ...prevState,
+            [slide]: "timeout",
+          }));
+        }
+      }, 72000);
+
+      return () => clearTimeout(timer); // Clear timeout on component unmount or slide change
+    }, [loading, requiresForm, slide, fetchError]);
+
+    if (fetchError[slide] === "timeout" && !requiresForm) {
+      return (
+        <>
+          <IconButton
+            onClick={() => handleTriggerClick(slide)}
+            color="primary"
+            aria-label="add"
+            sx={{ fontSize: 40 }}
+          >
+            <AddIcon fontSize="inherit" />
+          </IconButton>
+          <h3>{slide}</h3>
+        </>
+      );
+    } else if (loading && !requiresForm) {
       return (
         <div className="loadingIcon">
           <Grid
@@ -243,13 +257,12 @@ const PresentationCheck = () => {
               </div>
             )}
             {showForm && (
-              // <Form initialSection={slide} onClose={handleToggleForm} />
               <SectionForm Title={slide} onClose={handleToggleForm} />
             )}
           </div>
         );
       }
-    } else {
+    }  else {
       return (
         <iframe
           className="slides-iframe"
@@ -285,9 +298,7 @@ const PresentationCheck = () => {
           {slides.map((slide, index) => (
             <React.Fragment key={index}>
               <div
-                className={`sidebar-item ${
-                  selectedSlide === slide ? "active" : ""
-                }`}
+                className={`sidebar-item ${selectedSlide === slide ? "active" : ""}`}
                 onClick={() => handleSidebarClick(slide, index)}
               >
                 {slide}
