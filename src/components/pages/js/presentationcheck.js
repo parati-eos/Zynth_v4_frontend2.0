@@ -45,41 +45,7 @@ const PresentationCheck = () => {
     // Your form data fields here
   });
 
-  useEffect(() => {
-    const observerOptions = {
-      root: null,
-      rootMargin: "0px",
-      threshold: 0.5,
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const slide = entry.target.getAttribute("data-slide");
-          setSelectedSlide(slide);
-        }
-      });
-    }, observerOptions);
-
-    slideRefs.current.forEach((ref) => {
-      if (ref) observer.observe(ref);
-    });
-
-    return () => {
-      slideRefs.current.forEach((ref) => {
-        if (ref) observer.unobserve(ref);
-      });
-    };
-  }, []);
-
-  const handleSidebarClick = (slide, index) => {
-    setSelectedSlide(slide);
-    slideRefs.current[index].scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-  };
-
+  // Function to fetch slide content for a specific slide
   const handleFetchSlide = async (slide) => {
     try {
       const response = await fetch(`https://zynth.ai/api/slides/id_by_section?formId=${formId}&section=${slide}`);
@@ -108,22 +74,26 @@ const PresentationCheck = () => {
   };
 
   useEffect(() => {
-    // Fetch slide content for the selected slide only
+    // Fetch slide content for the selected slide initially
     handleFetchSlide(selectedSlide);
 
-    // Set a timeout to show AddIcon after 1.2 minutes (72,000 ms)
-    const timeout = setTimeout(() => {
-      setFetchError((prevState) => ({
-        ...prevState,
-        [selectedSlide]: "timeout",
-      }));
-    }, 72000);
+    // Set interval to periodically fetch slide content for the selected slide
+    const interval = setInterval(() => {
+      handleFetchSlide(selectedSlide);
+    }, 10000); // Adjust interval as needed (e.g., every 10 seconds)
 
-    return () => clearTimeout(timeout); // Clear timeout on component unmount or slide change
+    return () => clearInterval(interval); // Cleanup interval on component unmount or slide change
   }, [selectedSlide, formId]);
 
+  const handleSidebarClick = (slide, index) => {
+    setSelectedSlide(slide);
+    slideRefs.current[index].scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
   const handleTriggerClick = async (section) => {
-    console.log("----------------", section);
     const data = {
       section: sectionMapping[section],
       userId: userEmail,
@@ -155,12 +125,10 @@ const PresentationCheck = () => {
     }
   };
 
+
   const RenderSlideContent = (slide) => {
     const [loading, setLoading] = useState(true);
     const [showForm, setShowForm] = useState(false);
-    const handleToggleForm = () => {
-      setShowForm(!showForm);
-    };
 
     // Check if the slide is one of the specific sections that require the form
     const requiresForm = [
@@ -174,13 +142,37 @@ const PresentationCheck = () => {
     ].includes(slide);
 
     useEffect(() => {
+      const observerOptions = {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.5,
+      };
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const slide = entry.target.getAttribute("data-slide");
+            setSelectedSlide(slide);
+          }
+        });
+      }, observerOptions);
+      slideRefs.current.forEach((ref) => {
+        if (ref) observer.observe(ref);
+      });
+      return () => {
+        slideRefs.current.forEach((ref) => {
+          if (ref) observer.unobserve(ref);
+        });
+      };
+    }, []);
+
+    useEffect(() => {
       if (requiresForm || slideContent[slide]?.slideId !== undefined) {
         setLoading(false);
       }
     }, [slideContent[slide], requiresForm]);
 
     useEffect(() => {
-      const timer = setTimeout(() => {
+      const timeout = setTimeout(() => {
         if (loading && !requiresForm && fetchError[slide] !== "timeout") {
           setFetchError((prevState) => ({
             ...prevState,
@@ -189,7 +181,7 @@ const PresentationCheck = () => {
         }
       }, 72000);
 
-      return () => clearTimeout(timer); // Clear timeout on component unmount or slide change
+      return () => clearTimeout(timeout); // Clear timeout on component unmount or slide change
     }, [loading, requiresForm, slide, fetchError]);
 
     if (fetchError[slide] === "timeout" && !requiresForm) {
@@ -226,14 +218,14 @@ const PresentationCheck = () => {
         return (
           <div className="w-[40%] flex flex-col justify-center items-center">
             <div className="h-max w-max flex justify-center items-center border border-blue-600 rounded-[50%]">
-            <IconButton
-              onClick={() => handleTriggerClick(slide)}
-              color="inherit"
-              aria-label="add"
-              sx={{ fontSize: 40, color: "white" }}
-            >
-              <AddIcon fontSize="inherit" />
-            </IconButton>
+              <IconButton
+                onClick={() => handleTriggerClick(slide)}
+                color="inherit"
+                aria-label="add"
+                sx={{ fontSize: 40, color: "white" }}
+              >
+                <AddIcon fontSize="inherit" />
+              </IconButton>
             </div>
             <h3>{slide}</h3>
           </div>
@@ -245,7 +237,7 @@ const PresentationCheck = () => {
               <div className="w-[30vw] flex flex-col justify-center items-center ">
                 <div className="h-max w-max flex justify-center items-center border border-blue-600 rounded-[50%]">
                   <IconButton
-                    onClick={handleToggleForm}
+                    onClick={() => setShowForm(true)}
                     color="inherit"
                     aria-label="add"
                     sx={{ fontSize: 40, color: "white" }}
@@ -257,38 +249,22 @@ const PresentationCheck = () => {
               </div>
             )}
             {showForm && (
-              <SectionForm Title={slide} onClose={handleToggleForm} />
+              <SectionForm Title={slide} onClose={() => setShowForm(false)} />
             )}
           </div>
         );
       }
-    }  else {
+    } else {
       return (
         <iframe
           className="slides-iframe"
           title={`Google Slides Embed ${slide}`}
           src={`https://docs.google.com/presentation/d/${slideContent[slide].id}/embed?rm=minimal&start=false&loop=false&slide=id.${slideContent[slide].slideId}`}
-          style={{ width: "149.3333vh", height: "84vh" }}
+          style={{ width: "149.3333vh", height: "84vh"  }}
         ></iframe>
       );
     }
   };
-
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const offset = window.scrollY;
-      setIsScrolled(offset > 50); // Adjust the scroll threshold as needed
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    // Clean up the event listener on component unmount
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   return (
     <div className="presentation-check-container1">

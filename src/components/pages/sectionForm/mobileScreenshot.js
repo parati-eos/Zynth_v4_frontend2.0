@@ -37,7 +37,7 @@ const MobileScreen = ({ handleChange }) => {
 
   return (
     <div className="textInputQuestions p-4">
-      <label htmlFor="mobileScreenshots" className="block text-lg font-medium text-gray-700 mb-2">
+      <label htmlFor="mobileScreenshots" className="block text-lg font-medium text-white mb-2">
         Please upload 3 Mobile App UI screenshots here -
       </label>
       <input
@@ -46,7 +46,7 @@ const MobileScreen = ({ handleChange }) => {
         name="mobileScreenshots"
         multiple
         onChange={handleFileChange}
-        accept="image/*"
+        accept=".jpg, .jpeg, .png"
         className="block w-full text-sm text-gray-500
         file:mr-4 file:py-2 file:px-4
         file:rounded-full file:border-0
@@ -54,17 +54,16 @@ const MobileScreen = ({ handleChange }) => {
         file:bg-violet-50 file:text-violet-700
         hover:file:bg-violet-100"
       />
-      <br />
-      {mobileUploadedImageUrl.length > 0 && (
-        <div className="uploadedImages grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4">
-          {mobileUploadedImageUrl.map((url, index) => (
-            <div key={index} className="uploadedImage">
-              <img src={url} alt={`Uploaded ${index}`} className="w-full h-auto rounded-lg shadow-md" />
-            </div>
-          ))}
-        </div>
-      )}
-      <br />
+{mobileUploadedImageUrl.length > 0 && (
+  <div className="uploadedImages grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+    {mobileUploadedImageUrl.map((url, index) => (
+      <div key={index} className="uploadedImage">
+        <img src={url} alt={`Uploaded ${index}`} className="w-full h-[16vw] object-contain rounded-lg shadow-md" />
+      </div>
+    ))}
+  </div>
+)}
+
     </div>
   );
 };

@@ -74,7 +74,7 @@ const Testimonials = ({ formData, handleChange }) => {
                 className="close-button"
                 type="button"
                 onClick={() => removeTestimonialRow(index)}
-                style={{ width: "20px", height: "20px" }} // Adjust width and height as needed
+                
               >
                 <img src={close} alt="close" style={{ width: "100%", height: "100%", padding:"30%"}} />
               </div>

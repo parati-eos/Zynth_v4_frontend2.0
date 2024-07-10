@@ -238,3 +238,33 @@
     background-color: #007bff;
     width: 100%;
   }
+
+  
+
+
+  .form-section  textarea::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  /* Track */
+  .form-section  textarea::-webkit-scrollbar-track {
+    background: #001b28;
+  }
+  
+  /* Handle */
+  .form-section  textarea::-webkit-scrollbar-thumb {
+    background: #eab308;
+    border-radius: 12px;
+  }
+  
+  /* Handle on hover */
+  .form-section  textarea::-webkit-scrollbar-thumb:hover {
+    background: #eab308; /* Change color on hover if needed */
+  }
+
+  .form-navigation button:disabled {
+    background-color: #ccc; /* Gray color to indicate disabled state */
+    color: #666;           /* Darker gray for text */
+    cursor: not-allowed;   /* Change cursor to indicate non-interactivity */
+    opacity: 0.6;          /* Fade effect */
+  }
