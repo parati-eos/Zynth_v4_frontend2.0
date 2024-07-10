@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../css/presentationcheck.css";
 import ApplicationNavbar from "../../shared/js/ApplicationNavbar.js";
-import Form from "../sectionForm/sectionForm.js";
+import SectionForm from "../sectionForm/sectionForm.js";
 import { IconButton } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import sectionMapping from "../utils/sectionMapping.js";
@@ -108,19 +108,19 @@ const PresentationCheck = () => {
   };
 
   useEffect(() => {
-    const loadSlides = async () => {
-      const promises = slides.map((slide) => handleFetchSlide(slide));
-      await Promise.all(promises);
-    };
+    // Fetch slide content for the selected slide only
+    handleFetchSlide(selectedSlide);
 
-    loadSlides();
+    // Set a timeout to show AddIcon after 1.2 minutes (72,000 ms)
+    const timeout = setTimeout(() => {
+      setFetchError((prevState) => ({
+        ...prevState,
+        [selectedSlide]: "timeout",
+      }));
+    }, 72000);
 
-    // Polling mechanism to check for new slides every 10 seconds
-    const intervalId = setInterval(loadSlides, 20000); // 10000 ms = 10 seconds
-
-    // Cleanup interval on component unmount
-    return () => clearInterval(intervalId);
-  }, [formId]);
+    return () => clearTimeout(timeout); // Clear timeout on component unmount or slide change
+  }, [selectedSlide, formId]);
 
   const handleTriggerClick = async (section) => {
     console.log("----------------", section);
@@ -179,7 +179,34 @@ const PresentationCheck = () => {
       }
     }, [slideContent[slide], requiresForm]);
 
-    if (loading && !requiresForm) {
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        if (loading && !requiresForm && fetchError[slide] !== "timeout") {
+          setFetchError((prevState) => ({
+            ...prevState,
+            [slide]: "timeout",
+          }));
+        }
+      }, 72000);
+
+      return () => clearTimeout(timer); // Clear timeout on component unmount or slide change
+    }, [loading, requiresForm, slide, fetchError]);
+
+    if (fetchError[slide] === "timeout" && !requiresForm) {
+      return (
+        <>
+          <IconButton
+            onClick={() => handleTriggerClick(slide)}
+            color="primary"
+            aria-label="add"
+            sx={{ fontSize: 40 }}
+          >
+            <AddIcon fontSize="inherit" />
+          </IconButton>
+          <h3>{slide}</h3>
+        </>
+      );
+    } else if (loading && !requiresForm) {
       return (
         <div className="loadingIcon">
           <Grid
@@ -197,35 +224,45 @@ const PresentationCheck = () => {
     } else if (slideContent[slide]?.slideId === undefined) {
       if (!requiresForm) {
         return (
-          <>
+          <div className="w-[40%] flex flex-col justify-center items-center">
+            <div className="h-max w-max flex justify-center items-center border border-blue-600 rounded-[50%]">
             <IconButton
               onClick={() => handleTriggerClick(slide)}
-              color="primary"
+              color="inherit"
               aria-label="add"
-              sx={{ fontSize: 40 }}
+              sx={{ fontSize: 40, color: "white" }}
             >
-              <AddIcon fontSize="inherit"/>
+              <AddIcon fontSize="inherit" />
             </IconButton>
+            </div>
             <h3>{slide}</h3>
-          </>
+          </div>
         );
       } else {
         return (
           <div>
-            <IconButton
-              onClick={handleToggleForm}
-              color="primary"
-              aria-label="add"
-            >
-              {showForm ? <></> : <AddIcon />}
-            </IconButton>
+            {!showForm && (
+              <div className="w-[30vw] flex flex-col justify-center items-center ">
+                <div className="h-max w-max flex justify-center items-center border border-blue-600 rounded-[50%]">
+                  <IconButton
+                    onClick={handleToggleForm}
+                    color="inherit"
+                    aria-label="add"
+                    sx={{ fontSize: 40, color: "white" }}
+                  >
+                    <AddIcon fontSize="inherit" />
+                  </IconButton>
+                </div>
+                <h3>{slide}</h3>
+              </div>
+            )}
             {showForm && (
-              <Form initialSection={slide} onClose={handleToggleForm} />
+              <SectionForm Title={slide} onClose={handleToggleForm} />
             )}
           </div>
         );
       }
-    } else {
+    }  else {
       return (
         <iframe
           className="slides-iframe"

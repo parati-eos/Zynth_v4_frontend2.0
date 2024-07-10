@@ -11,6 +11,7 @@ import axios from 'axios';
 import uploadFileToS3 from '../utils/uploadFileToS3';
 import removeBackground from '../utils/removeBackground';
 import './form.css';
+import ContactSection from './contactus';
 
 const steps = {
   COMPANY_NAME: 1,
@@ -38,7 +39,7 @@ const ConciseForm = () => {
     productOverview: '',
     websiteLink: '',
     linkedinLink: '',
-    contactEmail: '',
+    contactEmail: localStorage.getItem('userEmail'),
     contactPhone: '',
   });
   const [formId, setFormId] = useState('');
@@ -271,10 +272,12 @@ const ConciseForm = () => {
             />
           )}
           {step === steps.WEBSITE && (
-            <Section
-              title="Website"
-              name="websiteLink"
-              value={formData.websiteLink}
+            <ContactSection 
+              title="Contact Us"
+              name1="websiteLink"
+              value1={formData.websiteLink}
+              name2="linkedinLink"
+              value2={formData.linkedinLink}             
               handleChange={handleChange}
               required
             />
