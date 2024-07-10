@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import './trackRecord.css'
+
 const TrackRecord = ({ formData }) => {
   const [phaseRows, setPhaseRows] = useState([
     { year1: "", year2: "", TR: "" },
@@ -22,6 +23,10 @@ const TrackRecord = ({ formData }) => {
     const updatedPhaseRows = [...phaseRows];
     updatedPhaseRows[index][field] = value;
     setPhaseRows(updatedPhaseRows);
+  };
+
+  const isPhaseValid = (phase) => {
+    return phase.year1 !== "" && phase.year2 !== "";
   };
 
   return (
@@ -75,6 +80,7 @@ const TrackRecord = ({ formData }) => {
               onChange={(e) =>
                 handlePhaseRowsChange(index, "TR", e.target.value)
               }
+              disabled={!isPhaseValid(row)} // Disable textarea if phase years are not selected
             />
           </div>
         </div>

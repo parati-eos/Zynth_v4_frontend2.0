@@ -33,6 +33,16 @@ const slides = [
   "Contact Us",
 ];
 
+const excludedSections = [
+  "Track Record",
+  "Testimonials",
+  "Founding Team",
+  "Financial Overview",
+  "Mobile App Screenshots",
+  "Web App Screenshots",
+  "Case Study"
+];
+
 const PresentationCheck = () => {
   const [selectedSlide, setSelectedSlide] = useState(slides[0]);
   const [slideContent, setSlideContent] = useState({});
@@ -137,15 +147,30 @@ const PresentationCheck = () => {
   };
 
   useEffect(() => {
+    let pollingTimeout;
+    if (!excludedSections.includes(selectedSlide)) {
+      pollingTimeout = setTimeout(() => {
+        setFetchError((prevState) => ({
+          ...prevState,
+          [selectedSlide]: "timeout",
+        }));
+      }, 72000); // 3 minutes
+    }
+
     // Fetch slide content for the selected slide initially
     handleFetchSlide(selectedSlide);
 
     // Set interval to periodically fetch slide content for the selected slide
     const interval = setInterval(() => {
-      handleFetchSlide(selectedSlide);
+      if (fetchError[selectedSlide] !== "timeout") {
+        handleFetchSlide(selectedSlide);
+      }
     }, 10000); // Adjust interval as needed (e.g., every 10 seconds)
 
-    return () => clearInterval(interval); // Cleanup interval on component unmount or slide change
+    return () => {
+      clearInterval(interval); // Cleanup interval on component unmount or slide change
+      clearTimeout(pollingTimeout); // Cleanup timeout on component unmount or slide change
+    };
   }, [selectedSlide, formId]);
 
   const handleSidebarClick = (slide, index) => {
@@ -188,21 +213,12 @@ const PresentationCheck = () => {
     }
   };
 
-
   const RenderSlideContent = (slide) => {
     const [loading, setLoading] = useState(true);
     const [showForm, setShowForm] = useState(false);
 
     // Check if the slide is one of the specific sections that require the form
-    const requiresForm = [
-      "Track Record",
-      "Testimonials",
-      "Founding Team",
-      "Financial Overview",
-      "Mobile App Screenshots",
-      "Web App Screenshots",
-      "Case Study"
-    ].includes(slide);
+    const requiresForm = excludedSections.includes(slide);
 
     useEffect(() => {
       const observerOptions = {
