@@ -208,7 +208,7 @@ const PresentationCheck = () => {
       );
     } else if (loading && !requiresForm) {
       return (
-        <div className="loadingIcon">
+        <div className="presentationcheck-loadingIcon">
           <Grid
             visible={true}
             height={80}
