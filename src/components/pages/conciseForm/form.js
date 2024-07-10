@@ -45,6 +45,7 @@ const ConciseForm = () => {
   const [formId, setFormId] = useState('');
   const [generatedPresentationID, setgeneratedPresentationID] = useState(null);
   const [logoUrl, setLogoUrl] = useState(formData.logo || null);
+  const [isLogoLoading, setIsLogoLoading] = useState(false);
 
   useEffect(() => {
     const newFormId = generateFormId();
@@ -121,6 +122,7 @@ const ConciseForm = () => {
 
   const handleLogoChange = async (e) => {
     const file = e.target.files[0];
+    setIsLogoLoading(true);
     try {
       console.log('File selected:', file);
       const processedFile = await removeBackground(file);
@@ -144,6 +146,8 @@ const ConciseForm = () => {
       }
     } catch (error) {
       console.error('Error uploading logo:', error);
+    } finally {
+      setIsLogoLoading(false);
     }
   };
 
@@ -216,7 +220,7 @@ const ConciseForm = () => {
     <div className="conciseform">
       <Navbar handleClick={handleLogoClicked} />
       <div className="concise-form-container">
-      <ProgressBar step={step} totalSteps={Object.keys(steps).length} />
+        <ProgressBar step={step} totalSteps={Object.keys(steps).length} />
         <form onSubmit={handleSubmit}>
           {step === steps.COMPANY_NAME && (
             <Section
@@ -284,7 +288,7 @@ const ConciseForm = () => {
           )}
 
           <div className="form-navigation">
-            <button type="submit" onClick={handleNext}>
+            <button type="submit" onClick={handleNext} disabled={step === steps.LOGO && isLogoLoading}>
               {step === steps.WEBSITE ? 'Submit' : 'Next'}
             </button>
             {step > steps.COMPANY_NAME && (
@@ -294,7 +298,6 @@ const ConciseForm = () => {
             )}
           </div>
         </form>
-        
       </div>
     </div>
   );

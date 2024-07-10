@@ -121,7 +121,6 @@ const Financials = ({ formData }) => {
                     onChange={(e) =>
                       handleRevenueCostChange(index, "revenue", e.target.value)
                     }
-                    required
                   />
                 </td>
                 <td>
@@ -194,7 +193,6 @@ const Financials = ({ formData }) => {
                     onChange={(e) =>
                       handleUseOfFundsChange(index, "percentage", e.target.value)
                     }
-                    required
                   />
                 </td>
               </tr>

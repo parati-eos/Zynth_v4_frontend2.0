@@ -106,15 +106,20 @@ const Team = ({ formData }) => {
             <div className=".sectionForm-file-close-container">
               <input
                 type="file"
-                accept="image/*, application/pdf"
+                accept=".jpg, .jpeg, .png"
                 onChange={(e) =>
                   handleTeamMemberChange(index, "photo", e.target.files[0])
                 }
                 className="file-inp"
               />
-              {member.photoUrl && (
-                <img src={member.photoUrl} alt={`Photo of ${member.name}`} />
-              )}
+{member.photoUrl && (
+  <img
+    src={member.photoUrl}
+    alt={`Photo of ${member.name}`}
+    className="w-[7vw] h-[7vw] object-cover rounded-lg"
+  />
+)}
+
             </div>
           </div>
         ))}

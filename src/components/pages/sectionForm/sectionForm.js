@@ -5,9 +5,9 @@ import Testimonials from "./testimonials";
 import TrackRecord from "./trackRecord";
 import MobileScreen from "./mobileScreenshot";
 import WebScreen from "./webScreenshots";
-import Case from './caseStudy'
+import Case from './caseStudy';
 import { useState } from "react";
-import { Grid } from "react-loader-spinner"; // Make sure to import the loader component
+import { Grid } from "react-loader-spinner";
 
 function SectionForm({ Title, onClose }) {
   const [section, setSection] = useState(Title);
@@ -128,7 +128,6 @@ function SectionForm({ Title, onClose }) {
       section: sectionMapping[section],
       generatedPresentationId: generatedPresentationId,
     };
-    console.log('sectionForm:',payload)
 
     try {
       const response = await fetch(
@@ -152,7 +151,7 @@ function SectionForm({ Title, onClose }) {
       setIsSubmitted(true);
       setTimeout(() => {
         onClose();
-      }, 2000); // Close the form after 2 seconds
+      }, 30000); // Close the form after 15 seconds
     } catch (error) {
       console.error("Error:", error);
     } finally {
@@ -179,25 +178,23 @@ function SectionForm({ Title, onClose }) {
         <h2>{Title}</h2>
         <div className="sectionForm-Content h-[60vh] w-[70vh] bg-white">
           {(() => {
-            if (Title === "Track Record") {
-              return <TrackRecord formData={formData} />;
-            } else if (Title === "Founding Team") {
-              return <Team formData={formData} />;
-            } else if (Title === "Financial Overview") {
-              return <Financials formData={formData} />;
-            }else if (Title === "Case Study") {
-              return <Case formData={formData} handleChange={handleChange}/>;
-            }
-            else if (Title === "Mobile App Screenshots") {
-              return <MobileScreen handleChange={handleChange}/>;
-            }
-            else if (Title === "Web App Screenshots") {
-              return <WebScreen handleChange={handleChange}/>;
-            }
-             else if (Title === "Testimonials") {
-              return (
-                <Testimonials formData={formData} handleChange={handleChange} />
-              );
+            switch (Title) {
+              case "Track Record":
+                return <TrackRecord formData={formData} />;
+              case "Founding Team":
+                return <Team formData={formData} />;
+              case "Financial Overview":
+                return <Financials formData={formData} />;
+              case "Case Study":
+                return <Case formData={formData} handleChange={handleChange} />;
+              case "Mobile App Screenshots":
+                return <MobileScreen handleChange={handleChange} />;
+              case "Web App Screenshots":
+                return <WebScreen handleChange={handleChange} />;
+              case "Testimonials":
+                return <Testimonials formData={formData} handleChange={handleChange} />;
+              default:
+                return null;
             }
           })()}
         </div>
