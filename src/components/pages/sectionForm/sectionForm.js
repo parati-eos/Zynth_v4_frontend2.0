@@ -7,6 +7,7 @@ import MobileScreen from "./mobileScreenshot";
 import WebScreen from "./webScreenshots";
 import Case from './caseStudy'
 import { useState } from "react";
+import { Grid } from "react-loader-spinner"; // Make sure to import the loader component
 
 function SectionForm({ Title, onClose }) {
   const [section, setSection] = useState(Title);
@@ -46,12 +47,10 @@ function SectionForm({ Title, onClose }) {
     competitors: [],
     competitiveDiff: "",
     teamMembers: [],
-    // Add contact information fields
     websiteLink: "",
     linkedinLink: "",
     contactEmail: "",
     contactPhone: "",
-    // Add financial information fields
     financialSnapshot: "",
     revenueCost: [],
     plannedRaise: "",
@@ -61,6 +60,7 @@ function SectionForm({ Title, onClose }) {
   const [progress, setProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [isUploadComplete, setIsUploadComplete] = useState(true);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -132,7 +132,7 @@ function SectionForm({ Title, onClose }) {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/submission/section-form",
+        "https://zynth.ai/api/submission/section-form",
         {
           method: "POST",
           headers: {
@@ -148,6 +148,11 @@ function SectionForm({ Title, onClose }) {
 
       const data = await response.json();
       console.log(data);
+
+      setIsSubmitted(true);
+      setTimeout(() => {
+        onClose();
+      }, 2000); // Close the form after 2 seconds
     } catch (error) {
       console.error("Error:", error);
     } finally {
@@ -155,7 +160,20 @@ function SectionForm({ Title, onClose }) {
     }
   };
 
-  return (
+  return isSubmitted ? (
+    <div className="presentationcheck-loadingIcon">
+      <Grid
+        visible={true}
+        height={80}
+        width={80}
+        color="#E6A500"
+        ariaLabel="grid-loading"
+        radius={12.5}
+        wrapperStyle={{}}
+        wrapperClass="grid-wrapper"
+      />
+    </div>
+  ) : (
     <form onSubmit={handleSubmit}>
       <div className="sectionForm-Container">
         <h2>{Title}</h2>

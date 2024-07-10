@@ -1,18 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../css/presentationcheck.css";
 import ApplicationNavbar from "../../shared/js/ApplicationNavbar.js";
-import { Team, TeamProvider, useTeamData } from "../shortform/Team.js"; // Import the form component
 import Form from "../shortform/extraForm.js";
-import {
-  Button,
-  IconButton,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-} from "@mui/material";
+import { IconButton } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
 import sectionMapping from "../shortform/utils/sectionMapping.js";
+import { Grid } from 'react-loader-spinner'; // Assuming you're using react-loader-spinner for loading animation
 
 const slides = [
   "Cover",
@@ -46,56 +39,10 @@ const PresentationCheck = () => {
   const slideRefs = useRef([]);
   const formId = localStorage.getItem("submissionId");
   const userEmail = localStorage.getItem("userEmail");
-  const generatedPresentationId = localStorage.getItem(
-    "generatedPresentationId"
-  );
+  const generatedPresentationId = localStorage.getItem("generatedPresentationId");
 
   const [formData, setFormData] = useState({
-    userId: userEmail,
-    companyName: "",
-    tagline: "",
-    logo: null,
-    primaryColor: "#000000",
-    secondaryColor: "#000000",
-    establishmentYear: "",
-    companyOverview: "",
-    problemDescription: "",
-    solutionsDescription: "",
-    sector: "",
-    otherSector: "",
-    marketDescription: "",
-    TAM: "",
-    TAMGrowthRate: "",
-    SAM: "",
-    SAMGrowthRate: "",
-    productOverview: "",
-    productRoadmap: "",
-    productRoadmapDescription: "",
-    technicalArchitecture: "",
-    appType: "",
-    mobileScreenshots: [],
-    webScreenshots: [],
-    businessModel: "",
-    keyStakeholders: "",
-    customerPersona: "",
-    goToMarketStrategy: "",
-    trackRecord: [],
-    caseStudies: "",
-    testimonials: [],
-    competitors: [],
-    competitiveDiff: "",
-    teamMembers: [],
-    // Add contact information fields
-    websiteLink: "",
-    linkedinLink: "",
-    contactEmail: "",
-    contactPhone: "",
-    // Add financial information fields
-    financialSnapshot: "",
-    revenueCost: [],
-    plannedRaise: "",
-    useOfFunds: [],
-    percentage: "",
+    // Your form data fields here
   });
 
   useEffect(() => {
@@ -135,9 +82,7 @@ const PresentationCheck = () => {
 
   const handleFetchSlide = async (slide) => {
     try {
-      const response = await fetch(
-        `https://zynth.ai/api/slides/id_by_section?formId=${formId}&section=${slide}`
-      );
+      const response = await fetch(`https://zynth.ai/api/slides/id_by_section?formId=${formId}&section=${slide}`);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -153,12 +98,11 @@ const PresentationCheck = () => {
         [slide]: null,
       }));
     } catch (error) {
-      console.error(`Error fetching slide for section ${slide}:, error`);
+      console.error(`Error fetching slide for section ${slide}:`, error);
       // Set error state for the specific slide
       setFetchError((prevState) => ({
         ...prevState,
-        [slide]:
-          error.message || "Failed to fetch slide. Please try again later.",
+        [slide]: error.message || "Failed to fetch slide. Please try again later.",
       }));
     }
   };
@@ -170,6 +114,12 @@ const PresentationCheck = () => {
     };
 
     loadSlides();
+
+    // Polling mechanism to check for new slides every 10 seconds
+    const intervalId = setInterval(loadSlides, 10000); // 10000 ms = 10 seconds
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(intervalId);
   }, [formId]);
 
   const handleTriggerClick = async (section) => {
@@ -182,16 +132,13 @@ const PresentationCheck = () => {
     };
 
     try {
-      const response = await fetch(
-        `http://localhost:5000/appscript/triggerAppScript`, // Use environment variable
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
+      const response = await fetch(`https://zynth.ai/api/appscript/triggerAppScript`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -209,6 +156,7 @@ const PresentationCheck = () => {
   };
 
   const RenderSlideContent = (slide) => {
+    const [loading, setLoading] = useState(true);
     const [showForm, setShowForm] = useState(false);
     const handleToggleForm = () => {
       setShowForm(!showForm);
@@ -224,16 +172,41 @@ const PresentationCheck = () => {
       "Web App Screenshots",
     ].includes(slide);
 
-    if (slideContent[slide]?.slideId === undefined) {
+    useEffect(() => {
+      if (requiresForm || slideContent[slide]?.slideId !== undefined) {
+        setLoading(false);
+      }
+    }, [slideContent[slide], requiresForm]);
+
+    if (loading && !requiresForm) {
+      return (
+        <div className="loadingIcon">
+          <Grid
+            visible={true}
+            height={80}
+            width={80}
+            color="#E6A500"
+            ariaLabel="grid-loading"
+            radius={12.5}
+            wrapperStyle={{}}
+            wrapperClass="grid-wrapper"
+          />
+        </div>
+      );
+    } else if (slideContent[slide]?.slideId === undefined) {
       if (!requiresForm) {
         return (
-          <IconButton
-            onClick={() => handleTriggerClick(slide)}
-            color="primary"
-            aria-label="add"
-          >
-            <AddIcon />
-          </IconButton>
+          <>
+            <IconButton
+              onClick={() => handleTriggerClick(slide)}
+              color="primary"
+              aria-label="add"
+              sx={{ fontSize: 40 }}
+            >
+              <AddIcon fontSize="inherit"/>
+            </IconButton>
+            <h3>{slide}</h3>
+          </>
         );
       } else {
         return (
@@ -251,11 +224,7 @@ const PresentationCheck = () => {
           </div>
         );
       }
-    } else if (
-      slideContent[slide] &&
-      slideContent[slide].id &&
-      slideContent[slide].slideId
-    ) {
+    } else {
       return (
         <iframe
           className="slides-iframe"
@@ -263,23 +232,6 @@ const PresentationCheck = () => {
           src={`https://docs.google.com/presentation/d/${slideContent[slide].id}/embed?rm=minimal&start=false&loop=false&slide=id.${slideContent[slide].slideId}`}
           style={{ width: "149.3333vh", height: "84vh" }}
         ></iframe>
-      );
-    } else {
-      // Initial loading state
-      return (
-        <div>
-          <h2>{slide}</h2>
-          <p>Loading...</p>
-          {/* Show Fetch Slide button only if there's no fetch error */}
-          {!fetchError[slide] && (
-            <button
-              className="fetch-button"
-              onClick={() => handleFetchSlide(slide)}
-            >
-              Fetch Slide
-            </button>
-          )}
-        </div>
       );
     }
   };
@@ -308,9 +260,7 @@ const PresentationCheck = () => {
           {slides.map((slide, index) => (
             <React.Fragment key={index}>
               <div
-                className={`sidebar-item ${
-                  selectedSlide === slide ? "active" : ""
-                }`}
+                className={`sidebar-item ${selectedSlide === slide ? "active" : ""}`}
                 onClick={() => handleSidebarClick(slide, index)}
               >
                 {slide}
