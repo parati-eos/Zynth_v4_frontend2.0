@@ -6,6 +6,7 @@ import { IconButton } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import sectionMapping from "../utils/sectionMapping.js";
 import { Grid } from 'react-loader-spinner'; // Assuming you're using react-loader-spinner for loading animation
+import FloatingButtons from "./FloatingButtons.js";
 
 const slides = [
   "Cover",
@@ -44,6 +45,68 @@ const PresentationCheck = () => {
   const [formData, setFormData] = useState({
     // Your form data fields here
   });
+
+  const handleDownload = async () => {
+    try {
+      const formId = localStorage.getItem("submissionId");
+      if (!formId) {
+        throw new Error("Form ID not found in localStorage");
+      }
+  
+      const response = await fetch(`https://zynth.ai/api/slides/url?formId=${formId}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      const result = await response.json();
+      console.log("Result:", result);
+  
+      // Ensure the response is an array and contains at least 3 elements
+      if (!Array.isArray(result) || result.length < 3) {
+        throw new Error("Invalid response format");
+      }
+  
+      // Extract the URL from the result
+      const url = result[2];
+      console.log("URL:", url);
+  
+      // Check if the URL is valid
+      if (!url || typeof url !== "string") {
+        throw new Error("Invalid URL in response");
+      }
+  
+      // Open the URL in a new tab
+      window.open(url, "_blank");
+    } catch (error) {
+      console.error("Error exporting presentation:", error);
+      // Show a message or popup to inform the user
+      alert("Oops! It seems like the pitch deck presentation is missing. Click 'Generate Presentation' to begin your journey to success!");
+    }
+  };
+
+  const handleShare = () => {
+    const uniqueShareableUrl = `https://zynth.ai/share?submissionId=${formId}`;
+
+    if (navigator.share) {
+      navigator
+        .share({
+          title: "Share Presentation",
+          text: "Check out this presentation",
+          url: uniqueShareableUrl,
+        })
+        .then(() => console.log("Shared successfully"))
+        .catch((error) => console.error("Share failed: ", error));
+    } else if (navigator.clipboard && navigator.platform.includes("Mac")) {
+      // For macOS devices where navigator.share is not available
+      navigator.clipboard
+        .writeText(uniqueShareableUrl)
+        .then(() => alert("URL copied to clipboard"))
+        .catch((error) => console.error("Copy failed: ", error));
+    } else {
+      // For other devices where neither navigator.share nor clipboard API is available
+      alert("Sharing is not supported on this device/browser.");
+    }
+  };
 
   // Function to fetch slide content for a specific slide
   const handleFetchSlide = async (slide) => {
@@ -295,7 +358,9 @@ const PresentationCheck = () => {
             </div>
           ))}
         </div>
+        
       </div>
+      <FloatingButtons handleShare={handleShare} handleExport={handleDownload}/>
     </div>
   );
 };
