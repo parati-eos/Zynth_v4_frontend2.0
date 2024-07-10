@@ -170,7 +170,7 @@ const ConciseForm = () => {
     if (validateStep()) {
       console.log('API Payload:', payload);
       try {
-        const response = await fetch('http://localhost:5000/submission/short-form', {
+        const response = await fetch('https://zynth.ai/api/submission/short-form', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
