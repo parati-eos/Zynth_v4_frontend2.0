@@ -21,7 +21,7 @@ function Login() {
     localStorage.setItem("userDP", decoded.picture);
     
     const userData = {
-      name: decoded.name, // Assuming 'name' is present in the decoded JWT
+      name: decoded.name, 
       email: decoded.email
     };
 

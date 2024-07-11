@@ -67,10 +67,11 @@ padding-bottom:1rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 68%;
+  width: 72%;
   height: 75%;
   background-color: rgba(230, 165, 0, 0.06);
   border-radius: 12vw;
+  padding: 0 1vw;
   margin-bottom: 1rem; /* Add space between buttons */
 }
 
@@ -98,7 +99,7 @@ padding-bottom:1rem;
   justify-content: center;
   align-items: center;
   width: 90%;
-  height: 75%;
+  height: 65%;
   background-color: rgba(230, 165, 0, 0.1);
   border-radius: 8vw;
 }

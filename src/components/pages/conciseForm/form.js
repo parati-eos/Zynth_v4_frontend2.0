@@ -277,7 +277,7 @@ const ConciseForm = () => {
           )}
           {step === steps.WEBSITE && (
             <ContactSection 
-              title="Contact Us"
+              title="Company Links"
               name1="websiteLink"
               value1={formData.websiteLink}
               name2="linkedinLink"

@@ -42,8 +42,8 @@
 
 .app-navbar-generateppt-container button {
   cursor: pointer;
-  width: 250px;
-  height: fit-content;
+  width: 20vw;
+  height: 5.5vh;
   border-radius: 50px;
   font-size: 100%;
   font-weight: 600;
