@@ -24,6 +24,17 @@ const Financials = ({ formData }) => {
   const handleRevenueCostChange = (index, field, value) => {
     const updatedRevenueCost = [...financialsData.revenueCost];
     updatedRevenueCost[index][field] = value;
+
+    // Enable cost input only if revenue is filled
+    if (field === "revenue") {
+      updatedRevenueCost[index]["cost"] = ""; // Reset cost if revenue changes
+    }
+
+    // Validate mandatory year if revenue is filled
+    if (field === "revenue" && value && !updatedRevenueCost[index]["year"]) {
+      updatedRevenueCost[index]["year"] = new Date().getFullYear().toString(); // Set current year as default
+    }
+
     setFinancialsData({ ...financialsData, revenueCost: updatedRevenueCost });
   };
 
@@ -104,6 +115,7 @@ const Financials = ({ formData }) => {
                     onChange={(e) =>
                       handleRevenueCostChange(index, "year", e.target.value)
                     }
+                    required={!!row.revenue} // Make year mandatory if revenue is filled
                   >
                     <option value="">Year</option>
                     {years.map((year) => (

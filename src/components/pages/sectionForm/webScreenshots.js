@@ -51,7 +51,7 @@ const WebScreen = ({ handleChange }) => {
         file:mr-4 file:py-2 file:px-4
         file:rounded-full file:border-0
         file:text-sm file:font-semibold
-        file:bg-violet-50 file:text-violet-700
+       file:bg-yellow-500 file:text-white
         hover:file:bg-violet-100"
       />
       {webUploadedImageUrl.length > 0 && (

@@ -103,7 +103,7 @@ function Login() {
               <MicrosoftLogin
                 clientId="1fe7a2de-f766-4418-b6c8-1e7be3da2b9e"
                 authCallback={handleMicrosoftSuccess}
-                redirectUri="http://localhost:3000" // Specify your redirect URL here
+                redirectUri="https://zynth.ai/applicationLanding" // Specify your redirect URL here
                 prompt="select_account" // Specify the prompt parameter
               >
                 <img src={MSLogin} alt="Microsoft Login" />
