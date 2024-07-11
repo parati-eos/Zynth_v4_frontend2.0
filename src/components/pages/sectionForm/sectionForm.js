@@ -151,7 +151,7 @@ function SectionForm({ Title, onClose }) {
       setIsSubmitted(true);
       setTimeout(() => {
         onClose();
-      }, 30000); // Close the form after 15 seconds
+      }, 30000);
     } catch (error) {
       console.error("Error:", error);
     } finally {

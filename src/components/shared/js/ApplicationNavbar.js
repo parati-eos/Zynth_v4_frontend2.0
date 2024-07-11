@@ -44,7 +44,7 @@ function Navbar({ historyShow, historyHide }) {
             onClick={handleHistoryButtonClicked}
           >
             <FontAwesomeIcon icon={faHistory} />
-            <span>History</span>
+            <span> History</span>
           </button>
 
           <img src={localStorage.getItem("userDP")} className="app-user" />

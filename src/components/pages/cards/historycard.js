@@ -16,6 +16,35 @@ const HistoryCard = ({ userID, submissionID, PPTName, Date, link }) => {
   const handleNameChange = (e) => {
     setEditableName(e.target.value);
   };
+
+  const handleDownload = async () => {
+    try {
+      if (!submissionID) {
+        throw new Error("Form ID not found in localStorage");
+      }
+  
+      const response = await fetch(`https://zynth.ai/api/slides/url?formId=${submissionID}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log("Result:", result);
+      if (!Array.isArray(result) || result.length < 3) {
+        throw new Error("Invalid response format");
+      }
+      const url = result[2];
+      console.log("URL:", url);
+      if (!url || typeof url !== "string") {
+        throw new Error("Invalid URL in response");
+      }
+      window.open(url, "_blank");
+    } catch (error) {
+      console.error("Error exporting presentation:", error);
+
+      alert("Oops! It seems like the pitch deck presentation is missing. Click 'Generate Presentation' to begin your journey to success!");
+    }
+  };
   const handleShare = () => {
     const uniqueShareableUrl = `https://zynth.ai/share?submissionId=${submissionID}`;
 
@@ -98,7 +127,7 @@ const HistoryCard = ({ userID, submissionID, PPTName, Date, link }) => {
           </h2>
           <div className="card-buttons">
             <ShareButton onClick={handleShare}/>
-            <ExportButton />
+            <ExportButton onClick={handleDownload}/>
           </div>
         </div>
       </div>
