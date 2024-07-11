@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
-import { jwtDecode } from "jwt-decode";
+import {jwtDecode} from "jwt-decode";
 import LoginImage from "../Asset/Landing Page Poster.png";
 import LoginNavbar from "../shared/js/LoginNavbar.js";
 import MicrosoftLogin from "react-microsoft-login";
@@ -22,14 +22,14 @@ function Login() {
     
     const userData = {
       name: decoded.name, // Assuming 'name' is present in the decoded JWT
-      email: decoded.email
+      email: decoded.email,
     };
 
     // Send user data to MongoDB via API
     saveUserData(userData);
 
-    // Redirect to success.js upon successful login
-    navigate("/applicationLanding", { state: { user: decoded } });
+    // Redirect to applicationLanding after successful login
+    window.location.href = "https://zynth.ai/applicationLanding";
   };
 
   const handleMicrosoftSuccess = (data) => {
@@ -37,27 +37,32 @@ function Login() {
     try {
       if (data && data.authResponse && data.authResponse.access_token) {
         const decoded = jwtDecode(data.authResponse.access_token);
+        console.log("Decoded JWT:", decoded); // Log decoded JWT to console
+  
         localStorage.setItem("userEmail", decoded.email);
         
         const userData = {
           name: decoded.name,
-          email: decoded.email
+          email: decoded.email,
         };
-
+  
         // Send user data to MongoDB via API
         saveUserData(userData);
-
-        // Redirect to success.js upon successful login
-        navigate("/applicationLanding");
+  
+        // Redirect to applicationLanding after successful login
+        window.location.href = "https://zynth.ai/applicationLanding";
       } else {
         console.error(
-          "Microsoft Login Failed: Invalid authentication response format"
+          "Microsoft Login Failed: Invalid authentication response format",
+          data
         );
       }
     } catch (error) {
       console.error("Microsoft Login Failed:", error);
     }
   };
+  
+  
 
   const handleLoginFailure = (provider, error) => {
     console.error(`${provider} Login Failed:`, error);
@@ -103,8 +108,8 @@ function Login() {
               <MicrosoftLogin
                 clientId="1fe7a2de-f766-4418-b6c8-1e7be3da2b9e"
                 authCallback={handleMicrosoftSuccess}
-                redirectUri="https://zynth.ai/applicationLanding" // Specify your redirect URL here
-                prompt="select_account" // Specify the prompt parameter
+                redirectUri="https://zynth.ai/applicationLanding"
+                prompt="select_account"
               >
                 <img src={MSLogin} alt="Microsoft Login" />
               </MicrosoftLogin>
