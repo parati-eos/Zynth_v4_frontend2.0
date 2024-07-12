@@ -139,7 +139,7 @@ function ApplicationLanding() {
                       <div>
                         <img src={magicWand} alt="Magic Wand" />
                       </div>
-                      <div>Generate Pitch deck</div>
+                      <div>Generate Pitch Deck</div>
                     </button>
                   </div>
                 </div>

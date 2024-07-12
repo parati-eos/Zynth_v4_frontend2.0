@@ -71,7 +71,7 @@ const Team = ({ formData }) => {
             <input
               type="text"
               value={member.name}
-              placeholder={`Name`}
+              placeholder={`Name *`}
               onChange={(e) =>
                 handleTeamMemberChange(index, "name", e.target.value)
               }
@@ -80,7 +80,7 @@ const Team = ({ formData }) => {
             <input
               type="text"
               value={member.title}
-              placeholder={`Title`}
+              placeholder={`Title *`}
               onChange={(e) =>
                 handleTeamMemberChange(index, "title", e.target.value)
               }
@@ -97,7 +97,7 @@ const Team = ({ formData }) => {
             <textarea
               type="text"
               value={member.experience}
-              placeholder={`Experience`}
+              placeholder={`Experience *`}
               onChange={(e) =>
                 handleTeamMemberChange(index, "experience", e.target.value)
               }

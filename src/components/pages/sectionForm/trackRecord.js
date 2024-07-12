@@ -33,7 +33,7 @@ const TrackRecord = ({ formData }) => {
     <div className="trackRecord-container">
       <label htmlFor="productOverview">
         Can you provide company's track record in terms of traction across
-        different phases and their timeline?
+        different phases and their timeline? *
       </label>
       {phaseRows.map((row, index) => (
         <div key={index} className="trackRecord-details">
@@ -44,6 +44,7 @@ const TrackRecord = ({ formData }) => {
               id={`year1_${index}`}
               name={`year1_${index}`}
               value={row.year1}
+              required
               onChange={(e) =>
                 handlePhaseRowsChange(index, "year1", e.target.value)
               }
@@ -59,6 +60,7 @@ const TrackRecord = ({ formData }) => {
               id={`year2_${index}`}
               name={`year2_${index}`}
               value={row.year2}
+              required
               onChange={(e) =>
                 handlePhaseRowsChange(index, "year2", e.target.value)
               }
@@ -76,6 +78,7 @@ const TrackRecord = ({ formData }) => {
               id={`TR_${index}`}
               name={`TR_${index}`}
               value={row.TR}
+              required
               placeholder="Track Record Here..."
               onChange={(e) =>
                 handlePhaseRowsChange(index, "TR", e.target.value)
