@@ -1,124 +1,126 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
-import {jwtDecode} from "jwt-decode";
+import { signInWithPopup, OAuthProvider } from "firebase/auth";
+import { auth } from "../../firebaseConfig.js";
+import { jwtDecode } from "jwt-decode";
 import LoginImage from "../Asset/Landing Page Poster.png";
+import MSLogin from "../Asset/ms-login.svg"; // Adjust path to your MSLogin image
 import LoginNavbar from "../shared/js/LoginNavbar.js";
-import MicrosoftLogin from "react-microsoft-login";
 import "./Login.css";
-import MSLogin from "../Asset/ms-login.svg";
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 
 function Login() {
-  const navigate = useNavigate();
-
-  const handleLogoClicked = () => {
-    navigate("/");
-  };
-
-  const handleGoogleSuccess = (credentialResponse) => {
-    const decoded = jwtDecode(credentialResponse.credential);
-    localStorage.setItem("userEmail", decoded.email);
-    localStorage.setItem("userDP", decoded.picture);
-    
-    const userData = {
-      name: decoded.name, // Assuming 'name' is present in the decoded JWT
-      email: decoded.email,
+    const navigate = useNavigate();
+    const handleLogoClicked = () => {
+      navigate("/");
+    };
+    const handleGoogleSuccess = (credentialResponse) => {
+      const decoded = jwtDecode(credentialResponse.credential);
+      localStorage.setItem("userEmail", decoded.email);
+      localStorage.setItem("userDP", decoded.picture);
+      
+      const userData = {
+        name: decoded.name, 
+        email: decoded.email
+      };
+  
+      // Send user data to MongoDB via API
+      saveUserData(userData);
+  
+      // Redirect to success.js upon successful login
+      navigate("/applicationLanding", { state: { user: decoded } });
     };
 
-    // Send user data to MongoDB via API
-    saveUserData(userData);
 
-    // Redirect to applicationLanding after successful login
-    window.location.href = "https://zynth.ai/applicationLanding";
-  };
+    const handleLoginFailure = (provider, error) => {
+      console.error(`${provider} Login Failed:`, error);
+    };
 
-  const handleMicrosoftSuccess = (data) => {
-    console.log("Microsoft Authentication Response:", data);
-    try {
-      if (data && data.authResponse && data.authResponse.access_token) {
-        const decoded = jwtDecode(data.authResponse.access_token);
-        console.log("Decoded JWT:", decoded); // Log decoded JWT to console
-  
-        localStorage.setItem("userEmail", decoded.email);
-        
-        const userData = {
-          name: decoded.name,
-          email: decoded.email,
-        };
-  
-        // Send user data to MongoDB via API
-        saveUserData(userData);
-  
-        // Redirect to applicationLanding after successful login
-        window.location.href = "https://zynth.ai/applicationLanding";
-      } else {
-        console.error(
-          "Microsoft Login Failed: Invalid authentication response format",
-          data
-        );
-      }
-    } catch (error) {
-      console.error("Microsoft Login Failed:", error);
-    }
-  };
-  
-  
 
-  const handleLoginFailure = (provider, error) => {
-    console.error(`${provider} Login Failed:`, error);
-  };
+    const handleMicrosoftLogin = async () => {
+        const provider = new OAuthProvider("microsoft.com");
+        try {
+            const result = await signInWithPopup(auth, provider);
+            console.log("Authentication result:", result);
+            if (result && result.user) {
+                const token = result.user.stsTokenManager.accessToken;
+                console.log("Access token:", token);
 
-  const saveUserData = (userData) => {
-    fetch("https://zynth.ai/api/users/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ user: userData }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("User data stored:", data);
+                const userData = {
+                    name: result.user.displayName,
+                    email: result.user.email,
+                    // picture: result.user.photoURL
+                };
+
+                console.log("User data:", userData);
+                saveUserData(userData);
+
+                localStorage.setItem("userEmail", userData.email);
+                localStorage.setItem("userDP", result.user.photoURL);
+
+                // Redirect to success page upon successful login
+                navigate("/applicationLanding");
+            } else {
+                throw new Error("Microsoft Login Failed: No access token found");
+            }
+        } catch (error) {
+            console.error("Microsoft Login Failed:", error);
+            // Handle login failure
+        }
+    };
+
+    const saveUserData = (userData) => {
+      fetch("https://zynth.ai/api/users/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ user: userData }),
       })
-      .catch((error) => {
-        console.error("Error storing user data:", error);
-      });
-  };
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("User data stored:", data);
+        })
+        .catch((error) => {
+          console.error("Error storing user data:", error);
+        });
+    };
 
-  return (
-    <div className="main-container">
-      <LoginNavbar handleClick={handleLogoClicked} />
-      <div className="login-container">
-        <div className="login-image-container">
-          <img src={LoginImage} alt="Login" />
-        </div>
-        <div className="login-details-container">
-          <div className="wrapper">
-            <h1>Login</h1>
-            <form action="">{/* Your login form here */}</form>
-            <div className="google-login">
-              <GoogleOAuthProvider clientId="1053104378274-jchabnb9vv91n94l76g97aeuuqmrokt9.apps.googleusercontent.com">
-                <GoogleLogin
-                  onSuccess={handleGoogleSuccess}
-                  onError={(error) => handleLoginFailure("Google", error)}
-                />
-              </GoogleOAuthProvider>
-            </div>
-            <div className="microsoft-login">
-              <MicrosoftLogin
-                clientId="1fe7a2de-f766-4418-b6c8-1e7be3da2b9e"
-                authCallback={handleMicrosoftSuccess}
-                redirectUri="https://zynth.ai/applicationLanding"
-                prompt="select_account"
-              >
-                <img src={MSLogin} alt="Microsoft Login" />
-              </MicrosoftLogin>
-            </div>
+    return (
+      
+          <div className="main-container">
+    <LoginNavbar handleClick={handleLogoClicked} />
+    <div className="login-container">
+      <div className="login-image-container">
+        <img src={LoginImage} alt="Login" />
+      </div>
+      <div className="login-details-container">
+        <div className="wrapper">
+          <h1>Login</h1>
+          <form action="">{/* Your login form here */}</form>
+          <div className="google-login">
+            <GoogleOAuthProvider clientId="1053104378274-jchabnb9vv91n94l76g97aeuuqmrokt9.apps.googleusercontent.com">
+              <GoogleLogin
+                onSuccess={handleGoogleSuccess}
+                onError={(error) => handleLoginFailure("Google", error)}
+              />
+            </GoogleOAuthProvider>
           </div>
+         
+          {/* <h1>Login with Microsoft</h1> */}
+            <button onClick={handleMicrosoftLogin}>
+                <img src={MSLogin} alt="Microsoft Login" />
+            </button>
         </div>
       </div>
     </div>
-  );
+  </div>
+
+        
+    );
 }
 
 export default Login;
+
+
+
