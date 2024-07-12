@@ -10,7 +10,7 @@ const Case = ({ formData, handleChange }) => {
         >
           Could you provide examples of successful case studies from your
           clients, showcasing how your products or services have made a positive
-          impact on their businesses?
+          impact on their businesses? *
         </label>
         <textarea
           className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-transparent text-[1.2vw]"

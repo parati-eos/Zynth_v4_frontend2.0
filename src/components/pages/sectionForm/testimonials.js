@@ -83,12 +83,12 @@ const Testimonials = ({ formData, handleChange }) => {
               <label>Testimonial {` ${index + 1}`}</label>
               <input
                 type="text"
-                placeholder={`Name `}
+                placeholder={`Name *`}
                 value={testimonial.name}
                 onChange={(e) =>
                   handleTestimonialChange(index, "name", e.target.value)
                 }
-                required={isFillingStarted} // Make it required if filling started
+                required // Make it required if filling started
               />
               <input
                 type="text"
@@ -110,12 +110,12 @@ const Testimonials = ({ formData, handleChange }) => {
               />
               
               <textarea
-                placeholder={`Testimonial `}
+                placeholder={`Testimonial *`}
                 value={testimonial.testimonial}
                 onChange={(e) =>
                   handleTestimonialChange(index, "testimonial", e.target.value)
                 }
-                required={isFillingStarted} // Make it required if filling started
+                required
               ></textarea>
             </div>
         ))}

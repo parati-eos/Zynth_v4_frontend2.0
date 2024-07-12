@@ -29,6 +29,7 @@ const LogoSection = ({ data, handleChange }) => {
             id="file"
             name="logo"
             onChange={onFileChange}
+            accept=".jpg, .jpeg, .png"
             required
           />
         </label>
