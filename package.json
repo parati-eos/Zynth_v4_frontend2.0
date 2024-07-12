@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@azure/msal-browser": "^3.18.0",
+    "@azure/msal-react": "^2.0.20",
     "@babel/preset-env": "^7.24.7",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
@@ -23,6 +25,7 @@
     "clsx": "^2.1.0",
     "crypto-browserify": "^3.12.0",
     "d3-dsv": "^3.0.1",
+    "firebase": "^10.12.3",
     "framer-motion": "^11.1.9",
     "get-pixels": "^3.3.3",
     "google-spreadsheet": "^4.1.1",
