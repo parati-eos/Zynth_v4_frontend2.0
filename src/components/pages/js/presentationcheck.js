@@ -146,8 +146,6 @@ const PresentationCheck = () => {
     }
   };
 
-
-
   useEffect(() => {
     let pollingTimeout;
     if (!excludedSections.includes(selectedSlide)) {
@@ -218,16 +216,6 @@ const PresentationCheck = () => {
   const RenderSlideContent = (slide) => {
     const [loading, setLoading] = useState(true);
     const [showForm, setShowForm] = useState(false);
-
-    const formRef = useRef(null);
-    const sidebarref = useRef(null);
-
-    useEffect(() => {
-      if (showForm && formRef.current) {
-        formRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
-    }, [showForm]);
-
 
     // Check if the slide is one of the specific sections that require the form
     const requiresForm = excludedSections.includes(slide);
@@ -340,9 +328,7 @@ const PresentationCheck = () => {
               </div>
             )}
             {showForm && (
-              <div ref={formRef}> 
               <SectionForm Title={slide} onClose={() => setShowForm(false)} />
-              </div>
             )}
           </div>
         );
