@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import uploadFileToS3 from '../utils/uploadFileToS3';
 import removeBackground from '../utils/removeBackground';
+import CircularProgress from '@mui/material/CircularProgress';
 import './form.css';
 import ContactSection from './contactus';
 
@@ -236,6 +237,7 @@ const ConciseForm = () => {
               name="logo"
               value={formData.logo}
               handleChange={handleLogoChange}
+              isLogoLoading={isLogoLoading}
               required
             />
           )}
@@ -277,7 +279,7 @@ const ConciseForm = () => {
           )}
           {step === steps.WEBSITE && (
             <ContactSection 
-              title="Contact Us"
+              title="Company Links"
               name1="websiteLink"
               value1={formData.websiteLink}
               name2="linkedinLink"
@@ -288,9 +290,13 @@ const ConciseForm = () => {
           )}
 
           <div className="form-navigation">
-            <button type="submit" onClick={handleNext} disabled={step === steps.LOGO && isLogoLoading}>
-              {step === steps.WEBSITE ? 'Submit' : 'Next'}
-            </button>
+            {isLogoLoading ? (
+              <CircularProgress sx={{ color: "#eab308" }} /> 
+            ) : (
+              <button type="submit" onClick={handleNext} disabled={step === steps.LOGO && isLogoLoading}>
+                {step === steps.WEBSITE ? 'Submit' : 'Next'}
+              </button>
+            )}
             {step > steps.COMPANY_NAME && (
               <button type="button" onClick={handlePrev}>
                 Back

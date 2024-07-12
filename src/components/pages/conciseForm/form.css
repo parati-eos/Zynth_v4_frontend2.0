@@ -107,10 +107,16 @@
     color: #ffffff;
     font-size: 1.2vw;
     cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .form-navigation button:active {
+    transform: scale(0.95);
   }
   
   .form-navigation button:hover {
     background-color: #cd9c07;
+
   }
   
  /* Logo Section */
@@ -153,7 +159,7 @@
     transition: color .2s ease-in-out;
   }
   
-  input[type=file] {
+  .form-section input[type=file] {
     width:32%;
     display: flex;
     justify-content: center;

@@ -18,14 +18,14 @@ function Navbar({ historyShow, historyHide }) {
     navigate("/pages/presentationhistory");
   };
   const handleLogoClicked = () => {
-    navigate("/applicationLanding");
+    window.open("/", "_blank");
   };
   return (
     <nav className="app-nav">
       <div className="app-navbar-container">
         <div className="app-navbar-logo-container">
-          <img src={ParatiLogo} alt="Parati logo" className="desktop-logo"/>
-          <img src={ParatiLogoMobile} alt="Mobile logo" className="mobile-logo"/>
+          <img src={ParatiLogo} alt="Parati logo" className="desktop-logo" onClick={handleLogoClicked}/>
+          <img src={ParatiLogoMobile} alt="Mobile logo" className="mobile-logo" onClick={handleLogoClicked}/>
         </div>
         <div className="app-navbar-generateppt-container">
           <button onClick={handleBuildPresentation}>
@@ -44,7 +44,7 @@ function Navbar({ historyShow, historyHide }) {
             onClick={handleHistoryButtonClicked}
           >
             <FontAwesomeIcon icon={faHistory} />
-            <span>History</span>
+            <span> History</span>
           </button>
 
           <img src={localStorage.getItem("userDP")} className="app-user" />
