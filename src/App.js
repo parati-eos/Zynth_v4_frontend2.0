@@ -9,6 +9,7 @@ import PresentationCheck from './components/pages/js/presentationcheck'
 import ReviewResponses from './components/pages/js/ReviewResponses';
 import History from './components/pages/js/presentationhistory'
 import PresentationShare from './components/pages/js/presentationshare';
+import Presentationedit from './components/pages/js/Presentationedit';
 // import Native_Form from './components/pages/Native-Form/Form';
 // import { TrackProvider } from './components/pages/Native-Form/Track';
 // import { CompetitionProvider } from './components/pages/Native-Form/Competition';
@@ -29,6 +30,7 @@ function App() {
 
       <Routes>
       <Route path="/share" element={<PresentationShare />} />
+        <Route path='/presentationedit' element={<Presentationedit/>}/>
         <Route path="/" element={<Home />} />
         <Route path="/sectionForm" element={<SectionForm Title='Financials'/>} />
         <Route path="/auth/login" element={<Login />} />

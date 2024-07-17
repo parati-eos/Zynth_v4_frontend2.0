@@ -8,7 +8,7 @@ import "../css/export-share.css"
 const ExportButton = ({ onClick }) => {
   return (
     <button onClick={onClick} className="export-share-button exportbutton" >
-    <FontAwesomeIcon icon={faDownload}/> Export 
+    <FontAwesomeIcon icon={faDownload}/>
   </button>
   );
 };  
