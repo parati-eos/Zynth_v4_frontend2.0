@@ -1,19 +1,46 @@
-import React, { useState, useLocation } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import ParatiLogo from "../../Asset/parati-logo.png";
 import "../css/ApplicationLandingNavbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHistory, faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import { faHistory } from "@fortawesome/free-solid-svg-icons";
 import ParatiLogoMobile from "../../Asset/logo512.png";
 
 function Navbar({ historyShow, historyHide }) {
+  const [dropdownVisible, setDropdownVisible] = useState(false);
   const navigate = useNavigate();
+  const dropdownRef = useRef(null);
+
   const handleHistoryButtonClicked = () => {
     navigate("/pages/presentationhistory");
   };
+
   const handleLogoClicked = () => {
     window.open("/", "_blank");
   };
+
+  const handleProfileClick = () => {
+    setDropdownVisible(!dropdownVisible);
+  };
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/");
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownVisible(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownRef]);
+
   return (
     <nav className="appLanding-nav">
       <div className="appLanding-navbar-container">
@@ -23,7 +50,6 @@ function Navbar({ historyShow, historyHide }) {
         </div>
 
         <div className="appLanding-navbar-details-container">
-          {/* Apply hover event handlers */}
           <button
             className="appLanding-history-button"
             onMouseEnter={historyShow}
@@ -33,10 +59,16 @@ function Navbar({ historyShow, historyHide }) {
             <FontAwesomeIcon className="history-icon" icon={faHistory} />{" "}
             <span> History</span>
           </button>
-          <img
-            src={localStorage.getItem("userDP")}
-            className="appLanding-user"
-          />
+          <div className="appLanding-user-container" ref={dropdownRef} onClick={handleProfileClick}>
+            <img
+              src={localStorage.getItem("userDP")}
+              className="appLanding-user"
+              alt="User Profile"
+            />
+            <div className={`dropdown-menu ${dropdownVisible ? "show" : ""}`}>
+              <button onClick={handleLogout}>Logout</button>
+            </div>
+          </div>
         </div>
       </div>
     </nav>
