@@ -3,14 +3,18 @@ import "./historycard.css";
 import { useNavigate } from "react-router-dom";
 import ShareButton from "../js/Share.js";
 import ExportButton from "../js/export.js";
+import EditButton from "../js/edit.js";
 
 const HistoryCard = ({ userID, submissionID, PPTName, Date, link }) => {
   const [editableName, setEditableName] = useState(PPTName);
   const navigate = useNavigate();
 
   const [isEditing, setIsEditing] = useState(false);
+  // const handleHistoryCardClicked = () => {
+  //   window.open(`/share?submissionId=${submissionID}`, '_blank');
+  // };
   const handleHistoryCardClicked = () => {
-    window.open(`/share?submissionId=${submissionID}`, '_blank');
+    navigate(`/presentationedit?submissionID=${submissionID}`); // Redirect to /pages/presentationcheck/:submissionID
   };
 
   const handleNameChange = (e) => {
@@ -80,7 +84,7 @@ const HistoryCard = ({ userID, submissionID, PPTName, Date, link }) => {
     };
 
     try {
-      const response = await fetch("http://127.0.0.1:5000/updateRow", {
+      const response = await fetch("https://zynth.ai/api/updateRow", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -126,8 +130,10 @@ const HistoryCard = ({ userID, submissionID, PPTName, Date, link }) => {
             Date Created: <span>{Date}</span>
           </h2>
           <div className="card-buttons">
-            <ShareButton onClick={handleShare}/>
+          <EditButton onClick={handleHistoryCardClicked}/>
+          <ShareButton onClick={handleShare}/>
             <ExportButton onClick={handleDownload}/>
+           
           </div>
         </div>
       </div>

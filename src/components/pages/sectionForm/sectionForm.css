@@ -68,3 +68,78 @@
     }
 }
 
+@media (max-width: 768px) {
+    .sectionForm-Container{
+        height: 54vh;
+        width: 90vw;
+        margin: 5% 0;
+        gap:4vw;
+    }
+    .sectionForm-Container h2 {
+        font-size: 5vw;
+    }
+    .sectionForm-Content {
+        height: 35vh;
+        width: 85vw;
+        background-color: transparent;
+    }
+    .section-form-buttons {
+        height: 10vw;
+        margin:1vw;
+    }
+    .section-form-buttons button {
+        height: 100%;
+        width: 40%;
+        border-radius: 10px;
+        color: white;
+        background-color: #eab308;
+        font-size: 4vw;
+    }
+}
+
+@media (max-width: 768px) {
+    .sectionForm-Container{
+        height: 54vh;
+        width: 90vw;
+        margin: 5% 0;
+        gap:4vw;
+    }
+    .sectionForm-Container h2 {
+        font-size: 5vw;
+    }
+    .sectionForm-Content {
+        height: 35vh;
+        width: 85vw;
+        background-color: transparent;
+    }
+    .section-form-buttons {
+        height: 10vw;
+        margin:1vw;
+    }
+    .section-form-buttons button {
+        height: 100%;
+        width: 40%;
+        border-radius: 10px;
+        color: white;
+        background-color: #eab308;
+        font-size: 4vw;
+    }
+}
+
+.section-form-buttons button:disabled{
+    background-color: #ccc; /* Gray color to indicate disabled state */
+    color: #666;           /* Darker gray for text */
+    cursor: not-allowed;   /* Change cursor to indicate non-interactivity */
+    opacity: 0.6;          
+}
+
+.submit-button .tail-spin-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+.submit-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
