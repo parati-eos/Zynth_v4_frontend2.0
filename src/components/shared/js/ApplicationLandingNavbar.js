@@ -63,7 +63,7 @@ function Navbar({ historyShow, historyHide }) {
             <img
               src={localStorage.getItem("userDP")}
               className="appLanding-user"
-              alt="User Profile"
+              alt=""
             />
             <div className={`dropdown-menu ${dropdownVisible ? "show" : ""}`}>
               <button onClick={handleLogout}>Logout</button>

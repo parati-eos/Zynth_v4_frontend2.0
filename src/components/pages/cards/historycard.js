@@ -14,8 +14,9 @@ const HistoryCard = ({ userID, submissionID, PPTName, Date, link }) => {
   //   window.open(`/share?submissionId=${submissionID}`, '_blank');
   // };
   const handleHistoryCardClicked = () => {
-    navigate(`/presentationedit?submissionID=${submissionID}`); // Redirect to /pages/presentationcheck/:submissionID
+    navigate(`/presentationedit?submissionID=${submissionID}&generatedPresentationId=${link}`);
   };
+  
 
   const handleNameChange = (e) => {
     setEditableName(e.target.value);

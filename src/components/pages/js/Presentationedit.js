@@ -56,7 +56,7 @@ const Presentationedit = () => {
 const  submissionId  = searchParams.get("submissionID")
 //const formId = searchParams.get("submissionId");
   const userEmail = localStorage.getItem("userEmail");
-  const generatedPresentationId = localStorage.getItem("generatedPresentationId");
+  const generatedPresentationId = searchParams.get("generatedPresentationId");
 
   const [formData, setFormData] = useState({
     // Your form data fields here
