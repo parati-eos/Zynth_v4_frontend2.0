@@ -4,6 +4,10 @@ import { IconButton } from "@mui/material";
 import { Share as ShareIcon, SaveAlt as ExportIcon } from "@mui/icons-material";
 
 const FloatingButtons = ({ handleShare, handleExport }) => {
+  const handleClick = (action) => {
+    console.log(`Button clicked: ${action}`);
+  };
+// adarsh
   return (
     <div className="w-[100vw] justify-around md:justify-normal md:w-[5vw] z-50 fixed bottom-[4vw] right-[0] flex flex-row md:flex-col  md:bottom-[1.5vw] md:right-[1vw] md:space-y-4">
       <IconButton

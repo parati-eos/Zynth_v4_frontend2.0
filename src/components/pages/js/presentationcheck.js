@@ -149,8 +149,6 @@ const PresentationCheck = () => {
     }
   };
 
-
-
   useEffect(() => {
     let pollingTimeout;
     if (!excludedSections.includes(selectedSlide)) {
@@ -221,20 +219,10 @@ const PresentationCheck = () => {
   const RenderSlideContent = (slide) => {
     const [loading, setLoading] = useState(true);
     const [showForm, setShowForm] = useState(false);
-
-    const formRef = useRef(null);
-    const sidebarref = useRef(null);
-
-    useEffect(() => {
-      if (showForm && formRef.current) {
-        formRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
-    }, [showForm]);
-
-
-    // Check if the slide is one of the specific sections that require the form
+    const [dataFetched, setDataFetched] = useState(false); // New state to track data fetch success
+  
     const requiresForm = excludedSections.includes(slide);
-
+  
     useEffect(() => {
       const observerOptions = {
         root: null,
@@ -258,26 +246,27 @@ const PresentationCheck = () => {
         });
       };
     }, []);
-
+  
     useEffect(() => {
       if (requiresForm || slideContent[slide]?.slideId !== undefined) {
         setLoading(false);
+        setDataFetched(true); // Set dataFetched to true if data is successfully fetched
       }
     }, [slideContent[slide], requiresForm]);
-
+  
     useEffect(() => {
       const timeout = setTimeout(() => {
-        if (loading && !requiresForm && fetchError[slide] !== "timeout") {
+        if (loading && !requiresForm && !dataFetched) { // Only set error if data is not fetched
           setFetchError((prevState) => ({
             ...prevState,
             [slide]: "timeout",
           }));
         }
       }, 72000);
-
+  
       return () => clearTimeout(timeout); // Clear timeout on component unmount or slide change
-    }, [loading, requiresForm, slide, fetchError]);
-
+    }, [loading, requiresForm, slide, fetchError, dataFetched]);
+  
     if (fetchError[slide] === "timeout" && !requiresForm) {
       return (
         <>
@@ -346,9 +335,7 @@ const PresentationCheck = () => {
               </div>
             )}
             {showForm && (
-              <div ref={formRef}> 
               <SectionForm Title={slide} onClose={() => setShowForm(false)} />
-              </div>
             )}
           </div>
         );
@@ -364,6 +351,7 @@ const PresentationCheck = () => {
       );
     }
   };
+  
 
   const [isOpen, setIsOpen] = useState(false);
 

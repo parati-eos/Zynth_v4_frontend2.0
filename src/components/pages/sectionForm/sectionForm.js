@@ -7,7 +7,7 @@ import MobileScreen from "./mobileScreenshot";
 import WebScreen from "./webScreenshots";
 import Case from './caseStudy';
 import { useState } from "react";
-import { Grid } from "react-loader-spinner";
+import { Grid, TailSpin } from "react-loader-spinner"; // Import TailSpin for button loader
 import  Competition from './Competition';
 import TechnicalArchitecture from "./systemArchitecture";
 
@@ -63,6 +63,7 @@ function SectionForm({ Title, onClose }) {
   const [isLoading, setIsLoading] = useState(false);
   const [isUploadComplete, setIsUploadComplete] = useState(true);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false); // New state
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -92,6 +93,7 @@ function SectionForm({ Title, onClose }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true); // Disable the button immediately
     setIsLoading(true);
 
     const formId = localStorage.getItem("submissionId");
@@ -153,11 +155,12 @@ function SectionForm({ Title, onClose }) {
       setIsSubmitted(true);
       setTimeout(() => {
         onClose();
-      }, 30000);
+      }, 35000); // Close the form after 30 seconds
     } catch (error) {
       console.error("Error:", error);
     } finally {
       setIsLoading(false);
+      setIsSubmitting(false); // Enable the button again if needed
     }
   };
 
@@ -205,11 +208,15 @@ function SectionForm({ Title, onClose }) {
           })()}
         </div>
         <div className="section-form-buttons">
-          <button className="" onClick={onClose}>
+          <button type="button" onClick={onClose} disabled={isSubmitting}>
             Close
           </button>
-          <button type="submit" className="">
-            Submit
+          <button type="submit" className="submit-button" disabled={isSubmitting}>
+            {isSubmitting ? (
+              <TailSpin height="20" width="20" color="#fff" ariaLabel="tail-spin-loading" />
+            ) : (
+              "Submit"
+            )}
           </button>
         </div>
       </div>
