@@ -75,8 +75,22 @@ const ConciseForm = () => {
         return true;
       case steps.ABOUT_COMPANY:
         return formData.companyOverview.trim() !== '';
-      case steps.INDUSTRY:
-        return formData.sector.trim() !== '';
+        case steps.INDUSTRY:
+          var temp;
+          if (formData.sector === "Other") {
+              temp = formData.otherSector.trim() !== '';
+          } else {
+              temp = formData.sector.trim() !== '';
+          }
+      
+          if (formData.industry === "Other") {
+              temp = temp && formData.otherIndustry.trim() !== '';
+          } else {
+              temp = temp && formData.industry.trim() !== '';
+          }
+      
+          return temp;
+      
       case steps.PRODUCT_SERVICE:
         return formData.productOverview.trim() !== '';
       case steps.WEBSITE:
