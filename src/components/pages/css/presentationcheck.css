@@ -16,6 +16,7 @@
   z-index: 1000;
 }
 
+/* ==========================================SIDEBAR-START======================================= */
 .sidebar {
   width: 250px;
   background-color: #001b28;
@@ -37,9 +38,8 @@
 
 .separator {
   height: 0.7px;
-  /* width: 80%; */
-  background-color:  rgba(163, 163, 163, 0.3); /* Change color as needed */
-  margin: 0; /* Adjust margins as needed */
+  background-color:  rgba(163, 163, 163, 0.3);
+  margin: 0;
 }
 
 .sidebar-item:hover {
@@ -50,7 +50,14 @@
 .sidebar-item.active {
   background-color: #e6a500;
   color: rgb(0, 0, 0);
+  align-self: safe;
+  scroll-behavior: smooth;
 }
+
+.sidebar-hamburger {
+  display: none;
+}
+/* ==========================================SIDEBAR-END======================================= */
 
 .content {
   flex: 1;
@@ -70,6 +77,10 @@
   color: #e6a500;
   border-bottom: 1px solid #ddd;
   /* background: white; */
+}
+.presentationcheck-slides-iframe{
+  width: 149.3333vh; 
+  height: 84vh;
 }
 .fetch-button {
   margin-top: 10px;
@@ -130,23 +141,54 @@
 @media (max-width: 768px) {
   .presentation-check-container {
     flex-direction: column;
-    height: auto;
-  }
+    height: 65vh;
 
-  .sidebar {
-    width: 100%;
-    height: auto;
-    box-shadow: none;
-    order: 1; /* Make sidebar appear first */
   }
+    .sidebar {
+      display: none;
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background-color: #001b28;
+      top: 0;
+      left: 0;
+      padding: 20px;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+      overflow-y: auto;
+      z-index: 1000;
+    }
+  
+    .sidebar.open {
+      display: block;
+    }
+  
+    .sidebar-hamburger {
+      display: block;
+      cursor: pointer;
+      position: sticky;
+      font-size: 30px;
+      color: white;
+      padding: 10px;
+    }
 
   .content {
     padding: 10px;
     order: 2; /* Make content appear second */
   }
+  
+.content-section {
+  min-height: 55vw;
+ height: max-content;
+  width: 92vw;}
 
   .sidebar-item {
     padding: 10px;
     margin: 5px 0;
+    font-size: 6vw;
+  }
+  .presentationcheck-slides-iframe{
+    width: 92vw;
+    height: 51.75vw;
+
   }
 }

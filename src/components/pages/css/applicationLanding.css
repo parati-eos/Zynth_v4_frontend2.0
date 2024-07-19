@@ -97,36 +97,39 @@
   width: auto;
 }
 
-@media screen and (max-width: 600px) {
-  .overlay-button1{
-    width: 56vw;
-    border-radius: 3.25vh;
-    height: auto;
-    font-size: 1.8vh;
-  }
+@media (max-width: 768px) {
   .overlay-button {
     width: 56vw;
     border-radius: 3.25vh;
-    height: 26px;
+    height: 10vw;
     font-size: 1.8vh;
   }
   .image-stack {
-    width: 100%;
-    height: auto; /* Adjust height to auto for better responsiveness */
+    width: 76vw;
+    height: 30vw;
+    border-radius: 15vw;
   }
   .button-shade {
-    border-radius: 12vh;
-    margin-bottom: 1rem; /* Add space between buttons */
+    width: 72vw;
+    height: 26vw; 
+    border-radius: 13vw;
   }
   
   .button-shade1 {
-    border-radius: 12vh;
+    width: 68vw;
+    height: 22vw;
+    border-radius: 11vw;
   }
+
   .button-shade2 {
-    border-radius: 8vh;
+    width: 64vw;
+    height: 18vw;
+    border-radius: 9vw;
   }
   .button-shade3 {
-    border-radius: 8vh;
+    width: 60vw;
+    height: 14vw;
+    border-radius: 7vw;
   }
   .overlay-button img {
     height: 3vh;

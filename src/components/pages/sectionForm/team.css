@@ -134,19 +134,25 @@
     box-shadow: 0 0 1vh rgba(0, 0, 0, 0.2); /* Light shadow on hover */
 }
 
-/* Responsive Adjustments */
-@media (max-width: 600px) {
+ 
+@media (max-width: 768px) {
+
+    .team-container label {
+        font-size: 4vw;
+    }
     .sectionForm-team-row {
         padding: 4%;
     }
 
     .sectionForm-team-row input,
     .sectionForm-team-row textarea {
-        font-size: 1.6vh;
+        font-size: 4vw;
     }
 
     .sectionForm-add-row-button {
-        width: 40vw; /* More width for smaller screens */
+        width: 40vw;
+        font-size: 4vw;
+        height: 10vw;
     }
 
     .close-button img {

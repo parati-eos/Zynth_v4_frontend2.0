@@ -8,6 +8,8 @@ import WebScreen from "./webScreenshots";
 import Case from './caseStudy';
 import { useState } from "react";
 import { Grid } from "react-loader-spinner";
+import  Competition from './Competition';
+import TechnicalArchitecture from "./systemArchitecture";
 
 function SectionForm({ Title, onClose }) {
   const [section, setSection] = useState(Title);
@@ -105,7 +107,7 @@ function SectionForm({ Title, onClose }) {
       "Market Sizing": "market",
       "Product Overview": "product",
       "Product Roadmap": "productRoadmap",
-      "System Architecture": "systemArchitecture",
+      "System Architecture": "technicalArchitecture",
       "Mobile App Screenshots": "mobileScreenshots",
       "Web App Screenshots": "webScreenshots",
       "Business Model": "businessModel",
@@ -115,7 +117,7 @@ function SectionForm({ Title, onClose }) {
       "Track Record": "trackRecord",
       "Case Study": "caseStudies",
       "Testimonials": "testimonials",
-      "Competitive Landscape": "competition",
+      "Competitive Landscape": "competitors",
       "Competitive Differentiation": "competitiveDiff",
       "Founding Team": "teamMembers",
       "Financial Overview": "financialInfo",
@@ -128,10 +130,11 @@ function SectionForm({ Title, onClose }) {
       section: sectionMapping[section],
       generatedPresentationId: generatedPresentationId,
     };
+    console.log(payload)
 
     try {
       const response = await fetch(
-        "https://zynth.ai/api/submission/section-form",
+        "http://127.0.0.1:5000/submission/section-form",
         {
           method: "POST",
           headers: {
@@ -146,7 +149,6 @@ function SectionForm({ Title, onClose }) {
       }
 
       const data = await response.json();
-      console.log(data);
 
       setIsSubmitted(true);
       setTimeout(() => {
@@ -193,6 +195,10 @@ function SectionForm({ Title, onClose }) {
                 return <WebScreen handleChange={handleChange} />;
               case "Testimonials":
                 return <Testimonials formData={formData} handleChange={handleChange} />;
+              case "Competitive Landscape":
+                return <Competition formData={formData} handleChange={handleChange} />;
+                case "System Architecture":
+                  return <TechnicalArchitecture formData={formData} handleChange={handleChange} />;
               default:
                 return null;
             }

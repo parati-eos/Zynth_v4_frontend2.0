@@ -18,8 +18,8 @@ const steps = {
   COMPANY_NAME: 1,
   LOGO: 2,
   TAGLINE: 3,
-  ABOUT_COMPANY: 4,
-  INDUSTRY: 5,
+  INDUSTRY: 4,
+  ABOUT_COMPANY: 5,
   PRODUCT_SERVICE: 6,
   WEBSITE: 7,
 };
@@ -37,6 +37,9 @@ const ConciseForm = () => {
     logo: null,
     companyOverview: '',
     sector: '',
+    otherSector: '',
+    industry: '',
+    otherIndustry: '',
     productOverview: '',
     websiteLink: '',
     linkedinLink: '',
@@ -175,7 +178,7 @@ const ConciseForm = () => {
     if (validateStep()) {
       console.log('API Payload:', payload);
       try {
-        const response = await fetch('https://zynth.ai/api/submission/short-form', {
+        const response = await fetch('http://127.0.0.1:5000/submission/short-form', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -263,7 +266,8 @@ const ConciseForm = () => {
             <IndustrySection
               title="Industry"
               name="sector"
-              value={formData.sector}
+              industry={formData.industry}
+              sector={formData.sector}
               handleChange={handleChange}
               required
             />

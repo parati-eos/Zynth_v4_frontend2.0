@@ -274,3 +274,46 @@
     cursor: not-allowed;   /* Change cursor to indicate non-interactivity */
     opacity: 0.6;          /* Fade effect */
   }
+
+  @media (max-width: 768px){
+    .concise-form-container {
+      width: 80vw;
+      height: 40vh;
+    }
+    .form-section .section-title {
+      display: block;
+      margin-bottom: 3vw;
+      font-weight: bold;
+      font-size: 6vw;
+  }
+    .form-section input[type="text"] {
+      width: 95%;
+      padding: 0 5px;
+      font-size: 4vw;
+  }
+    .form-navigation button {
+      font-size: 4vw;
+      cursor: pointer;
+      transition: transform 0.2s ease-in-out;
+    }
+    .drop-container img{
+      width: 20%;
+    }
+    
+    
+    .drop-title {
+      font-size: 4vw;
+    }
+    
+    .form-section input[type=file] {
+      width:46%;
+      font-size: 4vw;
+    }
+
+    .form-section textarea {
+      font-size: 4vw;
+  }
+  .form-section select {
+    font-size: 4vw;
+}
+  }

@@ -40,7 +40,10 @@ const excludedSections = [
   "Financial Overview",
   "Mobile App Screenshots",
   "Web App Screenshots",
-  "Case Study"
+  "Case Study",
+  "Competitive Landscape",
+  "System Architecture"
+
 ];
 
 const PresentationCheck = () => {
@@ -325,18 +328,21 @@ const PresentationCheck = () => {
         return (
           <div>
             {!showForm && (
-              <div className="w-[30vw] flex flex-col justify-center items-center ">
+              <div className=" w-[80vw] md:w-[30vw] flex flex-col justify-center items-center ">
                 <div className="h-max w-max flex justify-center items-center border border-blue-600 rounded-[50%]">
-                  <IconButton
-                    onClick={() => setShowForm(true)}
-                    color="inherit"
-                    aria-label="add"
-                    sx={{ fontSize: 40, color: "white" }}
-                  >
-                    <AddIcon fontSize="inherit" />
-                  </IconButton>
+                <IconButton
+      onClick={() => setShowForm(true)}
+      color="inherit"
+      aria-label="add"
+      sx={{
+        fontSize: { xs: 30, sm: 40 }, // 30px for mobile, 40px for larger screens
+        color: { xs: "white", sm: "white" }, // black for mobile, white for larger screens
+      }}
+    >
+      <AddIcon fontSize="inherit" />
+    </IconButton>
                 </div>
-                <h3>{slide}</h3>
+                <h3 className="text-lg md:text-xl">{slide}</h3>
               </div>
             )}
             {showForm && (
@@ -350,25 +356,36 @@ const PresentationCheck = () => {
     } else {
       return (
         <iframe
-          className="slides-iframe"
+          className="presentationcheck-slides-iframe"
           title={`Google Slides Embed ${slide}`}
           src={`https://docs.google.com/presentation/d/${slideContent[slide].id}/embed?rm=minimal&start=false&loop=false&slide=id.${slideContent[slide].slideId}`}
-          style={{ width: "149.3333vh", height: "84vh"  }}
+          // style={{ width: "149.3333vh", height: "84vh"}}
         ></iframe>
       );
     }
   };
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <div className="presentation-check-container1">
       <ApplicationNavbar />
+      <div className="sidebar-hamburger" onClick={toggleSidebar}>
+        &#9776;
+      </div>
       <div className="presentation-check-container">
-        <div className="sidebar">
+        <div className={`sidebar ${isOpen ? "open" : ""}`}>
           {slides.map((slide, index) => (
             <React.Fragment key={index}>
               <div
                 className={`sidebar-item ${selectedSlide === slide ? "active" : ""}`}
-                onClick={() => handleSidebarClick(slide, index)}
+                onClick={() => {handleSidebarClick(slide, index);
+                  toggleSidebar();}
+                }
               >
                 {slide}
               </div>
