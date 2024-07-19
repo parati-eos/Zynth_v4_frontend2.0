@@ -146,7 +146,7 @@
   }
     .sidebar {
       display: none;
-      position: fixed;
+      /* position: fixed; */
       width: 100%;
       height: 100%;
       background-color: #001b28;
@@ -159,7 +159,8 @@
     }
   
     .sidebar.open {
-      display: block;
+      display: flex;
+      flex-direction: column;
     }
   
     .sidebar-hamburger {

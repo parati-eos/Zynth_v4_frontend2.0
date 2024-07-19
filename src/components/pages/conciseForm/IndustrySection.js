@@ -99,7 +99,6 @@ const IndustrySection = ({ title, sector, industry, handleChange }) => {
         {Object.keys(industrySectorMap).map((sectorOption) => (
           <option key={sectorOption} value={sectorOption}>{sectorOption}</option>
         ))}
-        <option value="Other">Other</option>
       </select>
 
       {selectedSector === 'Other' && (
@@ -139,7 +138,7 @@ const IndustrySection = ({ title, sector, industry, handleChange }) => {
             {industries.map((industryOption) => (
               <option key={industryOption} value={industryOption}>{industryOption}</option>
             ))}
-            {/* <option value="Other">Other</option> */}
+            <option value="Other">Other</option>
           </select>
           {selectedIndustry === 'Other' && (
             <input

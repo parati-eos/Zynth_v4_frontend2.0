@@ -8,7 +8,7 @@
   display: flex;
   height: 55px;
   padding: 0.3vh;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
 .app-navbar-logo-container {
@@ -16,7 +16,6 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding-left: 1vw;
 }
 .app-navbar-generateppt-container {
   width: 33%;
@@ -31,12 +30,12 @@
   align-items: center;
   justify-content: flex-end;
   flex-direction: row;
-  gap: 20px;
+  gap: 4vw;
   padding-right: 1vw;
 }
 
 .app-navbar-logo-container img {
-  height: auto;
+  height: 3vw;
   cursor: pointer;
 }
 
@@ -161,11 +160,12 @@
     width: 50%;
   }
   .app-button-inner{
-    font-size: 2vh;
+    font-size: 4vw;
   }
   .app-navbar-generateppt-container button {
     cursor: pointer;
-    width: 30vh;
+    width: 50vw;
+    height: 10vw;
     height: fit-content;
     border-radius: 50px;
     font-size: 1.5vh;
