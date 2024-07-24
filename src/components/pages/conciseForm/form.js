@@ -77,6 +77,7 @@ const ConciseForm = () => {
         return formData.companyOverview.trim() !== '';
         case steps.INDUSTRY:
           var temp;
+          
           if (formData.sector === "Other") {
               temp = formData.otherSector.trim() !== '';
           } else {
@@ -278,7 +279,7 @@ const ConciseForm = () => {
           )}
           {step === steps.INDUSTRY && (
             <IndustrySection
-              title="Industry"
+              title="Sector and Industry"
               name="sector"
               industry={formData.industry}
               sector={formData.sector}
