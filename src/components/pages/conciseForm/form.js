@@ -77,6 +77,7 @@ const ConciseForm = () => {
         return formData.companyOverview.trim() !== '';
         case steps.INDUSTRY:
           var temp;
+          
           if (formData.sector === "Other") {
               temp = formData.otherSector.trim() !== '';
           } else {
@@ -119,7 +120,7 @@ const ConciseForm = () => {
   const handleBlankSlideGeneration = async () => {
     try {
       const response = await fetch(
-        `https://script.google.com/macros/s/AKfycbx4hxwmEMxDckdgCO4eR_RoXnT92Ewl0rr4x2trb-fGbd6rUqATaS_e5rHIM2lUTsYQ/exec?userID=${localStorage.getItem(
+        `https://script.google.com/macros/s/AKfycbxHoHV3Agvgc4GeTYez8LUocHiYlL6_D69FwSTO1lQHti37WkIt7l0buFTMfnfuQEyD3g/exec?userID=${localStorage.getItem(
           'userEmail'
         )}&submissionID=${formId}`
       );
@@ -278,7 +279,7 @@ const ConciseForm = () => {
           )}
           {step === steps.INDUSTRY && (
             <IndustrySection
-              title="Industry"
+              title="Sector and Industry"
               name="sector"
               industry={formData.industry}
               sector={formData.sector}
