@@ -279,7 +279,7 @@ const ConciseForm = () => {
           )}
           {step === steps.INDUSTRY && (
             <IndustrySection
-              title="Industry"
+              title="Sector and Industry"
               name="sector"
               industry={formData.industry}
               sector={formData.sector}
