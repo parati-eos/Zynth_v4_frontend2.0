@@ -10,7 +10,7 @@ function ReviewResponses() {
   const [loading, setLoading] = useState(false);
   var SID = 0;
   const fetchDataFromGoogleSheet = async () => {
-    const apiUrl = "https://zynth.ai/api/submissionID";
+    const apiUrl = "https://v4-server.onrender.com/submissionID";
     try {
       const response = await fetch(apiUrl, {
         method: "GET",

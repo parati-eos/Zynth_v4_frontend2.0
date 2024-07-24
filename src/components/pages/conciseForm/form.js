@@ -120,7 +120,7 @@ const ConciseForm = () => {
   const handleBlankSlideGeneration = async () => {
     try {
       const response = await fetch(
-        `https://script.google.com/macros/s/AKfycbx4hxwmEMxDckdgCO4eR_RoXnT92Ewl0rr4x2trb-fGbd6rUqATaS_e5rHIM2lUTsYQ/exec?userID=${localStorage.getItem(
+        `https://script.google.com/macros/s/AKfycbxHoHV3Agvgc4GeTYez8LUocHiYlL6_D69FwSTO1lQHti37WkIt7l0buFTMfnfuQEyD3g/exec?userID=${localStorage.getItem(
           'userEmail'
         )}&submissionID=${formId}`
       );
@@ -172,7 +172,7 @@ const ConciseForm = () => {
 
   const fetchColorsFromApi = async (imageUrl) => {
     try {
-      const response = await axios.post('https://zynth.ai/api/get-colors/', { imageUrl });
+      const response = await axios.post('https://v4-server.onrender.com/get-colors/', { imageUrl });
       const colors = response.data.map((color) => color.hex); // Extract hex values from response
       console.log('Fetched colors:', colors);
       return colors;
@@ -193,7 +193,7 @@ const ConciseForm = () => {
     if (validateStep()) {
       console.log('API Payload:', payload);
       try {
-        const response = await fetch('http://127.0.0.1:5000/submission/short-form', {
+        const response = await fetch('https://v4-server.onrender.com/submission/short-form', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
