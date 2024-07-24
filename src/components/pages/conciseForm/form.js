@@ -77,6 +77,7 @@ const ConciseForm = () => {
         return formData.companyOverview.trim() !== '';
         case steps.INDUSTRY:
           var temp;
+          
           if (formData.sector === "Other") {
               temp = formData.otherSector.trim() !== '';
           } else {
