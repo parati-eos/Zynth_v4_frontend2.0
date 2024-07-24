@@ -50,7 +50,7 @@ function ApplicationLanding() {
     const fetchDataHistory = async () => {
       try {
         const response = await fetch(
-          "https://zynth.ai/api/history",
+          "https://v4-server.onrender.com/history",
           {
             headers: {
               "x-userid": userID,
