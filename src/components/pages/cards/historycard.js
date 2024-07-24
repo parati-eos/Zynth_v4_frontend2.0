@@ -28,7 +28,7 @@ const HistoryCard = ({ userID, submissionID, PPTName, Date, link }) => {
         throw new Error("Form ID not found in localStorage");
       }
   
-      const response = await fetch(`https://v4-server.onrender.com/slides/url?formId=${submissionID}`);
+      const response = await fetch(`https://zynth.ai/api/slides/url?formId=${submissionID}`);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -85,7 +85,7 @@ const HistoryCard = ({ userID, submissionID, PPTName, Date, link }) => {
     };
 
     try {
-      const response = await fetch("https://v4-server.onrender.com/updateRow", {
+      const response = await fetch("https://zynth.ai/api/updateRow", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

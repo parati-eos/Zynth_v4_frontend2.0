@@ -68,7 +68,7 @@ const PresentationCheck = () => {
       }
 
       const response = await fetch(
-        `https://v4-server.onrender.com/slides/url?formId=${formId}`
+        `https://zynth.ai/api/slides/url?formId=${formId}`
       );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -130,7 +130,7 @@ const PresentationCheck = () => {
   const handleFetchSlide = async (slide) => {
     try {
       const response = await fetch(
-        `https://v4-server.onrender.com/slides/id_by_section?formId=${formId}&section=${slide}`
+        `https://zynth.ai/api/slides/id_by_section?formId=${formId}&section=${slide}`
       );
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -202,7 +202,7 @@ const PresentationCheck = () => {
 
     try {
       const response = await fetch(
-        `https://v4-server.onrender.com/appscript/triggerAppScript`,
+        `https://zynth.ai/api/appscript/triggerAppScript`,
         {
           method: "POST",
           headers: {

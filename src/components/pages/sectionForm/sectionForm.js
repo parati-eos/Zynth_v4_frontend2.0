@@ -136,7 +136,7 @@ function SectionForm({ Title, onClose }) {
 
     try {
       const response = await fetch(
-        "https://v4-server.onrender.com/submission/section-form",
+        "https://zynth.ai/api/submission/section-form",
         {
           method: "POST",
           headers: {
