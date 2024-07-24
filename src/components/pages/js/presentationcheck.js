@@ -234,14 +234,11 @@ const PresentationCheck = () => {
 
     const requiresForm = excludedSections.includes(slide);
 
-    const iconRef = useRef(null);
     const formRef = useRef(null);
-  
+
     useEffect(() => {
       if (showForm && formRef.current) {
         formRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      } else if (!showForm && iconRef.current) {
-        iconRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     }, [showForm]);
 
@@ -341,7 +338,7 @@ const PresentationCheck = () => {
         return (
           <div className="w-full h-full flex justify-center items-center">
           {!showForm && (
-            <div ref={iconRef} className="w-[80vw] md:w-[30vw] flex flex-col justify-center items-center">
+            <div className="w-[80vw] md:w-[30vw] flex flex-col justify-center items-center">
               <div className="h-max w-max flex justify-center items-center border border-blue-600 rounded-[50%]">
                 <IconButton
                   onClick={() => setShowForm(true)}
