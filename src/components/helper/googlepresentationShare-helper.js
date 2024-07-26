@@ -18,7 +18,7 @@ const GoogleslidesShare = () => {
   useEffect(() => {
     const fetchSlidesData = async () => {
       try {
-        const url = `https://v4-server.onrender.com/slides?&formId=${formId}`;
+        const url = `https://zynth.ai/api/slides?&formId=${formId}`;
         const response = await fetch(url);
         if (!response.ok) {
           throw new Error("Failed to fetch slides data");
