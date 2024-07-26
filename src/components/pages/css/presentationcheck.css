@@ -9,6 +9,11 @@
   overflow: hidden;
 }
 
+.slide-presentation-container .edit-button{
+  width: 100%;
+  text-align: end;
+}
+
 .fixed-navbar {
   position: fixed;
   top: 0;
