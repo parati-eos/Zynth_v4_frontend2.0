@@ -7,7 +7,7 @@
 
 body {
     font-family: Arial, sans-serif, 'Poppins', sans-serif;
-    overflow-y: hidden; /* Prevent horizontal scrolling */
+    overflow-y: hidden; 
     
 }
 
@@ -44,8 +44,8 @@ body {
 }
 
 .about-img {
-    width: 40rem;
-    height: 40rem;
+    width: 35rem;
+    height: 35rem;
 }
 
 .about-img img {
