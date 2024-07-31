@@ -6,7 +6,7 @@ import logo from '../../Asset/parati-team.jpeg'
 export default function about() {
   return (
     <div>
-        <Navbar/>
+        {/* <Navbar/> */}
       <section className="about" >
                 <h1>About Us</h1>
                 <div className="about-info">
@@ -14,11 +14,10 @@ export default function about() {
                         <img 
                             src={logo} 
                             alt="Zynth"
-                            style={{ width: '28rem', height: '28rem',position: 'absolute', top: '11rem',left: '3rem'}} // adjust the values as needed
                         />
 
                     </div>
-                    <div style={{ marginTop: '-2rem' }}>
+                    <div style={{ marginTop: '-2rem',fontFamily: 'Poppins, sans-serif' }}>
                         <p> 
                         Parati was founded in 2019 with the one simple objective - to empower small and medium enterprises to start their business and expand beyond its horizon.<br/><br/>
                         Zynth is Parati's AI-powered business documentation platform targeted towards helping startups generate necessary documents in minutes.<br/><br/>
