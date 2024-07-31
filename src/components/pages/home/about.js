@@ -6,8 +6,8 @@ import logo from '../../Asset/parati-team.jpeg'
 export default function about() {
   return (
     <div>
-        {/* <Navbar/> */}
-      <section className="about" >
+        <Navbar/>
+      <section className="about"  >
                 <h1>About Us</h1>
                 <div className="about-info">
                     <div className="about-img">
