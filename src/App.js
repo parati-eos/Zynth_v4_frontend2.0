@@ -8,6 +8,8 @@ import FormPage from './components/pages/js/form';
 import PresentationCheck from './components/pages/js/presentationcheck'
 import ReviewResponses from './components/pages/js/ReviewResponses';
 import History from './components/pages/js/presentationhistory'
+import About from './components/pages/home/about.js';
+import Contact from './components/pages/home/Contact.js';
 import PresentationShare from './components/pages/js/presentationshare';
 import Presentationedit from './components/pages/js/Presentationedit';
 // import Native_Form from './components/pages/Native-Form/Form';
@@ -41,6 +43,8 @@ function App() {
         <Route path="/pages/presentationhistory" element={<History />} />
         {/* <Route path="/pages/Nativeform" element={<Native_Form />} /> */}
         <Route path="/pages/shortform" element={<ConciseForm/>} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
         {/* <Route path="/Blog" element={<Blog/>} /> */}
       </Routes>
     </Router>

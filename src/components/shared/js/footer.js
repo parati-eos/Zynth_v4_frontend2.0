@@ -1,5 +1,6 @@
 import React from "react";
 import image from "../../Asset/parati-logo.png";
+import { Link } from "react-router-dom";
 export const Footer = () => {
   return (
     <>
@@ -49,17 +50,17 @@ export const Footer = () => {
       </div>
       <div class="grid grid-cols-1 gap-8 lg:col-span-2 sm:grid-cols-2 lg:grid-cols-4">
         <div>
-          <p class="font-medium text-white">
+          {/* <p class="font-medium text-white">
             Company
           </p>
           <nav class="flex flex-col mt-4 space-y-2 text-sm text-gray-300">
             <a class="hover:opacity-75 hover:text-yellow-500" href="https://www.parati.in/about-us">About </a>
             <a class="hover:opacity-75 hover:text-yellow-500" href="https://www.parati.in/impactdb">Impact DB </a>
             <a class="hover:opacity-75 hover:text-yellow-500" href="https://www.parati.in/eos">Parati Eos</a>
-          </nav>
+          </nav> */}
         </div>
         <div>
-          <p class="font-medium text-white">
+          {/* <p class="font-medium text-white">
             Services
           </p>
           <nav class="flex flex-col mt-4 space-y-2 text-sm text-gray-300">
@@ -67,15 +68,15 @@ export const Footer = () => {
             <a class="hover:opacity-75 hover:text-yellow-500" href="https://www.parati.in/investor-relations"> Investor Relation </a>
             <a class="hover:opacity-75 hover:text-yellow-500" href="https://www.parati.in/managed-operations"> Managed Operations </a>
             <a class="hover:opacity-75 hover:text-yellow-500" href="https://www.parati.in/digital-transformation"> Digital Transformation </a>
-          </nav>
+          </nav> */}
         </div>
         <div>
           <p class="font-medium text-white">
             Helpful Links
           </p>
           <nav class="flex flex-col mt-4 space-y-2 text-sm text-gray-300">
-            <a class="hover:opacity-75 hover:text-yellow-500" href="https://www.parati.in/contact"> Contact </a>
-            <a class="hover:opacity-75 hover:text-yellow-500" href="https://www.parati.in/blog"> Blog </a>
+          <Link class="hover:opacity-75 hover:text-yellow-500" to="/about" target="_blank" >About</Link>
+          <Link class="hover:opacity-75 hover:text-yellow-500" to="/contact" target="_blank" >Contact us</Link>
           </nav>
         </div>
         <div>
