@@ -69,23 +69,6 @@ body {
     text-align: justify;
 }
 
-button {
-    border: none;
-    outline: 0;
-    padding: 10px;
-    margin: 2rem;
-    font-size: 1rem;
-    color: white;
-    background-color: #d2a201;
-    text-align: center;
-    cursor: pointer;
-    width: 15rem;
-    border-radius: 4px;
-}
-
-button:hover {
-    background-color: #d8d20f;
-}
 
 @media (max-width: 768px) {
     .about h1 {
