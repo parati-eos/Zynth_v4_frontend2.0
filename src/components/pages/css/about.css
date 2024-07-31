@@ -7,7 +7,7 @@
 
 body {
     font-family: Arial, sans-serif, 'Poppins', sans-serif;
-    overflow-y: hidden; 
+    /* overflow-y: hidden;  */
     
 }
 
@@ -20,6 +20,7 @@ body {
 .about {
     padding: 15px 0 20px 0;
     text-align: center;
+    overflow-y: hidden;
 }
 
 .about h1 {
@@ -41,11 +42,13 @@ body {
     align-items: center;
     justify-content: center;
     text-align: left;
+    overflow-x: hidden;
 }
 
 .about-img {
     width: 35rem;
     height: 35rem;
+    overflow-x: hidden;
 }
 
 .about-img img {
