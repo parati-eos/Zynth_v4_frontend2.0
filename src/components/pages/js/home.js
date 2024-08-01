@@ -22,7 +22,7 @@ function Home() {
       </div>
       <Stats />
       <div id="blogs"> {/* Ensure this div is still wrapping your Blog component */}
-        <Blog />
+        {/* <Blog /> */}
       </div>
       {!isIphone() && <BackgroundBoxesDemo />} {/* Conditionally render based on device */}
       <Footer />
