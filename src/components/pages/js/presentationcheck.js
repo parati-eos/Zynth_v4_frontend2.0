@@ -7,6 +7,9 @@ import AddIcon from "@mui/icons-material/Add";
 import sectionMapping from "../utils/sectionMapping.js";
 import { Grid } from "react-loader-spinner"; // Assuming you're using react-loader-spinner for loading animation
 import FloatingButtons from "./FloatingButtons.js";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTimes } from '@fortawesome/free-solid-svg-icons'; 
+import InAppForm from "../InAppForm (Edit Form)/inAppForm.js";
 
 const slides = [
   "Cover",
@@ -231,10 +234,14 @@ const PresentationCheck = () => {
     const [loading, setLoading] = useState(true);
     const [showForm, setShowForm] = useState(false);
     const [dataFetched, setDataFetched] = useState(false); // New state to track data fetch success
-
+    const [isEditMode, setIsEditMode] = useState(false);
     const requiresForm = excludedSections.includes(slide);
 
     const formRef = useRef(null);
+
+    const toggleEditMode = () => {
+      setIsEditMode(!isEditMode);
+    };
 
     useEffect(() => {
       if (showForm && formRef.current) {
@@ -357,7 +364,7 @@ const PresentationCheck = () => {
           )}
           {showForm && (
             <div ref={formRef} className="w-full h-full flex justify-center items-center">
-              <SectionForm Title={slide} onClose={() => setShowForm(false)} />
+              <SectionForm Title={slide} onClose={() => setIsEditMode(false)} />
             </div>
           )}
         </div>
@@ -365,12 +372,24 @@ const PresentationCheck = () => {
       }
     } else {
       return (
-        <iframe
-          className="presentationcheck-slides-iframe"
-          title={`Google Slides Embed ${slide}`}
-          src={`https://docs.google.com/presentation/d/${slideContent[slide].id}/embed?rm=minimal&start=false&loop=false&slide=id.${slideContent[slide].slideId}`}
-          // style={{ width: "149.3333vh", height: "84vh"}}
-        ></iframe>
+        <div className="slide-presentation-container">
+          <div className="edit-button">
+          <FontAwesomeIcon 
+          icon={isEditMode ? null : faEdit} 
+          onClick={toggleEditMode} 
+          title='Edit Slide'
+        />
+          </div>
+        {isEditMode ? (
+          <InAppForm Title={slide} onClose={() => setIsEditMode(false)} />
+        ) : (
+          <iframe
+            className="presentationcheck-slides-iframe"
+            title={`Google Slides Embed ${slide}`}
+            src={`https://docs.google.com/presentation/d/${slideContent[slide].id}/embed?rm=minimal&start=false&loop=false&slide=id.${slideContent[slide].slideId}`}
+          ></iframe>
+        )}
+      </div>
       );
     }
   };
