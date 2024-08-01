@@ -12,6 +12,14 @@ import { Grid, TailSpin } from "react-loader-spinner"; // Import TailSpin for bu
 import  Competition from './Competition';
 import TechnicalArchitecture from "./systemArchitecture";
 import Solution from "./solution";
+import Market from "./marketSize";
+import Product from "./product";
+import ProductRoadMap from "./productRoadMap";
+import Business from "./business";
+import CompetitiveDiff from "./competitiveDiff";
+import Stakeholders from "./stakeHolders";
+import CustomerPersona from "./customerPersona";
+import GTM from "./gtm";
 
 function InAppForm({ Title, onClose }) {
   const [section, setSection] = useState(Title);
@@ -117,7 +125,7 @@ function InAppForm({ Title, onClose }) {
       "Business Model": "businessModel",
       "Key Stakeholders": "keyStakeholders",
       "Customer Persona": "customerPersona",
-      "Go-to-market Strategy": "goToMarketStrategy",
+      "Go-to-market Strategy": "goToMarket",
       "Track Record": "trackRecord",
       "Case Study": "caseStudies",
       "Testimonials": "testimonials",
@@ -206,8 +214,24 @@ function InAppForm({ Title, onClose }) {
                 return <TechnicalArchitecture formData={formData} handleChange={handleChange} />;
               case "Problem Areas":
                 return <Problem formData={formData} handleChange={handleChange} />;
-                case "Solution":
-                  return <Solution formData={formData} handleChange={handleChange} />;
+              case "Solution":
+                return <Solution formData={formData} handleChange={handleChange} />;
+              case "Market Sizing":
+                return <Market formData={formData} handleChange={handleChange} />;
+              case "Product Overview":
+                return <Product formData={formData} handleChange={handleChange} />;
+              case "Product Roadmap":
+                return <ProductRoadMap formData={formData} handleChange={handleChange} />;
+              case "Business Model":
+                return <Business formData={formData} handleChange={handleChange} />;
+              case "Competitive Differentiation":
+                return <CompetitiveDiff formData={formData} handleChange={handleChange} />;
+              case "Go-to-market Strategy":
+                return <GTM formData={formData} handleChange={handleChange} />;
+              case "Key Stakeholders":
+                return <Stakeholders formData={formData} handleChange={handleChange} />;
+              case "Customer Persona":
+                return <CustomerPersona formData={formData} handleChange={handleChange} />;
               default:
                 return null;
             }
