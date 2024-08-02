@@ -364,7 +364,7 @@ const PresentationCheck = () => {
           )}
           {showForm && (
             <div ref={formRef} className="w-full h-full flex justify-center items-center">
-              <SectionForm Title={slide} onClose={() => setIsEditMode(false)} />
+              <SectionForm Title={slide} onClose={() => setShowForm(false)} />
             </div>
           )}
         </div>
