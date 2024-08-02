@@ -20,6 +20,7 @@ import CompetitiveDiff from "./competitiveDiff";
 import Stakeholders from "./stakeHolders";
 import CustomerPersona from "./customerPersona";
 import GTM from "./gtm";
+import Cover from "./cover";
 
 function InAppForm({ Title, onClose }) {
   const [section, setSection] = useState(Title);
@@ -194,6 +195,8 @@ function InAppForm({ Title, onClose }) {
         <div className="sectionForm-Content h-[60vh] w-[70vh] bg-white">
           {(() => {
             switch (Title) {
+              case "Cover":
+                return <Cover formData={formData} handleChange={handleChange}  />;
               case "Track Record":
                 return <TrackRecord formData={formData} />;
               case "Founding Team":
