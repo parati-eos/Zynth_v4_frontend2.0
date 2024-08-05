@@ -49,8 +49,9 @@ function ApplicationLanding() {
   useEffect(() => {
     const fetchDataHistory = async () => {
       try {
+        const serverurl = process.env.REACT_APP_SERVER_URL
         const response = await fetch(
-          "https://zynth.ai/api/history",
+          `${serverurl}/history`,
           {
             headers: {
               "x-userid": userID,

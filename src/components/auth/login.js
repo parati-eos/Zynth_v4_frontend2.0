@@ -69,9 +69,9 @@ function Login() {
       // Handle login failure
     }
   };
-
+  const serverurl = process.env.REACT_APP_SERVER_URL;
   const saveUserData = (userData) => {
-    fetch("https://zynth.ai/api/users/", {
+    fetch(`${serverurl}/users/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -15,10 +15,11 @@ const GoogleslidesShare = () => {
   const [loading, setLoading] = useState("true");
 
   // In your useEffect, load the data from localStorage before starting the interval
-  useEffect(() => {
+  useEffect(() => {  
     const fetchSlidesData = async () => {
       try {
-        const url = `https://zynth.ai/api/slides?&formId=${formId}`;
+        const serverurl = process.env.REACT_APP_SERVER_URL;
+        const url = `${serverurl}/slides?&formId=${formId}`;
         const response = await fetch(url);
         if (!response.ok) {
           throw new Error("Failed to fetch slides data");
