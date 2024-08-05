@@ -69,9 +69,9 @@ const PresentationCheck = () => {
       if (!formId) {
         throw new Error("Form ID not found in localStorage");
       }
-
+      const serverurl = process.env.REACT_APP_SERVER_URL;
       const response = await fetch(
-        `https://zynth.ai/api/slides/url?formId=${formId}`
+        `${serverurl}/slides/url?formId=${formId}`
       );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -132,8 +132,9 @@ const PresentationCheck = () => {
   // Function to fetch slide content for a specific slide
   const handleFetchSlide = async (slide) => {
     try {
+      const serverurl = process.env.REACT_APP_SERVER_URL;
       const response = await fetch(
-        `https://zynth.ai/api/slides/id_by_section?formId=${formId}&section=${slide}`
+        `${serverurl}/slides/id_by_section?formId=${formId}&section=${slide}`
       );
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -204,8 +205,9 @@ const PresentationCheck = () => {
     };
 
     try {
+      const serverurl = process.env.REACT_APP_SERVER_URL;
       const response = await fetch(
-        `https://zynth.ai/api/appscript/triggerAppScript`,
+        `${serverurl}/appscript/triggerAppScript`,
         {
           method: "POST",
           headers: {

@@ -21,6 +21,7 @@ import Stakeholders from "./stakeHolders";
 import CustomerPersona from "./customerPersona";
 import GTM from "./gtm";
 import Cover from "./cover";
+import About from "./about";
 
 function InAppForm({ Title, onClose }) {
   const [section, setSection] = useState(Title);
@@ -146,8 +147,10 @@ function InAppForm({ Title, onClose }) {
     console.log(payload)
 
     try {
+      // https://v4-server.onrender.com
+      const serverurl = process.env.REACT_APP_SERVER_URL
       const response = await fetch(
-        "https://v4-server.onrender.com/submission/inapp-form",
+        `${serverurl}/submission/inapp-form`,
         {
           method: "POST",
           headers: {
@@ -197,7 +200,9 @@ function InAppForm({ Title, onClose }) {
             switch (Title) {
               case "Cover":
                 return <Cover formData={formData} handleChange={handleChange}  />;
-              case "Track Record":
+              case "About":
+                return <About formData={formData} handleChange={handleChange}  />;
+                case "Track Record":
                 return <TrackRecord formData={formData} />;
               case "Founding Team":
                 return <Team formData={formData} />;

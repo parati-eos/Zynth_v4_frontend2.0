@@ -16,7 +16,8 @@ const Googleslides = () => {
   useEffect(() => {
     const fetchSlidesData = async () => {
       try {
-        const url = `https://zynth.ai/api/slides?userId=${userId}&formId=${formId}`;
+        const serverurl = process.env.REACT_APP_SERVER_URL;
+        const url = `${serverurl}/slides?userId=${userId}&formId=${formId}`;
         const response = await fetch(url);
         if (!response.ok) {
           throw new Error("Failed to fetch slides data");

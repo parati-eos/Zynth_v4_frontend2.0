@@ -9,20 +9,20 @@ function History() {
 
   const fetchData = async () => {
     try {
+      const serverurl = process.env.REACT_APP_SERVER_URL;
       const response = await fetch(
-        "https://zynth.ai/api/history",
+        `${serverurl}/history`,
         {
           headers: {
             "x-userid": userID,
           },
         }
       );
-      console.log(response);
+      console.log(`${serverurl}/history`);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
       const data = await response.json();
-      console.log();
       setHistoryData(data);
     } catch (error) {
       console.error("Error fetching data:", error);
