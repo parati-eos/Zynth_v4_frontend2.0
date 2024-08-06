@@ -10,6 +10,7 @@ import FloatingButtons from "./FloatingButtons.js";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTimes } from '@fortawesome/free-solid-svg-icons'; 
 import InAppForm from "../InAppForm (Edit Form)/inAppForm.js";
+import PaymentGateway from "../Payment/PaymentGateway.js";
 
 const slides = [
   "Cover",
@@ -442,7 +443,12 @@ const PresentationCheck = () => {
       </div>
       <FloatingButtons
         handleShare={handleShare}
-        handleExport={handleDownload}
+        handleExport={() => document.getElementById('payment-button').click()}
+      />
+      <PaymentGateway
+        amount="1000"
+        productinfo="Presentation Export"
+        onSuccess={handleDownload}
       />
     </div>
   );
