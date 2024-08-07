@@ -1,0 +1,182 @@
+/* General Layout */
+.team-container {
+    width: 100%;
+    height: inherit;
+    margin: 0 auto;
+    padding: 2%;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    background-color: transparent;
+    border-radius: 1%;
+    box-shadow: 0 0 2vw rgba(0, 0, 0, 0.1);
+    max-width: 80vw; /* Changed from 80vh for better width control */
+    max-height: 80vh; /* Added max-height for container height */
+    overflow-y: auto; /* Enable vertical scroll */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    display: flex;
+    flex-direction: column;
+    gap:1vw;
+    color: white;
+    
+}
+.team-container label{
+    color: white;
+    font-size: 1.2vw;
+}
+
+/* Team Member Row */
+.sectionForm-team-row {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5vw;
+    padding: 4%;
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Slightly transparent border */
+    border-radius: 0.8vh;
+    background-color: transparent;
+    box-shadow: 0 0 1vw rgba(0, 0, 0, 0.1); /* Light shadow for better separation */
+    transition: box-shadow 0.3s ease;
+
+   
+}
+
+/* Team Row Hover Effect */
+.sectionForm-team-row:hover {
+    box-shadow: 0 0 1.5vw rgba(0, 0, 0, 0.15); /* Slightly more pronounced shadow on hover */
+}
+
+/* Inputs and Textareas */
+.sectionForm-team-row input,
+.sectionForm-team-row textarea {
+    width: 100%;
+    padding: 1.2vh;
+    font-size: 1.1vw;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    /* border-radius: 0.8vh; */
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background: transparent;
+   /* Smooth transition for focus effects */
+}
+
+/* Input and Textarea Focus Effect */
+.sectionForm-team-row input:focus,
+.sectionForm-team-row textarea:focus {
+    border-color: #4d8de0;
+    box-shadow: 0 0 0.5vh rgba(41, 160, 208, 0.5); /* Green shadow for focus */
+    outline: none; /* Remove default outline */
+}
+
+/* Textarea Specific Styles */
+.sectionForm-team-row textarea {
+    height: 12vh;
+    resize: none;
+    margin: 0;
+}
+
+/* Close Button */
+.close-button {
+    display: flex;
+    justify-content: flex-end;
+    align-self: flex-end; /* Align close button to the end of the row */
+    cursor: pointer;
+    margin-top: -1vh; /* Adjusted to avoid overlap */
+    margin-right: -1vh;
+    padding: 0.5vh; /* Added padding for better click area */
+    border-radius: 50%; /* Rounded button */
+    background-color: rgba(0, 0, 0, 0.05); /* Subtle background */
+    transition: background-color 0.3s ease; /* Smooth background transition */
+}
+
+/* Close Button Hover Effect */
+.close-button:hover {
+    background-color: rgba(0, 0, 0, 0.1); /* Darker on hover */
+}
+
+/* Close Button Image */
+.close-button img {
+    width: 5vw;
+    height: 5vw;
+}
+
+/* File Input Container */
+.sectionForm-file-close-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    /* gap: 2vw; */
+    /* background-color: red; */
+}
+
+/* File Input */
+.file-inp {
+    width: 100%;
+
+}
+
+/* Add Row Button */
+.sectionForm-add-row-button {
+    width: 10vw;
+    height: 5vh;
+    font-size: 1.8vh;
+    padding: 1.2vh;
+    border-radius: 0.8vh;
+    border: none;
+    background-color: #eab308;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover */
+}
+
+/* Add Row Button Hover Effect */
+.sectionForm-add-row-button:hover {
+    box-shadow: 0 0 1vh rgba(0, 0, 0, 0.2); /* Light shadow on hover */
+}
+
+ 
+@media (max-width: 768px) {
+
+    .team-container label {
+        font-size: 4vw;
+    }
+    .sectionForm-team-row {
+        padding: 4%;
+    }
+
+    .sectionForm-team-row input,
+    .sectionForm-team-row textarea {
+        font-size: 4vw;
+    }
+
+    .sectionForm-add-row-button {
+        width: 40vw;
+        font-size: 4vw;
+        height: 10vw;
+    }
+
+    .close-button img {
+        width: 3vw;
+        height: 3vw;
+    }
+}
+
+.team-container::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  /* Track */
+  .team-container::-webkit-scrollbar-track {
+    background: #001b28;
+  }
+  
+  /* Handle */
+  .team-container::-webkit-scrollbar-thumb {
+    background: #eab308;
+    border-radius: 12px;
+  }
+  
+  /* Handle on hover */
+  .team-container::-webkit-scrollbar-thumb:hover {
+    background: #eab308; /* Change color on hover if needed */
+  }

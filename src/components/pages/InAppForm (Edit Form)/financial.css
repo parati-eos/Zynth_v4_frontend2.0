@@ -1,0 +1,203 @@
+/* General Layout */
+.sectionForm-financial {
+    width: 100%;
+    height: 100%;
+    padding: 2.5%;
+    /* background-color: #f9f9f9; */
+    border-radius: 0.8vw;
+    box-shadow: 0 0 0.8vw rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap:1vw;
+}
+
+
+.sectionForm-financial::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  /* Track */
+  .sectionForm-financial::-webkit-scrollbar-track {
+    background: #001b28;
+  }
+  
+  /* Handle */
+  .sectionForm-financial::-webkit-scrollbar-thumb {
+    background: #eab308;
+    border-radius: 12px;
+  }
+  
+  /* Handle on hover */
+  .sectionForm-financial::-webkit-scrollbar-thumb:hover {
+    background: #eab308; /* Change color on hover if needed */
+  }
+
+/* Text Input Questions */
+.sectionForm-financial-container {
+    width: 100%;
+    padding: 2%;
+    border: 1px solid rgba(255, 255, 255, 0.3); 
+    border-radius: 0.5vw;
+}
+
+.sectionForm-financial-container label {
+    display: block;
+    font-weight: 400;
+    font-size: 1.1vw;
+    color: white;
+}
+
+.sectionForm-financial-container textarea,
+.sectionForm-financial-container input {
+    width: 100%;
+    padding: 2%;
+    font-size: 1.1vw;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    /* border-radius: 0.4vw; */
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: transparent;
+}
+
+.sectionForm-financial-container textarea:focus,
+.sectionForm-financial-container input:focus {
+    border-color: #4d8de0;
+    box-shadow: 0 0 0.5vh rgba(41, 160, 208, 0.5); /* Green shadow for focus */
+    outline: none; /* Remove default outline */
+}
+
+/* Table Styles */
+.sectionForm-table-contents,
+.sectionForm-table-contents-useoffunds {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 0.4vw;
+    overflow: hidden;
+    padding: 1vw;
+    background-color: transparent;
+}
+
+.sectionForm-table-contents th,
+.sectionForm-table-contents td,
+.sectionForm-table-contents-useoffunds th,
+.sectionForm-table-contents-useoffunds td {
+    padding: 1%;
+    text-align: center;
+    background-color: transparent;
+    color: white;
+    width: 2vw;
+    height: 4vw;
+
+}
+
+.sectionForm-table-contents-useoffunds th,
+.sectionForm-table-contents th {
+    font-size: 1.1vw;
+    font-weight: 500;
+}
+
+.sectionForm-table-contents tr {
+    width: 2vw;
+    height: 4vw;
+}
+
+.sectionForm-table-contents tr td{
+    width:7vw;
+    /* background-color: red; */
+}
+
+.sectionForm-table-contents-useoffunds td {
+    font-size: 1.1vw;
+    text-align: left;
+}
+
+.sectionForm-table-contents input[type="number"],
+.sectionForm-table-contents-useoffunds input[type="number"] {
+    width: 100%;
+    height: 2vw;
+    /* padding: 1vw; */
+    font-size: 1.1vw;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    /* border-radius: 0.4vw; */
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    /* background-color: blue; */
+}
+
+.sectionForm-table-contents input[type="number"]:focus,
+.sectionForm-table-contents-useoffunds input[type="number"]:focus {
+    border-color: #4d8de0;
+    box-shadow: 0 0 0.5vh rgba(41, 160, 208, 0.5); /* Green shadow for focus */
+    outline: none; 
+}
+
+.sectionForm-table-contents td select {
+    width: 100%;
+    height: 2.1vw;
+    background-color: transparent;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 1.2vw;
+}
+
+.sectionForm-table-contents td select option{
+    background-color: #001b28;
+}
+
+/* Button Styles */
+.sectionForm-table-contents td button {
+    width: 100%;
+    height: 2vw; 
+    /* padding: 0.3vw 0.1vw; */
+    font-size: 0.8vw;
+    border: none;
+    border-radius: 0.4vw;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:focus {
+    outline: none;
+}
+
+.add-bg-button {
+    background-color: #eab308;
+    color: #fff;
+}
+
+
+.yellow-bg-button {
+    background-color: red;
+    color: white;
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .sectionForm-financial {
+        padding: 4vw;
+    }
+
+    .sectionForm-table-contents th,
+    .sectionForm-table-contents td,
+    .sectionForm-table-contents-useoffunds th,
+    .sectionForm-table-contents-useoffunds td {
+        padding: 3vw;
+        font-size: 1.1vw;
+    }
+
+    .sectionForm-table-contents input[type="number"],
+    .sectionForm-table-contents-useoffunds input[type="number"],
+    .sectionForm-financial-container textarea,
+    .sectionForm-financial-container input {
+        padding: 2vw;
+        font-size: 3vw;
+    }
+
+    .sectionForm-financial button {
+        padding: 2vw 3vw;
+        font-size: 3vw;
+    }
+}

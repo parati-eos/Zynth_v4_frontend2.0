@@ -1,0 +1,98 @@
+/* Main Container */
+.MarketSize-Inapp {
+    width: 100%;
+    margin-bottom: 1.5vw;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5vw;
+}
+
+/* Label Styles */
+.MarketSize-Inapp label {
+    font-size: 1.1vw;
+    font-weight: 400;
+    color: white;
+    margin-bottom: 0.5vw;
+}
+
+/* Select Styles */
+.MarketSize-Inapp select {
+    width: 100%;
+    padding: 1.5%;
+    font-size: 1.1vw;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 0.5vw;
+    background-color: #001b28;
+    color: white;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+    box-sizing: border-box;
+}
+
+/* Option Styles */
+.MarketSize-Inapp select option {
+    background-color: #001b28;
+    color: white;
+}
+
+/* Select Focus Styles */
+.MarketSize-Inapp select:focus {
+    border-color: #4d8de0;
+    box-shadow: 0 0 0.5vh rgba(41, 160, 208, 0.5);
+    outline: none;
+}
+
+/* Input Styles */
+.MarketSize-Inapp input[type="text"],
+.MarketSize-Inapp input[type="number"],
+.MarketSize-Inapp textarea {
+    width: 100%;
+    padding: 1.5%;
+    font-size: 1.1vw;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 0.5vw;
+    background-color: transparent;
+    color: white;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+    box-sizing: border-box;
+}
+
+/* Input Focus Styles */
+.MarketSize-Inapp input[type="text"]:focus,
+.MarketSize-Inapp input[type="number"]:focus,
+.MarketSize-Inapp textarea:focus {
+    border-color: #4d8de0;
+    box-shadow: 0 0 0.5vh rgba(41, 160, 208, 0.5);
+    outline: none;
+}
+
+/* Textarea Styles */
+.MarketSize-Inapp textarea {
+    height: 6vw; /* Adjust as necessary */
+    resize: none; /* Prevent resizing if not needed */
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .MarketSize-Inapp {
+        margin-bottom: 4vw;
+    }
+
+    .MarketSize-Inapp label {
+        font-size: 3vw;
+        margin-bottom: 2vw;
+    }
+
+    .MarketSize-Inapp select,
+    .MarketSize-Inapp input[type="text"],
+    .MarketSize-Inapp input[type="number"],
+    .MarketSize-Inapp textarea {
+        padding: 4vw;
+        font-size: 4vw;
+    }
+
+    .MarketSize-Inapp textarea {
+        height: 20vw; /* Adjust as necessary for mobile */
+    }
+}

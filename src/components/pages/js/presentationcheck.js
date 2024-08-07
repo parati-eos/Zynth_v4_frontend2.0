@@ -7,6 +7,9 @@ import AddIcon from "@mui/icons-material/Add";
 import sectionMapping from "../utils/sectionMapping.js";
 import { Grid } from "react-loader-spinner"; // Assuming you're using react-loader-spinner for loading animation
 import FloatingButtons from "./FloatingButtons.js";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTimes } from '@fortawesome/free-solid-svg-icons'; 
+import InAppForm from "../InAppForm (Edit Form)/inAppForm.js";
 
 const slides = [
   "Cover",
@@ -66,9 +69,9 @@ const PresentationCheck = () => {
       if (!formId) {
         throw new Error("Form ID not found in localStorage");
       }
-
+      const serverurl = process.env.REACT_APP_SERVER_URL;
       const response = await fetch(
-        `https://zynth.ai/api/slides/url?formId=${formId}`
+        `${serverurl}/slides/url?formId=${formId}`
       );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -129,8 +132,9 @@ const PresentationCheck = () => {
   // Function to fetch slide content for a specific slide
   const handleFetchSlide = async (slide) => {
     try {
+      const serverurl = process.env.REACT_APP_SERVER_URL;
       const response = await fetch(
-        `https://zynth.ai/api/slides/id_by_section?formId=${formId}&section=${slide}`
+        `${serverurl}/slides/id_by_section?formId=${formId}&section=${slide}`
       );
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -201,8 +205,9 @@ const PresentationCheck = () => {
     };
 
     try {
+      const serverurl = process.env.REACT_APP_SERVER_URL;
       const response = await fetch(
-        `https://zynth.ai/api/appscript/triggerAppScript`,
+        `${serverurl}/appscript/triggerAppScript`,
         {
           method: "POST",
           headers: {
@@ -231,10 +236,14 @@ const PresentationCheck = () => {
     const [loading, setLoading] = useState(true);
     const [showForm, setShowForm] = useState(false);
     const [dataFetched, setDataFetched] = useState(false); // New state to track data fetch success
-
+    const [isEditMode, setIsEditMode] = useState(false);
     const requiresForm = excludedSections.includes(slide);
 
     const formRef = useRef(null);
+
+    const toggleEditMode = () => {
+      setIsEditMode(!isEditMode);
+    };
 
     useEffect(() => {
       if (showForm && formRef.current) {
@@ -365,12 +374,24 @@ const PresentationCheck = () => {
       }
     } else {
       return (
-        <iframe
-          className="presentationcheck-slides-iframe"
-          title={`Google Slides Embed ${slide}`}
-          src={`https://docs.google.com/presentation/d/${slideContent[slide].id}/embed?rm=minimal&start=false&loop=false&slide=id.${slideContent[slide].slideId}`}
-          // style={{ width: "149.3333vh", height: "84vh"}}
-        ></iframe>
+        <div className="slide-presentation-container">
+          <div className="edit-button">
+          <FontAwesomeIcon 
+          icon={isEditMode ? null : faEdit} 
+          onClick={toggleEditMode} 
+          title='Edit Slide'
+        />
+          </div>
+        {isEditMode ? (
+          <InAppForm Title={slide} onClose={() => setIsEditMode(false)} />
+        ) : (
+          <iframe
+            className="presentationcheck-slides-iframe"
+            title={`Google Slides Embed ${slide}`}
+            src={`https://docs.google.com/presentation/d/${slideContent[slide].id}/embed?rm=minimal&start=false&loop=false&slide=id.${slideContent[slide].slideId}`}
+          ></iframe>
+        )}
+      </div>
       );
     }
   };

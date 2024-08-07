@@ -27,8 +27,8 @@ const HistoryCard = ({ userID, submissionID, PPTName, Date, link }) => {
       if (!submissionID) {
         throw new Error("Form ID not found in localStorage");
       }
-  
-      const response = await fetch(`https://zynth.ai/api/slides/url?formId=${submissionID}`);
+      const serverurl = process.env.REACT_APP_SERVER_URL;
+      const response = await fetch(`${serverurl}/slides/url?formId=${submissionID}`);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -85,7 +85,8 @@ const HistoryCard = ({ userID, submissionID, PPTName, Date, link }) => {
     };
 
     try {
-      const response = await fetch("https://zynth.ai/api/updateRow", {
+      const serverurl = process.env.REACT_APP_SERVER_URL;
+      const response = await fetch(`${serverurl}/updateRow`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -133,8 +134,7 @@ const HistoryCard = ({ userID, submissionID, PPTName, Date, link }) => {
           <div className="card-buttons">
           <EditButton onClick={handleHistoryCardClicked}/>
           <ShareButton onClick={handleShare}/>
-            <ExportButton onClick={handleDownload}/>
-           
+          <ExportButton onClick={handleDownload}/>
           </div>
         </div>
       </div>

@@ -172,7 +172,8 @@ const ConciseForm = () => {
 
   const fetchColorsFromApi = async (imageUrl) => {
     try {
-      const response = await axios.post('https://zynth.ai/api/get-colors/', { imageUrl });
+      const serverurl = process.env.REACT_APP_SERVER_URL;
+      const response = await axios.post(`${serverurl}/get-colors/`, { imageUrl });
       const colors = response.data.map((color) => color.hex); // Extract hex values from response
       console.log('Fetched colors:', colors);
       return colors;
@@ -193,7 +194,8 @@ const ConciseForm = () => {
     if (validateStep()) {
       console.log('API Payload:', payload);
       try {
-        const response = await fetch('https://zynth.ai/api/submission/short-form', {
+        const serverurl = process.env.REACT_APP_SERVER_URL;
+        const response = await fetch(`${serverurl}/submission/short-form`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
