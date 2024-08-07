@@ -1,0 +1,70 @@
+/* General Layout */
+.Contact-Inapp {
+    width: 100%;
+    padding: 2%;
+    border: 1px solid rgba(255, 255, 255, 0.3); 
+    border-radius: 0.5vw;
+    margin-bottom: 1vw;
+}
+
+.Contact-Inapp label {
+    display: block;
+    font-weight: 400;
+    font-size: 1.1vw;
+    color: white;
+}
+
+.Contact-Inapp textarea,
+.Contact-Inapp input {
+    width: 100%;
+    padding: 2%;
+    font-size: 1.1vw;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: transparent;
+}
+
+.Contact-Inapp textarea:focus,
+.Contact-Inapp input:focus {
+    border-color: #4d8de0;
+    box-shadow: 0 0 0.5vh rgba(41, 160, 208, 0.5);
+    outline: none;
+}
+
+/* Phone Input Component */
+.react-tel-input .form-control {
+    width: 100%;
+    padding: 2%;
+    font-size: 1.1vw;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: transparent;
+}
+
+.react-tel-input .form-control:focus {
+    border-color: #4d8de0;
+    box-shadow: 0 0 0.5vh rgba(41, 160, 208, 0.5);
+    outline: none;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .Contact-Inapp {
+        padding: 4vw;
+    }
+
+    .Contact-Inapp label,
+    .Contact-Inapp textarea,
+    .Contact-Inapp input,
+    .react-tel-input .form-control {
+        font-size: 3vw;
+    }
+
+    .Contact-Inapp textarea,
+    .Contact-Inapp input,
+    .react-tel-input .form-control {
+        padding: 2vw;
+    }
+}

@@ -22,6 +22,7 @@ import CustomerPersona from "./customerPersona";
 import GTM from "./gtm";
 import Cover from "./cover";
 import About from "./about";
+import Contact from "./contact";
 
 function InAppForm({ Title, onClose }) {
   const [section, setSection] = useState(Title);
@@ -135,7 +136,7 @@ function InAppForm({ Title, onClose }) {
       "Competitive Differentiation": "competitiveDiff",
       "Founding Team": "teamMembers",
       "Financial Overview": "financialInfo",
-      "Contact Us": "contact",
+      "Contact Us": "contactInfo",
     };
 
     const payload = {
@@ -147,7 +148,6 @@ function InAppForm({ Title, onClose }) {
     console.log(payload)
 
     try {
-      // https://v4-server.onrender.com
       const serverurl = process.env.REACT_APP_SERVER_URL
       const response = await fetch(
         `${serverurl}/submission/inapp-form`,
@@ -240,6 +240,8 @@ function InAppForm({ Title, onClose }) {
                 return <Stakeholders formData={formData} handleChange={handleChange} />;
               case "Customer Persona":
                 return <CustomerPersona formData={formData} handleChange={handleChange} />;
+                case "Contact Us":
+                  return <Contact formData={formData} handleChange={handleChange} />;
               default:
                 return null;
             }
