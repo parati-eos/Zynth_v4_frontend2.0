@@ -6,13 +6,12 @@
     padding: 2% 4%;
     box-sizing: border-box;
     font-family: Arial, sans-serif;
-    /* background-color: #f9f9f9; */
     border-radius: 1%;
     box-shadow: 0 0 2vw rgba(0, 0, 0, 0.1);
-    max-width: 80vw; /* Consistent with the team container */
-    max-height: 80vh; /* Added max-height for container height */
-    overflow-y: auto; /* Enable vertical scroll */
-    overflow-x: hidden; /* Disable horizontal scroll */
+    max-width: 80vw; 
+    max-height: 80vh; 
+    overflow-y: auto; 
+    overflow-x: hidden; 
     display: flex;
     flex-direction: column;
     gap: 1vw;
