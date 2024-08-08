@@ -24,7 +24,7 @@ import Cover from "./cover";
 import About from "./about";
 import Contact from "./contact";
 
-function InAppForm({ Title, onClose }) {
+function InAppForm({ Title, onClose,onSubmit}) {
   const [section, setSection] = useState(Title);
   const userEmail = localStorage.getItem("userEmail");
   const [formData, setFormData] = useState({
@@ -175,6 +175,7 @@ function InAppForm({ Title, onClose }) {
     } finally {
       setIsLoading(false);
       setIsSubmitting(false); // Enable the button again if needed
+      onSubmit();
     }
   };
 

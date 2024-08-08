@@ -8,10 +8,21 @@
   height: calc(100vh - 60px); /* Adjust height to account for the fixed navbar */
   overflow: hidden;
 }
+.slide-presentation-container{
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 1vw;
+
+}
+
+.slide-presentation-container iframe{
+  pointer-events: none;
+}
 
 .slide-presentation-container .edit-button{
-  width: 100%;
+  width: max-content;
   text-align: end;
+
 }
 
 .fixed-navbar {
