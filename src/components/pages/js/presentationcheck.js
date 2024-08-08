@@ -5,7 +5,7 @@ import SectionForm from "../sectionForm/sectionForm.js";
 import { IconButton } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import sectionMapping from "../utils/sectionMapping.js";
-import { Grid } from "react-loader-spinner"; // Assuming you're using react-loader-spinner for loading animation
+import { Grid } from "react-loader-spinner";
 import FloatingButtons from "./FloatingButtons.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -71,29 +71,17 @@ const PresentationCheck = () => {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-
       const result = await response.json();
-      console.log("Result:", result);
-
-      // Ensure the response is an array and contains at least 3 elements
       if (!Array.isArray(result) || result.length < 3) {
         throw new Error("Invalid response format");
       }
-
-      // Extract the URL from the result
       const url = result[2];
-      console.log("URL:", url);
-
-      // Check if the URL is valid
       if (!url || typeof url !== "string") {
         throw new Error("Invalid URL in response");
       }
-
-      // Open the URL in a new tab
       window.open(url, "_blank");
     } catch (error) {
       console.error("Error exporting presentation:", error);
-      // Show a message or popup to inform the user
       alert(
         "Oops! It seems like the pitch deck presentation is missing. Click 'Generate Presentation' to begin your journey to success!"
       );
@@ -102,7 +90,6 @@ const PresentationCheck = () => {
 
   const handleShare = () => {
     const uniqueShareableUrl = `https://zynth.ai/share?submissionId=${formId}`;
-
     if (navigator.share) {
       navigator
         .share({
@@ -113,13 +100,11 @@ const PresentationCheck = () => {
         .then(() => console.log("Shared successfully"))
         .catch((error) => console.error("Share failed: ", error));
     } else if (navigator.clipboard && navigator.platform.includes("Mac")) {
-      // For macOS devices where navigator.share is not available
       navigator.clipboard
         .writeText(uniqueShareableUrl)
         .then(() => alert("URL copied to clipboard"))
         .catch((error) => console.error("Copy failed: ", error));
     } else {
-      // For other devices where neither navigator.share nor clipboard API is available
       alert("Sharing is not supported on this device/browser.");
     }
   };
@@ -139,7 +124,6 @@ const PresentationCheck = () => {
       formId,
       generatedPresentationId,
     };
-
     try {
       const serverurl = process.env.REACT_APP_SERVER_URL;
       const response = await fetch(`${serverurl}/appscript/triggerAppScript`, {
@@ -149,36 +133,35 @@ const PresentationCheck = () => {
         },
         body: JSON.stringify(data),
       });
-
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-
       const result = await response.json();
       console.log("Success:", result);
-      // Provide user feedback
       alert(`Triggered successfully for ${section}`);
     } catch (error) {
       console.error("Error:", error);
-      // Provide user feedback
       alert(`Failed to trigger for ${section}: ${error.message}`);
     }
   };
 
   const RenderSlideContent = (slide) => {
+    const [sectionSubmitStatus, setSectionSubmitStatus] = useState({});
     const requiresForm = excludedSections.includes(slide);
-    const [loading, setLoading] = useState(!requiresForm);
+    const [loading, setLoading] = useState(
+      !requiresForm || sectionSubmitStatus[slide] === true
+    );
     const [inAppForm, setinAppForm] = useState(requiresForm);
     const [showForm, setShowForm] = useState(false);
     const [isEditMode, setIsEditMode] = useState(false);
-    const [prevData, setPrevData] = useState(null); // Track the previous data
-    const [runFunction, setRunFunction] = useState(!requiresForm); // Control the execution of the function
+    const [prevData, setPrevData] = useState(null);
+    const [runFunction, setRunFunction] = useState(!requiresForm);
     const [FetchedData, setFetchedData] = useState(null);
-
     const formRef = useRef(null);
 
     const toggleEditMode = () => {
       setIsEditMode(!isEditMode);
+      setRunFunction(true); // Reset the runFunction when edit mode is toggled
     };
 
     useEffect(() => {
@@ -186,12 +169,6 @@ const PresentationCheck = () => {
         formRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
       }
     }, [showForm]);
-
-    console.log(`---------${selectedSlide}-----------`)
-    console.log("loading:",loading)
-    console.log("runFunction:",runFunction)
-    console.log(slideContent)
-    console.log(`-----------------------------------`)
 
     useEffect(() => {
       const observerOptions = {
@@ -217,10 +194,9 @@ const PresentationCheck = () => {
       };
     }, []);
 
-   useEffect(() => {
+    useEffect(() => {
       const fetchData = async () => {
         try {
-          // Fetch slide data based on Timestamp, section Name, and Presentation ID
           const serverurl = process.env.REACT_APP_SERVER_URL;
           const response = await fetch(
             `${serverurl}/slides/id_by_section?formId=${formId}&section=${slide}`
@@ -230,59 +206,63 @@ const PresentationCheck = () => {
           }
           const data = await response.json();
           setFetchedData(data);
-          console.log("----------------->",data);
 
-
-          if (data[0] &&  data[0][1] && data[0][1] !== "error" && data[0][1] !== null) {
-            setPrevData(data); // Update previous data
+          if (
+            data[0] &&
+            data[0][1] &&
+            data[0][1] !== "error" &&
+            data[0][1] !== null
+          ) {
+            setPrevData(data);
             setSlideContent((prevState) => ({
               ...prevState,
               [slide]: { id: data[0][0], slideId: data[0][1] },
             }));
             setRunFunction(false);
-            setLoading(false); 
+            setLoading(false);
           } else if (data[0] && data[0][1] === "error") {
-            // If an error is present in the data
-            if (prevData) {
-              setSlideContent((prevState) => ({
-                ...prevState,
-                [slide]: prevData[slide], // Use previous data if available
-              }));
-              // setDataFetched(true);
-              setLoading(false); // Stop loading
-              setRunFunction(false);
-            } else {
-              setinAppForm(true);
-              setLoading(false); 
-              setRunFunction(false); // Stop running the function
-            }
+            setinAppForm(true);
+            setLoading(false);
+            setRunFunction(false);
           } else {
-            setLoading(true); // Show loading state
-            setRunFunction(true); // Continue running the function
+            setLoading(true);
+            setRunFunction(true);
           }
         } catch (error) {
           console.error(`Error fetching slide for section ${slide}:`, error);
-          setLoading(false);
-          setRunFunction(false); // Stop running the function
+          setLoading(true);
+          setRunFunction(true);
         }
       };
 
-      if (runFunction && slide === selectedSlide) {
-        fetchData(); // Execute fetchData function
+      if (runFunction && slide === selectedSlide && !isEditMode) {
+        fetchData();
+        setLoading(sectionSubmitStatus[slide] !== false);
       }
 
       const interval = setInterval(() => {
-        if (runFunction && slide === selectedSlide) {
-          fetchData(); // Call fetchData function every 10 seconds
+        if (runFunction && slide === selectedSlide && !isEditMode) {
+          fetchData();
         }
       }, 10000);
 
-      return () => clearInterval(interval); // Cleanup on component unmount or slide change
-    }, [selectedSlide]);
+      return () => clearInterval(interval);
+    }, [selectedSlide, isEditMode]);
 
+    const handleFormSubmit = async () => {
+      try {
+        if (requiresForm) {
+          setLoading(true);
+          setRunFunction(true);
+        }
+      } catch (error) {
+        console.error("Error submitting form:", error);
+        // Set the inAppForm state to true if there's an error
+        setinAppForm(true);
+      }
+    };
 
     if (!requiresForm) {
-      //FetchedData[0] && FetchedData[0][1] === "error"
       if (inAppForm) {
         return (
           <>
@@ -312,30 +292,37 @@ const PresentationCheck = () => {
             />
           </div>
         );
-      } else if(slideContent[slide]) {
+      } else if (slideContent[slide]) {
         return (
-          <div className="slide-presentation-container">
-            <div className="edit-button">
-              <FontAwesomeIcon
-                icon={faEdit}
-                onClick={toggleEditMode}
-                title="Edit Slide"
-              />
+          <div >
+            <div>
+              {isEditMode ? (
+                <InAppForm
+                  Title={slide}
+                  onClose={() => setIsEditMode(false)}
+                  onSubmit={handleFormSubmit}
+                />
+              ) : (
+                <div className="slide-presentation-container">
+                  <div className="edit-button">
+                    <FontAwesomeIcon
+                      icon={faEdit}
+                      onClick={toggleEditMode}
+                      title="Edit Slide"
+                    />
+                  </div>
+                  <iframe
+                    className="presentationcheck-slides-iframe"
+                    title={`Google Slides Embed ${slide}`}
+                    src={`https://docs.google.com/presentation/d/${slideContent[slide].id}/embed?rm=minimal&start=false&loop=false&slide=id.${slideContent[slide].slideId}`}
+                  ></iframe>
+                </div>
+              )}
             </div>
-            {isEditMode ? (
-              <InAppForm Title={slide} onClose={() => setIsEditMode(false)} />
-            ) : (
-              <iframe
-                className="presentationcheck-slides-iframe"
-                title={`Google Slides Embed ${slide}`}
-                src={`https://docs.google.com/presentation/d/${slideContent[slide].id}/embed?rm=minimal&start=false&loop=false&slide=id.${slideContent[slide].slideId}`}
-              ></iframe>
-            )}
           </div>
         );
       }
     } else {
-
       if (inAppForm) {
         return (
           <div className="w-full h-full flex justify-center items-center">
@@ -347,8 +334,8 @@ const PresentationCheck = () => {
                     color="inherit"
                     aria-label="add"
                     sx={{
-                      fontSize: { xs: 30, sm: 40 }, // 30px for mobile, 40px for larger screens
-                      color: { xs: "white", sm: "white" }, // black for mobile, white for larger screens
+                      fontSize: { xs: 30, sm: 40 },
+                      color: { xs: "white", sm: "white" },
                     }}
                   >
                     <AddIcon fontSize="inherit" />
@@ -362,13 +349,17 @@ const PresentationCheck = () => {
                 ref={formRef}
                 className="w-full h-full flex justify-center items-center"
               >
-                <SectionForm Title={slide} onClose={() => setShowForm(false)} />
+                <SectionForm
+                  Title={slide}
+                  onClose={() => setShowForm(false)}
+                  onSubmit={handleFormSubmit}
+                  setSectionSubmitStatus={setSectionSubmitStatus}
+                />
               </div>
             )}
           </div>
         );
-      } 
-      else if (loading) {
+      } else if (loading) {
         return (
           <div className="presentationcheck-loadingIcon">
             <Grid
@@ -385,23 +376,31 @@ const PresentationCheck = () => {
         );
       } else {
         return (
-          <div className="slide-presentation-container">
-            <div className="edit-button">
-              <FontAwesomeIcon
-                icon={faEdit}
-                onClick={toggleEditMode}
-                title="Edit Slide"
-              />
+          <div >
+            <div>
+              {isEditMode ? (
+                <InAppForm
+                  Title={slide}
+                  onClose={() => setIsEditMode(false)}
+                  onSubmit={handleFormSubmit}
+                />
+              ) : (
+                <div className="slide-presentation-container">
+                  <div className="edit-button">
+                    <FontAwesomeIcon
+                      icon={faEdit}
+                      onClick={toggleEditMode}
+                      title="Edit Slide"
+                    />
+                  </div>
+                  <iframe
+                    className="presentationcheck-slides-iframe"
+                    title={`Google Slides Embed ${slide}`}
+                    src={`https://docs.google.com/presentation/d/${slideContent[slide].id}/embed?rm=minimal&start=false&loop=false&slide=id.${slideContent[slide].slideId}`}
+                  ></iframe>
+                </div>
+              )}
             </div>
-            {isEditMode ? (
-              <InAppForm Title={slide} onClose={() => setIsEditMode(false)} />
-            ) : (
-              <iframe
-                className="presentationcheck-slides-iframe"
-                title={`Google Slides Embed ${slide}`}
-                src={`https://docs.google.com/presentation/d/${slideContent[slide].id}/embed?rm=minimal&start=false&loop=false&slide=id.${slideContent[slide].slideId}`}
-              ></iframe>
-            )}
           </div>
         );
       }
