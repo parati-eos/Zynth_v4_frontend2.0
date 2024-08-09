@@ -5,11 +5,19 @@ import ShareButton from "../js/Share.js";
 import ExportButton from "../js/export.js";
 import EditButton from "../js/edit.js";
 
+
+function getSheetIdFromUrl(url) {
+  const match = url.match(/\/d\/(.+?)\/|\/open\?id=(.+?)(?:&|$)/);
+  return match ? (match[1] || match[2]) : null;
+}
+
 const HistoryCard = ({ userID, submissionID, PPTName, Date, link }) => {
   const [editableName, setEditableName] = useState(PPTName);
   const navigate = useNavigate();
 
   const [isEditing, setIsEditing] = useState(false);
+
+  link = getSheetIdFromUrl(link)
   // const handleHistoryCardClicked = () => {
   //   window.open(`/share?submissionId=${submissionID}`, '_blank');
   // };
