@@ -219,6 +219,7 @@ const PresentationCheck = () => {
             }));
             setRunFunction(false);
             setLoading(false);
+            setinAppForm(false);
           } else if (data[0] && data[0][1] === "error") {
             setinAppForm(true);
             setLoading(false);
@@ -241,6 +242,7 @@ const PresentationCheck = () => {
 
       const interval = setInterval(() => {
         if (runFunction && slide === selectedSlide && !isEditMode) {
+          console.log(slide)
           fetchData();
         }
       }, 10000);
@@ -253,6 +255,7 @@ const PresentationCheck = () => {
         if (requiresForm) {
           setLoading(true);
           setRunFunction(true);
+          setinAppForm(false);
         }
       } catch (error) {
         console.error("Error submitting form:", error);
@@ -322,6 +325,14 @@ const PresentationCheck = () => {
         );
       }
     } else {
+
+      if(slide===selectedSlide){
+        console.log("inapp:",inAppForm)
+        console.log("loading:",loading)
+        console.log("runFun:",runFunction)
+        console.log("data:",FetchedData?FetchedData[0][1]:slide)
+      }
+
       if (inAppForm) {
         return (
           <div className="w-full h-full flex justify-center items-center">
