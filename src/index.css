@@ -14,3 +14,23 @@
       scrollbar-width: none;  /* Firefox */
 }
 }
+
+textarea::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+textarea::-webkit-scrollbar-track {
+    background: #001b28;
+  }
+  
+textarea::-webkit-scrollbar-thumb {
+    background: #eab308;
+    border-radius: 12px;
+  }
+  
+textarea::-webkit-scrollbar-thumb:hover {
+    background: #eab308; /* Change color on hover if needed */
+  }
+ textarea{
+    padding: 1vw;
+ }
