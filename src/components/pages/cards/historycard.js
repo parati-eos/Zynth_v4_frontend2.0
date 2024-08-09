@@ -21,35 +21,58 @@ const HistoryCard = ({ userID, submissionID, PPTName, Date, link }) => {
   const handleNameChange = (e) => {
     setEditableName(e.target.value);
   };
+  const checkPaymentStatusAndProceed = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/slides/url?formId=${submissionID}`);
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      console.log("API response data:", data); // Debugging line
+  
+      if (data && data.paymentStatus === 1) {
+        // Payment has already been made, run handleDownload
+        handleDownload();
+      } else if (data && data.paymentStatus === 0) {
+        // Payment is not made, open the payment gateway
+        document.getElementById('payment-button').click();
+      } else {
+        alert("Unable to determine payment status.");
+      }
+    } catch (error) {
+      console.error("Error checking payment status:", error);
+      alert("Error checking payment status. Please try again.");
+    }
+  };
+
 
   const handleDownload = async () => {
     try {
-      if (!submissionID) {
-        throw new Error("Form ID not found in localStorage");
-      }
       const serverurl = process.env.REACT_APP_SERVER_URL;
       const response = await fetch(`${serverurl}/slides/url?formId=${submissionID}`);
+  
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-
+  
       const result = await response.json();
-      console.log("Result:", result);
-      if (!Array.isArray(result) || result.length < 3) {
-        throw new Error("Invalid response format");
-      }
-      const url = result[2];
-      console.log("URL:", url);
+      const url = result.PresentationURL;
+  
       if (!url || typeof url !== "string") {
         throw new Error("Invalid URL in response");
       }
+  
       window.open(url, "_blank");
     } catch (error) {
       console.error("Error exporting presentation:", error);
-
-      alert("Oops! It seems like the pitch deck presentation is missing. Click 'Generate Presentation' to begin your journey to success!");
+      alert(
+        "Oops! It seems like the pitch deck presentation is missing. Please try again later."
+      );
     }
   };
+
   const handleShare = () => {
     const uniqueShareableUrl = `https://zynth.ai/share?submissionId=${submissionID}`;
 
@@ -134,7 +157,7 @@ const HistoryCard = ({ userID, submissionID, PPTName, Date, link }) => {
           <div className="card-buttons">
           <EditButton onClick={handleHistoryCardClicked}/>
           <ShareButton onClick={handleShare}/>
-          <ExportButton onClick={handleDownload}/>
+          <ExportButton onClick={checkPaymentStatusAndProceed}/>
           </div>
         </div>
       </div>

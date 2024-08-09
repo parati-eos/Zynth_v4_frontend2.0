@@ -66,19 +66,26 @@ const PresentationCheck = () => {
       if (!formId) {
         throw new Error("Form ID not found in localStorage");
       }
+  
       const serverurl = process.env.REACT_APP_SERVER_URL;
       const response = await fetch(`${serverurl}/slides/url?formId=${formId}`);
+  
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
+  
       const result = await response.json();
-      if (!Array.isArray(result) || result.length < 3) {
-        throw new Error("Invalid response format");
-      }
-      const url = result[2];
+      console.log("Result:", result);
+  
+      // Ensure the response is an object and contains the PresentationURL
+      const url = result.PresentationURL;
+      console.log("URL:", url);
+  
       if (!url || typeof url !== "string") {
         throw new Error("Invalid URL in response");
       }
+  
+      // Open the URL in the current tab
       window.open(url, "_blank");
     } catch (error) {
       console.error("Error exporting presentation:", error);
@@ -87,7 +94,7 @@ const PresentationCheck = () => {
       );
     }
   };
-
+  
   const handleShare = () => {
     const uniqueShareableUrl = `https://zynth.ai/share?submissionId=${formId}`;
     if (navigator.share) {
@@ -144,6 +151,33 @@ const PresentationCheck = () => {
       alert(`Failed to trigger for ${section}: ${error.message}`);
     }
   };
+  const checkPaymentStatusAndProceed = async () => {
+    try {
+      const response = await fetch(`https://v4-server.onrender.com/slides/url?formId=${formId}`);
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      console.log("API response data:", data); // Debugging line
+  
+      if (data && data.paymentStatus === 1) {
+        // Payment has already been made, run handleDownload
+        handleDownload();
+      } else if (data && data.paymentStatus === 0) {
+        // Payment is not made, open the payment gateway
+        document.getElementById('payment-button').click();
+      } else {
+        alert("Unable to determine payment status.");
+      }
+    } catch (error) {
+      console.error("Error checking payment status:", error);
+      alert("Error checking payment status. Please try again.");
+    }
+  };
+  
+  
 
   const RenderSlideContent = (slide) => {
     const [sectionSubmitStatus, setSectionSubmitStatus] = useState({});
@@ -464,7 +498,7 @@ const PresentationCheck = () => {
       </div>
       <FloatingButtons
         handleShare={handleShare}
-        handleExport={() => document.getElementById('payment-button').click()}
+        handleExport={checkPaymentStatusAndProceed}
       />
       <PaymentGateway
         amount="1000"

@@ -14,29 +14,26 @@ const PaymentSuccess = () => {
     // Function to handle download
     const handleDownload = async () => {
       try {
-        const serverurl = process.env.REACT_APP_SERVER_URL;
         const response = await fetch(
-          `${serverurl}/slides/url?formId=${formId}`
+          `https://v4-server.onrender.com/slides/url?formId=${formId}`
         );
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-
+    
         const result = await response.json();
         console.log("Result:", result);
-
-        if (!Array.isArray(result) || result.length < 3) {
-          throw new Error("Invalid response format");
-        }
-
-        const url = result[2];
+    
+        // Check if the response is an object and contains the PresentationURL
+        const url = result.PresentationURL;
         console.log("URL:", url);
-
+    
         if (!url || typeof url !== "string") {
           throw new Error("Invalid URL in response");
         }
-
-        window.open(url, "_blank");
+    
+        // Open the URL in a new tab
+        window.open(url, "_self");
       } catch (error) {
         console.error("Error exporting presentation:", error);
         alert(
@@ -44,11 +41,11 @@ const PaymentSuccess = () => {
         );
       }
     };
-
+    
     // Function to update payment status
     const updatePaymentStatus = async () => {
       try {
-        const response = await fetch('http://localhost:5000/appscript/updatePaymentStatus', {
+        const response = await fetch('https://v4-server.onrender.com/appscript/updatePaymentStatus', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

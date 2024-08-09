@@ -14,7 +14,7 @@ const PaymentGateway = ({ amount, productinfo, onSuccess, formId }) => {
     try {
       console.log("Sending payment data to generate PayU hash:", paymentData);
 
-      const response = await fetch('http://localhost:5000/api/generate-payu-hash', {
+      const response = await fetch('https://v4-server.onrender.com/api/generate-payu-hash', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -42,8 +42,8 @@ const PaymentGateway = ({ amount, productinfo, onSuccess, formId }) => {
         <input type="hidden" name="firstname" value="${paymentData.firstname}" />
         <input type="hidden" name="email" value="${paymentData.email}" />
         <input type="hidden" name="phone" value="${paymentData.phone}" />
-        <input type="hidden" name="surl" value="http://localhost:3000/payment-success?formId=${formId}" />
-        <input type="hidden" name="furl" value="http://localhost:3000/payment-failure" />
+        <input type="hidden" name="surl" value="https://zynthtestai.web.app/payment-success?formId=${formId}" />
+        <input type="hidden" name="furl" value="https://zynthtestai.web.app/payment-failure" />
         <input type="hidden" name="hash" value="${hash}" />
       `;
 
