@@ -58,16 +58,14 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-
-
-
-
-
-
-
-
-
-
+.loading-grid{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 84vh;
+  width: 149.3333vh;
+}
 
 
 /* ==========================================SIDEBAR-START======================================= */
