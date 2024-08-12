@@ -48,7 +48,7 @@ const ContactSection = ({ title, name1, value1, name2, value2, handleChange, typ
         value={value1}
         onChange={handleInputChange}
         onBlur={handleBlur}
-        placeholder="Website"
+        placeholder="www.zynth.ai"
         required
       />
       {websiteError && <p className="error-message" style={{ color: 'yellow' }}>{websiteError}</p>}
@@ -60,7 +60,7 @@ const ContactSection = ({ title, name1, value1, name2, value2, handleChange, typ
         value={value2}
         onChange={handleInputChange}
         onBlur={handleBlur}
-        placeholder="LinkedIn"
+        placeholder="https://www.linkedin.com/company/zynthai"
         required
       />
       {linkedinError && <p className="error-message" style={{ color: 'yellow' }}>{linkedinError}</p>}

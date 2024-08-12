@@ -77,6 +77,21 @@ function InAppForm({ Title, onClose,onSubmit}) {
   const [isUploadComplete, setIsUploadComplete] = useState(true);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false); // New state
+  const [phaseValidationError, setPhaseValidationError] = useState("");
+  const validatePhases = (phaseRows) => {
+    const isPhase1Filled = phaseRows[0].year1 || phaseRows[0].year2 || phaseRows[0].TR;
+    const isPhase2Filled = phaseRows[1].year1 && phaseRows[1].year2 && phaseRows[1].TR;
+    const isPhase3Filled = phaseRows[2].year1 && phaseRows[2].year2 && phaseRows[2].TR;
+
+    if (isPhase1Filled && (!isPhase2Filled || !isPhase3Filled)) {
+      setPhaseValidationError("Please fill out all phases");
+      return false;
+    }
+
+    setPhaseValidationError("");
+    return true;
+  };
+
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -106,6 +121,11 @@ function InAppForm({ Title, onClose,onSubmit}) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+       // Example phase validation check
+       if (section === "Track Record" && !validatePhases(formData.trackRecord)) {
+        setIsSubmitting(false);
+        return;
+    }
     setIsSubmitting(true); // Disable the button immediately
     setIsLoading(true);
 
@@ -204,7 +224,18 @@ function InAppForm({ Title, onClose,onSubmit}) {
               case "About":
                 return <About formData={formData} handleChange={handleChange}  />;
                 case "Track Record":
-                return <TrackRecord formData={formData} />;
+                  return (
+                    <>
+                      {phaseValidationError && (
+                        <div className="error-message">{phaseValidationError}</div>
+                      )}
+                      <TrackRecord
+                        formData={formData}
+                        setFormData={setFormData}
+                        validatePhases={validatePhases}
+                      />
+                    </>
+                  );
               case "Founding Team":
                 return <Team formData={formData} />;
               case "Financial Overview":
