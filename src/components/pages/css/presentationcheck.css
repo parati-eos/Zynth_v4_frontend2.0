@@ -8,10 +8,21 @@
   height: calc(100vh - 60px); /* Adjust height to account for the fixed navbar */
   overflow: hidden;
 }
+.slide-presentation-container{
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 1vw;
+
+}
+
+.slide-presentation-container iframe{
+  pointer-events: none;
+}
 
 .slide-presentation-container .edit-button{
-  width: 100%;
+  width: max-content;
   text-align: end;
+
 }
 
 .fixed-navbar {
@@ -47,16 +58,14 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-
-
-
-
-
-
-
-
-
-
+.loading-grid{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 84vh;
+  width: 149.3333vh;
+}
 
 
 /* ==========================================SIDEBAR-START======================================= */

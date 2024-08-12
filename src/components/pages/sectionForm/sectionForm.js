@@ -11,7 +11,7 @@ import { Grid, TailSpin } from "react-loader-spinner"; // Import TailSpin for bu
 import  Competition from './Competition';
 import TechnicalArchitecture from "./systemArchitecture";
 
-function SectionForm({ Title, onClose }) {
+function SectionForm({ Title, onClose,onSubmit,setSectionSubmitStatus}) {
   const [section, setSection] = useState(Title);
   const userEmail = localStorage.getItem("userEmail");
   const [formData, setFormData] = useState({
@@ -132,35 +132,42 @@ function SectionForm({ Title, onClose }) {
       section: sectionMapping[section],
       generatedPresentationId: generatedPresentationId,
     };
-    console.log(payload)
-
+  
     try {
-      const response = await fetch(
-        "https://zynth.ai/api/submission/section-form",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        }
-      );
-
+      const serverurl = process.env.REACT_APP_SERVER_URL
+      const response = await fetch(`${serverurl}/submission/section-form`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+  
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-
+  
       const data = await response.json();
-
+  
       setIsSubmitted(true);
+      setSectionSubmitStatus((prevStatus) => ({
+        ...prevStatus,
+        [section]: true,
+      }));
+  
       setTimeout(() => {
         onClose();
-      }, 55000); // Close the form after 30 seconds
+      }, 55000);
     } catch (error) {
       console.error("Error:", error);
+      setSectionSubmitStatus((prevStatus) => ({
+        ...prevStatus,
+        [section]: false,
+      }));
     } finally {
       setIsLoading(false);
-      setIsSubmitting(false); // Enable the button again if needed
+      setIsSubmitting(false);
+      onSubmit();
     }
   };
 
