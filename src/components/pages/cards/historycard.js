@@ -171,7 +171,7 @@ const HistoryCard = ({ userID, submissionID, PPTName, Date, link }) => {
             <ShareButton onClick={handleShare}/>
             <ExportButton onClick={checkPaymentStatusAndProceed}/>
             <PaymentGateway
-              amount="1000"
+              amount="999"
               productinfo="Presentation Export"
               onSuccess={handleDownload}
               formId={submissionID}
