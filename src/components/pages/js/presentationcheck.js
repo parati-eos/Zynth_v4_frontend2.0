@@ -189,7 +189,7 @@ const PresentationCheck = () => {
     const [showForm, setShowForm] = useState(false);
     const [isEditMode, setIsEditMode] = useState(false);
     const [prevData, setPrevData] = useState(null);
-    const [runFunction, setRunFunction] = useState(!requiresForm);
+    const [runFunction, setRunFunction] = useState(true); //!requiresForm
     const [FetchedData, setFetchedData] = useState(null);
     const formRef = useRef(null);
 
@@ -228,48 +228,49 @@ const PresentationCheck = () => {
       };
     }, []);
 
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const serverurl = process.env.REACT_APP_SERVER_URL;
-          const response = await fetch(
-            `${serverurl}/slides/id_by_section?formId=${formId}&section=${slide}`
-          );
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-          const data = await response.json();
-          setFetchedData(data);
+    const fetchData = async () => {
+      try { 
+        const serverurl = process.env.REACT_APP_SERVER_URL;
+        const response = await fetch(
+          `${serverurl}/slides/id_by_section?formId=${formId}&section=${slide}`
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setFetchedData(data);
+        console.log(data)
 
-          if (
-            data[0] &&
-            data[0][1] &&
-            data[0][1] !== "error" &&
-            data[0][1] !== null
-          ) {
-            setPrevData(data);
-            setSlideContent((prevState) => ({
-              ...prevState,
-              [slide]: { id: data[0][0], slideId: data[0][1] },
-            }));
-            setRunFunction(false);
-            setLoading(false);
-            setinAppForm(false);
-          } else if (data[0] && data[0][1] === "error") {
-            setinAppForm(true);
-            setLoading(false);
-            setRunFunction(false);
-          } else {
-            setLoading(true);
-            setRunFunction(true);
-          }
-        } catch (error) {
-          console.error(`Error fetching slide for section ${slide}:`, error);
+        if (
+          data[0] &&
+          data[0][1] &&
+          (data[0][1] !== "error" ||
+          data[0][1] !== null)
+        ) {
+          setPrevData(data);
+          setSlideContent((prevState) => ({
+            ...prevState,
+            [slide]: { id: data[0][0], slideId: data[0][1] },
+          }));
+          setRunFunction(false);
+          setLoading(false);
+          setinAppForm(false);
+        } else if (data[0] && data[0][1] === "error") {
+          setinAppForm(true);
+          setLoading(false);
+          setRunFunction(false);
+        } else {
           setLoading(true);
           setRunFunction(true);
         }
-      };
+      } catch (error) {
+        console.error(`Error fetching slide for section ${slide}:`, error);
+        setLoading(true);
+        setRunFunction(true);
+      }
+    };
 
+    useEffect(() => {
       if (runFunction && slide === selectedSlide && !isEditMode) {
         fetchData();
         setLoading(sectionSubmitStatus[slide] !== false);
@@ -299,6 +300,13 @@ const PresentationCheck = () => {
       }
     };
 
+    if(slide===selectedSlide){
+      console.log("inapp:",inAppForm)
+      console.log("loading:",loading)
+      console.log("runFun:",runFunction)
+      console.log("data:",FetchedData?FetchedData[0][1]:"error")
+    }
+
     if (!requiresForm) {
       if (inAppForm) {
         return (
@@ -317,16 +325,39 @@ const PresentationCheck = () => {
       } else if (loading) {
         return (
           <div className="presentationcheck-loadingIcon">
-            <Grid
-              visible={true}
-              height={80}
-              width={80}
-              color="#E6A500"
-              ariaLabel="grid-loading"
-              radius={12.5}
-              wrapperStyle={{}}
-              wrapperClass="grid-wrapper"
-            />
+            <div className="presentationcheck-loadingIcon">
+            <div>
+              {isEditMode ? (
+                <InAppForm
+                  Title={slide}
+                  onClose={() => setIsEditMode(false)}
+                  onSubmit={handleFormSubmit}
+                />
+              ) : (
+                <div className="slide-presentation-container">
+                  <div className="edit-button">
+                    <FontAwesomeIcon
+                      icon={faEdit}
+                      onClick={toggleEditMode}
+                      title="Edit Slide"
+                    />
+                  </div>
+                  <div className="loading-grid">
+                  <Grid
+                    visible={true}
+                    height={80}
+                    width={80}
+                    color="#E6A500"
+                    ariaLabel="grid-loading"
+                    radius={12.5}
+                    wrapperStyle={{}}
+                    wrapperClass="grid-wrapper"
+                  />
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
           </div>
         );
       } else if (slideContent[slide]) {
@@ -360,15 +391,11 @@ const PresentationCheck = () => {
         );
       }
     } else {
+      // &&
+      //   ( FetchedData[0][1] === "error" ||
+      //    FetchedData[0][1] === null)
 
-      if(slide===selectedSlide){
-        console.log("inapp:",inAppForm)
-        console.log("loading:",loading)
-        console.log("runFun:",runFunction)
-        console.log("data:",FetchedData?FetchedData[0][1]:slide)
-      }
-
-      if (inAppForm) {
+      if (inAppForm ) {
         return (
           <div className="w-full h-full flex justify-center items-center">
             {!showForm && (
@@ -407,16 +434,39 @@ const PresentationCheck = () => {
       } else if (loading) {
         return (
           <div className="presentationcheck-loadingIcon">
-            <Grid
-              visible={true}
-              height={80}
-              width={80}
-              color="#E6A500"
-              ariaLabel="grid-loading"
-              radius={12.5}
-              wrapperStyle={{}}
-              wrapperClass="grid-wrapper"
-            />
+            <div className="presentationcheck-loadingIcon">
+            <div>
+              {isEditMode ? (
+                <InAppForm
+                  Title={slide}
+                  onClose={() => setIsEditMode(false)}
+                  onSubmit={handleFormSubmit}
+                />
+              ) : (
+                <div className="slide-presentation-container">
+                  <div className="edit-button">
+                    <FontAwesomeIcon
+                      icon={faEdit}
+                      onClick={toggleEditMode}
+                      title="Edit Slide"
+                    />
+                  </div>
+                  <div className="loading-grid">
+                  <Grid
+                    visible={true}
+                    height={80}
+                    width={80}
+                    color="#E6A500"
+                    ariaLabel="grid-loading"
+                    radius={12.5}
+                    wrapperStyle={{}}
+                    wrapperClass="grid-wrapper"
+                  />
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
           </div>
         );
       } else {
