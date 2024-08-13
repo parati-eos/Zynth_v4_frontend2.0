@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTimes } from "@fortawesome/free-solid-svg-icons";
 import InAppForm from "../InAppForm (Edit Form)/inAppForm.js";
 import { useLocation } from "react-router-dom";
-
+import PaymentGateway from "../Payment/PaymentGateway.js";
 const slides = [
   "Cover",
   "About",
@@ -62,7 +62,7 @@ const PresentationCheck = () => {
 
   const handleDownload = async () => {
     try {
-      const formId = localStorage.getItem("submissionId");
+      // const formId = localStorage.getItem("submissionId");
       if (!formId) {
         throw new Error("Form ID not found in localStorage");
       }
@@ -116,6 +116,35 @@ const PresentationCheck = () => {
       block: "start",
     });
   };
+
+
+
+  const checkPaymentStatusAndProceed = async () => {
+    try {
+      const response = await fetch(`https://zynth.ai/api/slides/url?formId=${formId}`);
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      console.log("API response data:", data); // Debugging line
+  
+      if (data && data.paymentStatus === 1) {
+        // Payment has already been made, run handleDownload
+        handleDownload();
+      } else if (data && data.paymentStatus === 0) {
+        // Payment is not made, open the payment gateway
+        document.getElementById('payment-button').click();
+      } else {
+        alert("Unable to determine payment status.");
+      }
+    } catch (error) {
+      console.error("Error checking payment status:", error);
+      alert("Error checking payment status. Please try again.");
+    }
+  };
+  
 
   const handleTriggerClick = async (section) => {
     const data = {
@@ -464,7 +493,13 @@ const PresentationCheck = () => {
       </div>
       <FloatingButtons
         handleShare={handleShare}
-        handleExport={handleDownload}
+        handleExport={checkPaymentStatusAndProceed}
+      />
+      <PaymentGateway
+        amount="999"
+        productinfo="Presentation Export"
+        onSuccess={handleDownload}
+        formId={formId}
       />
     </div>
   );

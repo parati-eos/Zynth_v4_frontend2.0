@@ -37,7 +37,7 @@ const HistoryCard = ({ userID, submissionID, PPTName, Date, link }) => {
     console.log("Export button clicked for submissionID:", submissionID);
 
     try {
-      const response = await fetch(`https://v4-server.onrender.com/slides/url?formId=${submissionID}`, {
+      const response = await fetch(`https://zynth.ai/api/slides/url?formId=${submissionID}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
