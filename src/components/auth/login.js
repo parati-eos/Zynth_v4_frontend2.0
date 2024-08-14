@@ -70,22 +70,28 @@ function Login() {
     }
   };
   const serverurl = process.env.REACT_APP_SERVER_URL;
-  const saveUserData = (userData) => {
-    fetch(`${serverurl}/users/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+
+const saveUserData = (userData) => {
+  fetch(`${serverurl}/users/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      user: {
+        ...userData,
+        source: ""  // Initialize the source field as an empty string
       },
-      body: JSON.stringify({ user: userData }),
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("User data stored:", data);
     })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("User data stored:", data);
-      })
-      .catch((error) => {
-        console.error("Error storing user data:", error);
-      });
-  };
+    .catch((error) => {
+      console.error("Error storing user data:", error);
+    });
+};
 
   return (
     <div className="main-container">
