@@ -77,6 +77,7 @@ function InAppForm({ Title, onClose,onSubmit}) {
   const [isUploadComplete, setIsUploadComplete] = useState(true);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false); // New state
+  const [isUploading, setIsUploading] = useState(false); 
   const [phaseValidationError, setPhaseValidationError] = useState("");
   const validatePhases = (phaseRows) => {
     const isPhase1Filled = phaseRows[0].year1 || phaseRows[0].year2 || phaseRows[0].TR;
@@ -243,9 +244,9 @@ function InAppForm({ Title, onClose,onSubmit}) {
               case "Case Study":
                 return <Case formData={formData} handleChange={handleChange} />;
               case "Mobile App Screenshots":
-                return <MobileScreen handleChange={handleChange} />;
+                return <MobileScreen handleChange={handleChange} setIsUploading={setIsUploading} />;
               case "Web App Screenshots":
-                return <WebScreen handleChange={handleChange} />;
+                return <WebScreen handleChange={handleChange} setIsUploading={setIsUploading}/>;
               case "Testimonials":
                 return <Testimonials formData={formData} handleChange={handleChange} />;
               case "Competitive Landscape":
@@ -280,10 +281,10 @@ function InAppForm({ Title, onClose,onSubmit}) {
           })()}
         </div>
         <div className="section-form-buttons">
-          <button type="button" onClick={onClose} disabled={isSubmitting}>
+          <button type="button" onClick={onClose} disabled={isSubmitting  || isUploading}>
             Close
           </button>
-          <button type="submit" className="submit-button" disabled={isSubmitting}>
+          <button type="submit" className="submit-button" disabled={isSubmitting  || isUploading}>
             {isSubmitting ? (
               <TailSpin height="20" width="20" color="#fff" ariaLabel="tail-spin-loading" />
             ) : (
