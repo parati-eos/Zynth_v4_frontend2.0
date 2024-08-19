@@ -5,6 +5,7 @@ import ShareButton from "../js/Share.js";
 import ExportButton from "../js/export.js";
 import EditButton from "../js/edit.js";
 import PaymentGateway from "../../pages/Payment/PaymentGateway.js";
+import { Tooltip } from "@mui/material";
 
 function getSheetIdFromUrl(url) {
   const match = url.match(/\/d\/(.+?)\/|\/open\?id=(.+?)(?:&|$)/);
@@ -167,16 +168,23 @@ const HistoryCard = ({ userID, submissionID, PPTName, Date, link }) => {
             Date Created: <span>{Date}</span>
           </h2>
           <div className="card-buttons">
-            <EditButton onClick={handleHistoryCardClicked}/>
-            <ShareButton onClick={handleShare}/>
-            <ExportButton onClick={checkPaymentStatusAndProceed}/>
-            <PaymentGateway
-              amount="999"
-              productinfo="Presentation Export"
-              onSuccess={handleDownload}
-              formId={submissionID}
-            />
-          </div>
+  <Tooltip title="Edit your presentation" arrow>
+    <span><EditButton onClick={handleHistoryCardClicked} /></span>
+  </Tooltip>
+  <Tooltip title="Share this presentation as a weblink" arrow>
+    <span><ShareButton onClick={handleShare} /></span>
+  </Tooltip>
+  <Tooltip title="Export to Google Slides to edit" arrow>
+    <span><ExportButton onClick={checkPaymentStatusAndProceed} /></span>
+  </Tooltip>
+  <PaymentGateway
+    amount="999"
+    productinfo="Presentation Export"
+    onSuccess={handleDownload}
+    formId={submissionID}
+  />
+</div>
+
         </div>
       </div>
     </div>
