@@ -102,7 +102,7 @@ button:focus {
         font-size: 3vw;
     }
 
-    button {
+    .competition-container button {
         padding: 2vw 3vw;
         font-size: 3vw;
     }

@@ -111,13 +111,16 @@
 
 /* Responsive Adjustments */
 @media (max-width: 600px) {
+    .sectionForm-testimonials-container{
+        font-size: 3vw;
+    }
     .sectionForm-testimonial-row {
         padding: 4%;
     }
 
     .sectionForm-testimonial-row input,
     .sectionForm-testimonial-row textarea {
-        font-size: 1.2vw;
+        font-size: 3vw;
     }
 
     .add-row-button {

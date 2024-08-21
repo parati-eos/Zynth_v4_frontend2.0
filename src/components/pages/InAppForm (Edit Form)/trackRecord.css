@@ -130,3 +130,31 @@
   .trackRecord-container::-webkit-scrollbar-thumb:hover {
     background: #eab308; /* Change color on hover if needed */
   }
+
+  @media (max-width: 768px) {
+
+    
+    
+    .trackRecord-container label {
+      font-size: 3vw;
+    }
+
+    
+    /* Selects */
+    .trackRecord-container select {
+      font-size: 3vw;
+    }
+    .trackRecord-container select option{
+      font-size: 3vw;
+    }
+    
+    /* Textarea */
+    .trackRecord-container textarea {
+      font-size: 3vw;
+    }
+
+    .trackRecord-container button {
+      font-size: 3vw;
+    }
+
+}
