@@ -19,31 +19,11 @@
 .sectionForm-Content {
     height: 60vh;
     width: 40vw;
-    overflow-y: hidden;
+    overflow-y: auto;
     overflow-x: hidden;
     padding: 10px;
     box-sizing: border-box;
 }
-.sectionForm-Content::-webkit-scrollbar {
-    width: 4px;
-}
-
-/* Track */
-.sectionForm-Content::-webkit-scrollbar-track {
-    background: #001b28;
-}
-
-/* Handle */
-.sectionForm-Content::-webkit-scrollbar-thumb {
-    background: #eab308;
-    border-radius: 12px;
-}
-
-/* Handle on hover */
-.sectionForm-Content::-webkit-scrollbar-thumb:hover {
-    background: #eab308; /* This can remain the same or be changed if needed */
-}
-
 
 .section-form-buttons{ 
    height: 3vw; 
@@ -166,4 +146,3 @@
     align-items: center;
     justify-content: center;
   }
-

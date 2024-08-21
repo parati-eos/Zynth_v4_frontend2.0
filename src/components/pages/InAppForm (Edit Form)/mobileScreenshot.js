@@ -42,8 +42,8 @@ const MobileScreen = ({ handleChange }) => {
   };
 
   return (
-    <div className="textInputQuestions p-4">
-      <label htmlFor="mobileScreenshots" className="block text-lg font-medium text-white mb-2">
+    <div className="mobileScreenshots p-4">
+      <label htmlFor="mobileScreenshots" className="block text-[3vw] md:text-[1.2vw] font-medium text-white mb-2">
         Please upload 3 Mobile App UI screenshots here * 
       </label>
       <input

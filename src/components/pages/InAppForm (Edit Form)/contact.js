@@ -12,7 +12,7 @@ const Contact = ({ formData, handleChange }) => {
           name="websiteLink"
           value={formData.websiteLink}
           onChange={handleChange}
-          placeholder="www.zynth.ai"
+          placeholder="website link"
           required
         />
       </div>
@@ -25,7 +25,7 @@ const Contact = ({ formData, handleChange }) => {
           name="linkedinLink"
           value={formData.linkedinLink}
           onChange={handleChange}
-          placeholder="https://www.linkedin.com/company/zynthai"
+          placeholder="LinkedIn page link"
         />
       </div>
     
@@ -37,7 +37,7 @@ const Contact = ({ formData, handleChange }) => {
           name="contactEmail"
           value={formData.contactEmail}
           onChange={handleChange}
-          placeholder="contact@parati.in"
+          placeholder="email address"
           required
         />
       </div>

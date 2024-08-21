@@ -43,7 +43,7 @@ const WebScreen = ({ handleChange }) => {
 
   return (
     <div className="textInputQuestions p-4">
-      <label htmlFor="webScreenshots" className="block text-lg font-medium text-white mb-2">
+      <label htmlFor="webScreenshots" className="block text-[3vw] md:text-[1.2vw] font-medium text-white mb-2">
         Please upload 3 Web App UI screenshots here * 
       </label>
       <input

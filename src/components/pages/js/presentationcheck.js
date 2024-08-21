@@ -84,8 +84,6 @@ const PresentationCheck = () => {
       if (!url || typeof url !== "string") {
         throw new Error("Invalid URL in response");
       }
-  
-      // Open the URL in the current tab
       window.open(url, "_blank");
     } catch (error) {
       console.error("Error exporting presentation:", error);
@@ -94,7 +92,7 @@ const PresentationCheck = () => {
       );
     }
   };
-  
+
   const handleShare = () => {
     const uniqueShareableUrl = `https://zynth.ai/share?submissionId=${formId}`;
     if (navigator.share) {
@@ -391,23 +389,19 @@ const PresentationCheck = () => {
         );
       }
     } else {
-      // &&
-      //   ( FetchedData[0][1] === "error" ||
-      //    FetchedData[0][1] === null)
-
       if (inAppForm ) {
         return (
           <div className="w-full h-full flex justify-center items-center">
             {!showForm && (
               <div className="w-[80vw] md:w-[30vw] flex flex-col justify-center items-center">
-                <div className="h-max w-max flex justify-center items-center border border-blue-600 rounded-[50%]">
+                <div className="h-[15vw] w-[15vw] md:h-max md:w-max flex justify-center items-center border border-blue-600 rounded-[50%]">
                   <IconButton
                     onClick={() => setShowForm(true)}
                     color="inherit"
                     aria-label="add"
                     sx={{
                       fontSize: { xs: 30, sm: 40 },
-                      color: { xs: "white", sm: "white" },
+                      color: { xs: "white", sm: "white" }
                     }}
                   >
                     <AddIcon fontSize="inherit" />

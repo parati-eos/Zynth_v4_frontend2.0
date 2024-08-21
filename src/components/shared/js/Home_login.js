@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, animateScroll as scroll } from "react-scroll";
+import { Link } from "react-scroll";
 import ParatiLogo from "../../Asset/parati-logo.png";
 import "../css/home_login.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,19 +10,11 @@ function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const offset = window.scrollY;
-      if (offset > 100) {
-        setIsSticky(true);
-      } else {
-        setIsSticky(false);
-      }
+      setIsSticky(window.scrollY > 100);
     };
 
     window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
@@ -30,45 +22,22 @@ function Navbar() {
       <div className="home-navbar-container">
         <div className="home-icon">
           <Link to="/" className="home-icon-img">
-            <img
-              src={ParatiLogo}
-              alt="Parati Logo"
-              className="home-navbar-logo"
-            />
+            <img src={ParatiLogo} alt="Parati Logo" className="home-navbar-logo" />
           </Link>
         </div>
         <div className="home-navbar-buttons">
           <div className="dropdown-mobile">
-            <button className="home-navbar-section-button dropdown-btn"><FontAwesomeIcon className="hamburger-icon" icon={faBars} /></button>
+            <button className="home-navbar-section-button dropdown-btn">
+              <FontAwesomeIcon className="hamburger-icon" icon={faBars} />
+            </button>
             <div className="dropdown-content">
-            <Link
-                to="#"
-                className="dropdown-link"
-                onClick={() => scroll.scrollTo("samples-section", {
-                  smooth: true,
-                  offset: -70, // Adjust this value according to your layout
-                })}
-              >
+              <Link to="features" smooth={true} offset={-70} className="dropdown-link">
                 Features
               </Link>
-              <Link
-                to="#"
-                className="dropdown-link"
-                onClick={() => scroll.scrollTo("samples-section", {
-                  smooth: true,
-                  offset: -70, // Adjust this value according to your layout
-                })}
-              >
+              <Link to="samples" smooth={true} offset={-70} className="dropdown-link">
                 Samples
               </Link>
-              <Link
-                to="#"
-                className="dropdown-link"
-                onClick={() => scroll.scrollTo("blogs", {
-                  smooth: true,
-                  offset: -70, // Adjust this value according to your layout
-                })}
-              >
+              <Link to="blogs" smooth={true} offset={-70} className="dropdown-link">
                 Blogs
               </Link>
               <a href="/auth/login" className="home-navbar-button-mobile">Sign In</a>

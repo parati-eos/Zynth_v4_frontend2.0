@@ -184,20 +184,26 @@ button:focus {
     .sectionForm-table-contents td,
     .sectionForm-table-contents-useoffunds th,
     .sectionForm-table-contents-useoffunds td {
-        padding: 3vw;
-        font-size: 1.1vw;
+        /* padding: 3vw; */
+        font-size: 3vw;
     }
 
     .sectionForm-table-contents input[type="number"],
     .sectionForm-table-contents-useoffunds input[type="number"],
     .sectionForm-financial-container textarea,
     .sectionForm-financial-container input {
-        padding: 2vw;
+        /* padding: 2vw; */
         font-size: 3vw;
     }
 
-    .sectionForm-financial button {
-        padding: 2vw 3vw;
+    .sectionForm-table-contents td select{
         font-size: 3vw;
+        height: 4vw;
+    }
+
+    .sectionForm-table-contents td button{
+        font-size: 3vw;
+        padding:2vw;
+        height: max-content;
     }
 }
