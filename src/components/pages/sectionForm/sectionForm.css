@@ -11,7 +11,11 @@
     gap: 0.7vw;
     color: white;
 }
-
+.error-message{
+    color: #ffcc00; /* Yellow color for warning */
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
 .sectionForm-Container h2{
     font-size: 2vw;
 }
@@ -38,6 +42,9 @@
     background-color: #eab308;
     font-size: 1.1vw;
 }
+
+
+
 
 @media (max-width: 768px) {
     .sectionForm-Container{

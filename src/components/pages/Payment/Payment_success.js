@@ -15,7 +15,7 @@ const PaymentSuccess = () => {
     const handleDownload = async () => {
       try {
         const response = await fetch(
-          `https://v4-server.onrender.com/slides/url?formId=${formId}`
+          `https://zynth.ai/api/slides/url?formId=${formId}`
         );
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -45,7 +45,7 @@ const PaymentSuccess = () => {
     // Function to update payment status
     const updatePaymentStatus = async () => {
       try {
-        const response = await fetch('https://v4-server.onrender.com/appscript/updatePaymentStatus', {
+        const response = await fetch('https://zynth.ai/api/appscript/updatePaymentStatus', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

@@ -59,6 +59,42 @@ const PresentationCheck = () => {
   const generatedPresentationId = localStorage.getItem(
     "generatedPresentationId"
   );
+//   useEffect(() => {
+//     const handleContextMenu = (event) => {
+//         event.preventDefault();
+//     };
+
+//     document.addEventListener('contextmenu', handleContextMenu);
+
+//     return () => {
+//         document.removeEventListener('contextmenu', handleContextMenu);
+//     };
+// }, []);
+  useEffect(() => {
+        // Check if the environment is zynth.ai
+        const isZynthAI = window.location.hostname === 'zynth.ai';
+
+        if (isZynthAI) {
+            const handleContextMenu = (event) => {
+                event.preventDefault();
+            };
+
+            const handleKeyDown = (event) => {
+                if (event.key === 'F12' || (event.ctrlKey && event.shiftKey && event.key === 'I')) {
+                    event.preventDefault();
+                }
+            };
+
+            document.addEventListener('contextmenu', handleContextMenu);
+            document.addEventListener('keydown', handleKeyDown);
+
+            return () => {
+                document.removeEventListener('contextmenu', handleContextMenu);
+                document.removeEventListener('keydown', handleKeyDown);
+            };
+        }
+    }, []);
+
 
   const handleDownload = async () => {
     try {
@@ -151,7 +187,7 @@ const PresentationCheck = () => {
   };
   const checkPaymentStatusAndProceed = async () => {
     try {
-      const response = await fetch(`https://v4-server.onrender.com/slides/url?formId=${formId}`);
+      const response = await fetch(`https://zynth.ai/api/slides/url?formId=${formId}`);
   
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -545,7 +581,7 @@ const PresentationCheck = () => {
         handleExport={checkPaymentStatusAndProceed}
       />
       <PaymentGateway
-        amount="999"
+        amount="99"
         productinfo="Presentation Export"
         onSuccess={handleDownload}
         formId={formId}

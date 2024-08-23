@@ -44,7 +44,7 @@ const PaymentGateway = ({ amount, productinfo, onSuccess, formId }) => {
         return;
       }
 
-      const response = await fetch('https://v4-server.onrender.com/api/generate-payu-hash', {
+      const response = await fetch('https://zynth.ai/api/api/generate-payu-hash', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -10,14 +10,14 @@
   cursor: pointer;
 }
 
-.dropdown-menu {
+.dropdown-menu-nav {
   display: none;
   position: absolute;
   top: 6.9vh;
   padding: 1vh -10px;
   right: 0;
   background-color: transparent;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
   border: 1px solid transparent;
   z-index: 1000;
 }
@@ -38,7 +38,7 @@
   border-radius: 1vh;
 }
 
-.dropdown-menu button:hover {
+.dropdown-menubutton:hover {
   background-color: #f1f1f1;
 }
 
@@ -158,3 +158,4 @@
     display: block; 
   }
 }
+

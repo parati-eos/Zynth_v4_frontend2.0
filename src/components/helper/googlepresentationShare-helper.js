@@ -43,8 +43,8 @@ const GoogleslidesShare = () => {
       <div className="loadingIcon">
         <Grid
             visible={true}
-            height="80"
-            width="80"
+            height="120"
+            width="120"
             color="#E6A500"
             ariaLabel="grid-loading"
             radius="12.5"

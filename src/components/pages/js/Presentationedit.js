@@ -60,6 +60,32 @@ const PresentationCheck = () => {
   const userEmail = localStorage.getItem("userEmail");
   const generatedPresentationId = searchParams.get("generatedPresentationId");
 
+  useEffect(() => {
+    // Check if the environment is zynth.ai
+    const isZynthAI = window.location.hostname === 'zynth.ai';
+
+    if (isZynthAI) {
+        const handleContextMenu = (event) => {
+            event.preventDefault();
+        };
+
+        const handleKeyDown = (event) => {
+            if (event.key === 'F12' || (event.ctrlKey && event.shiftKey && event.key === 'I')) {
+                event.preventDefault();
+            }
+        };
+
+        document.addEventListener('contextmenu', handleContextMenu);
+        document.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            document.removeEventListener('contextmenu', handleContextMenu);
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }
+}, []);
+
+
   const handleDownload = async () => {
     try {
       // const formId = localStorage.getItem("submissionId");
@@ -496,7 +522,7 @@ const PresentationCheck = () => {
         handleExport={checkPaymentStatusAndProceed}
       />
       <PaymentGateway
-        amount="999"
+        amount="99"
         productinfo="Presentation Export"
         onSuccess={handleDownload}
         formId={formId}
