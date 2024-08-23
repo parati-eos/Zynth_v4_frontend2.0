@@ -76,6 +76,8 @@
 
 /* Close Button */
 .close-button {
+    height: 15px;
+    width: 20px;
     display: flex;
     justify-content: flex-end;
     align-self: flex-end; /* Align close button to the end of the row */
@@ -86,6 +88,7 @@
     border-radius: 50%; /* Rounded button */
     background-color: rgba(0, 0, 0, 0.05); /* Subtle background */
     transition: background-color 0.3s ease; /* Smooth background transition */
+    
 }
 
 /* Close Button Hover Effect */
@@ -95,8 +98,8 @@
 
 /* Close Button Image */
 .close-button img {
-    width: 5vw;
-    height: 5vw;
+    width: 100%; /* Make the image fit within the button */
+    height: 100%;
 }
 
 /* File Input Container */
@@ -117,7 +120,7 @@
 
 /* Add Row Button */
 .sectionForm-add-row-button {
-    width: 10vw;
+    width: 9vw;
     height: 5vh;
     font-size: 1.8vh;
     padding: 1.2vh;

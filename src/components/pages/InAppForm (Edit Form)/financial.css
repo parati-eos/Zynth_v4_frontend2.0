@@ -13,7 +13,11 @@
     gap:1vw;
 }
 
-
+.sectionForm-financial-container textarea::placeholder {
+    font-size: 12px; /* Adjust the font size as needed */
+    color: #888; /* Optional: Change the color of the placeholder text */
+    opacity: 1; /* Optional: Make the placeholder fully opaque */
+  }
 
 
 .sectionForm-financial::-webkit-scrollbar {
@@ -218,4 +222,57 @@ button:focus {
         padding:2vw;
         height: max-content;
     }
+    .add-bg-button {
+        width: 100%; /* Full width for smaller screens */
+        font-size: 12px; /* Slightly smaller font size */
+        padding: 6px 12px; /* Adjust padding */
+      }
+}
+
+@media (max-width: 480px) {
+    .sectionForm-financial-container label{
+        font-size: 3vw;
+    }
+    .sectionForm-financial{
+        padding: 4vw;
+        font-size: 3vw;
+    }
+
+
+    .sectionForm-table-contents th,
+    .sectionForm-table-contents td,
+    .sectionForm-table-contents-useoffunds th,
+    .sectionForm-table-contents-useoffunds td {
+        /* padding: 3vw; */
+        font-size: 3vw;
+    }
+
+    .sectionForm-table-contents input[type="number"],
+    .sectionForm-table-contents-useoffunds input[type="number"],
+    .sectionForm-financial-container textarea,
+    .sectionForm-financial-container input {
+        padding: 2vw;
+        font-size: 3vw;
+    }
+
+    .sectionForm-financial button {
+        padding: 2vw 3vw;
+        font-size: 3vw;
+    }
+
+    .sectionForm-table-contents td select{
+        font-size: 3vw;
+        height: 4vw;
+    }
+
+    .sectionForm-table-contents td button{
+        font-size: 3vw;
+        padding:2vw;
+        height: max-content;
+    }
+    .add-bg-button {
+        width: 100%; /* Full width for smaller screens */
+        font-size: 12px; /* Slightly smaller font size */
+        padding: 6px 12px; /* Adjust padding */
+      }
 }

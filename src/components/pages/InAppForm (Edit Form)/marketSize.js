@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import './marketSize.css'
+import { red } from "@mui/material/colors";
 const Market = ({ formData, handleChange }) => {
   const [showOtherSector, setShowOtherSector] = useState(false);
 
@@ -10,6 +11,7 @@ const Market = ({ formData, handleChange }) => {
 
   return (
     <>
+    <div className="MarketSize-Inapp1">
       <div className="MarketSize-Inapp">
         <label htmlFor="sector">Which sector do you operate in?*</label>
         <select
@@ -132,6 +134,7 @@ const Market = ({ formData, handleChange }) => {
           </>
         )}
       </div>
+     </div> 
     </>
   );
 };

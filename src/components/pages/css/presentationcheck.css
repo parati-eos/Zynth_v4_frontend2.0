@@ -11,7 +11,8 @@
 .slide-presentation-container{
   display: flex;
   flex-direction: row-reverse;
-  gap: 1vw;
+  gap: 0;
+  margin-left: 4.5vw;
 
 }
 

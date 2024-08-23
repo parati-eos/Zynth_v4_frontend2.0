@@ -1,4 +1,4 @@
-import React, { useState, useLocation } from "react";
+import React, { useState, useLocation, useEffect, useRef} from "react";
 import { useNavigate } from "react-router-dom";
 import ParatiLogo from "../../Asset/parati-logo.png";
 import "../css/HistoryNavbar.css";
@@ -9,7 +9,9 @@ import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 
 function Navbar() {
   const useremail = localStorage.getItem("userEmail");
+  const [dropdownVisible, setDropdownVisible] = useState(false);
   const navigate = useNavigate();
+  const dropdownRef = useRef(null);
   const handleBuildPresentation = () => {
     // Redirect to the 'form.js' page upon clicking "Build Presentation"
     navigate("/pages/shortForm", { state: { useremail } });
@@ -17,6 +19,25 @@ function Navbar() {
   const handleLogoClicked = () => {
     window.open("/", "_blank");
   };
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/");
+  };
+  const handleProfileClick = () => {
+    setDropdownVisible(!dropdownVisible);
+  };
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownVisible(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownRef]);
   return (
     <nav className="history-nav">
       <div className="history-navbar-container">
@@ -34,7 +55,12 @@ function Navbar() {
         </div>
         <div className="history-navbar-details-container">
           {/* Apply hover event handlers */}
-          <img src={localStorage.getItem("userDP")} className="history-user" />
+          <div className="app-user-container" ref={dropdownRef} onClick={handleProfileClick}>
+<img src={localStorage.getItem("userDP")} className="history-user" alt="User Profile" />
+<div className={`dropdown-menu ${dropdownVisible ? "show" : ""}`}>
+  <button onClick={handleLogout}>Logout</button>
+</div>
+</div>
         </div>
       </div>
     </nav>
