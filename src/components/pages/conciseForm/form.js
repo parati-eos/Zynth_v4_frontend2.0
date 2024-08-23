@@ -221,9 +221,9 @@ const ConciseForm = () => {
       if (step === steps.COMPANY_NAME) {
         handleBlankSlideGeneration();
       } else if (step === steps.TAGLINE) {
-        handleSubmit(e, 'about');
+        handleSubmit(e, 'cover');
       } else if (step === steps.ABOUT_COMPANY) {
-        handleSubmit(e, 'companyDetails');
+        handleSubmit(e, 'about');
       } else if (step === steps.INDUSTRY) {
         handleSubmit(e, 'market');
       } else if (step === steps.PRODUCT_SERVICE) {
