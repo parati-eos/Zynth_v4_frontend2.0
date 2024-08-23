@@ -178,7 +178,7 @@ const HistoryCard = ({ userID, submissionID, PPTName, Date, link }) => {
     <span><ExportButton onClick={checkPaymentStatusAndProceed} /></span>
   </Tooltip>
   <PaymentGateway
-    amount="999"
+    amount="99"
     productinfo="Presentation Export"
     onSuccess={handleDownload}
     formId={submissionID}

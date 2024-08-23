@@ -190,4 +190,15 @@
     width: 40px;
     display: block; 
   }
+  .dropdown-menu.show button {
+    background-color: #e6a500;
+    color: rgb(15, 15, 63);
+    border: none;
+    padding: 10px 20px;
+    text-align: left;
+    width: 21vw; /* Ensure the button width adjusts based on the content */
+    height: 6vh; /* Ensure the button height adjusts based on the content */
+    cursor: pointer;
+    border-radius: 1vh;
+  }
 }

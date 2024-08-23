@@ -72,12 +72,21 @@ function Navbar({ historyShow, historyHide }) {
             <FontAwesomeIcon icon={faHistory} />
             <span> History</span>
           </button>
-          <div className="app-user-container" ref={dropdownRef} onClick={handleProfileClick}>
-            <img src={localStorage.getItem("userDP")} className="app-user" alt="User Profile" />
-            <div className={`dropdown-menu ${dropdownVisible ? "show" : ""}`}>
-              <button onClick={handleLogout}>Logout</button>
-            </div>
-          </div>
+          <div className="appLanding-user-container" ref={dropdownRef} onClick={handleProfileClick}>
+  <img
+    src={
+      localStorage.getItem("userDP") && localStorage.getItem("userDP") !== "undefined"
+        ? localStorage.getItem("userDP")
+        : "https://cdn-icons-png.flaticon.com/512/147/147144.png"
+    }
+    className="appLanding-user"
+    alt="User Avatar"
+  />
+  <div className={`dropdown-menu ${dropdownVisible ? "show" : ""}`}>
+    <button onClick={handleLogout}>Logout</button>
+  </div>
+</div>
+
         </div>
       </div>
     </nav>

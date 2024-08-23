@@ -55,12 +55,21 @@ function Navbar() {
         </div>
         <div className="history-navbar-details-container">
           {/* Apply hover event handlers */}
-          <div className="app-user-container" ref={dropdownRef} onClick={handleProfileClick}>
-<img src={localStorage.getItem("userDP")} className="history-user" alt="User Profile" />
-<div className={`dropdown-menu ${dropdownVisible ? "show" : ""}`}>
-  <button onClick={handleLogout}>Logout</button>
+          <div className="appLanding-user-container" ref={dropdownRef} onClick={handleProfileClick}>
+  <img
+    src={
+      localStorage.getItem("userDP") && localStorage.getItem("userDP") !== "undefined"
+        ? localStorage.getItem("userDP")
+        : "https://cdn-icons-png.flaticon.com/512/147/147144.png"
+    }
+    className="appLanding-user"
+    alt="User Avatar"
+  />
+  <div className={`dropdown-menu ${dropdownVisible ? "show" : ""}`}>
+    <button onClick={handleLogout}>Logout</button>
+  </div>
 </div>
-</div>
+
         </div>
       </div>
     </nav>

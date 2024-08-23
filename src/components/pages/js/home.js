@@ -17,7 +17,7 @@ function Home() {
         <HeroParallaxDemo />
         {/* Add other content for Samples section */}
    
-       <div id="samples-section">
+       <div id="features">
       <StickyScrollRevealDemo />
       </div>
       <Stats />

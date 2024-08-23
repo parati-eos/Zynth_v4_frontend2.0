@@ -137,8 +137,7 @@ export const Header = () => {
         animate={{ opacity: 0.7, y: 0, transition: { duration: 0.5 } }}
       >
         We created investor presentations for a few of the biggest unicorns,
-        imagining them in their early
-        <br /> stages, to envision how our tool would have generated their pitch
+        imagining them in their early stages, <br />to envision how our tool would have generated their pitch
         deck. And the results were amazing.
       </motion.p>
     </div>
@@ -158,6 +157,7 @@ export const ProductCard = ({
 }) => {
   return (
     <motion.div
+    id="samples"
       style={{
         x: translate,
       }}
