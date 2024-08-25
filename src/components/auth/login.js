@@ -98,7 +98,7 @@ const saveUserData = (userData) => {
       <LoginNavbar handleClick={handleLogoClicked} />
       <div className="login-container">
         <div className="login-image-container">
-          <img src={LoginImage} alt="Login" />
+          <img src="https://d28lb1f8xy1z8m.cloudfront.net/uploads/Landing+Page+Poster.png" alt="Login" />
         </div>
         <div className="login-details-container">
           <div className="wrapper">
