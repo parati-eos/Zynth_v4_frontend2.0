@@ -1,0 +1,31 @@
+.payment-failed-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: white;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .payment-failed-message {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .payment-failed-actions .retry-link {
+    display: block;
+    margin: 10px 0;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  
+  .payment-failed-actions .retry-link:hover {
+    background-color: #0056b3;
+  }
+  

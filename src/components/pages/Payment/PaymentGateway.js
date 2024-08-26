@@ -72,18 +72,18 @@ const PaymentGateway = ({ amount, productinfo, onSuccess, formId }) => {
         <input type="hidden" name="firstname" value="${paymentData.firstname}" />
         <input type="hidden" name="email" value="${paymentData.email}" />
         <input type="hidden" name="phone" value="${paymentData.phone}" />
-        <input type="hidden" name="surl" value="https://zynthtestai.web.app/payment-success?formId=${formId}" />
-        <input type="hidden" name="furl" value="https://zynthtestai.web.app/payment-failure" />
+        <input type="hidden" name="surl" value="https://zynth.ai/payment-success?formId=${formId}" />
+        <input type="hidden" name="furl" value="https://zynth.ai/payment-failure" />
         <input type="hidden" name="hash" value="${hash}" />
         <input type="hidden" name="currency" value="${paymentData.currency}" />
       `;
 
-      console.log("Submitting payment form with data:", paymentForm.innerHTML);
+      // console.log("Submitting payment form with data:", paymentForm.innerHTML);
       document.body.appendChild(paymentForm);
       paymentForm.submit();
       document.body.removeChild(paymentForm);
     } catch (error) {
-      console.error('Error generating PayU hash:', error);
+      // console.error('Error generating PayU hash:', error);
       alert('SORRY!\nWe were unable to process your payment\nError Reason: ' + error.message);
     }
   };

@@ -35,7 +35,7 @@ const HistoryCard = ({ userID, submissionID, PPTName, Date, link }) => {
   };
 
   const checkPaymentStatusAndProceed = async () => {
-    console.log("Export button clicked for submissionID:", submissionID);
+    // console.log("Export button clicked for submissionID:", submissionID);
 
     try {
       const response = await fetch(`https://zynth.ai/api/slides/url?formId=${submissionID}`, {
@@ -50,7 +50,7 @@ const HistoryCard = ({ userID, submissionID, PPTName, Date, link }) => {
       }
 
       const data = await response.json();
-      console.log("API response data:", data);
+      // console.log("API response data:", data);
 
       if (data && data.paymentStatus === 1) {
         handleDownload();

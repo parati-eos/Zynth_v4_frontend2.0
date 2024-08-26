@@ -165,7 +165,7 @@ function InAppForm({ Title, onClose,onSubmit}) {
       section: sectionMapping[section],
       generatedPresentationId: generatedPresentationId,
     };
-    console.log(payload)
+    // console.log(payload)
 
     try {
       const serverurl = process.env.REACT_APP_SERVER_URL

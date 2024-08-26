@@ -20,6 +20,7 @@ import PaymentSuccess from './components/pages/Payment/Payment_success.js';
 // import { FinancialDataProvider } from './components/pages/Native-Form/financials'; 
 import ConciseForm from './components/pages/conciseForm/form'
 import SectionForm from './components/pages/sectionForm/sectionForm';
+import PaymentFailed from './components/pages/Payment/payment_failed.js';
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
       <Route path="/share" element={<PresentationShare />} />
         <Route path='/presentationedit' element={<Presentationedit/>}/>
         <Route path="/payment-success" element={<PaymentSuccess />} />
+        <Route path="/payment-failure" element={<PaymentFailed />} />
         <Route path="/" element={<Home />} />
         <Route path="/sectionForm" element={<SectionForm Title='Financials'/>} />
         <Route path="/auth/login" element={<Login />} />

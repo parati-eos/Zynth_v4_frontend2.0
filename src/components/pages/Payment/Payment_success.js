@@ -22,11 +22,11 @@ const PaymentSuccess = () => {
         }
     
         const result = await response.json();
-        console.log("Result:", result);
+        // console.log("Result:", result);
     
         // Check if the response is an object and contains the PresentationURL
         const url = result.PresentationURL;
-        console.log("URL:", url);
+        // console.log("URL:", url);
     
         if (!url || typeof url !== "string") {
           throw new Error("Invalid URL in response");

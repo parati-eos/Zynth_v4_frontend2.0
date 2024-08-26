@@ -32,7 +32,7 @@ const Googleslides = () => {
       console.log(progress)
       if (isContactSlide) {
       setProgress(100);
-      console.log("progress set to 100")
+      // console.log("progress set to 100")
     }
     if (progress!==100){
           setProgress(data.data.length * 4.5)
@@ -64,7 +64,7 @@ const Googleslides = () => {
       </div>
     );
   }
-  console.log(slidesData.length);
+  // console.log(slidesData.length);
   try {
     return (
       <div style={{ position: "relative" }}>
