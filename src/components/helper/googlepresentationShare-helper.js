@@ -57,7 +57,7 @@ const GoogleslidesShare = () => {
   }
 
   try {
-    console.log(slidesData)
+    // console.log(slidesData)
     return (
       <div>
         {slidesData.length < 1 ? (

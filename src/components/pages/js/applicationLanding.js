@@ -20,18 +20,18 @@ function ApplicationLanding() {
   const historyTimeout = useRef(null); // Ref for the timeout
 
   const handleCheckHistory = () => {
-    console.log("Checking History...");
+    // console.log("Checking History...");
     // Add your logic to fetch and display history here
   };
 
   const handleBuildPresentation = () => {
-    console.log("working");
+    // console.log("working");
     // Redirect to the 'form.js' page upon clicking "Build Presentation"
     navigate("/Pages/Nativeform", { state: { user } });
   };
 
   const handleGeneratePPTWithZynth = () => {
-    console.log("Generate PPT with Zynth");
+    // console.log("Generate PPT with Zynth");
     // Implement logic for generating PPT with Zynth
     navigate("/pages/shortform", { state: { user } });
   };
@@ -87,12 +87,12 @@ function ApplicationLanding() {
 
   const handleMouseEnterDiv = () => {
     clearTimeout(historyTimeout.current); // Clear any existing timeout
-    console.log("Enter the div");
+    // console.log("Enter the div");
   };
 
   const handleMouseLeaveDiv = () => {
     setShowHistory(false);
-    console.log("Left the div");
+    // console.log("Left the div");
   };
 
   const handleShowMoreHistory = () => {

@@ -40,9 +40,9 @@ const removeBackground = async (file) => {
     // Calculate the percentage of white pixels
     const whitePercentage = whitePixelCount / totalPixelCount;
 
-    console.log('Total Pixels:', totalPixelCount);
-    console.log('White Pixels:', whitePixelCount);
-    console.log('White Percentage:', whitePercentage);
+    // console.log('Total Pixels:', totalPixelCount);
+    // console.log('White Pixels:', whitePixelCount);
+    // console.log('White Percentage:', whitePercentage);
 
     // If more than 50% of the image is white, remove the background using remove.bg API
     if (whitePercentage > 0.5) {
@@ -57,7 +57,7 @@ const removeBackground = async (file) => {
         responseType: 'blob',
       });
 
-      console.log('Background removal response:', response);
+      // console.log('Background removal response:', response);
 
       // Ensure the blob type is set to 'image/png'
       const blob = new Blob([response.data], { type: 'image/png' });

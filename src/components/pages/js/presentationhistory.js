@@ -18,7 +18,7 @@ function History() {
           },
         }
       );
-      console.log(`${serverurl}/history`);
+      // console.log(`${serverurl}/history`);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }

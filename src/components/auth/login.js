@@ -42,10 +42,10 @@ function Login() {
     const provider = new OAuthProvider("microsoft.com");
     try {
       const result = await signInWithPopup(auth, provider);
-      console.log("Authentication result:", result);
+      // console.log("Authentication result:", result);
       if (result && result.user) {
         const token = result.user.stsTokenManager.accessToken;
-        console.log("Access token:", token);
+        // console.log("Access token:", token);
 
         const userData = {
           name: result.user.displayName,
@@ -53,7 +53,7 @@ function Login() {
           picture: result.user.photoURL || defaultAvatarUrl,
         };
 
-        console.log("User data:", userData);
+        // console.log("User data:", userData);
         saveUserData(userData);
 
         localStorage.setItem("userEmail", userData.email);
@@ -86,10 +86,10 @@ const saveUserData = (userData) => {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log("User data stored:", data);
+      // console.log("User data stored:", data);
     })
     .catch((error) => {
-      console.error("Error storing user data:", error);
+      // console.error("Error storing user data:", error);
     });
 };
 
@@ -98,7 +98,7 @@ const saveUserData = (userData) => {
       <LoginNavbar handleClick={handleLogoClicked} />
       <div className="login-container">
         <div className="login-image-container">
-          <img src={LoginImage} alt="Login" />
+          <img src="https://d28lb1f8xy1z8m.cloudfront.net/uploads/Landing+Page+Poster.png" alt="Login" />
         </div>
         <div className="login-details-container">
           <div className="wrapper">
