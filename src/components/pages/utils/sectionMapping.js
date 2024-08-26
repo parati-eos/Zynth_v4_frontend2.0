@@ -1,12 +1,12 @@
 
 const sectionMapping = {
-    "Cover": "about",
-    "About": "companyDetails",
+    "Cover": "cover",
+    "About": "about",
     "Problem Areas": "problemDescription",
     "Solution": "solutionDescription",
     "Market Sizing": "market",
     "Product Overview": "product",
-    "Product Roadmap": "productRoadmap",
+    "Product Roadmap": "productRoadMap",
     "System Architecture": "systemArchitecture",
     "Mobile App Screenshots": "mobileAppScreenshots",
     "Web App Screenshots": "webAppScreenshots",
