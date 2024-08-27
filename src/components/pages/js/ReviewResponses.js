@@ -21,7 +21,7 @@ function ReviewResponses() {
       });
       const data = await response.json();
       SID = data.submissionID;
-      console.log("SID value >>>>>>>>>>>>>>>>>>>>>>>>>");
+      // console.log("SID value >>>>>>>>>>>>>>>>>>>>>>>>>");
       console.log(SID);
       setSubmissionId(data.submissionID);
       localStorage.removeItem("slidesData");

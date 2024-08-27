@@ -220,7 +220,7 @@ function InAppForm({ Title, onClose,onSubmit}) {
           {(() => {
             switch (Title) {
               case "Cover":
-                return <Cover formData={formData} handleChange={handleChange}  />;
+                return <Cover formData={formData} handleChange={handleChange}setIsUploading={setIsUploading}   />;
               case "About":
                 return <About formData={formData} handleChange={handleChange}  />;
                 case "Track Record":
