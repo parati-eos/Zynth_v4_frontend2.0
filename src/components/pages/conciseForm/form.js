@@ -55,9 +55,9 @@ const ConciseForm = () => {
     const newFormId = generateFormId();
     localStorage.setItem('submissionId', newFormId);
     setFormId(newFormId);
-    // console.log('Form ID:', newFormId);
+    console.log('Form ID:', newFormId);
     const userEmail = localStorage.getItem('userEmail');
-    // console.log('User Email:', userEmail);
+    console.log('User Email:', userEmail);
   }, []);
 
   const navigate = useNavigate();
@@ -120,7 +120,7 @@ const ConciseForm = () => {
   const handleBlankSlideGeneration = async () => {
     try {
       const response = await fetch(
-        `https://script.google.com/macros/s/AKfycbw8XXVKtJQtKFwWecONW4LNCivn6fnxLCm5MfFP1pnq7IzRHjGTAU67uJrHXwEYcJ4DFA/exec?submissionID=${formId}`
+        `https://script.google.com/macros/s/AKfycbwB57iLia0UqcnwQoa4Tg0QRlb0OppIWa4dP1sP_Zswfho03rjEevTLJUAcWRP8_9Yrqw/exec?submissionID=${formId}`
       );
 
       if (!response.ok) {
@@ -131,7 +131,7 @@ const ConciseForm = () => {
       setgeneratedPresentationID(responseData);
       localStorage.setItem('generatedPresentationId', responseData);
       const data = JSON.parse(responseData);
-      // console.log(data + 'is here !');
+      console.log(data + 'is here !');
     } catch (error) {
       console.error('Error:', error);
     }
@@ -147,7 +147,7 @@ const ConciseForm = () => {
 
       // Upload the processed logo to S3
       const uploadedLogoUrl = await uploadFileToS3(processedFile);
-      // console.log('Uploaded logo URL:', uploadedLogoUrl);
+      console.log('Uploaded logo URL:', uploadedLogoUrl);
 
       setLogoUrl(uploadedLogoUrl); // Set the URL of the uploaded logo
       handleChange({ target: { name: 'logo', value: uploadedLogoUrl } }); // Update form data with the logo URL
@@ -219,9 +219,9 @@ const ConciseForm = () => {
       if (step === steps.COMPANY_NAME) {
         handleBlankSlideGeneration();
       } else if (step === steps.TAGLINE) {
-        handleSubmit(e, 'about');
+        handleSubmit(e, 'cover');
       } else if (step === steps.ABOUT_COMPANY) {
-        handleSubmit(e, 'companyDetails');
+        handleSubmit(e, 'about');
       } else if (step === steps.INDUSTRY) {
         handleSubmit(e, 'market');
       } else if (step === steps.PRODUCT_SERVICE) {
