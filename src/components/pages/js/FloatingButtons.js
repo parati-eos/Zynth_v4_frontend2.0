@@ -6,7 +6,7 @@ const FloatingButtons = ({ handleShare, handleExport }) => {
   return (
     <div className="w-[100vw] justify-around md:justify-normal md:w-[5vw] z-50 fixed bottom-[4vw] right-[0] flex flex-row md:flex-col md:bottom-[1.5vw] md:right-[1vw] md:space-y-4">
       <Tooltip title="Share this presentation as a weblink" arrow>
-        <IconButton
+        <IconButton id="share-button"
           sx={{
             bgcolor: "gray.200",
             "&:hover": {
@@ -43,7 +43,7 @@ const FloatingButtons = ({ handleShare, handleExport }) => {
           aria-label="export"
           onClick={handleExport}
         >
-          <ExportIcon
+          <ExportIcon id="export-button" 
             sx={{
               color: "#eab308",
               "&:hover": { color: "white" },

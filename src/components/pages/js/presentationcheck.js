@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTimes } from "@fortawesome/free-solid-svg-icons";
 import InAppForm from "../InAppForm (Edit Form)/inAppForm.js";
 import PaymentGateway from "../Payment/PaymentGateway.js";
-
+import GuidedTour from "../utils/GuidedTour.js";
 const slides = [
   "Cover",
   "About",
@@ -59,6 +59,9 @@ const PresentationCheck = () => {
   const generatedPresentationId = localStorage.getItem(
     "generatedPresentationId"
   );
+  // const [isOpen, setIsOpen] = useState(false);
+  const [tourActive, setTourActive] = useState(false);
+
 //   useEffect(() => {
 //     const handleContextMenu = (event) => {
 //         event.preventDefault();
@@ -211,7 +214,9 @@ const PresentationCheck = () => {
     }
   };
   
-  
+    const startTour = () => {
+    setTourActive(true);
+  };
 
   const RenderSlideContent = (slide) => {
     const [sectionSubmitStatus, setSectionSubmitStatus] = useState({});
@@ -231,7 +236,11 @@ const PresentationCheck = () => {
       setIsEditMode(!isEditMode);
       setRunFunction(true); // Reset the runFunction when edit mode is toggled
     };
-
+    useEffect(() => {
+      console.log('Setting tourActive to true');
+      // Automatically start the tour or open dialog box on page load
+      setTourActive(true); // Set to true to open the dialog or start the tour
+    }, []);
     useEffect(() => {
       if (showForm && formRef.current) {
         formRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -371,10 +380,12 @@ const PresentationCheck = () => {
                 <div className="slide-presentation-container">
                   <div className="edit-button">
                     <FontAwesomeIcon
+                     id="editicon"
                       icon={faEdit}
                       onClick={toggleEditMode}
                       title="Edit Slide"
                     />
+                
                   </div>
                   <div className="loading-grid">
                   <Grid
@@ -406,12 +417,13 @@ const PresentationCheck = () => {
                 />
               ) : (
                 <div className="slide-presentation-container">
-                  <div className="edit-button">
+                  <div className="edit-button" id="editicon">
                     <FontAwesomeIcon
                       icon={faEdit}
                       onClick={toggleEditMode}
                       title="Edit Slide"
                     />
+                    {/* <GuidedTour active={tourActive} /> */}
                   </div>
                   <iframe
                     className="presentationcheck-slides-iframe"
@@ -431,7 +443,7 @@ const PresentationCheck = () => {
             {!showForm && (
               <div className="w-[80vw] md:w-[30vw] flex flex-col justify-center items-center">
                 <div className="h-[15vw] w-[15vw] md:h-max md:w-max flex justify-center items-center border border-blue-600 rounded-[50%]">
-                  <IconButton
+                  <IconButton id="addicon"
                     onClick={() => setShowForm(true)}
                     color="inherit"
                     aria-label="add"
@@ -474,12 +486,13 @@ const PresentationCheck = () => {
                 />
               ) : (
                 <div className="slide-presentation-container">
-                  <div className="edit-button">
+                  <div className="edit-button" id="editicon">
                     <FontAwesomeIcon
                       icon={faEdit}
                       onClick={toggleEditMode}
                       title="Edit Slide"
                     />
+                  {/* <GuidedTour active={tourActive} /> */}
                   </div>
                   <div className="loading-grid">
                   <Grid
@@ -511,12 +524,13 @@ const PresentationCheck = () => {
                 />
               ) : (
                 <div className="slide-presentation-container">
-                  <div className="edit-button">
+                  <div className="edit-button" id="editicon">
                     <FontAwesomeIcon
                       icon={faEdit}
                       onClick={toggleEditMode}
                       title="Edit Slide"
                     />
+                  {/* <GuidedTour active={tourActive} /> */}
                   </div>
                   <iframe
                     className="presentationcheck-slides-iframe"
@@ -581,11 +595,12 @@ const PresentationCheck = () => {
         handleExport={checkPaymentStatusAndProceed}
       />
       <PaymentGateway
-        amount="99"
+        amount="500"
         productinfo="Presentation Export"
         onSuccess={handleDownload}
         formId={formId}
       />
+   <GuidedTour active={tourActive} />
     </div>
   );
 };

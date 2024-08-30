@@ -1,31 +1,33 @@
 import React, { useState, useEffect } from "react";
-import uploadFileToS3 from "../utils/uploadFileToS3"; // Import the function for uploading files to S3
+import uploadFileToS3 from "../utils/uploadFileToS3";
 import './Cover.css'
-const Cover = ({ formData, handleChange, handleNext }) => {
-  const [logoUrl, setLogoUrl] = useState(formData.logo || null); // Initialize with formData.logo if available
-  const [fileInputKey, setFileInputKey] = useState(0); // Key to reset file input
 
+const Cover = ({ formData, handleChange, setIsUploading }) => {
+  const [logoUrl, setLogoUrl] = useState(formData.logo || null);
+  const [fileInputKey, setFileInputKey] = useState(0);
 
   useEffect(() => {
-    // Update logoUrl if formData.logo changes
     setLogoUrl(formData.logo || null);
   }, [formData.logo]);
 
   const handleLogoChange = async (e) => {
     const file = e.target.files[0];
+    setIsUploading(true); // Set uploading state to true before starting the upload
     try {
-      const logoUrl = await uploadFileToS3(file); // Upload the logo file to S3
-      setLogoUrl(logoUrl); // Set the URL of the uploaded logo
-      handleChange({ target: { name: "logo", value: logoUrl } }); // Update form data with the logo URL
+      const logoUrl = await uploadFileToS3(file);
+      setLogoUrl(logoUrl);
+      handleChange({ target: { name: "logo", value: logoUrl } });
     } catch (error) {
       console.error("Error uploading logo:", error);
+    } finally {
+      setIsUploading(false); // Set uploading state to false after upload completes
     }
   };
 
   const handleRemoveLogo = () => {
     setLogoUrl(null);
     handleChange({ target: { name: "logo", value: null } });
-    setFileInputKey((prevKey) => prevKey + 1); // Reset file input
+    setFileInputKey((prevKey) => prevKey + 1);
   };
 
   return (

@@ -31,9 +31,7 @@ function App() {
 
   return (
     <Router>
-
       <Routes>
-
       <Route path="/share" element={<PresentationShare />} />
         <Route path='/presentationedit' element={<Presentationedit/>}/>
         <Route path="/payment-success" element={<PaymentSuccess />} />

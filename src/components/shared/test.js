@@ -1,97 +1,331 @@
+// src/components/ConciseForm.js
+import React, { useState, useEffect } from 'react';
+import Section from './Section';
+import LogoSection from './logoSection';
+import IndustrySection from './IndustrySection';
+import OverviewSection from './overviewSection';
+import Navbar from '../../shared/js/LoginNavbar';
+import ProgressBar from './progressBar';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import uploadFileToS3 from '../utils/uploadFileToS3';
+import removeBackground from '../utils/removeBackground';
+import CircularProgress from '@mui/material/CircularProgress';
+import './form.css';
+import ContactSection from './contactus';
 
-<iframe
-id="JotFormIFrame-233513318060446"
-title="Website Questionnaire Form"
-onload="window.parent.scrollTo(0,0)"
-allowtransparency="true"
-allowfullscreen="true"
-allow="geolocation; microphone; camera"
-src="https://form.jotform.com/233513318060446"
-frameborder="0"
-style="min-width:100%;max-width:100%;height:539px;border:none;"
-scrolling="no"
->
-</iframe>
-<script type="text/javascript">
-var ifr = document.getElementById("JotFormIFrame-233513318060446");
-if (ifr) {
-var src = ifr.src;
-var iframeParams = [];
-if (window.location.href && window.location.href.indexOf("?") > -1) {
-  iframeParams = iframeParams.concat(window.location.href.substr(window.location.href.indexOf("?") + 1).split('&'));
-}
-if (src && src.indexOf("?") > -1) {
-  iframeParams = iframeParams.concat(src.substr(src.indexOf("?") + 1).split("&"));
-  src = src.substr(0, src.indexOf("?"))
-}
-iframeParams.push("isIframeEmbed=1");
-ifr.src = src + "?" + iframeParams.join('&');
-}
-window.handleIFrameMessage = function(e) {
-if (typeof e.data === 'object') { return; }
-var args = e.data.split(":");
-if (args.length > 2) { iframe = document.getElementById("JotFormIFrame-" + args[(args.length - 1)]); } else { iframe = document.getElementById("JotFormIFrame"); }
-if (!iframe) { return; }
-switch (args[0]) {
-  case "scrollIntoView":
-    iframe.scrollIntoView();
-    break;
-  case "setHeight":
-    iframe.style.height = args[1] + "px";
-    if (!isNaN(args[1]) && parseInt(iframe.style.minHeight) > parseInt(args[1])) {
-      iframe.style.minHeight = args[1] + "px";
-    }
-    break;
-  case "collapseErrorPage":
-    if (iframe.clientHeight > window.innerHeight) {
-      iframe.style.height = window.innerHeight + "px";
-    }
-    break;
-  case "reloadPage":
-    window.location.reload();
-    break;
-  case "loadScript":
-    if( !window.isPermitted(e.origin, ['jotform.com', 'jotform.pro']) ) { break; }
-    var src = args[1];
-    if (args.length > 3) {
-        src = args[1] + ':' + args[2];
-    }
-    var script = document.createElement('script');
-    script.src = src;
-    script.type = 'text/javascript';
-    document.body.appendChild(script);
-    break;
-  case "exitFullscreen":
-    if      (window.document.exitFullscreen)        window.document.exitFullscreen();
-    else if (window.document.mozCancelFullScreen)   window.document.mozCancelFullScreen();
-    else if (window.document.mozCancelFullscreen)   window.document.mozCancelFullScreen();
-    else if (window.document.webkitExitFullscreen)  window.document.webkitExitFullscreen();
-    else if (window.document.msExitFullscreen)      window.document.msExitFullscreen();
-    break;
-}
-var isJotForm = (e.origin.indexOf("jotform") > -1) ? true : false;
-if(isJotForm && "contentWindow" in iframe && "postMessage" in iframe.contentWindow) {
-  var urls = {"docurl":encodeURIComponent(document.URL),"referrer":encodeURIComponent(document.referrer)};
-  iframe.contentWindow.postMessage(JSON.stringify({"type":"urls","value":urls}), "*");
-}
+const steps = {
+  COMPANY_NAME: 1,
+  LOGO: 2,
+  TAGLINE: 3,
+  INDUSTRY: 4,
+  ABOUT_COMPANY: 5,
+  PRODUCT_SERVICE: 6,
+  WEBSITE: 7,
 };
-window.isPermitted = function(originUrl, whitelisted_domains) {
-var url = document.createElement('a');
-url.href = originUrl;
-var hostname = url.hostname;
-var result = false;
-if( typeof hostname !== 'undefined' ) {
-  whitelisted_domains.forEach(function(element) {
-      if( hostname.slice((-1 * element.length - 1)) === '.'.concat(element) ||  hostname === element ) {
-          result = true;
-      }
+
+const generateFormId = () => {
+  return 'Parati-' + Date.now();
+};
+
+const ConciseForm = () => {
+  const [step, setStep] = useState(steps.COMPANY_NAME);
+  const [formData, setFormData] = useState({
+    userId: localStorage.getItem('userEmail'),
+    companyName: '',
+    tagline: '',
+    logo: null,
+    companyOverview: '',
+    sector: '',
+    otherSector: '',
+    industry: '',
+    otherIndustry: '',
+    productOverview: '',
+    websiteLink: '',
+    linkedinLink: '',
+    contactEmail: localStorage.getItem('userEmail'),
+    contactPhone: '',
   });
-  return result;
-}
+  const [formId, setFormId] = useState('');
+  const [generatedPresentationID, setgeneratedPresentationID] = useState(null);
+  const [logoUrl, setLogoUrl] = useState(formData.logo || null);
+  const [isLogoLoading, setIsLogoLoading] = useState(false);
+
+  useEffect(() => {
+    const newFormId = generateFormId();
+    localStorage.setItem('submissionId', newFormId);
+    setFormId(newFormId);
+    console.log('Form ID:', newFormId);
+    const userEmail = localStorage.getItem('userEmail');
+    console.log('User Email:', userEmail);
+  }, []);
+
+  const navigate = useNavigate();
+  const handleLogoClicked = () => {
+    navigate('/applicationLanding');
+  };
+
+  const validateStep = () => {
+    switch (step) {
+      case steps.COMPANY_NAME:
+        return formData.companyName.trim() !== '';
+      case steps.LOGO:
+        return formData.logo !== null;
+      case steps.TAGLINE:
+        return true;
+      case steps.ABOUT_COMPANY:
+        return formData.companyOverview.trim() !== '';
+        case steps.INDUSTRY:
+          var temp;
+          
+          if (formData.sector === "Other") {
+              temp = formData.otherSector.trim() !== '';
+          } else {
+              temp = formData.sector.trim() !== '';
+          }
+      
+          if (formData.industry === "Other") {
+              temp = temp && formData.otherIndustry.trim() !== '';
+          } else {
+              temp = temp && formData.industry.trim() !== '';
+          }
+      
+          return temp;
+      
+      case steps.PRODUCT_SERVICE:
+        return formData.productOverview.trim() !== '';
+      case steps.WEBSITE:
+        return formData.websiteLink.trim() !== '';
+      default:
+        return false;
+    }
+  };
+
+  const handlePrev = () => {
+    if (step > steps.COMPANY_NAME) setStep(step - 1);
+  };
+
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: files ? files[0] : value,
+    }));
+  };
+
+  useEffect(() => {
+    setLogoUrl(formData.logo || null);
+  }, [formData.logo]);
+
+  const handleBlankSlideGeneration = async () => {
+    try {
+      const response = await fetch(
+        `https://script.google.com/macros/s/AKfycbwB57iLia0UqcnwQoa4Tg0QRlb0OppIWa4dP1sP_Zswfho03rjEevTLJUAcWRP8_9Yrqw/exec?submissionID=${formId}`
+      );
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const responseData = await response.text();
+      console.log('API Response:', responseData); // Log the entire response
+      setgeneratedPresentationID(responseData);
+      localStorage.setItem('generatedPresentationId', responseData);
+      const data = JSON.parse(responseData);
+      console.log(data + 'is here !');
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const handleLogoChange = async (e) => {
+    const file = e.target.files[0];
+    setIsLogoLoading(true);
+    try {
+      console.log('File selected:', file);
+      const processedFile = await removeBackground(file);
+      console.log('Processed file:', processedFile);
+
+      // Upload the processed logo to S3
+      const uploadedLogoUrl = await uploadFileToS3(processedFile);
+      console.log('Uploaded logo URL:', uploadedLogoUrl);
+
+      setLogoUrl(uploadedLogoUrl); // Set the URL of the uploaded logo
+      handleChange({ target: { name: 'logo', value: uploadedLogoUrl } }); // Update form data with the logo URL
+
+      // Fetch colors from the API
+      const colors = await fetchColorsFromApi(uploadedLogoUrl);
+      if (colors) {
+        handleChange({ target: { name: 'primaryColor', value: colors[0] } });
+        handleChange({ target: { name: 'secondaryColor', value: colors[1] } });
+        handleChange({ target: { name: 'p50s50', value: colors[2] } });
+        handleChange({ target: { name: 'p75s25', value: colors[3] } });
+        handleChange({ target: { name: 'p25s75', value: colors[4] } });
+      }
+    } catch (error) {
+      console.error('Error uploading logo:', error);
+    } finally {
+      setIsLogoLoading(false);
+    }
+  };
+
+  const fetchColorsFromApi = async (imageUrl) => {
+    try {
+      const serverurl = process.env.REACT_APP_SERVER_URL;
+      const response = await axios.post(`${serverurl}/get-colors/`, { imageUrl });
+      const colors = response.data.map((color) => color.hex); // Extract hex values from response
+      console.log('Fetched colors:', colors);
+      return colors;
+    } catch (error) {
+      console.error('Error fetching colors from API:', error);
+      return null;
+    }
+  };
+
+  const handleSubmit = async (e, section) => {
+    e.preventDefault();
+    const payload = {
+      formId: formId,
+      formResponses: formData,
+      generatedPresentationId: generatedPresentationID,
+      section: section,
+    };
+    if (validateStep()) {
+      console.log('API Payload:', payload);
+      try {
+        const serverurl = process.env.REACT_APP_SERVER_URL;
+        const response = await fetch(`${serverurl}/submission/short-form`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        });
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+  };
+
+  const handleNext = (e) => {
+    e.preventDefault();
+    if (validateStep()) {
+      if (step === steps.COMPANY_NAME) {
+        handleBlankSlideGeneration();
+      } else if (step === steps.TAGLINE) {
+        handleSubmit(e, 'cover');
+      } else if (step === steps.ABOUT_COMPANY) {
+        handleSubmit(e, 'about');
+      } else if (step === steps.INDUSTRY) {
+        handleSubmit(e, 'market');
+      } else if (step === steps.PRODUCT_SERVICE) {
+        handleSubmit(e, 'product');
+      } else if (step === steps.WEBSITE) {
+        handleSubmit(e, 'contactInfo');
+      }
+      step < 7 ? setStep(step + 1) : navigate('/pages/presentationcheck');
+    } else {
+      alert('Field cannot be empty');
+    }
+  };
+
+  return (
+    <div className="conciseform">
+      <Navbar handleClick={handleLogoClicked} />
+      <div className="concise-form-container">
+        <ProgressBar step={step} totalSteps={Object.keys(steps).length} />
+        <form onSubmit={handleSubmit}>
+          {step === steps.COMPANY_NAME && (
+            <Section
+              title="Company Name"
+              name="companyName"
+              value={formData.companyName}
+              handleChange={handleChange}
+              required
+            />
+          )}
+          {step === steps.LOGO && (
+            <LogoSection
+              name="logo"
+              value={formData.logo}
+              handleChange={handleLogoChange}
+              isLogoLoading={isLogoLoading}
+              required
+            />
+          )}
+          {step === steps.TAGLINE && (
+            <Section
+              title="Company Tagline"
+              name="tagline"
+              value={formData.tagline}
+              handleChange={handleChange}
+              required
+            />
+          )}
+          {step === steps.ABOUT_COMPANY && (
+            <OverviewSection
+              title="About the Company"
+              name="companyOverview"
+              value={formData.companyOverview}
+              handleChange={handleChange}
+              required
+            />
+          )}
+          {step === steps.INDUSTRY && (
+            <IndustrySection
+              title="Sector and Industry"
+              name="sector"
+              industry={formData.industry}
+              sector={formData.sector}
+              handleChange={handleChange}
+              required
+            />
+          )}
+          {step === steps.PRODUCT_SERVICE && (
+            <OverviewSection
+              title="Products and Services"
+              name="productOverview"
+              value={formData.productOverview}
+              handleChange={handleChange}
+              required
+            />
+          )}
+          {step === steps.WEBSITE && (
+            <ContactSection 
+              title="Company Links"
+              name1="websiteLink"
+              value1={formData.websiteLink}
+              name2="linkedinLink"
+              value2={formData.linkedinLink}             
+              handleChange={handleChange}
+              required
+            />
+          )}
+
+          <div className="form-navigation">
+            {isLogoLoading ? (
+              <CircularProgress sx={{ color: "#eab308" }} /> 
+            ) : (
+              <button type="submit" onClick={handleNext} disabled={step === steps.LOGO && isLogoLoading}>
+                {step === steps.WEBSITE ? 'Submit' : 'Next'}
+              </button>
+            )}
+            {step > steps.COMPANY_NAME && (
+              <button type="button" onClick={handlePrev}>
+                Back
+              </button>
+            )}
+          </div>
+        </form>
+      </div>
+    </div>
+  );
 };
-if (window.addEventListener) {
-window.addEventListener("message", handleIFrameMessage, false);
-} else if (window.attachEvent) {
-window.attachEvent("onmessage", handleIFrameMessage);
-}
-</script>
+
+export default ConciseForm;
