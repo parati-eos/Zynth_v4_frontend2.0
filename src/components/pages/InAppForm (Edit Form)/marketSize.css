@@ -119,13 +119,13 @@
         margin-bottom: 2vw;
     }
    /* Set the text size for the select dropdown */
-.MarketSize-Inapp select#sector {
-    font-size: 1.2vw; /* Adjust the text size for the dropdown */
-}
+    .MarketSize-Inapp select#sector {
+    font-size: 3vw; /* Adjust the text size for the dropdown */
+    }
 
-/* Set the text size for the options inside the select dropdown */
-.MarketSize-Inapp select#sector option {
-    font-size: 1.2vw; /* Adjust the text size for the options */
+    /* Set the text size for the options inside the select dropdown */
+    .MarketSize-Inapp select#sector option {
+    font-size: 3vw; /* Adjust the text size for the options */
 }
 
     
@@ -135,7 +135,7 @@
     .MarketSize-Inapp input[type="number"],
     .MarketSize-Inapp textarea {
         padding: 4vw;
-        font-size: 4vw;
+        font-size: 3vw;
     }
 
     .MarketSize-Inapp textarea {

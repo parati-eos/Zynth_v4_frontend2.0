@@ -91,8 +91,8 @@
 
     .Cover-Inapp input[type="text"],
     .Cover-Inapp input[type="file"] {
-        padding: 4vw;
-        font-size: 4vw;
+        padding: 1vw;
+        font-size: 3vw;
     }
 
     .text-input-logo {
