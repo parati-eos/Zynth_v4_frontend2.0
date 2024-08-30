@@ -223,8 +223,8 @@ function InAppForm({ Title, onClose,onSubmit}) {
                 return <Cover formData={formData} handleChange={handleChange}setIsUploading={setIsUploading}   />;
               case "About":
                 return <About formData={formData} handleChange={handleChange}  />;
-                case "Track Record":
-                  return (
+              case "Track Record":
+                return (
                     <>
                       {phaseValidationError && (
                         <div className="error-message">{phaseValidationError}</div>
@@ -235,7 +235,7 @@ function InAppForm({ Title, onClose,onSubmit}) {
                         validatePhases={validatePhases}
                       />
                     </>
-                  );
+                );
               case "Founding Team":
                 return <Team formData={formData} />;
               case "Financial Overview":
