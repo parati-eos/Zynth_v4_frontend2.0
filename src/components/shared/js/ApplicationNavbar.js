@@ -64,7 +64,7 @@ function Navbar({ historyShow, historyHide }) {
         </div>
         <div className="app-navbar-details-container">
           <button
-            className="app-history-button"
+            className="app-history-button" id="history"
             onMouseEnter={historyShow}
             onMouseLeave={historyHide}
             onClick={handleHistoryButtonClicked}

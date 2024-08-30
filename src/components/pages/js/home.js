@@ -8,6 +8,8 @@ import Blog from "../home/blog.tsx";
 import { StickyScrollRevealDemo } from "../home/stickyScrollReveal.tsx";
 import Stats from "../home/stats.tsx";
 import { isIphone } from "../../../utils/deviceUtils.js";
+import Features from "../home/zynth_work.js";
+import Zigzag from "../home/how_works.js"
 
 function Home() {
   return (
@@ -18,8 +20,10 @@ function Home() {
         {/* Add other content for Samples section */}
    
        <div id="features">
-      <StickyScrollRevealDemo />
+      {/* <StickyScrollRevealDemo /> */}
+      <Features />
       </div>
+      <Zigzag/>
       <Stats />
       <div id="blogs"> {/* Ensure this div is still wrapping your Blog component */}
         {/* <Blog /> */}

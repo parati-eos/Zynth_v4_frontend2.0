@@ -104,16 +104,16 @@ export const Header = () => {
       <div className= "flex flex-col md:h-[80vh] h-[70vh]">
         <div className="h-[100%]">
         <h1 className="text-5xl md:text-7xl font-bold text-white opacity-100">
-          Investor Pitch Decks for
+        Generate Your Investor Pitch 
           <br />
-          <span style={{ color: "#e6a500" }}>Startups and Entrepreneurs</span>
+          <span style={{ color: "#e6a500" }}>Deck in Just 5 Minutes</span>
         </h1>
         </div>
         <div className="h-[100%]">
         <p className="max-w-2xl text-base md:text-xl mt-8 text-neutral-200 opacity-100">
-          Create your investor presentations in a few minutes using our
+        The AI-powered presentation builder for startups and entrepreneurs.
    <br></br>
-          AI powered pitch deck builder!
+   Create your pitch deck presentation instantly and impress investors!
         </p>
         </div>
         <div className="h-[100%]">
