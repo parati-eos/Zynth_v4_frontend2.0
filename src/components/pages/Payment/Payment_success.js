@@ -22,11 +22,7 @@ const PaymentSuccess = () => {
         }
     
         const result = await response.json();
-        // console.log("Result:", result);
-    
-        // Check if the response is an object and contains the PresentationURL
         const url = result.PresentationURL;
-        // console.log("URL:", url);
     
         if (!url || typeof url !== "string") {
           throw new Error("Invalid URL in response");
@@ -64,14 +60,52 @@ const PaymentSuccess = () => {
       }
     };
 
+    // Function to call the additional API and then another API with the presentationID
+    const callAdditionalApi = async () => {
+      try {
+        const response = await fetch(`https://zynth.ai/api/slides/presentation?formId=${formId}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+    
+        const result = await response.json();
+        console.log("Additional API response:", result);
+        
+        const presentationID = result.PresentationID; // Extract PresentationID from response
+        
+        if (presentationID) {
+          // Call the next API with the extracted presentationID
+          const secondApiResponse = await fetch(`https://script.google.com/macros/s/AKfycbzdIX00oV8voGYLhNEu8Atc9gYaQWlGQCbmBEKRFfxIUF1uhVIMMaZE-UCi4byRzA2c/exec?presentationID=${presentationID}`);
+          if (!secondApiResponse.ok) {
+            throw new Error(`HTTP error! status: ${secondApiResponse.status}`);
+          }
+          
+          const secondApiResult = await secondApiResponse.json();
+          console.log("Second API response:", secondApiResult);
+        } else {
+          console.error("PresentationID not found in the response");
+        }
+      } catch (error) {
+        console.error("Error calling additional APIs:", error);
+      }
+    };
+
+    // Call callAdditionalApi after 2 seconds
+    const additionalApiTimer = setTimeout(() => {
+      callAdditionalApi();
+    }, 2000);
+
     // Call handleDownload and updatePaymentStatus after 5 seconds
-    const timer = setTimeout(() => {
+    const downloadAndUpdateTimer = setTimeout(() => {
       handleDownload();
       updatePaymentStatus();
-    }, 5000);
+    }, 8000);
 
-    // Clear timeout if the component unmounts
-    return () => clearTimeout(timer);
+    // Clear timeouts if the component unmounts
+    return () => {
+      clearTimeout(additionalApiTimer);
+      clearTimeout(downloadAndUpdateTimer);
+    };
   }, []);
 
   return (
