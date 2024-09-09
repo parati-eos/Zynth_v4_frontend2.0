@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const PaymentSuccess = () => {
+  const [countdown, setCountdown] = useState(20); // Set initial countdown to 20 seconds
+
   useEffect(() => {
     // Extract the formId from the URL query string
     const urlParams = new URLSearchParams(window.location.search);
@@ -27,8 +29,7 @@ const PaymentSuccess = () => {
         if (!url || typeof url !== "string") {
           throw new Error("Invalid URL in response");
         }
-    
-        // Open the URL in a new tab
+        // Open the URL in the current tab
         window.open(url, "_self");
       } catch (error) {
         console.error("Error exporting presentation:", error);
@@ -60,7 +61,6 @@ const PaymentSuccess = () => {
       }
     };
 
-    // Function to call the additional API and then another API with the presentationID
     const callAdditionalApi = async () => {
       try {
         const response = await fetch(`https://zynth.ai/api/slides/presentation?formId=${formId}`);
@@ -70,18 +70,22 @@ const PaymentSuccess = () => {
     
         const result = await response.json();
         console.log("Additional API response:", result);
-        
+    
         const presentationID = result.PresentationID; // Extract PresentationID from response
-        
+    
         if (presentationID) {
           // Call the next API with the extracted presentationID
-          const secondApiResponse = await fetch(`https://script.google.com/macros/s/AKfycbzdIX00oV8voGYLhNEu8Atc9gYaQWlGQCbmBEKRFfxIUF1uhVIMMaZE-UCi4byRzA2c/exec?presentationID=${presentationID}`);
-          if (!secondApiResponse.ok) {
-            throw new Error(`HTTP error! status: ${secondApiResponse.status}`);
+          const secondApiResponse = await fetch(`https://script.google.com/macros/s/AKfycbyUR5SWxE4IHJ6uVr1eVTS7WhJywnbCNBs2zlJsUFbafyCsaNWiGxg7HQbyB3zx7R6z/exec?presentationID=${presentationID}`);
+    
+          const secondApiText = await secondApiResponse.text(); // Get raw response as text
+          console.log("Raw second API response:", secondApiText); // Log raw response
+    
+          try {
+            const secondApiResult = JSON.parse(secondApiText); // Try to parse the response
+            console.log("Second API parsed response:", secondApiResult);
+          } catch (jsonError) {
+            console.error("Error parsing second API response as JSON:", jsonError);
           }
-          
-          const secondApiResult = await secondApiResponse.json();
-          console.log("Second API response:", secondApiResult);
         } else {
           console.error("PresentationID not found in the response");
         }
@@ -89,29 +93,56 @@ const PaymentSuccess = () => {
         console.error("Error calling additional APIs:", error);
       }
     };
+    
+    // Countdown timer
+    const countdownInterval = setInterval(() => {
+      setCountdown((prevCountdown) => {
+        if (prevCountdown <= 1) {
+          clearInterval(countdownInterval);  // Clear interval when countdown reaches 0
+        }
+        return prevCountdown - 1;
+      });
+    }, 1000); // Update countdown every second
 
-    // Call callAdditionalApi after 2 seconds
+    // Call callAdditionalApi after 6 seconds
     const additionalApiTimer = setTimeout(() => {
       callAdditionalApi();
-    }, 2000);
+    }, 6000);
 
-    // Call handleDownload and updatePaymentStatus after 5 seconds
+    // Call handleDownload and updatePaymentStatus after 20 seconds
     const downloadAndUpdateTimer = setTimeout(() => {
       handleDownload();
       updatePaymentStatus();
-    }, 8000);
+    }, 20000);
 
-    // Clear timeouts if the component unmounts
+    // Clear timeouts and intervals if the component unmounts
     return () => {
       clearTimeout(additionalApiTimer);
       clearTimeout(downloadAndUpdateTimer);
+      clearInterval(countdownInterval);
     };
   }, []);
 
   return (
-    <div style={{ width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'white' }}>
+    <div style={{ width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'white', flexDirection: 'column' }}>
       <h1>Payment Successful</h1>
-      <p>Your payment has been successfully processed. You will be redirected shortly...</p>
+      <p>Your payment has been successfully processed.</p>
+
+      {/* Spinner (loading animation) */}
+      <div className="spinner" style={{ width: '50px', height: '50px', margin: '20px 0', border: '5px solid #f3f3f3', borderTop: '5px solid #3498db', borderRadius: '50%', animation: 'spin 2s linear infinite' }}></div>
+
+      {/* Countdown timer */}
+      <p>Redirecting in {countdown} seconds...</p>
+
+      {/* Spinner keyframes */}
+      <style>
+        {`
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+        `}
+      </style>
     </div>
   );
 };
