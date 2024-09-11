@@ -16,12 +16,13 @@ import ContactSection from './contactus';
 
 const steps = {
   COMPANY_NAME: 1,
-  LOGO: 2,
-  TAGLINE: 3,
-  INDUSTRY: 4,
-  ABOUT_COMPANY: 5,
-  PRODUCT_SERVICE: 6,
-  WEBSITE: 7,
+  WEBSITE: 2,
+  LOGO: 3,
+  TAGLINE: 4,
+  INDUSTRY: 5,
+  ABOUT_COMPANY: 6,
+  PRODUCT_SERVICE: 7,
+  CONTACT: 8,
 };
 
 const generateFormId = () => {
@@ -145,14 +146,13 @@ const ConciseForm = () => {
       const processedFile = await removeBackground(file);
       console.log('Processed file:', processedFile);
 
-      // Upload the processed logo to S3
+
       const uploadedLogoUrl = await uploadFileToS3(processedFile);
       console.log('Uploaded logo URL:', uploadedLogoUrl);
 
-      setLogoUrl(uploadedLogoUrl); // Set the URL of the uploaded logo
-      handleChange({ target: { name: 'logo', value: uploadedLogoUrl } }); // Update form data with the logo URL
+      setLogoUrl(uploadedLogoUrl); 
+      handleChange({ target: { name: 'logo', value: uploadedLogoUrl } });
 
-      // Fetch colors from the API
       const colors = await fetchColorsFromApi(uploadedLogoUrl);
       if (colors) {
         handleChange({ target: { name: 'primaryColor', value: colors[0] } });
@@ -218,7 +218,8 @@ const ConciseForm = () => {
     if (validateStep()) {
       if (step === steps.COMPANY_NAME) {
         handleBlankSlideGeneration();
-      } else if (step === steps.TAGLINE) {
+      }
+      else if (step === steps.TAGLINE) {
         handleSubmit(e, 'cover');
       } else if (step === steps.ABOUT_COMPANY) {
         handleSubmit(e, 'about');
@@ -227,6 +228,8 @@ const ConciseForm = () => {
       } else if (step === steps.PRODUCT_SERVICE) {
         handleSubmit(e, 'product');
       } else if (step === steps.WEBSITE) {
+        handleSubmit(e, 'website');
+      }else if (step === steps.CONTACT) {
         handleSubmit(e, 'contactInfo');
       }
       step < 7 ? setStep(step + 1) : navigate('/pages/presentationcheck');
@@ -246,6 +249,15 @@ const ConciseForm = () => {
               title="Company Name"
               name="companyName"
               value={formData.companyName}
+              handleChange={handleChange}
+              required
+            />
+          )}
+          {step === steps.WEBSITE && (
+            <Section
+              title="Website"
+              name="websiteLink"
+              value={formData.websiteLink}
               handleChange={handleChange}
               required
             />
@@ -296,7 +308,7 @@ const ConciseForm = () => {
               required
             />
           )}
-          {step === steps.WEBSITE && (
+          {/* {step === steps.WEBSITE && (
             <ContactSection 
               title="Company Links"
               name1="websiteLink"
@@ -306,7 +318,7 @@ const ConciseForm = () => {
               handleChange={handleChange}
               required
             />
-          )}
+          )} */}
 
           <div className="form-navigation">
             {isLogoLoading ? (
