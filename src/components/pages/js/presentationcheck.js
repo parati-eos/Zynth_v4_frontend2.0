@@ -595,7 +595,7 @@ const PresentationCheck = () => {
         handleExport={checkPaymentStatusAndProceed}
       />
       <PaymentGateway
-        amount="500"
+        amount="99"
         productinfo="Presentation Export"
         onSuccess={handleDownload}
         formId={formId}

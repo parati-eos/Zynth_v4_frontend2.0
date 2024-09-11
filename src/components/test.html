@@ -1,49 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy</title>
-</head>
-<body>
-    <h1>Privacy Policy</h1>
-    <p>Last updated: August 7, 2024</p>
-
-    <p>Welcome to our Privacy Policy page! When you use our app, you trust us with your information. This Privacy Policy is meant to help you understand what data we collect, why we collect it, and what we do with it. This is important; we hope you will take time to read it carefully.</p>
-
-    <h2>Information We Collect</h2>
-    <p>Our app collects the following information:</p>
-    <ul>
-        <li><strong>Email Address:</strong> We collect and store the email address of participants to provide services related to NDIS (National Disability Insurance Scheme).</li>
-        <li><strong>Camera Access:</strong> We access your camera to allow you to add a profile image in your app account.</li>
-        <li><strong>Location Data:</strong> We use your location data to help you locate providers near you.</li>
-    </ul>
-
-    <h2>How We Use Information We Collect</h2>
-    <p>We use the collected information to:</p>
-    <ul>
-        <li>Provide NDIS services to participants.</li>
-        <li>Enable participants to add and update their profile images.</li>
-        <li>Help participants find providers in their vicinity.</li>
-    </ul>
-
-    <h2>Sharing Your Information</h2>
-    <p>We do not share your personal information with third parties except to comply with legal obligations or to protect and defend our rights and property.</p>
-
-    <h2>Data Security</h2>
-    <p>We take reasonable measures to protect your personal information from unauthorized access, use, or disclosure. However, no internet or email transmission is ever fully secure or error-free. Please keep this in mind when disclosing any information to us via the internet.</p>
-
-    <h2>Your Rights</h2>
-    <p>You have the right to access, update, or delete your personal information. If you have any questions or concerns about our Privacy Policy or data practices, please contact us at support@example.com.</p>
-
-    <h2>Changes to This Privacy Policy</h2>
-    <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page. You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.</p>
-
-    <h2>Contact Us</h2>
-    <p>If you have any questions about this Privacy Policy, please contact us:</p>
-    <ul>
-        <li><strong>Name:</strong> Jordan Perdikaris</li>
-        <li><strong>Email:</strong> jordanperdikaris@outlook.com</li>
-    </ul>
-</body>
-</html>
+<button id="rzp-button1">Pay</button>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+var options = {
+    "key": "rzp_test_YcV7VAedntSsE5", // Enter the Key ID generated from the Dashboard
+    "amount": "5000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "zynth.ai", //your business name
+    "description": "Test Transaction",
+    "image": "https://example.com/your_logo",
+    "order_id": "order_OtuH9YsaNmLK7w", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "handler": function (response){
+        alert(response.razorpay_payment_id);
+        alert(response.razorpay_order_id);
+        alert(response.razorpay_signature)
+    },
+    "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
+        "name": "Gaurav Kumar", //your customer's name
+        "email": "gaurav.kumar@example.com", 
+        "contact": "9000090000"  //Provide the customer's phone number for better conversion rates 
+    },
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+var rzp1 = new Razorpay(options);
+rzp1.on('payment.failed', function (response){
+        alert(response.error.code);
+        alert(response.error.description);
+        alert(response.error.source);
+        alert(response.error.step);
+        alert(response.error.reason);
+        alert(response.error.metadata.order_id);
+        alert(response.error.metadata.payment_id);
+});
+document.getElementById('rzp-button1').onclick = function(e){
+    rzp1.open();
+    e.preventDefault();
+}
+</script>
