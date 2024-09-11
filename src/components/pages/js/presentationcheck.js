@@ -99,38 +99,91 @@ const PresentationCheck = () => {
     }, []);
 
 
-  const handleDownload = async () => {
-    try {
-      const formId = localStorage.getItem("submissionId");
-      if (!formId) {
-        throw new Error("Form ID not found in localStorage");
+    const handleDownload = async () => {
+      try {
+        const formId = localStorage.getItem("submissionId");
+        if (!formId) {
+          throw new Error("Form ID not found in localStorage");
+        }
+    
+        const serverurl = process.env.REACT_APP_SERVER_URL;
+    
+        // 1. First, update the payment status
+        const updatePaymentStatus = async () => {
+          const response = await fetch('https://zynth.ai/api/appscript/updatePaymentStatus', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ FormID: formId, paymentStatus: 1 }),
+          });
+    
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          const result = await response.json();
+          console.log("Payment status updated:", result);
+        };
+    
+        // Call payment status update
+        await updatePaymentStatus();
+    
+        // 2. Then, call the additional API to get presentationID
+        const callAdditionalApi = async () => {
+          const response = await fetch(`https://zynth.ai/api/slides/presentation?formId=${formId}`);
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+    
+          const result = await response.json();
+          console.log("Additional API response:", result);
+    
+          const presentationID = result.PresentationID; // Extract PresentationID from response
+    
+          if (presentationID) {
+            // Call the second API with the extracted presentationID
+            const secondApiResponse = await fetch(`https://script.google.com/macros/s/AKfycbyUR5SWxE4IHJ6uVr1eVTS7WhJywnbCNBs2zlJsUFbafyCsaNWiGxg7HQbyB3zx7R6z/exec?presentationID=${presentationID}`);
+            const secondApiText = await secondApiResponse.text();
+            console.log("Raw second API response:", secondApiText);
+    
+            try {
+              const secondApiResult = JSON.parse(secondApiText);
+              console.log("Second API parsed response:", secondApiResult);
+            } catch (jsonError) {
+              console.error("Error parsing second API response as JSON:", jsonError);
+            }
+          } else {
+            throw new Error("PresentationID not found in the response");
+          }
+        };
+    
+        // Call additional API
+        await callAdditionalApi();
+    
+        // 3. Finally, call the original slides URL API
+        const response = await fetch(`${serverurl}/slides/url?formId=${formId}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+    
+        const result = await response.json();
+        console.log("Result:", result);
+    
+        const url = result.PresentationURL;
+        console.log("URL:", url);
+    
+        if (!url || typeof url !== "string") {
+          throw new Error("Invalid URL in response");
+        }
+        window.open(url, "_blank");
+      } catch (error) {
+        console.error("Error exporting presentation:", error);
+        alert(
+          "Oops! It seems like the pitch deck presentation is missing. Click 'Generate Presentation' to begin your journey to success!"
+        );
       }
-  
-      const serverurl = process.env.REACT_APP_SERVER_URL;
-      const response = await fetch(`${serverurl}/slides/url?formId=${formId}`);
-  
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-  
-      const result = await response.json();
-      console.log("Result:", result);
-  
-      // Ensure the response is an object and contains the PresentationURL
-      const url = result.PresentationURL;
-      console.log("URL:", url);
-  
-      if (!url || typeof url !== "string") {
-        throw new Error("Invalid URL in response");
-      }
-      window.open(url, "_blank");
-    } catch (error) {
-      console.error("Error exporting presentation:", error);
-      alert(
-        "Oops! It seems like the pitch deck presentation is missing. Click 'Generate Presentation' to begin your journey to success!"
-      );
-    }
-  };
+    };
+    
 
   const handleShare = () => {
     const uniqueShareableUrl = `https://zynth.ai/share?submissionId=${formId}`;
@@ -595,7 +648,6 @@ const PresentationCheck = () => {
         handleExport={checkPaymentStatusAndProceed}
       />
       <PaymentGateway
-        amount="99"
         productinfo="Presentation Export"
         onSuccess={handleDownload}
         formId={formId}
