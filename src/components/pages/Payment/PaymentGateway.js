@@ -6,8 +6,9 @@ const PaymentGateway = ({ productinfo, onSuccess, formId }) => {
   const [paymentData, setPaymentData] = useState({
     amount: 9, // Default amount for USD
     productinfo,
-    firstname: localStorage.getItem("userEmail"),
+    firstname: "Zynth",
     email: localStorage.getItem("userEmail") || '',
+    // phone: "1234567890",
     formId,
     currency: 'USD',
   });
@@ -102,7 +103,7 @@ const PaymentGateway = ({ productinfo, onSuccess, formId }) => {
         prefill: {
           name: paymentData.firstname,
           email: paymentData.email,
-          contact: paymentData.phone,
+         // contact: paymentData.phone,
         },
         theme: {
           color: "#3399cc",
