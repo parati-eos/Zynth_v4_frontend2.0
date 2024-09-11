@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import "./Modal.css"; // Import custom modal CSS
 
-const PaymentGateway = ({ amount, productinfo, onSuccess, formId }) => {
+const PaymentGateway = ({ productinfo, onSuccess, formId }) => {
   const [paymentData, setPaymentData] = useState({
-    amount,
+    amount: 9, // Default amount for USD
     productinfo,
-    firstname: "Zynth",
+    firstname: localStorage.getItem("userEmail"),
     email: localStorage.getItem("userEmail") || '',
-    phone: "1234567890",
     formId,
-    currency: 'USD', // Default to USD
+    currency: 'USD',
   });
+
+  const [countdown, setCountdown] = useState(null); // State to hold countdown value
+  const [showModal, setShowModal] = useState(false); // State to control modal visibility
+  const navigate = useNavigate();
 
   useEffect(() => {
     const detectCurrency = async () => {
@@ -19,15 +24,17 @@ const PaymentGateway = ({ amount, productinfo, onSuccess, formId }) => {
           throw new Error('Failed to fetch location data');
         }
         const data = await response.json();
-        if (data.country === 'IN') {
-          setPaymentData(prevData => ({ ...prevData, currency: 'USD' }));
-        } else {
-          setPaymentData(prevData => ({ ...prevData, currency: 'INR' }));
-        }
+        const currency = data.country === 'IN' ? 'INR' : 'USD';
+        const amount = currency === 'INR' ? 99 : 9;
+
+        setPaymentData(prevData => ({
+          ...prevData,
+          currency,
+          amount,
+        }));
       } catch (error) {
         console.error('Error detecting location:', error);
-        // Default to USD if there is an error (you can change this to INR if needed)
-        setPaymentData(prevData => ({ ...prevData, currency: 'USD' }));
+        setPaymentData(prevData => ({ ...prevData, currency: 'USD', amount: 9 }));
       }
     };
 
@@ -36,20 +43,14 @@ const PaymentGateway = ({ amount, productinfo, onSuccess, formId }) => {
 
   const handlePayment = async () => {
     try {
-      console.log("Sending payment data to generate PayU hash:", paymentData);
+      console.log("Sending payment data to generate Razorpay order:", paymentData);
 
-      // Ensure the currency is set correctly before proceeding
-      if (!paymentData.currency) {
-        alert('Currency is not set. Please try again.');
-        return;
-      }
-
-      const response = await fetch('https://zynth.ai/api/api/generate-payu-hash', {
+      const response = await fetch('https://zynth.ai/api/razorpay/create-order', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(paymentData),
+        body: JSON.stringify({ amount: paymentData.amount, currency: paymentData.currency }),
       });
 
       if (!response.ok) {
@@ -57,41 +58,97 @@ const PaymentGateway = ({ amount, productinfo, onSuccess, formId }) => {
       }
 
       const result = await response.json();
-      const { key, txnid, hash } = result;
+      const { id: order_id, amount, currency } = result;
 
-      const paymentForm = document.createElement('form');
-      paymentForm.setAttribute('action', 'https://secure.payu.in/_payment');
-      paymentForm.setAttribute('method', 'POST');
-      paymentForm.setAttribute('target', '_blank');
+      const options = {
+        key: process.env.REACT_APP_RAZORPAY_KEY_ID,
+        amount,
+        currency,
+        name: "Zynth",
+        description: "Purchase of presentation",
+        order_id,
+        handler: async function (response) {
+          const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = response;
 
-      paymentForm.innerHTML = `
-        <input type="hidden" name="key" value="${key}" />
-        <input type="hidden" name="txnid" value="${txnid}" />
-        <input type="hidden" name="amount" value="${paymentData.amount}" />
-        <input type="hidden" name="productinfo" value="${paymentData.productinfo}" />
-        <input type="hidden" name="firstname" value="${paymentData.firstname}" />
-        <input type="hidden" name="email" value="${paymentData.email}" />
-        <input type="hidden" name="phone" value="${paymentData.phone}" />
-        <input type="hidden" name="surl" value="https://zynth.ai/payment-success?formId=${formId}" />
-        <input type="hidden" name="furl" value="https://zynth.ai/payment-failure" />
-        <input type="hidden" name="hash" value="${hash}" />
-        <input type="hidden" name="currency" value="${paymentData.currency}" />
-      `;
+          try {
+            const verifyResponse = await fetch('https://zynth.ai/api/razorpay/verify-payment', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                razorpay_payment_id,
+                razorpay_order_id,
+                razorpay_signature,
+              }),
+            });
 
-      // console.log("Submitting payment form with data:", paymentForm.innerHTML);
-      document.body.appendChild(paymentForm);
-      paymentForm.submit();
-      document.body.removeChild(paymentForm);
+            if (!verifyResponse.ok) {
+              throw new Error('Payment verification failed');
+            }
+
+            const verifyResult = await verifyResponse.json();
+            if (onSuccess) {
+              onSuccess(verifyResult);
+            }
+
+            setCountdown(8); // Start 8-second countdown
+            setShowModal(true); // Show the modal
+          } catch (error) {
+            console.error('Error verifying payment:', error);
+            alert('Payment verification failed. Please try again.');
+          }
+        },
+        prefill: {
+          name: paymentData.firstname,
+          email: paymentData.email,
+          contact: paymentData.phone,
+        },
+        theme: {
+          color: "#3399cc",
+        },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
     } catch (error) {
-      // console.error('Error generating PayU hash:', error);
+      console.error('Error processing payment:', error);
       alert('SORRY!\nWe were unable to process your payment\nError Reason: ' + error.message);
     }
   };
 
+  useEffect(() => {
+    if (countdown === null || countdown === 0) return;
+
+    const timer = setInterval(() => {
+      setCountdown(prevCount => prevCount - 1);
+    }, 1000);
+
+    return () => clearInterval(timer); // Cleanup the timer
+  }, [countdown]);
+
+  useEffect(() => {
+    if (countdown === 0) {
+      setShowModal(false); // Hide the modal once the countdown ends
+      console.log('Download starting...');
+    }
+  }, [countdown]);
+
   return (
-    <button id="payment-button" onClick={handlePayment} style={{ display: 'none' }}>
-      Pay and Download
-    </button>
+    <div>
+      <button id="payment-button" onClick={handlePayment} style={{ display: 'none' }}>
+        Pay and Download
+      </button>
+
+      {/* Modal */}
+      {showModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <p>Payment successful! Your download will start in {countdown} seconds...</p>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 
