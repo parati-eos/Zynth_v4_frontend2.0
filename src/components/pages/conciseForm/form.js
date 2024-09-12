@@ -95,6 +95,8 @@ const ConciseForm = () => {
       
       case steps.PRODUCT_SERVICE:
         return formData.productOverview.trim() !== '';
+      case steps.CONTACT:
+        return true;
       case steps.WEBSITE:
         return formData.websiteLink.trim() !== '';
       default:
@@ -232,7 +234,7 @@ const ConciseForm = () => {
       }else if (step === steps.CONTACT) {
         handleSubmit(e, 'contactInfo');
       }
-      step < 7 ? setStep(step + 1) : navigate('/pages/presentationcheck');
+      step < 8 ? setStep(step + 1) : navigate('/pages/presentationcheck');
     } else {
       alert('Field cannot be empty');
     }
@@ -308,24 +310,24 @@ const ConciseForm = () => {
               required
             />
           )}
-          {/* {step === steps.WEBSITE && (
+          {step === steps.CONTACT && (
             <ContactSection 
               title="Company Links"
-              name1="websiteLink"
-              value1={formData.websiteLink}
+              name1="contactPhone"
+              value1={formData.contactPhone}
               name2="linkedinLink"
               value2={formData.linkedinLink}             
               handleChange={handleChange}
               required
             />
-          )} */}
+          )} 
 
           <div className="form-navigation">
             {isLogoLoading ? (
               <CircularProgress sx={{ color: "#eab308" }} /> 
             ) : (
               <button type="submit" onClick={handleNext} disabled={step === steps.LOGO && isLogoLoading}>
-                {step === steps.WEBSITE ? 'Submit' : 'Next'}
+                {step === steps.CONTACT ? 'Submit' : 'Next'}
               </button>
             )}
             {step > steps.COMPANY_NAME && (
