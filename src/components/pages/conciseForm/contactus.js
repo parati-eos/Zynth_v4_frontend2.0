@@ -7,14 +7,6 @@ const ContactSection = ({ title, name1, value1, name2, value2, handleChange, typ
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    if (name === name1) {
-      if (value.includes('.')) {
-        setWebsiteError('');
-      } else {
-        setWebsiteError('Please enter a valid website');
-      }
-    }
-
     if (name === name2) {
       if (value.includes('linkedin.com')) {
         setLinkedinError('');
@@ -48,7 +40,7 @@ const ContactSection = ({ title, name1, value1, name2, value2, handleChange, typ
         value={value1}
         onChange={handleInputChange}
         onBlur={handleBlur}
-        placeholder="www.zynth.ai"
+        placeholder="+ 91 1234 56 7891"
         required
       />
       {websiteError && <p className="error-message" style={{ color: 'yellow' }}>{websiteError}</p>}
