@@ -44,9 +44,10 @@ const PaymentGateway = ({ productinfo, onSuccess, formId }) => {
 
   const handlePayment = async () => {
     try {
+      
       console.log("Sending payment data to generate Razorpay order:", paymentData);
 
-      const response = await fetch('https://zynth.ai/api/razorpay/create-order', {
+      const response = await fetch('http://localhost:5000/razorpay/create-order', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -72,7 +73,7 @@ const PaymentGateway = ({ productinfo, onSuccess, formId }) => {
           const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = response;
 
           try {
-            const verifyResponse = await fetch('https://zynth.ai/api/razorpay/verify-payment', {
+            const verifyResponse = await fetch('http://localhost:5000/razorpay/verify-payment', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
