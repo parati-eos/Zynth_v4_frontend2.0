@@ -71,27 +71,35 @@ function Login() {
   };
   const serverurl = process.env.REACT_APP_SERVER_URL;
 
-const saveUserData = (userData) => {
-  fetch(`${serverurl}/users/`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      user: {
+  const saveUserData = async (userData) => {
+    try {
+      // Fetch IP and country information
+      const ipInfoResponse = await fetch("https://ipinfo.io/json?token=f0e9cf876d422e");
+      const ipInfoData = await ipInfoResponse.json();
+  
+      const userIPCountryData = {
         ...userData,
-        source: ""  // Initialize the source field as an empty string
-      },
-    }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
+        source: "", // Initialize the source field as an empty string
+        user_ipcountry: ipInfoData.country, // Country code from IPinfo response
+        user_country_name: ipInfoData.country_name || "" // Country name from IPinfo response
+      };
+  
+      // Save user data along with IP and country information
+      const response = await fetch(`https://d7dd5hnsapl64.cloudfront.net/app1/users`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ user: userIPCountryData }),
+      });
+  
+      const data = await response.json();
       // console.log("User data stored:", data);
-    })
-    .catch((error) => {
+    } catch (error) {
       // console.error("Error storing user data:", error);
-    });
-};
+    }
+  };
+  
 
   return (
     <div className="main-container">
