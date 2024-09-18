@@ -215,6 +215,20 @@ const ConciseForm = () => {
     }
   };
 
+  const scrapeFunction = async (url) => {
+    const data = {
+      formId: formId,
+      url: url
+    };
+  
+    try {
+      const response = await axios.post('https://d7dd5hnsapl64.cloudfront.net/app1/scapper/scrapeData', data);
+      console.log('Success:', response.data); // Handle the API response
+    } catch (error) {
+      console.error('Error:', error.response ? error.response.data : error.message); // Handle any errors
+    }
+  };
+
   const handleNext = (e) => {
     e.preventDefault();
     if (validateStep()) {
@@ -231,6 +245,8 @@ const ConciseForm = () => {
         handleSubmit(e, 'product');
       } else if (step === steps.WEBSITE) {
         handleSubmit(e, 'website');
+        console.log(formData.websiteLink);
+        scrapeFunction(formData.websiteLink);
       }else if (step === steps.CONTACT) {
         handleSubmit(e, 'contactInfo');
       }

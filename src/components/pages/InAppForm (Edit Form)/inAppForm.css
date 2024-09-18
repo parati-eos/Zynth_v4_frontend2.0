@@ -19,10 +19,11 @@
 .sectionForm-Content {
     height: 60vh;
     width: 40vw;
-    overflow-y: hidden;
+    overflow-y: auto;
     overflow-x: hidden;
     padding: 10px;
     box-sizing: border-box;
+
 }
 
 .section-form-buttons{ 
