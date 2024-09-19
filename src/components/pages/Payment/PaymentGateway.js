@@ -26,7 +26,7 @@ const PaymentGateway = ({ productinfo, onSuccess, formId }) => {
         }
         const data = await response.json();
         const currency = data.country === 'IN' ? 'INR' : 'USD';
-        const amount = currency === 'INR' ? 99 : 9;
+        const amount = currency === 'INR' ? 699 : 9;
 
         setPaymentData(prevData => ({
           ...prevData,
@@ -46,7 +46,7 @@ const PaymentGateway = ({ productinfo, onSuccess, formId }) => {
     try {
       console.log("Sending payment data to generate Razorpay order:", paymentData);
 
-      const response = await fetch('https://zynth.ai/api/razorpay/create-order', {
+      const response = await fetch('https://d7dd5hnsapl64.cloudfront.net/app1/razorpay/create-order', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ const PaymentGateway = ({ productinfo, onSuccess, formId }) => {
           const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = response;
 
           try {
-            const verifyResponse = await fetch('https://zynth.ai/api/razorpay/verify-payment', {
+            const verifyResponse = await fetch('https://d7dd5hnsapl64.cloudfront.net/app1/razorpay/verify-payment', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -81,6 +81,10 @@ const PaymentGateway = ({ productinfo, onSuccess, formId }) => {
                 razorpay_payment_id,
                 razorpay_order_id,
                 razorpay_signature,
+                customer_name: paymentData.firstname,
+                customer_email: paymentData.email,
+                customer_contact: '1234567890', // Update or handle contact dynamically
+                amount: paymentData.amount,
               }),
             });
 
@@ -101,8 +105,8 @@ const PaymentGateway = ({ productinfo, onSuccess, formId }) => {
           }
         },
         prefill: {
-          name: paymentData.firstname,
-          email: paymentData.email,
+          // name: paymentData.firstname,
+          // email: paymentData.email,
          // contact: paymentData.phone,
         },
         theme: {
