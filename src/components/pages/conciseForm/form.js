@@ -222,7 +222,8 @@ const ConciseForm = () => {
     };
   
     try {
-      const response = await axios.post('https://d7dd5hnsapl64.cloudfront.net/app1/scapper/scrapeData', data);
+      const serverurl = process.env.REACT_APP_SERVER_URL;
+      const response = await axios.post(`${serverurl}/scapper/scrapeData`, data);
       console.log('Success:', response.data); // Handle the API response
     } catch (error) {
       console.error('Error:', error.response ? error.response.data : error.message); // Handle any errors
