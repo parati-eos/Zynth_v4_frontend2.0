@@ -345,7 +345,7 @@ const Market = ({ formData, handleChange }) => {
       <div className="MarketSize-Inapp1">
         <div className="MarketSize-Inapp">
           <label htmlFor="sector" className="section-title">
-            Choose the Industry and Sector
+            Which sector do you operate in?*
           </label>
           <select
             id="sector"
@@ -440,7 +440,6 @@ const Market = ({ formData, handleChange }) => {
             name="TAM"
             value={formData.TAM}
             onChange={handleChange}
-            required
           />
         </div>
         <div className="MarketSize-Inapp">
@@ -455,7 +454,6 @@ const Market = ({ formData, handleChange }) => {
                 name="TAMGrowthRate"
                 value={formData.TAMGrowthRate}
                 onChange={handleChange}
-                required
               />
             </>
           )}
@@ -470,7 +468,6 @@ const Market = ({ formData, handleChange }) => {
             name="SAM"
             value={formData.SAM}
             onChange={handleChange}
-            required
           />
         </div>
         <div className="MarketSize-Inapp">
@@ -485,7 +482,6 @@ const Market = ({ formData, handleChange }) => {
                 name="SAMGrowthRate"
                 value={formData.SAMGrowthRate}
                 onChange={handleChange}
-                required
               />
             </>
           )}
