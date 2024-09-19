@@ -10,6 +10,7 @@ import { useState } from "react";
 import { Grid, TailSpin } from "react-loader-spinner"; // Import TailSpin for button loader
 import  Competition from './Competition';
 import TechnicalArchitecture from "./systemArchitecture";
+import CircularProgress from '@mui/material/CircularProgress';
 
 function SectionForm({ Title, onClose,onSubmit,setSectionSubmitStatus}) {
   const [section, setSection] = useState(Title);
@@ -63,7 +64,7 @@ function SectionForm({ Title, onClose,onSubmit,setSectionSubmitStatus}) {
   const [isLoading, setIsLoading] = useState(false);
   const [isUploadComplete, setIsUploadComplete] = useState(true);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false); // New state
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isUploading, setIsUploading] = useState(false); 
   const [phaseValidationError, setPhaseValidationError] = useState("");
   const validatePhases = (phaseRows) => {
@@ -115,7 +116,7 @@ function SectionForm({ Title, onClose,onSubmit,setSectionSubmitStatus}) {
           setIsSubmitting(false);
           return;
       }
-    setIsSubmitting(true); // Disable the button immediately
+    setIsSubmitting(true); 
     setIsLoading(true);
 
     const formId = localStorage.getItem("submissionId");
@@ -252,7 +253,7 @@ function SectionForm({ Title, onClose,onSubmit,setSectionSubmitStatus}) {
             Close
           </button>
           <button type="submit" className="submit-button" disabled={isSubmitting || isUploading}>
-            {isSubmitting ? (
+            {isUploading  ? (
               <TailSpin height="20" width="20" color="#fff" ariaLabel="tail-spin-loading" />
             ) : (
               "Submit"

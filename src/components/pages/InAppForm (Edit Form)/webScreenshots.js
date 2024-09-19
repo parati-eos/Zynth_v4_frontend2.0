@@ -4,9 +4,8 @@ import React, { useState } from "react";
 import uploadFileToS3 from "../utils/uploadFileToS3"; // Import the function to upload files to S3
 import CircularProgress from '@mui/material/CircularProgress';
 
-const WebScreen = ({ handleChange }) => {
+const WebScreen = ({ handleChange,setIsUploading}) => {
   const [webUploadedImageUrl, setWebUploadedImageUrl] = useState([]);
-  const [isUploading, setIsUploading] = useState(false);
 
   const handleFileChange = async (e) => {
     const files = e.target.files;
@@ -17,9 +16,9 @@ const WebScreen = ({ handleChange }) => {
       return;
     }
 
-    setIsUploading(true);
-
+    
     try {
+      setIsUploading(true);
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
         const imageUrl = await uploadFileToS3(file);
@@ -61,12 +60,12 @@ const WebScreen = ({ handleChange }) => {
        file:bg-yellow-500 file:text-white
         hover:file:bg-violet-100"
       />
-      {isUploading && (
+      {/* {isUploading && (
         <div className="flex justify-center mt-4">
           <CircularProgress sx={{ color: "#eab308" }} />
         </div>
-      )}
-      {webUploadedImageUrl.length > 0 && !isUploading && (
+      )} */}
+      {webUploadedImageUrl.length > 0 && (
         <div className="uploadedImages grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4">
           {webUploadedImageUrl.map((url, index) => (
             <div key={index} className="uploadedImage">
