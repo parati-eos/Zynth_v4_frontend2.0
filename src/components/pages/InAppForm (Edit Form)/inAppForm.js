@@ -284,7 +284,7 @@ function InAppForm({ Title, onClose,onSubmit}) {
             Close
           </button>
           <button type="submit" className="submit-button" disabled={isSubmitting || isUploading}>
-            {isSubmitting ? (
+            {isUploading ? (
               <TailSpin height="20" width="20" color="#fff" ariaLabel="tail-spin-loading" />
             ) : (
               "Submit"
