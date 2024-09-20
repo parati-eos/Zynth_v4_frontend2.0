@@ -67,7 +67,7 @@ const PresentationCheck = () => {
 // Check if submissionID is found in the URL search params
 if (formId) {
   // If formId is present, construct the API URL
-  const apiUrl = `https://d7dd5hnsapl64.cloudfront.net/app1/files/getUserId?submissionID=${formId}`;
+  const apiUrl = `https://zynth.ai/api/files/getUserId?submissionID=${formId}`;
   
   // Fetch user ID from the API
   fetch(apiUrl)
