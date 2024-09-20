@@ -51,7 +51,9 @@ const ConciseForm = () => {
   const [generatedPresentationID, setgeneratedPresentationID] = useState(null);
   const [logoUrl, setLogoUrl] = useState(formData.logo || null);
   const [isLogoLoading, setIsLogoLoading] = useState(false);
-
+  const submissionID = localStorage.getItem('submissionId');
+  const userEmail = localStorage.getItem('userEmail');
+  const generatedPresentationId = localStorage.getItem('generatedPresentationId');
   useEffect(() => {
     const newFormId = generateFormId();
     localStorage.setItem('submissionId', newFormId);
@@ -110,11 +112,31 @@ const ConciseForm = () => {
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: files ? files[0] : value,
-    }));
+  
+    // For the websiteLink field
+    if (name === "websiteLink" && value) {
+      let updatedValue = value;
+  
+      // Prepend https:// if the value doesn't already start with http or https
+      if (!updatedValue.startsWith('http://') && !updatedValue.startsWith('https://')) {
+        updatedValue = `https://${updatedValue}`;
+      }
+  
+      // Update formData with the modified value
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: updatedValue,
+      }));
+    } 
+    // For other fields (like file inputs)
+    else {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: files ? files[0] : value,
+      }));
+    }
   };
+  
 
   useEffect(() => {
     setLogoUrl(formData.logo || null);
@@ -123,7 +145,7 @@ const ConciseForm = () => {
   const handleBlankSlideGeneration = async () => {
     try {
       const response = await fetch(
-        `https://script.google.com/macros/s/AKfycbxMo1WnEWwI9enT3ZWzVrs27AYs_Q534YnYFeW_XfNoZWIShTZ2erbMAq8h6teWXOlvpw/exec?submissionID=${formId}`
+`https://script.google.com/macros/s/AKfycbxGRoteIf36eKsG7QOtfiDxnowFqtbsy0nUuQXSMX_TQjPHhE0EgiKv8pfafNGTp4_FsA/exec?submissionID=${formId}&userEmail=${encodeURIComponent(userEmail)}`
       );
 
       if (!response.ok) {
@@ -237,6 +259,7 @@ const ConciseForm = () => {
         handleBlankSlideGeneration();
       }
       else if (step === steps.TAGLINE) {
+        // handleBlankSlideGeneration();
         handleSubmit(e, 'cover');
       } else if (step === steps.ABOUT_COMPANY) {
         handleSubmit(e, 'about');
@@ -251,7 +274,7 @@ const ConciseForm = () => {
       }else if (step === steps.CONTACT) {
         handleSubmit(e, 'contactInfo');
       }
-      step < 8 ? setStep(step + 1) : navigate('/pages/presentationcheck');
+      step < 8 ? setStep(step + 1) : navigate(`/pages/presentationcheck?submissionID=${submissionID}&generatedPresentationId=${generatedPresentationId}`);
     } else {
       alert('Field cannot be empty');
     }

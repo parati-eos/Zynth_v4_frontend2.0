@@ -27,7 +27,7 @@ const HistoryCard = ({ userID, submissionID, PPTName, Date, link }) => {
   }, [paymentStatus]);
 
   const handleHistoryCardClicked = () => {
-    navigate(`/presentationedit?submissionID=${submissionID}&generatedPresentationId=${link}`);
+    navigate(`/Pages/presentationcheck?submissionID=${submissionID}&generatedPresentationId=${link}`);
   };
 
   const handleNameChange = (e) => {

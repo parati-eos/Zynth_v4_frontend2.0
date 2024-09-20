@@ -12,6 +12,7 @@ import { faEdit, faTimes } from "@fortawesome/free-solid-svg-icons";
 import InAppForm from "../InAppForm (Edit Form)/inAppForm.js";
 import PaymentGateway from "../Payment/PaymentGateway.js";
 import GuidedTour from "../utils/GuidedTour.js";
+import { useLocation } from "react-router-dom";
 const slides = [
   "Cover",
   "About",
@@ -54,25 +55,43 @@ const PresentationCheck = () => {
   const [slideContent, setSlideContent] = useState({});
   const [fetchError, setFetchError] = useState({});
   const slideRefs = useRef([]);
-  const formId = localStorage.getItem("submissionId");
   const userEmail = localStorage.getItem("userEmail");
-  const generatedPresentationId = localStorage.getItem(
-    "generatedPresentationId"
-  );
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const formId = searchParams.get("submissionID")|| localStorage.getItem("submissionId");
+  const generatedPresentationId = searchParams.get("generatedPresentationId")||localStorage.getItem("generatedPresentationId");
   // const [isOpen, setIsOpen] = useState(false);
   const [tourActive, setTourActive] = useState(false);
 
-//   useEffect(() => {
-//     const handleContextMenu = (event) => {
-//         event.preventDefault();
-//     };
 
-//     document.addEventListener('contextmenu', handleContextMenu);
-
-//     return () => {
-//         document.removeEventListener('contextmenu', handleContextMenu);
-//     };
-// }, []);
+// Check if submissionID is found in the URL search params
+if (formId) {
+  // If formId is present, construct the API URL
+  const apiUrl = `https://d7dd5hnsapl64.cloudfront.net/app1/files/getUserId?submissionID=${formId}`;
+  
+  // Fetch user ID from the API
+  fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => {
+      const apiUserId = data.UserID;
+      
+      // Compare the API user ID with the user email in localStorage
+      if (apiUserId !== userEmail) {
+        // Show an alert if the email does not match
+        alert("Please log in with your original email to perform this action.");
+        // Navigate to the login page
+        window.location.href = "https://zynth.ai/auth/login";
+      }
+    })
+    .catch(error => {
+      console.error("Error fetching user ID:", error);
+    });
+} else {
+  // Show an alert if submissionID is not found
+  alert("Submission ID not found. Please make sure you are logged in with the correct account.");
+  // Navigate to the login page
+  window.location.href = "https://zynth.ai/auth/login";
+}
   useEffect(() => {
         // Check if the environment is zynth.ai
         const isZynthAI = window.location.hostname === 'zynth.ai';
