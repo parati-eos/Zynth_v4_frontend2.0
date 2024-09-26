@@ -12,7 +12,6 @@ import About from './components/pages/home/about.js';
 import Contact from './components/pages/home/Contact.js';
 import PresentationShare from './components/pages/js/presentationshare';
 import Presentationedit from './components/pages/js/Presentationedit';
-import PaymentSuccess from './components/pages/Payment/Payment_success.js';
 // import Native_Form from './components/pages/Native-Form/Form';
 // import { TrackProvider } from './components/pages/Native-Form/Track';
 // import { CompetitionProvider } from './components/pages/Native-Form/Competition';
@@ -20,8 +19,7 @@ import PaymentSuccess from './components/pages/Payment/Payment_success.js';
 // import { FinancialDataProvider } from './components/pages/Native-Form/financials'; 
 import ConciseForm from './components/pages/conciseForm/form'
 import SectionForm from './components/pages/sectionForm/sectionForm';
-import PaymentFailed from './components/pages/Payment/payment_failed.js';
-
+import Dashboard from './components/pages/js/dashboard';
 
 function App() {
   useEffect(() => {
@@ -31,11 +29,11 @@ function App() {
 
   return (
     <Router>
+
       <Routes>
+      <Route path="/zynth/dashboard" element={<Dashboard/>} />
       <Route path="/share" element={<PresentationShare />} />
         <Route path='/presentationedit' element={<Presentationedit/>}/>
-        <Route path="/payment-success" element={<PaymentSuccess />} />
-        <Route path="/payment-failure" element={<PaymentFailed />} />
         <Route path="/" element={<Home />} />
         <Route path="/sectionForm" element={<SectionForm Title='Financials'/>} />
         <Route path="/auth/login" element={<Login />} />

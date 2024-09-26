@@ -1,26 +1,22 @@
 {
   "files": {
-    "main.css": "/static/css/main.648e05ac.css",
-    "main.js": "/static/js/main.16e6afce.js",
+    "main.css": "/static/css/main.0a288ef4.css",
+    "main.js": "/static/js/main.1cdbd926.js",
     "static/js/845.f5169d8e.chunk.js": "/static/js/845.f5169d8e.chunk.js",
-    "static/media/Zynth_Demo_GIF_02.gif": "/static/media/Zynth_Demo_GIF_02.4af6c29438bc69306b4d.gif",
-    "static/media/Zynth_Demo_GIF_04.gif": "/static/media/Zynth_Demo_GIF_04.13c32a2c4df2227858c8.gif",
     "static/media/Zynth_Demo.mp4": "/static/media/Zynth_Demo.8f82fb58d644b4f3c685.mp4",
     "static/media/Landing Page Poster.png": "/static/media/Landing Page Poster.c75fdc2d8b156e51ba24.png",
-    "static/media/Zynth_Demo_GIF_03.gif": "/static/media/Zynth_Demo_GIF_03.6062dfd81c9ce10067cc.gif",
-    "static/media/Zynth_Demo_GIF_01.gif": "/static/media/Zynth_Demo_GIF_01.7e6e58712124e791ed35.gif",
     "static/media/background.jpg": "/static/media/background.983ee2134b098aa89dec.jpg",
     "static/media/parati-team.jpeg": "/static/media/parati-team.e64170235a3959bffd1e.jpeg",
     "static/media/parati-logo.png": "/static/media/parati-logo.b01fafea34c5ed020d29.png",
     "static/media/logo512.png": "/static/media/logo512.03e77e2f4e46db5fde00.png",
     "static/media/ms-login.svg": "/static/media/ms-login.e2f600a8cb97ce3efe4d3db463e6af48.svg",
     "index.html": "/index.html",
-    "main.648e05ac.css.map": "/static/css/main.648e05ac.css.map",
-    "main.16e6afce.js.map": "/static/js/main.16e6afce.js.map",
+    "main.0a288ef4.css.map": "/static/css/main.0a288ef4.css.map",
+    "main.1cdbd926.js.map": "/static/js/main.1cdbd926.js.map",
     "845.f5169d8e.chunk.js.map": "/static/js/845.f5169d8e.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.648e05ac.css",
-    "static/js/main.16e6afce.js"
+    "static/css/main.0a288ef4.css",
+    "static/js/main.1cdbd926.js"
   ]
 }

@@ -62,25 +62,34 @@ const PresentationCheck = () => {
   const generatedPresentationId = searchParams.get("generatedPresentationId")||localStorage.getItem("generatedPresentationId");
   // const [isOpen, setIsOpen] = useState(false);
   const [tourActive, setTourActive] = useState(false);
-
-
 // Check if submissionID is found in the URL search params
 if (formId) {
   // If formId is present, construct the API URL
   const apiUrl = `https://zynth.ai/api/files/getUserId?submissionID=${formId}`;
-  
+
   // Fetch user ID from the API
   fetch(apiUrl)
     .then(response => response.json())
     .then(data => {
       const apiUserId = data.UserID;
-      
+
       // Compare the API user ID with the user email in localStorage
       if (apiUserId !== userEmail) {
         // Show an alert if the email does not match
         alert("Please log in with your original email to perform this action.");
         // Navigate to the login page
         window.location.href = "https://zynth.ai/auth/login";
+      } else {
+        // If the emails match, proceed to fetch the presentation
+        fetch(`https://zynth.ai/api/slides/presentation?formId=${formId}`)
+          .then(response => response.json())
+          .then(presentationData => {
+            // Store the generatedPresentationId in localStorage
+            localStorage.setItem("generatedPresentationId", presentationData.PresentationID);
+          })
+          .catch(error => {
+            console.error("Error fetching presentation:", error);
+          });
       }
     })
     .catch(error => {
