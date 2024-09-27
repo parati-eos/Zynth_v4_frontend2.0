@@ -145,7 +145,7 @@ const ConciseForm = () => {
   const handleBlankSlideGeneration = async () => {
     try {
       const response = await fetch(
-`https://script.google.com/macros/s/AKfycbxGRoteIf36eKsG7QOtfiDxnowFqtbsy0nUuQXSMX_TQjPHhE0EgiKv8pfafNGTp4_FsA/exec?submissionID=${formId}&userEmail=${encodeURIComponent(userEmail)}`
+`https://script.google.com/macros/s/AKfycbxaNWNatJY-gi1fvmrWIRRewYbG73gDB1Kp7a3xG511huTW3via4OHQJiYhon6NY1jALg/exec?submissionID=${formId}&userEmail=${encodeURIComponent(userEmail)}`
       );
 
       if (!response.ok) {
@@ -274,7 +274,7 @@ const ConciseForm = () => {
       }else if (step === steps.CONTACT) {
         handleSubmit(e, 'contactInfo');
       }
-      step < 8 ? setStep(step + 1) : navigate(`/pages/presentationcheck?submissionID=${submissionID}&generatedPresentationId=${generatedPresentationId}`);
+      step < 8 ? setStep(step + 1) : navigate(`/pages/presentationcheck?submissionID=${submissionID}`);
     } else {
       alert('Field cannot be empty');
     }

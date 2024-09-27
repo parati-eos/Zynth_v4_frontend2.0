@@ -17,7 +17,7 @@ const PaymentSuccess = () => {
     const handleDownload = async () => {
       try {
         const response = await fetch(
-          `https://zynth.ai/api/slides/url?formId=${formId}`
+          `https://https://d7dd5hnsapl64.cloudfront.net/app1/slides/url?formId=${formId}`
         );
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -42,7 +42,7 @@ const PaymentSuccess = () => {
     // Function to update payment status
     const updatePaymentStatus = async () => {
       try {
-        const response = await fetch('https://zynth.ai/api/appscript/updatePaymentStatus', {
+        const response = await fetch('https://https://d7dd5hnsapl64.cloudfront.net/app1/appscript/updatePaymentStatus', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -63,7 +63,7 @@ const PaymentSuccess = () => {
 
     const callAdditionalApi = async () => {
       try {
-        const response = await fetch(`https://zynth.ai/api/slides/presentation?formId=${formId}`);
+        const response = await fetch(`https://https://d7dd5hnsapl64.cloudfront.net/app1/slides/presentation?formId=${formId}`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }

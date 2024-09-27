@@ -31,7 +31,7 @@ export default function ZynthWork() {
                 width="900" // Adjust width as needed
                 controls
               >
-                <source src={ZynthDemoVideo} type="video/mp4" />
+                <source src="https://d2zu6flr7wd65l.cloudfront.net/uploads/Zynth_Demo.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
             </div>

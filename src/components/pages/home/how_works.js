@@ -1,9 +1,4 @@
 import React from "react";
-import gif1 from "../../Asset/Zynth_Demo_GIF_01.gif";
-import gif2 from "../../Asset/Zynth_Demo_GIF_02.gif";
-import gif3 from "../../Asset/Zynth_Demo_GIF_03.gif";
-import gif4 from "../../Asset/Zynth_Demo_GIF_04.gif";
-
 const ZigzagLayout = () => {
   return (
     <>
@@ -45,7 +40,7 @@ const ZigzagLayout = () => {
             data-aos-duration="1300"
           >
             <img
-              src={gif1}
+              src="https://d2zu6flr7wd65l.cloudfront.net/uploads/Zynth_Demo_GIF_01.gif"
               className="mb-0 mx-4 md:mx-24 w-full md:w-98 lg:w-148 h-84 rounded-xl shadow-xl shadow-gray-300"
               alt="Workspace"
             />
@@ -121,7 +116,7 @@ const ZigzagLayout = () => {
     {/* Image Section */}
     <div className="mt-4 mx-0 flex justify-start items-start md:ml-8 md:order-first">
       <img
-        src={gif2}
+        src="https://d2zu6flr7wd65l.cloudfront.net/uploads/Zynth_Demo_GIF_02.gif"
         className="mb-0 mx-0 ml-0 w-full md:w-98 lg:w-148 h-84 rounded-xl shadow-xl shadow-gray-300"
         alt="Workspace"
       />
@@ -174,7 +169,7 @@ const ZigzagLayout = () => {
           data-aos-duration="1300"
         >
           <img
-            src={gif3}
+            src="https://d2zu6flr7wd65l.cloudfront.net/uploads/Zynth_Demo_GIF_03.gif"
             className="mb-0 mx-4 md:mx-24 w-full md:w-98 lg:w-148 h-84 rounded-xl shadow-xl shadow-gray-300"
             alt="Workspace"
           />
@@ -190,7 +185,7 @@ const ZigzagLayout = () => {
         <div className="flex flex-col md:flex-row justify-center items-start max-lg:px-8 px-12">
           <div className="max-lg:mt-4 mx-0 flex justify-start items-start md:order-first">
             <img
-              src={gif4}
+              src="https://d2zu6flr7wd65l.cloudfront.net/uploads/Zynth_Demo_GIF_04.gif"
               className="mb-0 mx-0 ml-0 md:ml-8 w-full md:w-98 lg:w-148 h-84 rounded-xl shadow-xl shadow-gray-300"
               alt="Workspace"
             />

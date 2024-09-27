@@ -147,7 +147,7 @@ const PresentationCheck = () => {
 
   const checkPaymentStatusAndProceed = async () => {
     try {
-      const response = await fetch(`https://zynth.ai/api/slides/url?formId=${formId}`);
+      const response = await fetch(`https://https://d7dd5hnsapl64.cloudfront.net/app1/slides/url?formId=${formId}`);
   
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
