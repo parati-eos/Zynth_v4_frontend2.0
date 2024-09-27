@@ -44,28 +44,28 @@ const PaymentGateway = ({ productinfo, onSuccess, formId }) => {
     detectCurrency();
   }, []);
 
-  const verifyCoupon = async () => {
-    try {
-      const response = await fetch('http://localhost:5000/razorpay/verify-coupon', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ code: couponCode }),
-      });
+  // const verifyCoupon = async () => {
+  //   try {
+  //     const response = await fetch('http://localhost:5000/razorpay/verify-coupon', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({ code: couponCode }),
+  //     });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! status: ${response.status}`);
+  //     }
 
-      const result = await response.json();
-      setDiscountAmount(result.discountAmount);
-      alert('Coupon applied successfully!');
-    } catch (error) {
-      console.error('Error verifying coupon:', error);
-      alert('Failed to apply coupon: ' + error.message);
-    }
-  };
+  //     const result = await response.json();
+  //     setDiscountAmount(result.discountAmount);
+  //     alert('Coupon applied successfully!');
+  //   } catch (error) {
+  //     console.error('Error verifying coupon:', error);
+  //     alert('Failed to apply coupon: ' + error.message);
+  //   }
+  // };
 
   const handlePayment = async () => {
     const finalAmount = paymentData.amount - discountAmount;
@@ -79,7 +79,7 @@ const PaymentGateway = ({ productinfo, onSuccess, formId }) => {
     try {
       console.log("Sending payment data to generate Razorpay order:", { ...paymentData, amount: finalAmount });
 
-      const response = await fetch('https://zynth.ai/api/razorpay/create-order', {
+      const response = await fetch('https://https://d7dd5hnsapl64.cloudfront.net/app1/razorpay/create-order', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -105,7 +105,7 @@ const PaymentGateway = ({ productinfo, onSuccess, formId }) => {
           const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = response;
 
           try {
-            const verifyResponse = await fetch('https://zynth.ai/api/razorpay/verify-payment', {
+            const verifyResponse = await fetch('https://https://d7dd5hnsapl64.cloudfront.net/app1/razorpay/verify-payment', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',

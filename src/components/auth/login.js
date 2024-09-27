@@ -85,7 +85,7 @@ function Login() {
       };
   
       // Save user data along with IP and country information
-      const response = await fetch(`https://zynth.ai/api/users`, {
+      const response = await fetch(`https://d7dd5hnsapl64.cloudfront.net/app1/users`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

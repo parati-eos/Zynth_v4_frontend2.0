@@ -82,7 +82,7 @@ const PresentationCheck = () => {
 
   const handleFetchSlide = async (slide) => {
     try {
-      const response = await fetch(`https://zynth.ai/api/slides/id_by_section?formId=${formId}&section=${slide}`);
+      const response = await fetch(`https://https://d7dd5hnsapl64.cloudfront.net/app1/slides/id_by_section?formId=${formId}&section=${slide}`);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -132,7 +132,7 @@ const PresentationCheck = () => {
     };
 
     try {
-      const response = await fetch(`https://zynth.ai/api/appscript/triggerAppScript`, {
+      const response = await fetch(`https://https://d7dd5hnsapl64.cloudfront.net/app1/appscript/triggerAppScript`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

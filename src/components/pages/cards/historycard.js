@@ -38,7 +38,7 @@ const HistoryCard = ({ userID, submissionID, PPTName, Date, link }) => {
     // console.log("Export button clicked for submissionID:", submissionID);
 
     try {
-      const response = await fetch(`https://zynth.ai/api/slides/url?formId=${submissionID}`, {
+      const response = await fetch(`https://https://d7dd5hnsapl64.cloudfront.net/app1/slides/url?formId=${submissionID}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -71,7 +71,7 @@ const HistoryCard = ({ userID, submissionID, PPTName, Date, link }) => {
       const serverurl = process.env.REACT_APP_SERVER_URL;
      // 1. First, update the payment status
      const updatePaymentStatus = async () => {
-      const response = await fetch('https://zynth.ai/api/appscript/updatePaymentStatus', {
+      const response = await fetch('https://https://d7dd5hnsapl64.cloudfront.net/app1/appscript/updatePaymentStatus', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -91,7 +91,7 @@ const HistoryCard = ({ userID, submissionID, PPTName, Date, link }) => {
 
     // 2. Then, call the additional API to get presentationID
     const callAdditionalApi = async () => {
-      const response = await fetch(`https://zynth.ai/api/slides/presentation?formId=${submissionID}`);
+      const response = await fetch(`https://https://d7dd5hnsapl64.cloudfront.net/app1/slides/presentation?formId=${submissionID}`);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
