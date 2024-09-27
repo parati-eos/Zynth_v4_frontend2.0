@@ -33,11 +33,11 @@ const Dashboard = () => {
     }
   };
 
-  // Fetch data from 'https://https://d7dd5hnsapl64.cloudfront.net/app1/users'
+  // Fetch data from 'https://d7dd5hnsapl64.cloudfront.net/app1/users'
   const fetchData = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('https://https://d7dd5hnsapl64.cloudfront.net/app1/users');
+      const response = await axios.get('https://d7dd5hnsapl64.cloudfront.net/app1/users');
       setUsers(response.data);
       setLoading(false);
     } catch (error) {
@@ -69,7 +69,7 @@ const Dashboard = () => {
     const updatedSource = editedSources[userId];
     if (updatedSource) {
       try {
-        await axios.put('https://https://d7dd5hnsapl64.cloudfront.net/app1/users/source', {
+        await axios.put('https://d7dd5hnsapl64.cloudfront.net/app1/users/source', {
           userId,
           source: updatedSource,
         });

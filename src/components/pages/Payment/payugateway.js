@@ -44,7 +44,7 @@ const PaymentGateway = ({ amount, productinfo, onSuccess, formId }) => {
         return;
       }
 
-      const response = await fetch('https://https://d7dd5hnsapl64.cloudfront.net/app1/api/generate-payu-hash', {
+      const response = await fetch('https://d7dd5hnsapl64.cloudfront.net/app1/api/generate-payu-hash', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
