@@ -51,6 +51,7 @@ const excludedSections = [
 ];
 
 const PresentationCheck = () => {
+  const serverurl = process.env.REACT_APP_SERVER_URL
   const [selectedSlide, setSelectedSlide] = useState(slides[0]);
   const [slideContent, setSlideContent] = useState({});
   const [fetchError, setFetchError] = useState({});
@@ -65,7 +66,7 @@ const PresentationCheck = () => {
 // Check if submissionID is found in the URL search params
 if (formId) {
   // If formId is present, construct the API URL
-  const apiUrl = `https://d7dd5hnsapl64.cloudfront.net/app1/files/getUserId?submissionID=${formId}`;
+  const apiUrl = `${serverurl}/files/getUserId?submissionID=${formId}`;
 
   // Fetch user ID from the API
   fetch(apiUrl)
@@ -81,7 +82,7 @@ if (formId) {
         window.location.href = "https://zynth.ai/auth/login";
       } else {
         // If the emails match, proceed to fetch the presentation
-        fetch(`https://d7dd5hnsapl64.cloudfront.net/app1/slides/presentation?formId=${formId}`)
+        fetch(`${serverurl}/slides/presentation?formId=${formId}`)
           .then(response => response.json())
           .then(presentationData => {
             // Store the generatedPresentationId in localStorage
@@ -133,47 +134,47 @@ if (formId) {
         if (!formId) {
           throw new Error("Form ID not found in localStorage");
         }
-    
+
         const serverurl = process.env.REACT_APP_SERVER_URL;
-    
+
         // 1. First, update the payment status
         const updatePaymentStatus = async () => {
-          const response = await fetch('https://d7dd5hnsapl64.cloudfront.net/app1/appscript/updatePaymentStatus', {
+          const response = await fetch(`${serverurl}/appscript/updatePaymentStatus`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({ FormID: formId, paymentStatus: 1 }),
           });
-    
+
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
           }
           const result = await response.json();
           console.log("Payment status updated:", result);
         };
-    
+
         // Call payment status update
         await updatePaymentStatus();
-    
+
         // 2. Then, call the additional API to get presentationID
         const callAdditionalApi = async () => {
-          const response = await fetch(`https://d7dd5hnsapl64.cloudfront.net/app1/slides/presentation?formId=${formId}`);
+          const response = await fetch(`${serverurl}/slides/presentation?formId=${formId}`);
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
           }
-    
+
           const result = await response.json();
           console.log("Additional API response:", result);
-    
+
           const presentationID = result.PresentationID; // Extract PresentationID from response
-    
+
           if (presentationID) {
             // Call the second API with the extracted presentationID
             const secondApiResponse = await fetch(`https://script.google.com/macros/s/AKfycbyUR5SWxE4IHJ6uVr1eVTS7WhJywnbCNBs2zlJsUFbafyCsaNWiGxg7HQbyB3zx7R6z/exec?presentationID=${presentationID}`);
             const secondApiText = await secondApiResponse.text();
             console.log("Raw second API response:", secondApiText);
-    
+
             try {
               const secondApiResult = JSON.parse(secondApiText);
               console.log("Second API parsed response:", secondApiResult);
@@ -184,22 +185,22 @@ if (formId) {
             throw new Error("PresentationID not found in the response");
           }
         };
-    
+
         // Call additional API
         await callAdditionalApi();
-    
+
         // 3. Finally, call the original slides URL API
         const response = await fetch(`${serverurl}/slides/url?formId=${formId}`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-    
+
         const result = await response.json();
         console.log("Result:", result);
-    
+
         const url = result.PresentationURL;
         console.log("URL:", url);
-    
+
         if (!url || typeof url !== "string") {
           throw new Error("Invalid URL in response");
         }
@@ -211,7 +212,7 @@ if (formId) {
         );
       }
     };
-    
+
 
   const handleShare = () => {
     const uniqueShareableUrl = `https://zynth.ai/share?submissionId=${formId}`;
@@ -271,15 +272,15 @@ if (formId) {
   };
   const checkPaymentStatusAndProceed = async () => {
     try {
-      const response = await fetch(`https://d7dd5hnsapl64.cloudfront.net/app1/slides/url?formId=${formId}`);
-  
+      const response = await fetch(`${serverurl}/slides/url?formId=${formId}`);
+
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-  
+
       const data = await response.json();
       console.log("API response data:", data); // Debugging line
-  
+
       if (data && data.paymentStatus === 1) {
         // Payment has already been made, run handleDownload
         handleDownload();
@@ -294,7 +295,7 @@ if (formId) {
       alert("Error checking payment status. Please try again.");
     }
   };
-  
+
     const startTour = () => {
     setTourActive(true);
   };
@@ -353,7 +354,7 @@ if (formId) {
     }, []);
 
     const fetchData = async () => {
-      try { 
+      try {
         const serverurl = process.env.REACT_APP_SERVER_URL;
         const response = await fetch(
           `${serverurl}/slides/id_by_section?formId=${formId}&section=${slide}`
@@ -424,12 +425,13 @@ if (formId) {
       }
     };
 
-    if(slide===selectedSlide){
-      console.log("inapp:",inAppForm)
-      console.log("loading:",loading)
-      console.log("runFun:",runFunction)
-      console.log("data:",FetchedData?FetchedData[0][1]:"error")
-    }
+    // if(slide===selectedSlide){
+    //   console.log('\x1b[36mSlide:\x1b[0m', slide);
+    //   console.log('\x1b[36mIn App Form:\x1b[0m', inAppForm);
+    //   console.log('\x1b[36mLoading:\x1b[0m', loading);
+    //   console.log('\x1b[36mRun Function:\x1b[0m', runFunction);
+    //   console.log('\x1b[36mData:\x1b[0m', FetchedData ? FetchedData[0][1] : "no data");
+    // }
 
     if (!requiresForm) {
       if (inAppForm) {
@@ -466,7 +468,7 @@ if (formId) {
                       onClick={toggleEditMode}
                       title="Edit Slide"
                     />
-                
+
                   </div>
                   <div className="loading-grid">
                   <Grid
