@@ -41,14 +41,14 @@ const ZigzagLayout = () => {
           >
             <img
               src="https://d2zu6flr7wd65l.cloudfront.net/uploads/Zynth_Demo_GIF_01.gif"
-              className="mb-0 mx-4 md:mx-24 w-full md:w-98 lg:w-148 h-84 rounded-xl shadow-xl shadow-gray-300"
+              className="mb-10 mx-4 md:mx-24 w-full md:w-98 lg:w-148 h-84 rounded-xl shadow-md shadow-gray-300"
               alt="Workspace"
             />
           </div>
         </div>
       </div>
 
-      <div className="" data-aos="fade-up" data-aos-duration="1000">
+   <div className="" data-aos="fade-up" data-aos-duration="1000">
   <h1 className="text-[#EAB308] mt-18 md:mt-20 lg:text-2xl text-1xl text-right mr-4 md:mr-32 font-bold max-lg:px-8 px-12">
     {/* <strong>
       Step 2&nbsp;<span className="textbrown">- Sit Back</span>
@@ -117,7 +117,7 @@ const ZigzagLayout = () => {
     <div className="mt-4 mx-0 flex justify-start items-start md:ml-8 md:order-first">
       <img
         src="https://d2zu6flr7wd65l.cloudfront.net/uploads/Zynth_Demo_GIF_02.gif"
-        className="mb-0 mx-0 ml-0 w-full md:w-98 lg:w-148 h-84 rounded-xl shadow-xl shadow-gray-300"
+        className="mb-10 mx-0 ml-0 w-full md:w-98 lg:w-148 h-84 rounded-xl shadow-md shadow-gray-300"
         alt="Workspace"
       />
     </div>
@@ -170,7 +170,7 @@ const ZigzagLayout = () => {
         >
           <img
             src="https://d2zu6flr7wd65l.cloudfront.net/uploads/Zynth_Demo_GIF_03.gif"
-            className="mb-0 mx-4 md:mx-24 w-full md:w-98 lg:w-148 h-84 rounded-xl shadow-xl shadow-gray-300"
+            className="mb-10 mx-4 md:mx-24 w-full md:w-98 lg:w-148 h-84 rounded-xl shadow-md shadow-gray-300"
             alt="Workspace"
           />
         </div>
@@ -186,7 +186,7 @@ const ZigzagLayout = () => {
           <div className="max-lg:mt-4 mx-0 flex justify-start items-start md:order-first">
             <img
               src="https://d2zu6flr7wd65l.cloudfront.net/uploads/Zynth_Demo_GIF_04.gif"
-              className="mb-0 mx-0 ml-0 md:ml-8 w-full md:w-98 lg:w-148 h-84 rounded-xl shadow-xl shadow-gray-300"
+              className="mb-10 mx-0 ml-0 md:ml-8 w-full md:w-98 lg:w-148 h-84 rounded-xl shadow-md shadow-gray-300"
               alt="Workspace"
             />
           </div>

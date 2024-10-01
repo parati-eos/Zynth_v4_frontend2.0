@@ -10,6 +10,7 @@ import Stats from "../home/stats.tsx";
 import { isIphone } from "../../../utils/deviceUtils.js";
 import Features from "../home/zynth_work.js";
 import Zigzag from "../home/how_works.js"
+import Partner from "../home/partner.js"
 
 function Home() {
   return (
@@ -25,8 +26,9 @@ function Home() {
       </div>
       <Zigzag/>
       <Stats />
+      <Partner/>
       <div id="blogs"> {/* Ensure this div is still wrapping your Blog component */}
-        {/* <Blog /> */}
+        <Blog />
       </div>
       {!isIphone() && <BackgroundBoxesDemo />} {/* Conditionally render based on device */}
       <Footer />

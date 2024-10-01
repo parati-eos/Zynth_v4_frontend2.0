@@ -145,7 +145,7 @@ const ConciseForm = () => {
   const handleBlankSlideGeneration = async () => {
     try {
       const response = await fetch(
-`https://script.google.com/macros/s/AKfycbw4NqBiUBoOLLY0ym3xeSoHetbDd9U2Ty-W12gzxGCpwvGtWLHgXFnw91PaNTXFOwadxA/exec?submissionID=${formId}&userEmail=${encodeURIComponent(userEmail)}`
+`https://script.google.com/macros/s/AKfycbxkI-M_N2-FKek3R7PCCE9kDaryGh7O43pDO6Dk3QOoicOwItGETvTH9vXcCPveBmhGCg/exec?submissionID=${formId}&userEmail=${encodeURIComponent(userEmail)}`
       );
 
       if (!response.ok) {

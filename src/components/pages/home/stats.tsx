@@ -52,14 +52,14 @@ export default function CounterSection() {
 
     const mobileTemplateInterval = setInterval(() => {
       setMobileTemplatesCount((prevCount) => {
-        if (prevCount < 500) {
+        if (prevCount < 1000) {
           return prevCount + 1;
         } else {
           clearInterval(mobileTemplateInterval);
           return prevCount;
         }
       });
-    }, 10);
+    }, 1);
 
     return () => {
       clearInterval(productInterval);
@@ -75,7 +75,7 @@ export default function CounterSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative py-5 md:py-5 overflow-hidden "
+      className="relative py-5 md:py-5 overflow-hidden bg-stone-200 pb-32"
     >
       <img
         className="absolute top-0 right-0 md:mt-10 -mr-20 md:-mr-0"
@@ -84,14 +84,14 @@ export default function CounterSection() {
       />
       <div className="relative container px-4 mx-auto">
         <div className="max-w-5xl mx-auto">
-          <h1 className="text-2xl mt-20 text-center md:text-4xl font-bold text-white opacity-100">
+          <h1 className="text-2xl mt-20 text-center md:text-4xl font-bold text-[#002d41] opacity-100">
             Extensive Experience with
             <br />
             <span style={{ color: "#e6a500" }}>
               Investor Relations and Pitch Decks
             </span>
           </h1>
-          <p className="text-center mb-10 text-base md:text-xl mt-8 text-neutral-200 opacity-70 text-[18px]">
+          <p className="text-center mb-10 text-base md:text-xl mt-8 text-[#002d41] text-[18px]">
             Zynth is the culmination of years of experience in building pitch
             decks for early and growth-stage startups, conducting market
             research, developing business plans, and financial modelling.
@@ -101,28 +101,28 @@ export default function CounterSection() {
               <div className="hidden md:block absolute top-1/2 right-0 w-px h-28 bg-gray-200 transform -translate-y-1/2"></div>
               <div className="md:hidden absolute bottom-0 left-1/2 h-px w-40 bg-gray-200 transform -translate-x-1/2"></div>
               <div className="text-center">
-                <span className="block text-5xl lg:text-7xl font-bold text-gray-50 mb-5">
+                <span className="block text-5xl lg:text-7xl font-bold text-[#002d41] mb-5">
                   {formatCount(productsCount, 6)}
                 </span>
-                <span className="text-xl text-gray-200">Years</span>
+                <span className="text-xl text-[#002d41]">Years</span>
               </div>
             </div>
             <div className="relative w-full md:w-1/3 px-4 pb-9 md:pb-0 mb-12 lg:mb-0">
               <div className="hidden md:block absolute top-1/2 right-0 w-px h-28 bg-gray-200 transform -translate-y-1/2"></div>
               <div className="md:hidden absolute bottom-0 left-1/2 h-px w-40 bg-gray-200 transform -translate-x-1/2"></div>
               <div className="text-center">
-                <span className="block text-5xl lg:text-7xl font-bold text-gray-50 mb-5">
+                <span className="block text-5xl lg:text-7xl font-bold text-[#002d41] mb-5">
                   {formatCount(webTemplatesCount, 100)}
                 </span>
-                <span className="text-xl text-gray-200">Partners</span>
+                <span className="text-xl text-[#002d41]">Startups</span>
               </div>
             </div>
             <div className="w-full md:w-1/3 px-4">
               <div className="text-center">
-                <span className="block text-5xl lg:text-7xl font-bold text-gray-50 mb-5">
-                  {formatCount(mobileTemplatesCount, 500)}
+                <span className="block text-5xl lg:text-7xl font-bold text-[#002d41] mb-5">
+                  {formatCount(mobileTemplatesCount, 1000)}
                 </span>
-                <span className="text-xl text-gray-200">Pitch Decks</span>
+                <span className="text-xl text-[#002d41]">Pitch Decks</span>
               </div>
             </div>
           </div>
