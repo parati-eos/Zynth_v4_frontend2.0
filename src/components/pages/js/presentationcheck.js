@@ -425,13 +425,18 @@ if (formId) {
       }
     };
 
-    // if(slide===selectedSlide){
-    //   console.log('\x1b[36mSlide:\x1b[0m', slide);
-    //   console.log('\x1b[36mIn App Form:\x1b[0m', inAppForm);
-    //   console.log('\x1b[36mLoading:\x1b[0m', loading);
-    //   console.log('\x1b[36mRun Function:\x1b[0m', runFunction);
-    //   console.log('\x1b[36mData:\x1b[0m', FetchedData ? FetchedData[0][1] : "no data");
-    // }
+    if(slide===selectedSlide){
+      const data = {
+        'Slide': slide,
+        'In App Form': inAppForm,
+        'Loading': loading,
+        'Run Function': runFunction,
+        'Data': FetchedData ? FetchedData[0][1] : "no data"
+      };
+      
+      console.table(data);
+      
+    }
 
     if (!requiresForm) {
       if (inAppForm) {
