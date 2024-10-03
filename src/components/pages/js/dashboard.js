@@ -37,7 +37,7 @@ const Dashboard = () => {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('https://d7dd5hnsapl64.cloudfront.net/app1/users');
+      const response = await axios.get('https://zynth.ai/api/users');
       setUsers(response.data);
       setLoading(false);
     } catch (error) {
@@ -50,7 +50,7 @@ const Dashboard = () => {
   const fetchAllUsersData = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('https://d7dd5hnsapl64.cloudfront.net/app1/users/alluser');
+      const response = await axios.get('https://zynth.ai/api/users/alluser');
       setUsers(response.data.data); // Assuming response data is in the "data" key
       setLoading(false);
     } catch (error) {
@@ -69,7 +69,7 @@ const Dashboard = () => {
     const updatedSource = editedSources[userId];
     if (updatedSource) {
       try {
-        await axios.put('https://d7dd5hnsapl64.cloudfront.net/app1/users/source', {
+        await axios.put('https://zynth.ai/api/users/source', {
           userId,
           source: updatedSource,
         });

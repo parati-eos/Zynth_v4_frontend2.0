@@ -16,7 +16,7 @@ import PaymentSuccess from './components/pages/Payment/Payment_success.js';
 import ConciseForm from './components/pages/conciseForm/form';
 import SectionForm from './components/pages/sectionForm/sectionForm';
 import PaymentFailed from './components/pages/Payment/payment_failed.js';
-
+import Dashboard from './components/pages/js/dashboard.js';
 function App() {
   useEffect(() => {
     ReactGA.initialize('G-7EK1LG8K6D'); // Initialize Google Analytics
@@ -78,6 +78,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         {/* <Route path="/Blog" element={<Blog />} /> */}
+        <Route path='/dashboard' element={<Dashboard/>}/>
       </Routes>
     </Router>
   );
