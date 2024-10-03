@@ -1,43 +1,39 @@
-<button id="rzp-button1">Pay</button>
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-<script>
-var options = {
-    "key": "rzp_test_YcV7VAedntSsE5", // Enter the Key ID generated from the Dashboard
-    "amount": "5000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-    "currency": "INR",
-    "name": "zynth.ai", //your business name
-    "description": "Test Transaction",
-    "image": "https://example.com/your_logo",
-    "order_id": "order_OtuH9YsaNmLK7w", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-    "handler": function (response){
-        alert(response.razorpay_payment_id);
-        alert(response.razorpay_order_id);
-        alert(response.razorpay_signature)
-    },
-    "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
-        "name": "Gaurav Kumar", //your customer's name
-        "email": "gaurav.kumar@example.com", 
-        "contact": "9000090000"  //Provide the customer's phone number for better conversion rates 
-    },
-    "notes": {
-        "address": "Razorpay Corporate Office"
-    },
-    "theme": {
-        "color": "#3399cc"
-    }
-};
-var rzp1 = new Razorpay(options);
-rzp1.on('payment.failed', function (response){
-        alert(response.error.code);
-        alert(response.error.description);
-        alert(response.error.source);
-        alert(response.error.step);
-        alert(response.error.reason);
-        alert(response.error.metadata.order_id);
-        alert(response.error.metadata.payment_id);
-});
-document.getElementById('rzp-button1').onclick = function(e){
-    rzp1.open();
-    e.preventDefault();
-}
-</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Razorpay Test Checkout</title>
+</head>
+<body>
+    <h1>Test Razorpay Payment</h1>
+    <button id="rzp-button1">Pay</button>
+
+    <script src="https://checkout.razorpay.com/v1/magic-checkout.js"></script>
+    <script>
+        var options = {
+            "key": "rzp_live_khTJSetRdoMofk", // Enter your live Razorpay Key ID
+            "order_id": "order_P4apAv4AkdxK6h", // Use the new Order ID from your backend
+            "name": "Acme Corp", // Your business name
+            "show_coupons": true, // Show coupon input
+            "callback_url": "https://your-server.com/callback", // Replace with your callback URL
+            "redirect": "true",
+            "prefill": {
+                "name": "Gaurav Kumar", // Customer's name
+                "email": "gaurav.kumar@example.com",
+                "contact": "9000090000", // Customer's phone number
+                "coupon_code": "500OFF" // Any valid coupon code from your Razorpay dashboard
+            },
+            "notes": {
+                "address": "Acme Corp Office"
+            }
+        };
+        
+        var rzp1 = new Razorpay(options);
+        document.getElementById('rzp-button1').onclick = function(e){
+            rzp1.open();
+            e.preventDefault();
+        }
+    </script>
+</body>
+</html>
