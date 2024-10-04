@@ -43,7 +43,7 @@ const PaymentGateway = ({ productinfo, onSuccess, formId }) => {
 
   const verifyCoupon = async (organizationId) => {
     try {
-      const response = await fetch('http://localhost:5000/razorpay/verify-coupon', {
+      const response = await fetch('https://zynth.ai/api/razorpay/verify-coupon', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
