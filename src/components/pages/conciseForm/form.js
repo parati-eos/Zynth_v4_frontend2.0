@@ -46,6 +46,7 @@ const ConciseForm = () => {
     linkedinLink: '',
     contactEmail: localStorage.getItem('userEmail'),
     contactPhone: '',
+    organizationId: '',
   });
   const [formId, setFormId] = useState('');
   const [generatedPresentationID, setgeneratedPresentationID] = useState(null);
@@ -128,6 +129,14 @@ const ConciseForm = () => {
         [name]: updatedValue,
       }));
     } 
+  // Store organizationId in localStorage
+  else if (name === 'organizationId') {
+    localStorage.setItem('organizationId', value); // Store organizationId in localStorage
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  } 
     // For other fields (like file inputs)
     else {
       setFormData((prevData) => ({
@@ -356,7 +365,9 @@ const ConciseForm = () => {
               name1="contactPhone"
               value1={formData.contactPhone}
               name2="linkedinLink"
-              value2={formData.linkedinLink}             
+              value2={formData.linkedinLink}      
+              name3="organizationId"  // Use lowercase here to match the formData key
+              value3={formData.organizationId}         
               handleChange={handleChange}
               required
             />

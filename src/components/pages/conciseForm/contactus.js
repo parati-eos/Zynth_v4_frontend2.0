@@ -1,6 +1,16 @@
 import React, { useState } from 'react';
 
-const ContactSection = ({ title, name1, value1, name2, value2, handleChange, type = 'text' }) => {
+const ContactSection = ({ 
+  title, 
+  name1, 
+  value1, 
+  name2, 
+  value2, 
+  name3,
+  value3,
+  handleChange, 
+  type = 'text' 
+}) => {
   const [websiteError, setWebsiteError] = useState('');
   const [linkedinError, setLinkedinError] = useState('');
 
@@ -56,6 +66,18 @@ const ContactSection = ({ title, name1, value1, name2, value2, handleChange, typ
         required
       />
       {linkedinError && <p className="error-message" style={{ color: 'yellow' }}>{linkedinError}</p>}
+      <div className='input-line'></div>
+      
+      {/* New input for Organization ID */}
+      <input
+        type={type}
+        id={name3}
+        name={name3}
+        value={value3}
+        onChange={handleChange}
+        placeholder="Organization ID (for Accelerator Partners)"
+        required
+      />
       <div className='input-line'></div>
     </div>
   );

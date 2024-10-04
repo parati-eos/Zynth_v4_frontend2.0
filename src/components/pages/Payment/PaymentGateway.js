@@ -10,13 +10,10 @@ const PaymentGateway = ({ productinfo, onSuccess, formId }) => {
     email: localStorage.getItem("userEmail") || '',
     formId,
     currency: 'USD',
-    couponCode: '', // Add couponCode to payment data
   });
 
-  const [countdown, setCountdown] = useState(null); // Countdown state
-  const [showModal, setShowModal] = useState(false); // Modal visibility state
-  const [couponCode, setCouponCode] = useState(''); // Coupon code state
-  const [discountAmount, setDiscountAmount] = useState(0); // Discount amount from coupon
+  const [countdown, setCountdown] = useState(null); // State to hold countdown value
+  const [showModal, setShowModal] = useState(false); // State to control modal visibility
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,47 +41,51 @@ const PaymentGateway = ({ productinfo, onSuccess, formId }) => {
     detectCurrency();
   }, []);
 
-  // const verifyCoupon = async () => {
-  //   try {
-  //     const response = await fetch('http://localhost:5000/razorpay/verify-coupon', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({ code: couponCode }),
-  //     });
+  const verifyCoupon = async (organizationId) => {
+    try {
+      const response = await fetch('http://localhost:5000/razorpay/verify-coupon', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ code: organizationId }),
+      });
 
-  //     if (!response.ok) {
-  //       throw new Error(`HTTP error! status: ${response.status}`);
-  //     }
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
-  //     const result = await response.json();
-  //     setDiscountAmount(result.discountAmount);
-  //     alert('Coupon applied successfully!');
-  //   } catch (error) {
-  //     console.error('Error verifying coupon:', error);
-  //     alert('Failed to apply coupon: ' + error.message);
-  //   }
-  // };
+      const result = await response.json();
+      return result; // Return the result of the coupon verification
+    } catch (error) {
+      console.error('Error verifying coupon:', error);
+      return null; // Return null in case of an error
+    }
+  };
 
   const handlePayment = async () => {
-    const finalAmount = paymentData.amount - discountAmount;
+    const organizationId = localStorage.getItem("organizationId"); // Fetch organization ID from local storage
+    const couponResult = await verifyCoupon(organizationId); // Verify the coupon
 
-    // Ensure final amount is not negative
-    if (finalAmount < 0) {
-      alert('Discount exceeds the total amount!');
-      return;
+    let finalAmount = paymentData.amount; // Start with the original amount
+
+    if (couponResult && couponResult.message === "Coupon is valid") {
+      finalAmount *= couponResult.discountAmount; // Apply the discount
+    } 
+    else {
+      //alert('Invalid coupon code or coupon not found. Proceeding with original amount.'); // Alert the user if the coupon is invalid
+      finalAmount = paymentData.amount; // Set finalAmount to the original amount if coupon is invalid
     }
-
+    finalAmount = Math.round(finalAmount);
     try {
-      console.log("Sending payment data to generate Razorpay order:", { ...paymentData, amount: finalAmount });
+      console.log("Sending payment data to generate Razorpay order:", { amount: finalAmount, currency: paymentData.currency });
 
       const response = await fetch('https://zynth.ai/api/razorpay/create-order', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ amount: finalAmount, currency: paymentData.currency, couponCode }), // Pass couponCode here
+        body: JSON.stringify({ amount: finalAmount, currency: paymentData.currency }),
       });
 
       if (!response.ok) {
@@ -117,7 +118,7 @@ const PaymentGateway = ({ productinfo, onSuccess, formId }) => {
                 customer_name: paymentData.firstname,
                 customer_email: paymentData.email,
                 customer_contact: '1234567890', // Update or handle contact dynamically
-                amount: finalAmount, // Use final amount after discount
+                amount: finalAmount,
               }),
             });
 
@@ -138,9 +139,9 @@ const PaymentGateway = ({ productinfo, onSuccess, formId }) => {
           }
         },
         prefill: {
-          name: paymentData.firstname,
-          email: paymentData.email,
-          // Optionally add contact field if needed
+          // name: paymentData.firstname,
+          // email: paymentData.email,
+          // contact: paymentData.phone,
         },
         theme: {
           color: "#3399cc",
@@ -174,13 +175,6 @@ const PaymentGateway = ({ productinfo, onSuccess, formId }) => {
 
   return (
     <div>
-      {/* <input
-        type="text"
-        value={couponCode}
-        onChange={(e) => setCouponCode(e.target.value)}
-        placeholder="Enter coupon code"
-      />
-      <button onClick={verifyCoupon}>Apply Coupon</button> */}
       <button id="payment-button" onClick={handlePayment} style={{ display: 'none' }}>
         Pay and Download
       </button>
