@@ -27,6 +27,19 @@ function App() {
      localStorage.setItem('sign_up_link', currentUrl);
      console.log('UTM link stored:', currentUrl);
    }
+
+       // Google Ads tracking
+       const gtagScript = document.createElement('script');
+       gtagScript.async = true;
+       gtagScript.src = "https://www.googletagmanager.com/gtag/js?id=AW-667504395";
+       document.head.appendChild(gtagScript);
+   
+       window.dataLayer = window.dataLayer || [];
+       window.gtag = function() {
+         dataLayer.push(arguments);
+       };
+       window.gtag('js', new Date());
+       window.gtag('config', 'AW-667504395');
     const INACTIVITY_THRESHOLD = 2 * 60 * 60 * 1000; // 2 hours in milliseconds
 
     // Store the current timestamp of user activity
