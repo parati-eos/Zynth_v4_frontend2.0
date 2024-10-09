@@ -76,12 +76,14 @@ function Login() {
       // Fetch IP and country information
       const ipInfoResponse = await fetch("https://ipinfo.io/json?token=f0e9cf876d422e");
       const ipInfoData = await ipInfoResponse.json();
-  
+      const signupLink = localStorage.getItem("sign_up_link") || ""; // Default to empty string if not found
+
       const userIPCountryData = {
         ...userData,
         source: "", // Initialize the source field as an empty string
         user_ipcountry: ipInfoData.country, // Country code from IPinfo response
-        user_country_name: ipInfoData.country_name || "" // Country name from IPinfo response
+        user_country_name: ipInfoData.country_name || "" ,// Country name from IPinfo response
+        sign_up_link: signupLink,
       };
   
       // Save user data along with IP and country information

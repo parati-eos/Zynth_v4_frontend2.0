@@ -21,7 +21,12 @@ function App() {
   useEffect(() => {
     ReactGA.initialize('G-7EK1LG8K6D'); // Initialize Google Analytics
     ReactGA.pageview(window.location.pathname + window.location.search); // Record initial pageview
-
+   // Store UTM link in local storage
+   const currentUrl = window.location.href;
+   if (currentUrl.includes('utm_')) {
+     localStorage.setItem('sign_up_link', currentUrl);
+     console.log('UTM link stored:', currentUrl);
+   }
     const INACTIVITY_THRESHOLD = 2 * 60 * 60 * 1000; // 2 hours in milliseconds
 
     // Store the current timestamp of user activity
