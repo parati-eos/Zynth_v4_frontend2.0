@@ -7,40 +7,44 @@
 </head>
 <body>
     <h1>Test Razorpay Payment</h1>
+
     <button id="rzp-button1">Pay</button>
-
-    <!-- Load the standard Razorpay Checkout script -->
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-
-    <script>
-        var options = {
-            "key": "rzp_live_khTJSetRdoMofk", // Replace with your Razorpay Key ID
-            "order_id": "order_P4apAv4AkdxK6h", // Use the new Order ID from your backend
-            "name": "Acme Corp", // Your business name
-            "amount": 50000, // Amount is in paise (500 INR = 50000 paise)
-            "currency": "INR",
-            "show_coupons": true, // Enables coupon input in the payment window
-            "callback_url": "https://your-server.com/callback", // Replace with your callback URL
-            "redirect": true,
-            "prefill": {
-                "name": "Gaurav Kumar", // Customer's name
-                "email": "gaurav.kumar@example.com",
-                "contact": "9000090000", // Customer's phone number
-                "coupon_code": "500OFF" // Optionally, prefill coupon code
-            },
-            "notes": {
-                "address": "Acme Corp Office"
-            },
-            "theme": {
-                "color": "#F37254"
-            }
-        };
-        
-        var rzp1 = new Razorpay(options);
-        document.getElementById('rzp-button1').onclick = function(e){
-            rzp1.open();
-            e.preventDefault();
-        }
-    </script>
+<script src="https://checkout.razorpay.com/v1/magic-checkout.js"></script>
+<script>
+var options = {
+    "key": "rzp_live_khTJSetRdoMofk", // Enter the Key ID generated from the Dashboard
+    "one_click_checkout": true,
+    "name": "Acme Corp", // your business name
+    "order_id": "order_P73YWQsitEwKnX", // This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "show_coupons": true, // default true; false if coupon widget should be hidden
+    "handler": function (response){
+        alert(response.razorpay_payment_id);
+        alert(response.razorpay_order_id);
+        alert(response.razorpay_signature)
+    },
+    "prefill": { // We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
+        "name": "Gaurav Kumar", // your customer's name
+        "email": "gaurav.kumar@example.com", 
+        "contact": "9000090000"  // Provide the customer's phone number for better conversion rates 
+    },
+    "notes": {
+        "address": "ABC Office"
+    }
+};
+var rzp1 = new Razorpay(options);
+rzp1.on('payment.failed', function (response){
+        alert(response.error.code);
+        alert(response.error.description);
+        alert(response.error.source);
+        alert(response.error.step);
+        alert(response.error.reason);
+        alert(response.error.metadata.order_id);
+        alert(response.error.metadata.payment_id);
+});
+document.getElementById('rzp-button1').onclick = function(e){
+    rzp1.open();
+    e.preventDefault();
+}
+</script>
 </body>
 </html>
