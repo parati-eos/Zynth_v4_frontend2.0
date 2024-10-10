@@ -13,6 +13,15 @@ import Zigzag from "../home/how_works.js"
 import Partner from "../home/partner.js"
 
 function Home() {
+
+  useEffect(() => {
+    // Store the URL in localStorage if it contains 'zynth.ai'
+    const currentUrl = window.location.href;
+    if (currentUrl.includes('zynth.ai')) {
+      localStorage.setItem('sign_up_link', currentUrl);
+      console.log('Link containing zynth.ai stored:', currentUrl);
+    }
+  }, []);
   return (
     <div style={{ backgroundColor: "transparent", overflowX: 'hidden', overflowY: 'hidden', display: 'flex', flexDirection: 'column' }}>
       <Navbar />
