@@ -23,7 +23,7 @@ function App() {
     ReactGA.pageview(window.location.pathname + window.location.search); // Record initial pageview
    // Store UTM link in local storage
    const currentUrl = window.location.href;
-   if (currentUrl.includes('zynth.ai_')) {
+   if (currentUrl.includes('utm_')) {
      localStorage.setItem('sign_up_link', currentUrl);
      console.log('UTM link stored:', currentUrl);
    }
