@@ -25,11 +25,13 @@ function App() {
    // Check if the user is on the home page ("/")
    if (location.pathname === '/') {
     const currentUrl = window.location.href;
-    if (currentUrl.includes('zynth.ai')) {
-      localStorage.setItem('sign_up_link', currentUrl);
-      console.log('Link containing zynth.ai stored:', currentUrl);
+    const normalizedUrl = currentUrl.endsWith('/') ? currentUrl.slice(0, -1) : currentUrl; // Remove trailing slash if it exists
+    if (normalizedUrl.includes('zynth.ai')) {
+      localStorage.setItem('sign_up_link', normalizedUrl);
+      console.log('Link containing zynth.ai stored:', normalizedUrl);
     }
   }
+  
 
        // Google Ads tracking
        const gtagScript = document.createElement('script');
