@@ -23,13 +23,13 @@ function App() {
     ReactGA.pageview(window.location.pathname + window.location.search); // Record initial pageview
    // Store UTM link in local storage
    // Check if the user is on the home page ("/")
-  //  if (location.pathname === '/') {
-  //   const currentUrl = window.location.href;
-  //   if (currentUrl.includes('zynth.ai')) {
-  //     localStorage.setItem('sign_up_link', currentUrl);
-  //     console.log('Link containing zynth.ai stored:', currentUrl);
-  //   }
-  // }
+   if (location.pathname === '/') {
+    const currentUrl = window.location.href;
+    if (currentUrl.includes('zynth.ai')) {
+      localStorage.setItem('sign_up_link', currentUrl);
+      console.log('Link containing zynth.ai stored:', currentUrl);
+    }
+  }
 
        // Google Ads tracking
        const gtagScript = document.createElement('script');
