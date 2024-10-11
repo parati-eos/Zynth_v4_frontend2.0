@@ -25,7 +25,7 @@ const PaymentGateway = ({ productinfo, onSuccess, formId }) => {
         }
         const data = await response.json();
         const currency = data.country === 'IN' ? 'INR' : 'USD';
-        const amount = currency === 'INR' ? 1 : 499;
+        const amount = currency === 'INR' ? 499 : 9;
 
         setPaymentData(prevData => ({
           ...prevData,
