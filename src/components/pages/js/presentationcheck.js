@@ -130,7 +130,7 @@ if (formId) {
 
     const handleDownload = async () => {
       try {
-        const formId = localStorage.getItem("submissionId");
+        const formId = localStorage.getItem("submissionId") || searchParams.get("submissionID");
         if (!formId) {
           throw new Error("Form ID not found in localStorage");
         }
