@@ -131,7 +131,7 @@ function InAppForm({ Title, onClose,onSubmit}) {
     setIsSubmitting(true); // Disable the button immediately
     setIsLoading(true);
 
-    const formId = localStorage.getItem("submissionId")
+    const formId = searchParams.get("submissionID")
     const generatedPresentationId = localStorage.getItem(
       "generatedPresentationId"
     );

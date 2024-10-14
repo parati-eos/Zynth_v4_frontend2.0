@@ -130,13 +130,12 @@ if (formId) {
 
     const handleDownload = async () => {
       try {
-        const formId = localStorage.getItem("submissionId") || searchParams.get("submissionID");
+        const formId = searchParams.get("submissionID") || localStorage.getItem("submissionId");
         if (!formId) {
           throw new Error("Form ID not found in localStorage");
         }
 
         const serverurl = process.env.REACT_APP_SERVER_URL;
-
         // 1. First, update the payment status
         const updatePaymentStatus = async () => {
           const response = await fetch(`${serverurl}/appscript/updatePaymentStatus`, {

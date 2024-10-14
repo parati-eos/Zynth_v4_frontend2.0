@@ -22,15 +22,19 @@ function App() {
     ReactGA.initialize('G-7EK1LG8K6D'); // Initialize Google Analytics
     ReactGA.pageview(window.location.pathname + window.location.search); // Record initial pageview
    // Store UTM link in local storage
-   // Check if the user is on the home page ("/")
-   if (location.pathname === '/') {
-    const currentUrl = window.location.href;
-    const normalizedUrl = currentUrl.endsWith('/') ? currentUrl.slice(0, -1) : currentUrl; // Remove trailing slash if it exists
-    if (normalizedUrl.includes('zynth.ai')) {
-      localStorage.setItem('sign_up_link', normalizedUrl);
-      console.log('Link containing zynth.ai stored:', normalizedUrl);
-    }
-  }
+   const currentUrl = window.location.href;
+   const normalizedUrl = currentUrl.endsWith('/') ? currentUrl.slice(0, -1) : currentUrl;
+ 
+   // Check if 'sign_up_link' is already in localStorage
+   const storedUrl = localStorage.getItem('sign_up_link');
+ 
+   // Store the full URL in localStorage if it's not already set
+   if (!storedUrl) {
+     localStorage.setItem('sign_up_link', normalizedUrl);
+     console.log('Initial URL stored:', normalizedUrl);
+   } else {
+     console.log('URL already stored:', storedUrl);
+   }
   
 
        // Google Ads tracking
