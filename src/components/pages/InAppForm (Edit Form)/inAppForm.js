@@ -23,7 +23,7 @@ import GTM from "./gtm";
 import Cover from "./cover";
 import About from "./about";
 import Contact from "./contact";
-
+import { useLocation } from "react-router-dom";
 function InAppForm({ Title, onClose,onSubmit}) {
   const [section, setSection] = useState(Title);
   const userEmail = localStorage.getItem("userEmail");
@@ -78,6 +78,8 @@ function InAppForm({ Title, onClose,onSubmit}) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false); // New state
   const [isUploading, setIsUploading] = useState(false); 
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
   const [phaseValidationError, setPhaseValidationError] = useState("");
   const validatePhases = (phaseRows) => {
     const isPhase1Filled = phaseRows[0].year1 || phaseRows[0].year2 || phaseRows[0].TR;
@@ -129,7 +131,7 @@ function InAppForm({ Title, onClose,onSubmit}) {
     setIsSubmitting(true); // Disable the button immediately
     setIsLoading(true);
 
-    const formId = localStorage.getItem("submissionId");
+    const formId = localStorage.getItem("submissionId")
     const generatedPresentationId = localStorage.getItem(
       "generatedPresentationId"
     );
