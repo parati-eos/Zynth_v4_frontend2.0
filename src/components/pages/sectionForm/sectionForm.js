@@ -11,7 +11,7 @@ import { Grid, TailSpin } from "react-loader-spinner"; // Import TailSpin for bu
 import  Competition from './Competition';
 import TechnicalArchitecture from "./systemArchitecture";
 import CircularProgress from '@mui/material/CircularProgress';
-
+import { useLocation } from "react-router-dom";
 function SectionForm({ Title, onClose,onSubmit,setSectionSubmitStatus}) {
   const [section, setSection] = useState(Title);
   const userEmail = localStorage.getItem("userEmail");
@@ -67,6 +67,8 @@ function SectionForm({ Title, onClose,onSubmit,setSectionSubmitStatus}) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isUploading, setIsUploading] = useState(false); 
   const [phaseValidationError, setPhaseValidationError] = useState("");
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
   const validatePhases = (phaseRows) => {
     const isPhase1Filled = phaseRows[0].year1 || phaseRows[0].year2 || phaseRows[0].TR;
     const isPhase2Filled = phaseRows[1].year1 && phaseRows[1].year2 && phaseRows[1].TR;
@@ -119,7 +121,7 @@ function SectionForm({ Title, onClose,onSubmit,setSectionSubmitStatus}) {
     setIsSubmitting(true); 
     setIsLoading(true);
 
-    const formId = localStorage.getItem("submissionId");
+    const formId = searchParams.get("submissionID")
     const generatedPresentationId = localStorage.getItem(
       "generatedPresentationId"
     );
