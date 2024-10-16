@@ -13,6 +13,7 @@ import InAppForm from "../InAppForm (Edit Form)/inAppForm.js";
 import PaymentGateway from "../Payment/PaymentGateway.js";
 import GuidedTour from "../utils/GuidedTour.js";
 import { useLocation } from "react-router-dom";
+import CouponModal from "../../pages/cards/CouponModal.js";
 const slides = [
   "Cover",
   "About",
@@ -58,12 +59,39 @@ const PresentationCheck = () => {
   const slideRefs = useRef([]);
   const userEmail = localStorage.getItem("userEmail");
   const location = useLocation();
+  const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const searchParams = new URLSearchParams(location.search);
   const formId = searchParams.get("submissionID")|| localStorage.getItem("submissionId");
   const generatedPresentationId = searchParams.get("generatedPresentationId")||localStorage.getItem("generatedPresentationId");
   // const [isOpen, setIsOpen] = useState(false);
   const [tourActive, setTourActive] = useState(false);
+  const discountParam = searchParams.get("discount");
 // Check if submissionID is found in the URL search params
+useEffect(() => {
+  console.log('Discount param:', discountParam);
+  if (discountParam) {
+    console.log('Opening modal');
+    setIsModalOpen(true);
+  }
+}, [discountParam]);
+
+const handleCloseModal = () => {
+  setIsModalOpen(false); // Close modal
+};
+
+const handleApplyCoupon = (couponCode, discountAmount) => {
+  console.log('Coupon applied:', couponCode, 'Discount Amount:', discountAmount);
+
+  // Close the modal on successful coupon application
+  handleCloseModal();
+
+  // Remove the discount parameter from the URL
+  const params = new URLSearchParams(location.search);
+  params.delete('discount'); // Remove the discount parameter
+  history.replace({ search: params.toString() }); // Update the URL without reloading
+};
+
 if (formId) {
   // If formId is present, construct the API URL
   const apiUrl = `${serverurl}/files/getUserId?submissionID=${formId}`;
@@ -687,6 +715,11 @@ if (formId) {
         formId={formId}
       />
    <GuidedTour active={tourActive} />
+   <CouponModal
+        isOpen={isModalOpen} // Pass modal visibility state
+        onClose={handleCloseModal} // Pass the close function
+        applyCoupon={handleApplyCoupon} // Pass the coupon application function
+      />
     </div>
   );
 };

@@ -64,7 +64,7 @@ const PaymentGateway = ({ productinfo, onSuccess, formId }) => {
   };
 
   const handlePayment = async () => {
-    const organizationId = localStorage.getItem("organizationId"); // Fetch organization ID from local storage
+    const organizationId = sessionStorage.getItem("organizationId"); // Fetch organization ID from local storage
     const couponResult = await verifyCoupon(organizationId); // Verify the coupon
 
     let finalAmount = paymentData.amount; // Start with the original amount

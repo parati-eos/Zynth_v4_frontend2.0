@@ -131,7 +131,7 @@ const ConciseForm = () => {
     } 
   // Store organizationId in localStorage
   else if (name === 'organizationId') {
-    localStorage.setItem('organizationId', value); // Store organizationId in localStorage
+    sessionStorage.setItem('organizationId', value); // Store organizationId in localStorage
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,

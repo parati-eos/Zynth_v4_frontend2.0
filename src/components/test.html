@@ -9,23 +9,23 @@
     <h1>Test Razorpay Payment</h1>
 
     <button id="rzp-button1">Pay</button>
-<script src="https://checkout.razorpay.com/v1/magic-checkout.js"></script>
-<script>
-var options = {
-    "key": "rzp_live_khTJSetRdoMofk", // Enter the Key ID generated from the Dashboard
+   <script src="https://checkout.razorpay.com/v1/magic-checkout.js"></script>
+   <script>
+ var options = {
+    "key": "rzp_live_khTJSetRdoMofk",
     "one_click_checkout": true,
-    "name": "Acme Corp", // your business name
-    "order_id": "order_P7jDJxNybuOsto", // This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-    "show_coupons": true, // default true; false if coupon widget should be hidden
+    "name": "Acme Corp", 
+    "order_id": "order_P7jDJxNybuOsto", 
+    "show_coupons": true, 
     "handler": function (response){
         alert(response.razorpay_payment_id);
         alert(response.razorpay_order_id);
         alert(response.razorpay_signature)
     },
-    "prefill": { // We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
-        "name": "Gaurav Kumar", // your customer's name
+    "prefill": { 
+        "name": "Gaurav Kumar", 
         "email": "gaurav.kumar@example.com", 
-        "contact": "9000090000"  // Provide the customer's phone number for better conversion rates 
+        "contact": "9000090000"  
     },
     "notes": {
       
