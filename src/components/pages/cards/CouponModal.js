@@ -8,7 +8,7 @@ const CouponModal = ({ isOpen, onClose, applyCoupon }) => {
 
   const handleApplyCoupon = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/razorpay/verify-coupon', {
+      const response = await axios.post('https://zynth.ai/api/razorpay/verify-coupon', {
         code: couponCode
       });
 
