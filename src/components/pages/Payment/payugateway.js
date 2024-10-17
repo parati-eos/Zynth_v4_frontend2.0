@@ -44,7 +44,7 @@ const PaymentGateway = ({ amount, productinfo, onSuccess, formId }) => {
         return;
       }
 
-      const response = await fetch('https://d7dd5hnsapl64.cloudfront.net/app1/api/generate-payu-hash', {
+      const response = await fetch('https://zynth.ai/api/generate-payu-hash', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -72,8 +72,8 @@ const PaymentGateway = ({ amount, productinfo, onSuccess, formId }) => {
         <input type="hidden" name="firstname" value="${paymentData.firstname}" />
         <input type="hidden" name="email" value="${paymentData.email}" />
         <input type="hidden" name="phone" value="${paymentData.phone}" />
-        <input type="hidden" name="surl" value="https://zynth.ai/payment-success?formId=${formId}" />
-        <input type="hidden" name="furl" value="https://zynth.ai/payment-failure" />
+        <input type="hidden" name="surl" value="https://zynth.ai/api/payment-success?formId=${formId}" />
+        <input type="hidden" name="furl" value="https://zynth.ai/api/payment-failure" />
         <input type="hidden" name="hash" value="${hash}" />
         <input type="hidden" name="currency" value="${paymentData.currency}" />
       `;

@@ -107,7 +107,7 @@ if (formId) {
         // Show an alert if the email does not match
         alert("Please log in with your original email to perform this action.");
         // Navigate to the login page
-        window.location.href = "https://zynth.ai/auth/login";
+        window.location.href = "https://zynth.ai/api/auth/login";
       } else {
         // If the emails match, proceed to fetch the presentation
         fetch(`${serverurl}/slides/presentation?formId=${formId}`)
@@ -128,7 +128,7 @@ if (formId) {
   // Show an alert if submissionID is not found
   alert("Submission ID not found. Please make sure you are logged in with the correct account.");
   // Navigate to the login page
-  window.location.href = "https://zynth.ai/auth/login";
+  window.location.href = "https://zynth.ai/api/auth/login";
 }
   useEffect(() => {
         // Check if the environment is zynth.ai
@@ -242,7 +242,7 @@ if (formId) {
 
 
   const handleShare = () => {
-    const uniqueShareableUrl = `https://zynth.ai/share?submissionId=${formId}`;
+    const uniqueShareableUrl = `https://zynth.ai/api/share?submissionId=${formId}`;
     if (navigator.share) {
       navigator
         .share({
@@ -660,7 +660,6 @@ if (formId) {
       }
     }
   };
-
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleSidebar = () => {

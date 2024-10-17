@@ -33,7 +33,7 @@ const Dashboard = () => {
     }
   };
 
-  // Fetch data from 'https://d7dd5hnsapl64.cloudfront.net/app1/users'
+  // Fetch data from 'https://zynth.ai/api/users'
   const fetchData = async () => {
     setLoading(true);
     try {

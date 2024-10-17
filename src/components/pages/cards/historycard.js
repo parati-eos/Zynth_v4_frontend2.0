@@ -148,7 +148,7 @@ const HistoryCard = ({ userID, submissionID, PPTName, Date, link }) => {
 
 
   const handleShare = () => {
-    const uniqueShareableUrl = `https://zynth.ai/share?submissionId=${submissionID}`;
+    const uniqueShareableUrl = `https://zynth.ai/api/share?submissionId=${submissionID}`;
 
     if (navigator.share) {
       navigator

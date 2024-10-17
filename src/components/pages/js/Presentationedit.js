@@ -115,7 +115,7 @@
 //   };
 
 //   const handleShare = () => {
-//     const uniqueShareableUrl = `https://zynth.ai/share?submissionId=${formId}`;
+//     const uniqueShareableUrl = `https://zynth.ai/api/share?submissionId=${formId}`;
 //     if (navigator.share) {
 //       navigator
 //         .share({
