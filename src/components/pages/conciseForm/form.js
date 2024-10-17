@@ -26,7 +26,7 @@ const steps = {
 };
 
 const generateFormId = () => {
-  return 'Zarati-' + Date.now();
+  return 'Parati-' + Date.now();
 };
 
 const ConciseForm = () => {
