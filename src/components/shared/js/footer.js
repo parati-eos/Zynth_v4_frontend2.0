@@ -84,9 +84,9 @@ export const Footer = () => {
             Legal
           </p>
           <nav class="flex flex-col mt-4 space-y-2 text-sm text-gray-300">
-            <a class="hover:opacity-75 hover:text-yellow-500" href="https://zynth.ai/api/uploads/privacy" target="_blank"> Privacy Policy </a>
-            <a class="hover:opacity-75 hover:text-yellow-500" href="https://zynth.ai/api/uploads/refunds" target="_blank"> Refunds and Cancellations </a>
-            <a class="hover:opacity-75 hover:text-yellow-500" href="https://zynth.ai/api/uploads/terms" target="_blank"> Terms &amp; Conditions </a>
+            <a class="hover:opacity-75 hover:text-yellow-500" href="https://zynth.ai/uploads/privacy" target="_blank"> Privacy Policy </a>
+            <a class="hover:opacity-75 hover:text-yellow-500" href="https://zynth.ai/uploads/refunds" target="_blank"> Refunds and Cancellations </a>
+            <a class="hover:opacity-75 hover:text-yellow-500" href="https://zynth.ai/uploads/terms" target="_blank"> Terms &amp; Conditions </a>
             {/* <a class="hover:opacity-75" href> Returns Policy </a> */}
           </nav>
         </div>
