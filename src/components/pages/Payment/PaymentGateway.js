@@ -63,6 +63,27 @@ const PaymentGateway = ({ productinfo, onSuccess, formId }) => {
     }
   };
 
+  const updateOrderId = async (orderId) => {
+    try {
+      const response = await fetch(`https://zynth.ai/api/slides/update-order/${formId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ order_id: orderId }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log('Order ID updated successfully:', result);
+    } catch (error) {
+      console.error('Error updating order ID:', error);
+    }
+  };
+
   const handlePayment = async () => {
     const organizationId = sessionStorage.getItem("organizationId"); // Fetch organization ID from local storage
     const couponResult = await verifyCoupon(organizationId); // Verify the coupon
@@ -94,6 +115,9 @@ const PaymentGateway = ({ productinfo, onSuccess, formId }) => {
 
       const result = await response.json();
       const { id: order_id, amount, currency } = result;
+
+      // Update the order ID
+      await updateOrderId(order_id);
 
       const options = {
         key: process.env.REACT_APP_RAZORPAY_KEY_ID,
