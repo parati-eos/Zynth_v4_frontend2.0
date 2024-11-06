@@ -35,8 +35,31 @@ function App() {
    } else {
      console.log('URL already stored:', storedUrl);
    }
-  
 
+   //////////////////////////////////////////////////////////////////////////////////////////
+      // Check if the environment is zynth.ai
+      const isZynthAI = window.location.hostname === 'zynth.ai';
+
+      if (isZynthAI) {
+          const handleContextMenu = (event) => {
+              event.preventDefault();
+          };
+
+          const handleKeyDown = (event) => {
+              if (event.key === 'F12' || (event.ctrlKey && event.shiftKey && event.key === 'I')) {
+                  event.preventDefault();
+              }
+          };
+
+          document.addEventListener('contextmenu', handleContextMenu);
+          document.addEventListener('keydown', handleKeyDown);
+
+          return () => {
+              document.removeEventListener('contextmenu', handleContextMenu);
+              document.removeEventListener('keydown', handleKeyDown);
+          };
+      }
+      ///////////////////////To block the dev tool globally/////////////////////////////////
        // Google Ads tracking
        const gtagScript = document.createElement('script');
        gtagScript.async = true;
