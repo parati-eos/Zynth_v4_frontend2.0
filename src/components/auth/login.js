@@ -114,6 +114,7 @@ function Login() {
             src="https://d28lb1f8xy1z8m.cloudfront.net/uploads/Landing+Page+Poster.png"
             alt="Login"
             className="h-full w-full object-cover"
+            loading="lazy"
           />
         </div>
         <div className="login-details-container flex justify-center items-center">

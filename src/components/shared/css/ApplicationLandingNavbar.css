@@ -4,10 +4,24 @@
   z-index: 1;
   border-bottom: 1px solid #004264;
 }
-.app-user-container {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
+.appLanding-userIcon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1vw;
+}
+
+.appLanding-userIcon-container:hover {
+  background-color: #004264;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.appLanding-userIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 
 .dropdown-menu-nav {
@@ -38,10 +52,13 @@
   border-radius: 1vh;
 }
 
-.dropdown-menubutton:hover {
+.dropdown-menu.show button:hover {
   background-color: #f1f1f1;
 }
 
+.dropdown-menubutton:hover {
+  background-color: #f1f1f1;
+}
 
 .appLanding-navbar-container {
   height: 55px;
@@ -51,6 +68,7 @@
   align-items: center;
   z-index: 1;
 }
+
 .appLanding-navbar-logo-container {
   display: flex;
   align-items: center;
@@ -108,10 +126,11 @@
 .appLanding-navbar-details-container button:hover {
   color: #004264;
   background-color: rgb(255, 255, 255, 0.8);
+  border: none;
 }
 
 .desktop-logo {
-  display: block; 
+  display: block;
   width: 130px;
 }
 
@@ -126,8 +145,7 @@
   }
   .appLanding-navbar-logo-container img {
     background-size: contain;
-    content: "";
-
+    content: '';
   }
   .appLanding-navbar-details-container .history-icon {
     font-size: x-large;
@@ -155,7 +173,6 @@
   }
   .mobile-logo {
     width: 40px;
-    display: block; 
+    display: block;
   }
 }
-

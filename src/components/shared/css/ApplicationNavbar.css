@@ -1,8 +1,8 @@
 /* components/shared/Navbar.css */
-.app-nav {
+/* .app-nav {
   background-color: #001723;
   border-bottom: 1px solid #004264;
-}
+} */
 
 .app-navbar-container {
   display: flex;
@@ -11,6 +11,27 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.application-userIcon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1vw;
+}
+
+.application-userIcon-container:hover {
+  background-color: #004264;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.application-userIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
 .app-navbar-logo-container {
   width: 33%;
   display: flex;
@@ -88,6 +109,7 @@
   background-color: #e6a500;
   color: rgb(15, 15, 63);
   border: none;
+  margin-right: 10px;
   padding: 10px 20px;
   text-align: left;
   width: 6vw; /* Ensure the button width adjusts based on the content */
@@ -99,7 +121,6 @@
 .dropdown-menu button:hover {
   background-color: #f1f1f1;
 }
-
 
 .app-button-inner {
   display: flex;
@@ -129,6 +150,7 @@
 .app-navbar-details-container button:hover {
   color: #004264;
   background-color: rgb(255, 255, 255, 0.8);
+  border: none;
 }
 
 .app-user {
@@ -141,7 +163,7 @@
   border-radius: 20px;
 }
 .desktop-logo {
-  display: block; 
+  display: block;
   width: 130px;
 }
 
@@ -149,17 +171,17 @@
   display: none; /* Hide the mobile logo by default */
 }
 
-@media screen and (max-width: 600px){
+@media screen and (max-width: 600px) {
   .app-navbar-container {
     height: 50px;
   }
   .app-navbar-logo-container img {
     height: auto;
   }
-  .app-navbar-generateppt-container{
+  .app-navbar-generateppt-container {
     width: 50%;
   }
-  .app-button-inner{
+  .app-button-inner {
     font-size: 4vw;
   }
   .app-navbar-generateppt-container button {
@@ -180,6 +202,7 @@
     height: auto;
     font-size: x-large;
   }
+
   .app-navbar-details-container button span {
     display: none;
   }
@@ -188,7 +211,7 @@
   }
   .mobile-logo {
     width: 40px;
-    display: block; 
+    display: block;
   }
   .dropdown-menu.show button {
     background-color: #e6a500;
@@ -200,5 +223,33 @@
     height: 6vh; /* Ensure the button height adjusts based on the content */
     cursor: pointer;
     border-radius: 1vh;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .app-navbar-generateppt-container button {
+    cursor: pointer;
+    width: 21vw;
+    height: 3.5vh;
+    border-radius: 50px;
+    font-size: 84%;
+    font-weight: 600;
+    background-color: #e6a500;
+    color: rgb(255, 255, 255, 1);
+    border: 1px solid #e6a500;
+    z-index: 10;
+    transition: all;
+  }
+
+  .app-navbar-details-container button {
+    width: 100px;
+    height: 3.5vh;
+    border-radius: 50px;
+    font-weight: 400;
+    text-align: center;
+    background-color: #004264;
+    color: rgb(255, 255, 255, 0.8);
+    border: 2px solid #004264;
+    z-index: 10;
   }
 }

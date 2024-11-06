@@ -12,6 +12,27 @@
   justify-content: center;
   align-items: center;
 }
+
+.history-userIcon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1vw;
+}
+
+.history-userIcon-container:hover {
+  background-color: #004264;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.history-userIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
 .dropdown-menu-nav {
   display: none;
   position: absolute;
@@ -41,7 +62,7 @@
   border-radius: 1vh;
 }
 
-.dropdown-menubutton:hover {
+.dropdown-menu button:hover {
   background-color: #f1f1f1;
 }
 
@@ -125,6 +146,7 @@
 .history-navbar-details-container button:hover {
   color: #004264;
   background-color: rgb(255, 255, 255, 0.8);
+  border: none;
 }
 
 .history-user {
@@ -195,5 +217,21 @@
     height: 6vh; /* Ensure the button height adjusts based on the content */
     cursor: pointer;
     border-radius: 1vh;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .history-navbar-generateppt-container button {
+    cursor: pointer;
+    width: 21vw;
+    height: 3.5vh;
+    border-radius: 50px;
+    font-size: 84%;
+    font-weight: 600;
+    background-color: #e6a500;
+    color: rgb(255, 255, 255, 1);
+    border: 1px solid #e6a500;
+    z-index: 10;
+    transition: all;
   }
 }

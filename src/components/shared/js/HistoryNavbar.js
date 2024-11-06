@@ -67,7 +67,7 @@ function Navbar() {
         <div className="history-navbar-details-container">
           {/* Apply hover event handlers */}
           <div
-            className="appLanding-user-container"
+            className="history-userIcon-container"
             ref={dropdownRef}
             onClick={handleProfileClick}
           >
@@ -78,7 +78,7 @@ function Navbar() {
                   ? localStorage.getItem('userDP')
                   : 'https://cdn-icons-png.flaticon.com/512/147/147144.png'
               }
-              className="appLanding-user"
+              className="history-userIcon"
               alt="User Avatar"
             />
             <div className={`dropdown-menu ${dropdownVisible ? 'show' : ''}`}>
