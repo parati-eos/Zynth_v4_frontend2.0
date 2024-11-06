@@ -38,26 +38,56 @@ function App() {
 
    //////////////////////////////////////////////////////////////////////////////////////////
       // Check if the environment is zynth.ai
+      // const isZynthAI = window.location.hostname === 'zynth.ai';
+
+      // if (isZynthAI) {
+      //     const handleContextMenu = (event) => {
+      //         event.preventDefault();
+      //     };
+
+      //     const handleKeyDown = (event) => {
+      //         if (event.key === 'F12' || (event.ctrlKey && event.shiftKey && event.key === 'I')) {
+      //             event.preventDefault();
+      //         }
+      //     };
+
+      //     document.addEventListener('contextmenu', handleContextMenu);
+      //     document.addEventListener('keydown', handleKeyDown);
+
+      //     return () => {
+      //         document.removeEventListener('contextmenu', handleContextMenu);
+      //         document.removeEventListener('keydown', handleKeyDown);
+      //     };
+      // }
+
+
       const isZynthAI = window.location.hostname === 'zynth.ai';
 
       if (isZynthAI) {
-          const handleContextMenu = (event) => {
-              event.preventDefault();
-          };
-
-          const handleKeyDown = (event) => {
-              if (event.key === 'F12' || (event.ctrlKey && event.shiftKey && event.key === 'I')) {
-                  event.preventDefault();
-              }
-          };
-
-          document.addEventListener('contextmenu', handleContextMenu);
-          document.addEventListener('keydown', handleKeyDown);
-
-          return () => {
-              document.removeEventListener('contextmenu', handleContextMenu);
-              document.removeEventListener('keydown', handleKeyDown);
-          };
+        const handleContextMenu = (event) => {
+          event.preventDefault();
+        };
+  
+        const handleKeyDown = (event) => {
+          // Prevent F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C, and Ctrl+U
+          if (
+            event.key === 'F12' || 
+            (event.ctrlKey && event.shiftKey && (event.key === 'I' || event.key === 'J' || event.key === 'C')) ||
+            (event.ctrlKey && event.key === 'U')
+          ) {
+            event.preventDefault();
+          }
+        };
+  
+        // Attach event listeners
+        document.addEventListener('contextmenu', handleContextMenu);
+        document.addEventListener('keydown', handleKeyDown);
+  
+        // Clean up listeners on unmount
+        return () => {
+          document.removeEventListener('contextmenu', handleContextMenu);
+          document.removeEventListener('keydown', handleKeyDown);
+        };
       }
       ///////////////////////To block the dev tool globally/////////////////////////////////
        // Google Ads tracking
