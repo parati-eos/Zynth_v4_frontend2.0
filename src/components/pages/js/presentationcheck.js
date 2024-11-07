@@ -4,6 +4,7 @@ import ApplicationNavbar from '../../shared/js/ApplicationNavbar.js'
 import SectionForm from '../sectionForm/sectionForm.js'
 import { IconButton } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
+import EditNoteIcon from '@mui/icons-material/EditNote'
 import sectionMapping from '../utils/sectionMapping.js'
 import { Grid } from 'react-loader-spinner'
 import FloatingButtons from './FloatingButtons.js'
@@ -153,46 +154,6 @@ const PresentationCheck = () => {
     )
     // Navigate to the login page
     window.location.href = 'https://zynth.ai/auth/login'
-  }
-  // TODO: Optimized But Not Tested -- Alternative to the above code
-  {
-    /*
-  async function handlePresentationFetch(formId, serverurl, userEmail) {
-  if (!formId) {
-    alert('Submission ID not found. Please make sure you are logged in with the correct account.');
-    window.location.href = 'https://zynth.ai/auth/login';
-    return;
-  }
-
-  try {
-    // get UserId
-    const userIdResponse = await fetch(`${serverurl}/files/getUserId?submissionID=${formId}`);
-    const userIdData = await userIdResponse.json();
-    const apiUserId = userIdData.UserID;
-
-    // Compare UserId with the user email in localStorage
-    if (apiUserId !== userEmail) {
-      alert('Please log in with your original email to perform this action.');
-      window.location.href = 'https://zynth.ai/auth/login';
-      return;
-    }
-
-    // Fetch the presentation if emails match
-    const presentationResponse = await fetch(`${serverurl}/slides/presentation?formId=${formId}`);
-    const presentationData = await presentationResponse.json();
-
-    // Store the generatedPresentationId in localStorage
-    localStorage.setItem('generatedPresentationId', presentationData.PresentationID);
-  } catch (error) {
-    console.error('Error during API requests:', error);
-    alert('An error occurred. Please try again later.');
-  }
-}
-
-useEffect(() => {
-  handlePresentationFetch(formId, serverurl, userEmail);
-}, []);
-*/
   }
 
   //
@@ -467,12 +428,25 @@ useEffect(() => {
           if (entry.isIntersecting) {
             const slide = entry.target.getAttribute('data-slide')
             setSelectedSlide(slide)
+
+            // Scroll to the sidebar item when the slide is in view
+            const sidebarItem = document.querySelector(
+              `.sidebar-item[data-slide="${slide}"]`
+            )
+            if (sidebarItem) {
+              sidebarItem.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center',
+              })
+            }
           }
         })
       }, observerOptions)
+
       slideRefs.current.forEach((ref) => {
         if (ref) observer.observe(ref)
       })
+
       return () => {
         slideRefs.current.forEach((ref) => {
           if (ref) observer.unobserve(ref)
@@ -767,175 +741,6 @@ useEffect(() => {
       }
     }
   }
-  // TODO: Optimized But Not Tested -- Alternative to the above code
-  {
-    /*
-    const RenderSlideContent = ({ slide, excludedSections, setSelectedSlide, slideRefs, formId, slideContent, handleTriggerClick }) => {
-  const [sectionSubmitStatus, setSectionSubmitStatus] = useState({});
-  const requiresForm = excludedSections.includes(slide);
-  const [loading, setLoading] = useState(!requiresForm || sectionSubmitStatus[slide] === true);
-  const [inAppForm, setInAppForm] = useState(requiresForm);
-  const [showForm, setShowForm] = useState(false);
-  const [isEditMode, setIsEditMode] = useState(false);
-  const [prevData, setPrevData] = useState(null);
-  const [runFunction, setRunFunction] = useState(true);
-  const [fetchedData, setFetchedData] = useState(null);
-  const formRef = useRef(null);
-
-  // Toggle edit mode and reset runFunction when edit mode is toggled
-  const toggleEditMode = () => {
-    setIsEditMode(!isEditMode);
-    setRunFunction(true);
-  };
-
-  // Automatically start the tour on component mount
-  useEffect(() => {
-    console.log('Setting tourActive to true');
-    setTourActive(true);
-  }, []);
-
-  // Scroll to form when shown
-  useEffect(() => {
-    if (showForm && formRef.current) {
-      formRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  }, [showForm]);
-
-  // Intersection Observer for detecting if slide is in view
-  useEffect(() => {
-    const observerOptions = { root: null, rootMargin: '0px', threshold: 0.5 };
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const slide = entry.target.getAttribute('data-slide');
-          setSelectedSlide(slide);
-        }
-      });
-    }, observerOptions);
-
-    slideRefs.current.forEach((ref) => ref && observer.observe(ref));
-    return () => slideRefs.current.forEach((ref) => ref && observer.unobserve(ref));
-  }, [slideRefs, setSelectedSlide]);
-
-  // Fetch slide data from server
-  const fetchData = async () => {
-    try {
-      const serverUrl = process.env.REACT_APP_SERVER_URL;
-      const response = await fetch(`${serverUrl}/slides/id_by_section?formId=${formId}&section=${slide}`);
-      if (!response.ok) throw new Error('Network response was not ok');
-
-      const data = await response.json();
-      setFetchedData(data);
-      if (data[0] && data[0][1] && data[0][1] !== 'error') {
-        setPrevData(data);
-        setSlideContent((prev) => ({
-          ...prev,
-          [slide]: { id: data[0][0], slideId: data[0][1] }
-        }));
-        setRunFunction(false);
-        setLoading(false);
-        setInAppForm(false);
-      } else {
-        setInAppForm(data[0][1] === 'error');
-        setLoading(false);
-        setRunFunction(false);
-      }
-    } catch (error) {
-      console.error(`Error fetching slide for section ${slide}:`, error);
-      setLoading(true);
-      setRunFunction(true);
-    }
-  };
-
-  // Fetch data when slide is in view and not in edit mode
-  useEffect(() => {
-    if (runFunction && slide === selectedSlide && !isEditMode) {
-      fetchData();
-      setLoading(sectionSubmitStatus[slide] !== false);
-    }
-    const interval = setInterval(() => {
-      if (runFunction && slide === selectedSlide && !isEditMode) fetchData();
-    }, 10000);
-
-    return () => clearInterval(interval);
-  }, [selectedSlide, isEditMode, runFunction]);
-
-  // Handle form submission
-  const handleFormSubmit = async () => {
-    if (requiresForm) {
-      setLoading(true);
-      setRunFunction(true);
-      setInAppForm(false);
-    }
-  };
-
-  // Log data to console for debugging
-  if (slide === selectedSlide) {
-    console.table({
-      Slide: slide,
-      'In App Form': inAppForm,
-      Loading: loading,
-      'Run Function': runFunction,
-      Data: fetchedData ? fetchedData[0][1] : 'no data'
-    });
-  }
-
-  // Render form or slide content based on conditions
-  if (requiresForm) {
-    return (
-      <div className="w-full h-full flex justify-center items-center">
-        {!showForm ? (
-          <div className="w-[80vw] md:w-[30vw] flex flex-col justify-center items-center">
-            <IconButton onClick={() => setShowForm(true)} color="inherit" sx={{ fontSize: 40 }}>
-              <AddIcon fontSize="inherit" />
-            </IconButton>
-            <h3>{slide}</h3>
-          </div>
-        ) : (
-          <div ref={formRef} className="w-full h-full flex justify-center items-center">
-            <SectionForm Title={slide} onClose={() => setShowForm(false)} onSubmit={handleFormSubmit} setSectionSubmitStatus={setSectionSubmitStatus} />
-          </div>
-        )}
-      </div>
-    );
-  }
-
-  if (loading) {
-    return (
-      <div className="presentationcheck-loadingIcon">
-        <div>
-          {isEditMode ? (
-            <InAppForm Title={slide} onClose={() => setIsEditMode(false)} onSubmit={handleFormSubmit} />
-          ) : (
-            <div className="slide-presentation-container">
-              <FontAwesomeIcon icon={faEdit} onClick={toggleEditMode} title="Edit Slide" />
-              <Grid visible height={80} width={80} color="#E6A500" ariaLabel="grid-loading" radius={12.5} />
-            </div>
-          )}
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="slide-presentation-container">
-      {isEditMode ? (
-        <InAppForm Title={slide} onClose={() => setIsEditMode(false)} onSubmit={handleFormSubmit} />
-      ) : (
-        <>
-          <FontAwesomeIcon icon={faEdit} onClick={toggleEditMode} title="Edit Slide" />
-          <iframe
-            className="presentationcheck-slides-iframe"
-            title={`Google Slides Embed ${slide}`}
-            src={`https://docs.google.com/presentation/d/${slideContent[slide].id}/embed?rm=minimal&start=false&loop=false&slide=id.${slideContent[slide].slideId}`}
-          ></iframe>
-        </>
-      )}
-    </div>
-  );
-};
-    */
-  }
 
   //
   // Sidebar toggle function
@@ -953,6 +758,8 @@ useEffect(() => {
       >
         &#9776;
       </div>
+
+      {/* Sidebar & Slide Rendering */}
       <div className="md:flex md:flex-row lg:flex-row lg:h-[calc(100vh_-_60px)] lg:overflow-hidden flex-col md:h-auto h-75vh">
         <div className={`sidebar ${isOpen ? 'open' : ''}`}>
           {slides.map((slide, index) => (
@@ -965,17 +772,27 @@ useEffect(() => {
                   handleSidebarClick(slide, index)
                   toggleSidebar()
                 }}
+                ref={(el) => {
+                  if (selectedSlide === slide) {
+                    el?.scrollIntoView({
+                      behavior: 'instant',
+                      block: 'center',
+                    })
+                  }
+                }}
               >
                 {excludedSections.includes(slide) ? (
                   <>
                     {slide}
-                    <IconButton
-                      color="secondary"
-                      aria-label="add"
-                      sx={{ fontSize: 11 }}
-                    >
-                      <AddIcon fontSize="inherit" />
-                    </IconButton>
+                    {!slideContent[slide] && (
+                      <IconButton
+                        color={selectedSlide === slide ? 'danger' : 'warning'}
+                        aria-label="add"
+                        sx={{ fontSize: 18 }}
+                      >
+                        <EditNoteIcon fontSize="inherit" />
+                      </IconButton>
+                    )}
                   </>
                 ) : (
                   <>{slide}</>
@@ -985,11 +802,13 @@ useEffect(() => {
             </React.Fragment>
           ))}
         </div>
-        <div className="content">
+
+        {/* Slide Rendering */}
+        <div className="content lg:h-screen lg:overflow-y-scroll lg:snap-y lg:snap-mandatory scroll-smooth">
           {slides.map((slide, index) => (
             <div
               key={index}
-              className="content-section"
+              className="content-section lg:h-screen lg:snap-start"
               data-slide={slide}
               ref={(el) => (slideRefs.current[index] = el)}
             >
@@ -998,6 +817,7 @@ useEffect(() => {
           ))}
         </div>
       </div>
+
       <FloatingButtons
         handleShare={handleShare}
         handleExport={checkPaymentStatusAndProceed}

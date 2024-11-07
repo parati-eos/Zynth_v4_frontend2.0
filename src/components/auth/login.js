@@ -135,7 +135,11 @@ function Login() {
               onClick={handleMicrosoftLogin}
               className="w-full flex justify-center"
             >
-              <img src={MSLogin} alt="Microsoft Login" className="rounded-lg" />
+              <img
+                src={MSLogin}
+                alt="Microsoft Login"
+                className="rounded-lg w-[65%] h-[65%] object-cover"
+              />
             </button>
           </div>
         </div>

@@ -89,8 +89,8 @@
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
-  color: white;
-  font-size: 1.2vw;
+  color: #ffffff;
+  font-size: 1.1vw;
 }
 
 .separator {

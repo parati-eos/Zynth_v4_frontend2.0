@@ -7,7 +7,10 @@ import '../css/export-share.css'
 
 const EditButton = ({ onClick }) => {
   return (
-    <button onClick={onClick} className="export-share-button editbutton">
+    <button
+      onClick={onClick}
+      className="export-share-button editbutton md:max-lg:mb-2"
+    >
       <FontAwesomeIcon icon={faEdit} />
     </button>
   )

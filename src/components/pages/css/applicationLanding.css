@@ -36,10 +36,9 @@
 }
 
 .overlay-button:hover {
-  /* write hover effects for the button such that it has a popup effect and transition */
-  background-color: #ffc400;
+  background-color: #e2af07;
   transition: 0.3s;
-  box-shadow: 0 0 10px #ffc400, 0 0 40px #ffc400, 0 0 80px #ffc400;
+  box-shadow: 0 0 10px #c59805e8, 0 0 40px #c59805e8, 0 0 80px #c59805e8;
 }
 
 .button-container {
