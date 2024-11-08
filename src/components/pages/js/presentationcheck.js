@@ -73,7 +73,6 @@ const PresentationCheck = () => {
   const [tourActive, setTourActive] = useState(false)
   const discountParam = searchParams.get('discount')
 
-  //
   // Check if submissionID is found in the URL search params
   useEffect(() => {
     console.log('Discount param:', discountParam)
