@@ -81,7 +81,11 @@ function Navbar() {
               className="history-userIcon"
               alt="User Avatar"
             />
-            <div className={`dropdown-menu ${dropdownVisible ? 'show' : ''}`}>
+            <div
+              className={`dropdown-menu-history ${
+                dropdownVisible ? 'show' : ''
+              }`}
+            >
               <button onClick={handleLogout}>Logout</button>
             </div>
           </div>

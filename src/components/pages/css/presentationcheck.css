@@ -24,12 +24,12 @@
   width: max-content;
   text-align: end;
   margin-left: 4px;
+  height: fit-content;
 }
 
 .slide-presentation-container .edit-button:hover {
   cursor: pointer;
-  background-color: #f8f8f811;
-  border-radius: 8px;
+  color: white;
 }
 
 .fixed-navbar {
@@ -75,7 +75,7 @@
 
 /* ==========================================SIDEBAR-START======================================= */
 .sidebar {
-  width: 250px;
+  width: 265px;
   background-color: #001b28;
   padding: 10px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
@@ -139,6 +139,7 @@
 .presentationcheck-slides-iframe {
   width: 149.3333vh;
   height: 84vh;
+  margin-bottom: 5%;
 }
 .fetch-button {
   margin-top: 10px;
@@ -244,9 +245,9 @@
   }
 
   .sidebar-item {
-    padding: 10px;
-    margin: 5px 0;
-    font-size: 6vw;
+    padding: 8px;
+    margin: 3px 0;
+    font-size: 5.2vw;
   }
   .presentationcheck-slides-iframe {
     width: 92vw;

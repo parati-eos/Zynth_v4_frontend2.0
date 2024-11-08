@@ -608,15 +608,13 @@ const PresentationCheck = () => {
                 />
               ) : (
                 <div className="slide-presentation-container">
-                  <div>
-                    <span className="edit-button" id="editicon">
-                      <FontAwesomeIcon
-                        icon={faEdit}
-                        onClick={toggleEditMode}
-                        title="Edit Slide"
-                      />
-                    </span>
-                  </div>
+                  <span className="edit-button" id="editicon">
+                    <FontAwesomeIcon
+                      icon={faEdit}
+                      onClick={toggleEditMode}
+                      title="Edit Slide"
+                    />
+                  </span>
 
                   {/* <GuidedTour active={tourActive} /> */}
 
@@ -804,7 +802,7 @@ const PresentationCheck = () => {
         </div>
 
         {/* Slide Rendering */}
-        <div className="content lg:h-screen lg:overflow-y-scroll lg:snap-y lg:snap-mandatory scroll-smooth">
+        <div className="content lg:ml-3 lg:h-screen lg:overflow-y-scroll lg:snap-y lg:snap-mandatory scroll-smooth">
           {slides.map((slide, index) => (
             <div
               key={index}

@@ -2,9 +2,9 @@
 
 .card {
   display: flex;
-  width: 100%;
+  width: fit-content;
   height: max-content;
-  margin-bottom: 20px;
+  margin-bottom: 17;
   background: #001b28;
   border: 1px solid #004264;
   border-radius: 5px;

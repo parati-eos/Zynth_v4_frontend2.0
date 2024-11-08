@@ -214,7 +214,7 @@ const HistoryCard = ({ userID, submissionID, PPTName, Date, link }) => {
   }
 
   return (
-    <div>
+    <>
       <div className="card">
         <div className="card-image" onClick={handleHistoryCardClicked}>
           <iframe
@@ -276,7 +276,7 @@ const HistoryCard = ({ userID, submissionID, PPTName, Date, link }) => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

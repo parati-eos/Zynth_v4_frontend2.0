@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHistory } from '@fortawesome/free-solid-svg-icons'
 import ParatiLogoMobile from '../../Asset/logo512.png'
 
-function Navbar({ historyShow, historyHide }) {
+function Navbar() {
   const [dropdownVisible, setDropdownVisible] = useState(false)
   const navigate = useNavigate()
   const dropdownRef = useRef(null)
@@ -61,8 +61,6 @@ function Navbar({ historyShow, historyHide }) {
         <div className="appLanding-navbar-details-container">
           <button
             className="appLanding-history-button"
-            onMouseEnter={historyShow}
-            onMouseLeave={historyHide}
             onClick={handleHistoryButtonClicked}
           >
             <FontAwesomeIcon className="history-icon" icon={faHistory} />{' '}
@@ -83,7 +81,11 @@ function Navbar({ historyShow, historyHide }) {
               className="appLanding-userIcon"
               alt="User Avatar"
             />
-            <div className={`dropdown-menu ${dropdownVisible ? 'show' : ''}`}>
+            <div
+              className={`dropdown-menu-applicationLanding ${
+                dropdownVisible ? 'show' : ''
+              }`}
+            >
               <button onClick={handleLogout}>Logout</button>
             </div>
           </div>

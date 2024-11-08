@@ -27,6 +27,11 @@ function Navbar({ historyShow, historyHide }) {
 
   const handleProfileClick = () => {
     setDropdownVisible(!dropdownVisible)
+    // if (!dropdownVisible) {
+    //   setTimeout(() => {
+    //     setDropdownVisible(false)
+    //   }, 4000)
+    // }
   }
 
   const handleLogout = () => {
@@ -98,7 +103,11 @@ function Navbar({ historyShow, historyHide }) {
               className="application-userIcon"
               alt="User Avatar"
             />
-            <div className={`dropdown-menu ${dropdownVisible ? 'show' : ''}`}>
+            <div
+              className={`dropdown-menu-application ${
+                dropdownVisible ? 'show' : ''
+              }`}
+            >
               <button onClick={handleLogout}>Logout</button>
             </div>
           </div>
