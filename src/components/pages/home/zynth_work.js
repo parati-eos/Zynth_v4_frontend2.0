@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useEffect, useRef } from 'react'
 export default function ZynthWork() {
   const videoRef = useRef(null)
+  const [isMuted, setIsMuteda] = useState(true)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -10,6 +11,8 @@ export default function ZynthWork() {
           if (entry.isIntersecting) {
             // TODO: Remove comment to reset video to the start on scroll
             // videoRef.current.currentTime = 0
+            // always autoplay in muted audio mode
+            videoRef.current.muted = true
             videoRef.current.play()
           } else {
             videoRef.current.pause()
@@ -28,7 +31,13 @@ export default function ZynthWork() {
         observer.unobserve(videoRef.current)
       }
     }
-  }, [])
+  }, [isMuted])
+
+  const handleVolumeChange = () => {
+    if (videoRef.current) {
+      setIsMuted(videoRef.current.muted)
+    }
+  }
 
   return (
     <div>
@@ -63,6 +72,7 @@ export default function ZynthWork() {
                 width="900" // Adjust width as needed
                 controls
                 ref={videoRef}
+                onVolumeChange={handleVolumeChange}
               >
                 <source
                   src="https://d2zu6flr7wd65l.cloudfront.net/uploads/Zynth_Demo.mp4"

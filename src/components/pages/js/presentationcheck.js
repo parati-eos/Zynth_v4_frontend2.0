@@ -773,7 +773,7 @@ const PresentationCheck = () => {
                 ref={(el) => {
                   if (selectedSlide === slide) {
                     el?.scrollIntoView({
-                      behavior: 'instant',
+                      behavior: 'smooth',
                       block: 'center',
                     })
                   }
@@ -806,7 +806,7 @@ const PresentationCheck = () => {
           {slides.map((slide, index) => (
             <div
               key={index}
-              className="content-section lg:h-screen lg:snap-start"
+              className="content-section lg:snap-start"
               data-slide={slide}
               ref={(el) => (slideRefs.current[index] = el)}
             >
