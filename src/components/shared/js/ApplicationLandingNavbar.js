@@ -24,7 +24,7 @@ function Navbar() {
     if (!dropdownVisible) {
       setTimeout(() => {
         setDropdownVisible(false)
-      }, 4000)
+      }, 3000)
     }
   }
 

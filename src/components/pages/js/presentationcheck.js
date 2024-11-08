@@ -414,6 +414,16 @@ const PresentationCheck = () => {
       if (showForm && formRef.current) {
         formRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
       }
+
+      // const sidebarItem = document.querySelector(
+      //   `.sidebar-item[data-slide="${slide}"]`
+      // )
+      // if (sidebarItem) {
+      //   sidebarItem.scrollIntoView({
+      //     behavior: 'smooth',
+      //     block: 'center',
+      //   })
+      // }
     }, [showForm])
 
     // Intersection Observer to fetch data when the slide is in view
@@ -430,15 +440,15 @@ const PresentationCheck = () => {
             setSelectedSlide(slide)
 
             // Scroll to the sidebar item when the slide is in view
-            const sidebarItem = document.querySelector(
-              `.sidebar-item[data-slide="${slide}"]`
-            )
-            if (sidebarItem) {
-              sidebarItem.scrollIntoView({
-                behavior: 'smooth',
-                block: 'center',
-              })
-            }
+            // const sidebarItem = document.querySelector(
+            //   `.sidebar-item[data-slide="${slide}"]`
+            // )
+            // if (sidebarItem) {
+            //   sidebarItem.scrollIntoView({
+            //     behavior: 'smooth',
+            //     block: 'center',
+            //   })
+            // }
           }
         })
       }, observerOptions)
@@ -608,13 +618,13 @@ const PresentationCheck = () => {
                 />
               ) : (
                 <div className="slide-presentation-container">
-                  <span className="edit-button" id="editicon">
+                  <div className="edit-button" id="editicon">
                     <FontAwesomeIcon
                       icon={faEdit}
                       onClick={toggleEditMode}
                       title="Edit Slide"
                     />
-                  </span>
+                  </div>
 
                   {/* <GuidedTour active={tourActive} /> */}
 
@@ -774,7 +784,7 @@ const PresentationCheck = () => {
                   if (selectedSlide === slide) {
                     el?.scrollIntoView({
                       behavior: 'smooth',
-                      block: 'center',
+                      block: 'end',
                     })
                   }
                 }}
@@ -806,7 +816,7 @@ const PresentationCheck = () => {
           {slides.map((slide, index) => (
             <div
               key={index}
-              className="content-section lg:snap-start"
+              className="content-section lg:h-screen lg:snap-start"
               data-slide={slide}
               ref={(el) => (slideRefs.current[index] = el)}
             >

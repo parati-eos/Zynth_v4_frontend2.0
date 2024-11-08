@@ -30,7 +30,7 @@ function Navbar({ historyShow, historyHide }) {
     if (!dropdownVisible) {
       setTimeout(() => {
         setDropdownVisible(false)
-      }, 4000)
+      }, 3000)
     }
   }
 
