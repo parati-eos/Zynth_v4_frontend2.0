@@ -14,6 +14,7 @@ import PaymentGateway from "../Payment/PaymentGateway.js";
 import GuidedTour from "../utils/GuidedTour.js";
 import { useLocation } from "react-router-dom";
 import CouponModal from "../../pages/cards/CouponModal.js";
+// adarsha
 const slides = [
   "Cover",
   "About",
