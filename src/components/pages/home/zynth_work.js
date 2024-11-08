@@ -1,6 +1,35 @@
 import React from 'react'
-import ZynthDemoVideo from '../../Asset/Zynth_Demo.mp4'
+import { useEffect, useRef } from 'react'
 export default function ZynthWork() {
+  const videoRef = useRef(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // TODO: Remove comment to reset video to the start on scroll
+            // videoRef.current.currentTime = 0
+            videoRef.current.play()
+          } else {
+            videoRef.current.pause()
+          }
+        })
+      },
+      { threshold: 0.5 }
+    )
+
+    if (videoRef.current) {
+      observer.observe(videoRef.current)
+    }
+
+    return () => {
+      if (videoRef.current) {
+        observer.unobserve(videoRef.current)
+      }
+    }
+  }, [])
+
   return (
     <div>
       <section className="relative py-5 md:py-5 lg:pb-10 overflow-hidden bg-stone-200">
@@ -11,7 +40,7 @@ export default function ZynthWork() {
         />
         <div className="relative container px-4 mx-auto">
           <div className="max-w-5xl mx-auto">
-            <h1 className="text-2xl mt-20 text-center text-[#002d41]md:text-4xl font-bold text-yellow opacity-100">
+            <h1 className="text-3xl mt-20 text-center text-[#002d41]md:text-4xl font-bold text-yellow opacity-100">
               Jumpstart Your <span className="text-[#EAB308]">Pitch Deck</span>{' '}
               with Zynth
               <br />
@@ -33,6 +62,7 @@ export default function ZynthWork() {
                 className="rounded-lg shadow-lg"
                 width="900" // Adjust width as needed
                 controls
+                ref={videoRef}
               >
                 <source
                   src="https://d2zu6flr7wd65l.cloudfront.net/uploads/Zynth_Demo.mp4"
