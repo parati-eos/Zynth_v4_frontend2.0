@@ -25,7 +25,13 @@ function Navbar() {
   }
   const handleProfileClick = () => {
     setDropdownVisible(!dropdownVisible)
+    if (!dropdownVisible) {
+      setTimeout(() => {
+        setDropdownVisible(false)
+      }, 4000)
+    }
   }
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {

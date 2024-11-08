@@ -27,11 +27,11 @@ function Navbar({ historyShow, historyHide }) {
 
   const handleProfileClick = () => {
     setDropdownVisible(!dropdownVisible)
-    // if (!dropdownVisible) {
-    //   setTimeout(() => {
-    //     setDropdownVisible(false)
-    //   }, 4000)
-    // }
+    if (!dropdownVisible) {
+      setTimeout(() => {
+        setDropdownVisible(false)
+      }, 4000)
+    }
   }
 
   const handleLogout = () => {
