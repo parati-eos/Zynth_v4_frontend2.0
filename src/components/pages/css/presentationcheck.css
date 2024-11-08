@@ -1,29 +1,35 @@
-/* src/PresentationCheck.css */
+/* src/PresentationCheck.css
 .presentation-check-container1 {
-  padding-top: 4px; /* Adjust this value based on the height of your navbar */
+  padding-top: 4px; /* Adjust this value based on the height of your navbar 
 }
+*/
 
-.presentation-check-container {
+/* .presentation-check-container {
   display: flex;
-  height: calc(100vh - 60px); /* Adjust height to account for the fixed navbar */
+  height: calc(100vh - 60px); /* Adjust height to account for the fixed navbar 
   overflow: hidden;
-}
-.slide-presentation-container{
+} */
+.slide-presentation-container {
   display: flex;
   flex-direction: row-reverse;
   gap: 0;
   margin-left: 4.5vw;
-
 }
 
-.slide-presentation-container iframe{
+.slide-presentation-container iframe {
   pointer-events: none;
 }
 
-.slide-presentation-container .edit-button{
+.slide-presentation-container .edit-button {
   width: max-content;
   text-align: end;
+  margin-left: 4px;
+  height: fit-content;
+}
 
+.slide-presentation-container .edit-button:hover {
+  cursor: pointer;
+  color: white;
 }
 
 .fixed-navbar {
@@ -34,7 +40,6 @@
 }
 
 /* ---------------------------------------------- */
-
 
 /* src/components/css/presentationcheck.css */
 
@@ -59,7 +64,7 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.loading-grid{
+.loading-grid {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -68,10 +73,9 @@
   width: 149.3333vh;
 }
 
-
 /* ==========================================SIDEBAR-START======================================= */
 .sidebar {
-  width: 250px;
+  width: 265px;
   background-color: #001b28;
   padding: 10px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
@@ -85,13 +89,13 @@
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
-  color: white;
-  font-size:1.2vw;
+  color: #ffffff;
+  font-size: 1.1vw;
 }
 
 .separator {
   height: 0.7px;
-  background-color:  rgba(163, 163, 163, 0.3);
+  background-color: rgba(163, 163, 163, 0.3);
   margin: 0;
 }
 
@@ -107,9 +111,10 @@
   scroll-behavior: smooth;
 }
 
-.sidebar-hamburger {
+/* .sidebar-hamburger {
   display: none;
-}
+} */
+
 /* ==========================================SIDEBAR-END======================================= */
 
 .content {
@@ -131,9 +136,10 @@
   border-bottom: 1px solid #ddd;
   /* background: white; */
 }
-.presentationcheck-slides-iframe{
-  width: 149.3333vh; 
+.presentationcheck-slides-iframe {
+  width: 149.3333vh;
   height: 84vh;
+  margin-bottom: 5%;
 }
 .fetch-button {
   margin-top: 10px;
@@ -154,7 +160,6 @@
 .fetch-button:hover {
   background-color: #0056b3;
 }
-
 
 /* Custom scrollbar styles for the sidebar and presentation slides */
 .sidebar::-webkit-scrollbar,
@@ -192,65 +197,63 @@
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {
-  .presentation-check-container {
+  /* .presentation-check-container {
     flex-direction: column;
     height: 75vh;
+  } */
 
-  }
-
-  .slide-presentation-container .edit-button{
+  .slide-presentation-container .edit-button {
     width: 100%;
   }
-    .sidebar {
-      display: none;
-      /* position: fixed; */
-      width: 100%;
-      height: 100%;
-      background-color: #001b28;
-      top: 0;
-      left: 0;
-      padding: 20px;
-      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-      overflow-y: auto;
-      z-index: 1000;
-    }
-  
-    .sidebar.open {
-      display: flex;
-      flex-direction: column;
-    }
-  
-    .sidebar-hamburger {
-      display: block;
-      cursor: pointer;
-      position: sticky;
-      font-size: 30px;
-      color: white;
-      padding: 10px;
-    }
+  .sidebar {
+    display: none;
+    /* position: fixed; */
+    width: 100%;
+    height: 100%;
+    background-color: #001b28;
+    top: 0;
+    left: 0;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    z-index: 1000;
+  }
+
+  .sidebar.open {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* .sidebar-hamburger {
+    display: block;
+    cursor: pointer;
+    position: sticky;
+    font-size: 30px;
+    color: white;
+    padding: 10px;
+  } */
 
   .content {
     padding: 10px;
     order: 2; /* Make content appear second */
-
   }
-  
-.content-section {
-  min-height: 55vw;
- height: max-content;
-  width: 92vw;}
+
+  .content-section {
+    min-height: 55vw;
+    height: max-content;
+    width: 92vw;
+  }
 
   .sidebar-item {
-    padding: 10px;
-    margin: 5px 0;
-    font-size: 6vw;
+    padding: 8px;
+    margin: 3px 0;
+    font-size: 5.2vw;
   }
-  .presentationcheck-slides-iframe{
+  .presentationcheck-slides-iframe {
     width: 92vw;
     height: 51.75vw;
-
   }
-  .loading-grid{
+  .loading-grid {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -259,11 +262,9 @@
     height: 51.75vw;
   }
 
-  .slide-presentation-container{
+  .slide-presentation-container {
     display: flex;
     flex-direction: column;
     gap: 1vw;
-  
   }
-
 }

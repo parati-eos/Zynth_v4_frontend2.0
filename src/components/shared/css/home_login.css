@@ -126,8 +126,14 @@
   color: white;
 }
 
-.hamburger-icon{
- font-size: medium;
+.home-navbar-button2:hover {
+  background-color: #f9f9f9;
+  color: #e6a500;
+  border: none;
+}
+
+.hamburger-icon {
+  font-size: medium;
 }
 
 @media screen and (max-width: 576px) {
@@ -155,14 +161,11 @@
   .home-navbar-button1 {
     margin-right: 5%;
   }
-  .home-navbar-button2{
+  .home-navbar-button2 {
     display: none;
   }
-  
+
   .dropdown-btn {
     display: inline-block;
   }
 }
-
-
-

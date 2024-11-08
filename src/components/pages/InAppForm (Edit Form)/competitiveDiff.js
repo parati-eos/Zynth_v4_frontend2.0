@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 const CompetitiveDiff = ({ formData, handleChange }) => {
   return (
@@ -22,7 +22,7 @@ const CompetitiveDiff = ({ formData, handleChange }) => {
         />
       </div>
     </>
-  );
-};
+  )
+}
 
-export default CompetitiveDiff;
+export default CompetitiveDiff

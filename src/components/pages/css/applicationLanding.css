@@ -33,63 +33,62 @@
   justify-content: center;
   gap: 10px;
   align-items: center;
-  /* margin: 4%; */
 }
 
-.button-container{
+.overlay-button:hover {
+  background-color: #e2af07;
+  transition: 0.3s;
+  box-shadow: 0 0 10px #c59805e8, 0 0 40px #c59805e8, 0 0 80px #c59805e8;
+}
+
+.button-container {
   display: flex;
 }
+
 .image-stack {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 13vw;
-  width: 31.5vw;
+  width: 35.5vw;
   background-color: rgba(230, 165, 0, 0.06);
   border-radius: 12vw;
-  /* padding: 0 1vw;
-  margin-bottom: 1rem; */
 }
 
 .button-shade {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 11vw;
-  width: 29.5vw;
-  background-color: rgba(230, 165, 0, 0.06);
-  border-radius: 12vw;
-  /* padding: 0 1vw;
-  margin-bottom: 1rem;  */
+  border-radius: 13vw;
 }
 
 .button-shade1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 9vw;
-  width: 27.5vw;
-  background-color: rgba(230, 165, 0, 0.1);
-  border-radius: 12vw;
+  height: 10vw;
+  width: 32.5vw;
+  background-color: rgba(230, 165, 0, 0.068);
+  border-radius: 13vw;
 }
 
 .button-shade2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 7vw;
-  width: 25.5vw;
-  background-color: rgba(230, 165, 0, 0.1);
-  border-radius: 8vw;
+  height: 8vw;
+  width: 28.5vw;
+  background-color: rgba(230, 165, 0, 0.068);
+  border-radius: 9vw;
 }
 .button-shade3 {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 5vw;
-  width: 23.5vw;
-  background-color: rgba(230, 165, 0, 0.1);
-  border-radius: 8vw;
+  height: 6vw;
+  width: 24.7vw;
+  background-color: rgba(230, 165, 0, 0.075);
+  border-radius: 9vw;
 }
 
 .overlay-button img {
@@ -111,10 +110,10 @@
   }
   .button-shade {
     width: 72vw;
-    height: 26vw; 
+    height: 26vw;
     border-radius: 13vw;
   }
-  
+
   .button-shade1 {
     width: 68vw;
     height: 22vw;

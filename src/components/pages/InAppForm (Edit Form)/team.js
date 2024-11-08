@@ -1,53 +1,74 @@
-import React, { useState } from "react";
-import close from "../../Asset/close.png";
-import uploadFileToS3 from "../utils/uploadFileToS3"; // Import the function for uploading files to S3
-import "./team.css";
+import React, { useState } from 'react'
+import close from '../../Asset/close.png'
+import uploadFileToS3 from '../utils/uploadFileToS3' // Import the function for uploading files to S3
+import './team.css'
 
 const Team = ({ formData }) => {
   // Initialize with two team members by default
   const [teamMembers, setTeamMembers] = useState([
-    { name: "", title: "", experience: "", linkedin: "", photo: null, photoUrl: null },
-    { name: "", title: "", experience: "", linkedin: "", photo: null, photoUrl: null }
-  ]);
+    {
+      name: '',
+      title: '',
+      experience: '',
+      linkedin: '',
+      photo: null,
+      photoUrl: null,
+    },
+    {
+      name: '',
+      title: '',
+      experience: '',
+      linkedin: '',
+      photo: null,
+      photoUrl: null,
+    },
+  ])
 
   // Update the formData with teamMembers
-  formData["teamMembers"] = teamMembers;
+  formData['teamMembers'] = teamMembers
 
   // Function to add a new team member
   const handleAddMember = () => {
     if (teamMembers.length < 6) {
       setTeamMembers([
         ...teamMembers,
-        { name: "", title: "", experience: "", linkedin: "", photo: null, photoUrl: null }
-      ]);
+        {
+          name: '',
+          title: '',
+          experience: '',
+          linkedin: '',
+          photo: null,
+          photoUrl: null,
+        },
+      ])
     }
-  };
+  }
 
   // Function to remove a team member
   const handleRemoveMember = (index) => {
     if (teamMembers.length > 2) {
-      const updatedTeamMembers = [...teamMembers];
-      updatedTeamMembers.splice(index, 1);
-      setTeamMembers(updatedTeamMembers);
+      const updatedTeamMembers = [...teamMembers]
+      updatedTeamMembers.splice(index, 1)
+      setTeamMembers(updatedTeamMembers)
     }
-  };
+  }
 
   // Function to handle changes to team members
   const handleTeamMemberChange = async (index, field, value) => {
-    const updatedTeamMembers = [...teamMembers];
-    updatedTeamMembers[index][field] = value;
+    const updatedTeamMembers = [...teamMembers]
+    updatedTeamMembers[index][field] = value
 
-    if (field === "photo") {
+    if (field === 'photo') {
       try {
-        const photoUrl = await uploadFileToS3(value); // Upload the photo file to S3
-        updatedTeamMembers[index].photoUrl = photoUrl; // Set the URL of the uploaded photo
+        const photoUrl = await uploadFileToS3(value) // Upload the photo file to S3
+        updatedTeamMembers[index].photoUrl = photoUrl // Set the URL of the uploaded photo
       } catch (error) {
-        console.error("Error uploading photo:", error);
+        console.error('Error uploading photo:', error)
       }
     }
 
-    setTeamMembers(updatedTeamMembers);
-  };
+    setTeamMembers(updatedTeamMembers)
+  }
 
   return (
     <>
@@ -73,7 +94,7 @@ const Team = ({ formData }) => {
               value={member.name}
               placeholder={`Name *`}
               onChange={(e) =>
-                handleTeamMemberChange(index, "name", e.target.value)
+                handleTeamMemberChange(index, 'name', e.target.value)
               }
               required
             />
@@ -82,7 +103,7 @@ const Team = ({ formData }) => {
               value={member.title}
               placeholder={`Title *`}
               onChange={(e) =>
-                handleTeamMemberChange(index, "title", e.target.value)
+                handleTeamMemberChange(index, 'title', e.target.value)
               }
               required
             />
@@ -91,7 +112,7 @@ const Team = ({ formData }) => {
               value={member.linkedin}
               placeholder={`LinkedIn`}
               onChange={(e) =>
-                handleTeamMemberChange(index, "linkedin", e.target.value)
+                handleTeamMemberChange(index, 'linkedin', e.target.value)
               }
             />
             <textarea
@@ -99,7 +120,7 @@ const Team = ({ formData }) => {
               value={member.experience}
               placeholder={`Experience *`}
               onChange={(e) =>
-                handleTeamMemberChange(index, "experience", e.target.value)
+                handleTeamMemberChange(index, 'experience', e.target.value)
               }
               required
             />
@@ -108,18 +129,17 @@ const Team = ({ formData }) => {
                 type="file"
                 accept=".jpg, .jpeg, .png"
                 onChange={(e) =>
-                  handleTeamMemberChange(index, "photo", e.target.files[0])
+                  handleTeamMemberChange(index, 'photo', e.target.files[0])
                 }
                 className="file-inp"
               />
-{member.photoUrl && (
-  <img
-    src={member.photoUrl}
-    alt={`Photo of ${member.name}`}
-    className="w-[7vw] h-[7vw] object-cover rounded-lg"
-  />
-)}
-
+              {member.photoUrl && (
+                <img
+                  src={member.photoUrl}
+                  alt={`Photo of ${member.name}`}
+                  className="w-[7vw] h-[7vw] object-cover rounded-lg"
+                />
+              )}
             </div>
           </div>
         ))}
@@ -135,7 +155,7 @@ const Team = ({ formData }) => {
       </div>
       <br />
     </>
-  );
-};
+  )
+}
 
-export default Team;
+export default Team

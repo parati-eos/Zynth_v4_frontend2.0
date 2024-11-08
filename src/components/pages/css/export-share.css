@@ -18,7 +18,7 @@
   box-shadow: 0 0 8px 1px rgba(255, 255, 255, 0.4);
 }
 .export-share-button:hover {
-  background: #e6a500; 
+  background: #e6a500;
   color: white;
 }
 
@@ -30,7 +30,7 @@
 }
 
 .sharebutton:hover {
-   background: #e6a500; 
+  background: #e6a500;
   color: white;
 }
 
@@ -38,9 +38,10 @@
   color: #e6a500;
   background: white;
 }
+
 .editbutton:hover {
   color: white;
-  background: #e6a500; 
+  background: #e6a500;
   border: 0.1vw solid white;
 }
 
