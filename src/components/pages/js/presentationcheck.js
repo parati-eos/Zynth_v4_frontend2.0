@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react'
 import '../css/presentationcheck.css'
 import ApplicationNavbar from '../../shared/js/ApplicationNavbar.js'
@@ -15,6 +16,22 @@ import PaymentGateway from '../Payment/PaymentGateway.js'
 import GuidedTour from '../utils/GuidedTour.js'
 import { useLocation } from 'react-router-dom'
 import CouponModal from '../../pages/cards/CouponModal.js'
+import React, { useState, useEffect, useRef } from "react";
+import "../css/presentationcheck.css";
+import ApplicationNavbar from "../../shared/js/ApplicationNavbar.js";
+import SectionForm from "../sectionForm/sectionForm.js";
+import { IconButton } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import sectionMapping from "../utils/sectionMapping.js";
+import { Grid } from "react-loader-spinner";
+import FloatingButtons from "./FloatingButtons.js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTimes } from "@fortawesome/free-solid-svg-icons";
+import InAppForm from "../InAppForm (Edit Form)/inAppForm.js";
+import PaymentGateway from "../Payment/PaymentGateway.js";
+import GuidedTour from "../utils/GuidedTour.js";
+import { useLocation } from "react-router-dom";
+import CouponModal from "../../pages/cards/CouponModal.js";
 
 const slides = [
   'Cover',
@@ -73,7 +90,7 @@ const PresentationCheck = () => {
   const [tourActive, setTourActive] = useState(false)
   const discountParam = searchParams.get('discount')
 
-  //
+
   // Check if submissionID is found in the URL search params
   useEffect(() => {
     console.log('Discount param:', discountParam)
