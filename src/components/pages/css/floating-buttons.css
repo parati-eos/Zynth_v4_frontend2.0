@@ -1,0 +1,5 @@
+@media only screen and (min-device-width: 2560px) and (max-device-width: 2560px) and (min-device-height: 1600px) and (max-device-height: 1600px) and (-webkit-min-device-pixel-ratio: 2) {
+  .floating-buttons {
+    margin-left: 5px;
+  }
+}
