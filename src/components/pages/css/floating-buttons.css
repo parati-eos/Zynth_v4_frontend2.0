@@ -1,5 +1,7 @@
+/* Target M1 MacBook 13.3-inch screens */
 @media only screen and (min-device-width: 2560px) and (max-device-width: 2560px) and (min-device-height: 1600px) and (max-device-height: 1600px) and (-webkit-min-device-pixel-ratio: 2) {
   .floating-buttons {
-    margin-left: 5px;
+    right: 2vw; /* Offset more to prevent overlap */
+    bottom: 5vw; /* Adjust as needed to prevent slide overlap */
   }
 }

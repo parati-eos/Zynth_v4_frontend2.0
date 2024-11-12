@@ -73,7 +73,7 @@ function Navbar({ historyShow, historyHide }) {
           <button onClick={handleBuildPresentation}>
             <div className="app-button-inner">
               <img src={magicWand} alt="Magic Wand" />
-              <span>Generate New Pitch Deck</span>
+              <span>New Presentation</span>
             </div>
           </button>
         </div>

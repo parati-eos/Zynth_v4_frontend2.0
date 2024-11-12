@@ -309,9 +309,26 @@ const PresentationCheck = () => {
   // Function to handle the sidebar click
   const handleSidebarClick = (slide, index) => {
     setSelectedSlide(slide)
+
+    // Close the sidebar if in a small screen view (e.g., mobile)
+    if (window.innerWidth < 1024) {
+      toggleSidebar() // Close sidebar
+      // Add a small delay to ensure smooth scroll after sidebar toggle
+      setTimeout(() => {
+        scrollToSlide(index)
+      }, 300) // Adjust delay as per sidebar animation timing
+    } else {
+      // Directly scroll to slide for larger screens
+      scrollToSlide(index)
+    }
+  }
+
+  //
+  // Helper function to scroll to the slide
+  const scrollToSlide = (index) => {
     slideRefs.current[index].scrollIntoView({
       behavior: 'smooth',
-      block: 'start',
+      block: 'center',
     })
   }
 
