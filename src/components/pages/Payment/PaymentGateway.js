@@ -10,6 +10,7 @@ const PaymentGateway = ({ productinfo, onSuccess, formId }) => {
     email: localStorage.getItem("userEmail") || '',
     formId,
     currency: 'USD',
+    contact: '+919874930397',
   });
 
   const [countdown, setCountdown] = useState(null); // State to hold countdown value
@@ -63,41 +64,53 @@ const PaymentGateway = ({ productinfo, onSuccess, formId }) => {
     }
   };
 
-  const updateOrderId = async (orderId) => {
-    try {
-      const response = await fetch(`https://zynth.ai/api/slides/update-order/${formId}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ order_id: orderId }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const result = await response.json();
-      console.log('Order ID updated successfully:', result);
-    } catch (error) {
-      console.error('Error updating order ID:', error);
-    }
-  };
-
   const handlePayment = async () => {
-    const organizationId = sessionStorage.getItem("organizationId"); // Fetch organization ID from local storage
+    const organizationId = localStorage.getItem("organizationId"); // Fetch organization ID from local storage
     const couponResult = await verifyCoupon(organizationId); // Verify the coupon
 
     let finalAmount = paymentData.amount; // Start with the original amount
 
     if (couponResult && couponResult.message === "Coupon is valid") {
       finalAmount *= couponResult.discountAmount; // Apply the discount
-    } 
-    else {
-      //alert('Invalid coupon code or coupon not found. Proceeding with original amount.'); // Alert the user if the coupon is invalid
+    } else {
       finalAmount = paymentData.amount; // Set finalAmount to the original amount if coupon is invalid
     }
     finalAmount = Math.round(finalAmount);
+    
+    // Set up the order data for Razorpay Magic Checkout
+    const data = {
+      amount: finalAmount , // in paise.
+      currency: paymentData.currency,
+      receipt: "receipt#1",
+      line_items_total: finalAmount , // in paise.
+      line_items: [
+        {
+          sku: "1g234",
+          variant_id: "12r34",
+          other_product_codes: {
+            upc: "12r34",
+            ean: "123r4",
+            unspsc: "123s4"
+          },
+          price: finalAmount , // in paise.
+          offer_price: finalAmount, // in paise.
+          tax_amount: 0,
+          quantity: 1,
+          name: "TEST",
+          description: "TEST",
+          weight: 1700,
+          dimensions: {
+            length: 1700,
+            width: 1700,
+            height: 1700
+          },
+          image_url: "url",
+          product_url: "url",
+          notes: {}
+        }
+      ]
+    };
+
     try {
       console.log("Sending payment data to generate Razorpay order:", { amount: finalAmount, currency: paymentData.currency });
 
@@ -106,7 +119,7 @@ const PaymentGateway = ({ productinfo, onSuccess, formId }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ amount: finalAmount, currency: paymentData.currency }),
+        body: JSON.stringify(data), // Send the order data
       });
 
       if (!response.ok) {
@@ -115,9 +128,6 @@ const PaymentGateway = ({ productinfo, onSuccess, formId }) => {
 
       const result = await response.json();
       const { id: order_id, amount, currency } = result;
-
-      // Update the order ID
-      await updateOrderId(order_id);
 
       const options = {
         key: process.env.REACT_APP_RAZORPAY_KEY_ID,
@@ -163,9 +173,10 @@ const PaymentGateway = ({ productinfo, onSuccess, formId }) => {
           }
         },
         prefill: {
+          // Uncomment and set these values if needed
           // name: paymentData.firstname,
-          // email: paymentData.email,
-          // contact: paymentData.phone,
+          email: paymentData.email,
+          contact: paymentData.contact, // Update or handle contact dynamically
         },
         theme: {
           color: "#3399cc",
@@ -194,6 +205,7 @@ const PaymentGateway = ({ productinfo, onSuccess, formId }) => {
     if (countdown === 0) {
       setShowModal(false); // Hide the modal once the countdown ends
       console.log('Download starting...');
+      // Trigger your download here if needed
     }
   }, [countdown]);
 

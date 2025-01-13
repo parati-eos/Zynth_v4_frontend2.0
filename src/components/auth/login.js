@@ -90,7 +90,7 @@ function Login() {
       }
 
       // Save user data along with IP and country information
-      const response = await fetch(`${serverurl}/users`, {
+      const response = await fetch(`http://localhost:5001/api/v1/data/userprofile/user`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
