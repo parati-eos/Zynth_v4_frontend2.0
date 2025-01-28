@@ -53,7 +53,7 @@ function Navbar({ historyShow, historyHide }) {
   }, [dropdownRef])
 
   return (
-    <nav className="bg-[#001723] border-b border-[#004264]">
+    <nav className="bg-[#17191A] border-b border-[#17191A]">
       <div className="app-navbar-container">
         <div className="app-navbar-logo-container">
           <img
@@ -72,7 +72,11 @@ function Navbar({ historyShow, historyHide }) {
         <div className="app-navbar-generateppt-container">
           <button onClick={handleBuildPresentation}>
             <div className="app-button-inner">
-              <img src={magicWand} alt="Magic Wand" />
+              <img
+                src={magicWand}
+                alt="Magic Wand"
+                className="text-[#5480c1] hover:text-[#5480c1]"
+              />
               <span>New Presentation</span>
             </div>
           </button>

@@ -1,160 +1,155 @@
 /* General Layout */
 .trackRecord-container {
-    width: 100%;
-    height: 100%;
-    margin: 0 auto;
-    padding: 2%;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-    /* background-color: #f9f9f9; */
-    border-radius: 1%;
-    box-shadow: 0 0 2vw rgba(0, 0, 0, 0.1);
-    max-height: 80vh;
-    overflow-y: auto;
-  }
-  
-  .trackRecord-container label {
-    font-size: 1.2vw;
-  }
-  /* Track Record Details */
-  .trackRecord-details {
-    display: flex;
-    flex-direction: column;
-    gap:1vw;
-    margin-bottom: 3%;
-    padding: 4%;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 0.8vh;
-  }
-  
-  /* Flexbox Layout for Year Selections */
-  .trackRecord-to-from {
-    display: flex;
-    gap: 4%;
-    align-items: center;
-    margin-top: 2%;
-  }
-  
-  /* Labels */
-  .trackRecord-container label {
-    font-weight: 400;
-    color: #ffffff;
-    display: block;
-  }
-  
-  /* Selects */
-  .trackRecord-container select {
-    width: 20vw;
-    height: 5vh;
-    font-size: 1.2vw;
-    padding: 1vh;
-    /* border-radius: 0.8vh; */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    /* background-color: #de4040; */
-    color: #ffffff;
-    background-color:transparent;
-  }
-  .trackRecord-container select option{
-    background-color: #001b28;
-    font-size: 1.2vw;
-  }
-  
-  /* Textarea */
-  .trackRecord-container textarea {
-    width: 100%;
-    height: 12vh;
-    padding: 2vh;
-    font-size: 1.2vw;
-    border-radius: 0.8vh;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    resize: none;
-    margin-top: 2%;
-    background-color:transparent;
-  }
-  .trackRecord-container select:focus,
-  .trackRecord-container textarea:focus{
-    border-color: #4d8de0;
-    box-shadow: 0 0 0.5vh rgba(41, 160, 208, 0.5); /* Green shadow for focus */
-    outline: none;
-  }
-  
-  /* Buttons */
-  .trackRecord-container button {
-    width: 17vw;
-    height: 6vh;
-    font-size: 1.2vw;
-    padding: 1.2vh;
-    border-radius: 0.8vh;
-    border: none;
-    /* background-color: #4CAF50; */
-    color: #fff;
-    cursor: pointer;
-    margin-top: 2%;
-  }
-  
-  /* .trackRecord-container button:hover {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  padding: 2%;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  /* background-color: #f9f9f9; */
+  border-radius: 1%;
+  box-shadow: 0 0 2vw rgba(0, 0, 0, 0.1);
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.trackRecord-container label {
+  font-size: 1.2vw;
+}
+/* Track Record Details */
+.trackRecord-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1vw;
+  margin-bottom: 3%;
+  padding: 4%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.8vh;
+}
+
+/* Flexbox Layout for Year Selections */
+.trackRecord-to-from {
+  display: flex;
+  gap: 4%;
+  align-items: center;
+  margin-top: 2%;
+}
+
+/* Labels */
+.trackRecord-container label {
+  font-weight: 400;
+  color: #ffffff;
+  display: block;
+}
+
+/* Selects */
+.trackRecord-container select {
+  width: 20vw;
+  height: 5vh;
+  font-size: 1.2vw;
+  padding: 1vh;
+  /* border-radius: 0.8vh; */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  /* background-color: #de4040; */
+  color: #ffffff;
+  background-color: transparent;
+}
+.trackRecord-container select option {
+  background-color: #17191a;
+  font-size: 1.2vw;
+}
+
+/* Textarea */
+.trackRecord-container textarea {
+  width: 100%;
+  height: 12vh;
+  padding: 2vh;
+  font-size: 1.2vw;
+  border-radius: 0.8vh;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  resize: none;
+  margin-top: 2%;
+  background-color: transparent;
+}
+.trackRecord-container select:focus,
+.trackRecord-container textarea:focus {
+  border-color: #4d8de0;
+  box-shadow: 0 0 0.5vh rgba(41, 160, 208, 0.5); /* Green shadow for focus */
+  outline: none;
+}
+
+/* Buttons */
+.trackRecord-container button {
+  width: 17vw;
+  height: 6vh;
+  font-size: 1.2vw;
+  padding: 1.2vh;
+  border-radius: 0.8vh;
+  border: none;
+  /* background-color: #4CAF50; */
+  color: #fff;
+  cursor: pointer;
+  margin-top: 2%;
+}
+
+/* .trackRecord-container button:hover {
     background-color: #45a049;
   } */
-  
-  /* Utility Classes */
-  .flex-container {
-    display: flex;
-    gap: 2%;
-    align-items: center;
-  }
-  
-  .center-text {
-    text-align: center;
-  }
-  
-  .hidden {
-    display: none;
-  }
-  
-  .trackRecord-container::-webkit-scrollbar {
-    width: 4px;
-  }
-  
-  /* Track */
-  .trackRecord-container::-webkit-scrollbar-track {
-    background: #001b28;
-  }
-  
-  /* Handle */
-  .trackRecord-container::-webkit-scrollbar-thumb {
-    background: #eab308;
-    border-radius: 12px;
-  }
-  
-  /* Handle on hover */
-  .trackRecord-container::-webkit-scrollbar-thumb:hover {
-    background: #eab308; /* Change color on hover if needed */
+
+/* Utility Classes */
+.flex-container {
+  display: flex;
+  gap: 2%;
+  align-items: center;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.trackRecord-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track */
+.trackRecord-container::-webkit-scrollbar-track {
+  background: #17191a;
+}
+
+/* Handle */
+.trackRecord-container::-webkit-scrollbar-thumb {
+  background: #5480c1;
+  border-radius: 12px;
+}
+
+/* Handle on hover */
+.trackRecord-container::-webkit-scrollbar-thumb:hover {
+  background: #5480c1; /* Change color on hover if needed */
+}
+
+@media (max-width: 768px) {
+  .trackRecord-container label {
+    font-size: 3vw;
   }
 
-  @media (max-width: 768px) {
+  /* Selects */
+  .trackRecord-container select {
+    font-size: 3vw;
+  }
+  .trackRecord-container select option {
+    font-size: 3vw;
+  }
 
-    
-    
-    .trackRecord-container label {
-      font-size: 3vw;
-    }
+  /* Textarea */
+  .trackRecord-container textarea {
+    font-size: 3vw;
+  }
 
-    
-    /* Selects */
-    .trackRecord-container select {
-      font-size: 3vw;
-    }
-    .trackRecord-container select option{
-      font-size: 3vw;
-    }
-    
-    /* Textarea */
-    .trackRecord-container textarea {
-      font-size: 3vw;
-    }
-
-    .trackRecord-container button {
-      font-size: 3vw;
-    }
-
+  .trackRecord-container button {
+    font-size: 3vw;
+  }
 }

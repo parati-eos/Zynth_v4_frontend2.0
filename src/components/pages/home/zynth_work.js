@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useEffect, useRef } from 'react'
 export default function ZynthWork() {
   const videoRef = useRef(null)
-  const [isMuted, setIsMuteda] = useState(true)
+  const [isMuted, setIsMuted] = useState(true)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -49,11 +49,11 @@ export default function ZynthWork() {
         />
         <div className="relative container px-4 mx-auto">
           <div className="max-w-5xl mx-auto">
-            <h1 className="text-3xl mt-20 text-center text-[#002d41]md:text-4xl font-bold text-yellow opacity-100">
-              Jumpstart Your <span className="text-[#EAB308]">Pitch Deck</span>{' '}
+            <h1 className="text-3xl mt-20 text-center text-[#002d41] md:text-4xl font-bold text-yellow opacity-100">
+              Jumpstart Your <span className="text-[#5480c1]">Pitch Deck</span>{' '}
               with Zynth
               <br />
-              {/* <span style={{ color: "#e6a500" }}>
+              {/* <span style={{ color: "#5480c1" }}>
                 Zynth generates presentation layouts that go beyond a simple paragraph of text and an image.
               </span> */}
             </h1>

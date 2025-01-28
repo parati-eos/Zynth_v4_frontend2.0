@@ -1,76 +1,76 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from 'react'
 
 export default function CounterSection() {
-  const [productsCount, setProductsCount] = useState(0);
-  const [webTemplatesCount, setWebTemplatesCount] = useState(0);
-  const [mobileTemplatesCount, setMobileTemplatesCount] = useState(0);
-  const sectionRef = useRef(null);
+  const [productsCount, setProductsCount] = useState(0)
+  const [webTemplatesCount, setWebTemplatesCount] = useState(0)
+  const [mobileTemplatesCount, setMobileTemplatesCount] = useState(0)
+  const sectionRef = useRef(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
-          startCounters();
+          startCounters()
         }
       },
       { threshold: 0.5 }
-    );
+    )
 
     if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+      observer.observe(sectionRef.current)
     }
 
     return () => {
       if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+        observer.unobserve(sectionRef.current)
       }
-    };
-  }, []);
+    }
+  }, [])
 
   const startCounters = () => {
     const productInterval = setInterval(() => {
       setProductsCount((prevCount) => {
         if (prevCount < 6) {
-          return prevCount + 1;
+          return prevCount + 1
         } else {
-          clearInterval(productInterval);
-          return prevCount;
+          clearInterval(productInterval)
+          return prevCount
         }
-      });
-    }, 600);
+      })
+    }, 600)
 
     const webTemplateInterval = setInterval(() => {
       setWebTemplatesCount((prevCount) => {
         if (prevCount < 100) {
-          return prevCount + 1;
+          return prevCount + 1
         } else {
-          clearInterval(webTemplateInterval);
-          return prevCount;
+          clearInterval(webTemplateInterval)
+          return prevCount
         }
-      });
-    }, 40);
+      })
+    }, 40)
 
     const mobileTemplateInterval = setInterval(() => {
       setMobileTemplatesCount((prevCount) => {
         if (prevCount < 1000) {
-          return prevCount + 1;
+          return prevCount + 1
         } else {
-          clearInterval(mobileTemplateInterval);
-          return prevCount;
+          clearInterval(mobileTemplateInterval)
+          return prevCount
         }
-      });
-    }, 1);
+      })
+    }, 1)
 
     return () => {
-      clearInterval(productInterval);
-      clearInterval(webTemplateInterval);
-      clearInterval(mobileTemplateInterval);
-    };
-  };
+      clearInterval(productInterval)
+      clearInterval(webTemplateInterval)
+      clearInterval(mobileTemplateInterval)
+    }
+  }
 
   const formatCount = (count, max) => {
-    return count >= max ? `${count}+` : count;
-  };
+    return count >= max ? `${count}+` : count
+  }
 
   return (
     <section
@@ -87,7 +87,7 @@ export default function CounterSection() {
           <h1 className="text-2xl mt-20 text-center md:text-4xl font-bold text-[#002d41] opacity-100">
             Extensive Experience with
             <br />
-            <span style={{ color: "#e6a500" }}>
+            <span style={{ color: '#5480c1' }}>
               Investor Relations and Pitch Decks
             </span>
           </h1>
@@ -129,5 +129,5 @@ export default function CounterSection() {
         </div>
       </div>
     </section>
-  );
+  )
 }

@@ -10,7 +10,7 @@ export default function Blog() {
             style={{ textAlign: 'center' }}
           >
             Reading Material for a{' '}
-            <span className="text-yellow-500">Winning Pitch Deck</span>
+            <span className="text-[#17191A]">Winning Pitch Deck</span>
           </h2>
 
           <div className="flex flex-wrap -m-8">

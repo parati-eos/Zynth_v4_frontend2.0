@@ -1,145 +1,141 @@
 /* Main Container */
 .MarketSize-Inapp {
-    width: 100%;
-    margin-bottom: 1.5vw;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5vw;
+  width: 100%;
+  margin-bottom: 1.5vw;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5vw;
 }
 /* Style the placeholder option */
 
-
 .MarketSize-Inapp1 {
-    width: 100%;
-    height: 100%;
-    margin: 0 auto;
-    padding: 2%;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-    /* background-color: #f9f9f9; */
-    border-radius: 1%;
-    box-shadow: 0 0 2vw rgba(0, 0, 0, 0.1);
-    max-height: 80vh;
-    overflow-y: auto;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  padding: 2%;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  /* background-color: #f9f9f9; */
+  border-radius: 1%;
+  box-shadow: 0 0 2vw rgba(0, 0, 0, 0.1);
+  max-height: 80vh;
+  overflow-y: auto;
 }
 
 .MarketSize-Inapp1::-webkit-scrollbar {
-    width: 4px;
-  }
-  
-  /* Track */
-  .MarketSize-Inapp1::-webkit-scrollbar-track {
-    background: #001b28;
-  }
-  
-  /* Handle */
-  .MarketSize-Inapp1::-webkit-scrollbar-thumb {
-    background: #eab308;
-    border-radius: 12px;
-  }
-  
-  /* Handle on hover */
-  .MarketSize-Inapp1::-webkit-scrollbar-thumb:hover {
-    background: #eab308; /* Change color on hover if needed */
-  }
+  width: 4px;
+}
+
+/* Track */
+.MarketSize-Inapp1::-webkit-scrollbar-track {
+  background: #17191a;
+}
+
+/* Handle */
+.MarketSize-Inapp1::-webkit-scrollbar-thumb {
+  background: #5480c1;
+  border-radius: 12px;
+}
+
+/* Handle on hover */
+.MarketSize-Inapp1::-webkit-scrollbar-thumb:hover {
+  background: #5480c1; /* Change color on hover if needed */
+}
 /* Label Styles */
 .MarketSize-Inapp label {
-    font-size: 1.1vw;
-    font-weight: 400;
-    color: white;
-    margin-bottom: 0.5vw;
+  font-size: 1.1vw;
+  font-weight: 400;
+  color: white;
+  margin-bottom: 0.5vw;
 }
 
 /* Select Styles */
 .MarketSize-Inapp select {
-    width: 100%;
-    padding: 1.5%;
-    font-size: 1.1vw;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 0.5vw;
-    background-color: #001b28;
-    color: white;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    outline: none;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 1.5%;
+  font-size: 1.1vw;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0.5vw;
+  background-color: #17191a;
+  color: white;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  outline: none;
+  box-sizing: border-box;
 }
 
 /* Option Styles */
 .MarketSize-Inapp select option {
-    background-color: #001b28;
-    color: white;
+  background-color: #17191a;
+  color: white;
 }
 
 /* Select Focus Styles */
 .MarketSize-Inapp select:focus {
-    border-color: #4d8de0;
-    box-shadow: 0 0 0.5vh rgba(41, 160, 208, 0.5);
-    outline: none;
+  border-color: #4d8de0;
+  box-shadow: 0 0 0.5vh rgba(41, 160, 208, 0.5);
+  outline: none;
 }
 
 /* Input Styles */
-.MarketSize-Inapp input[type="text"],
-.MarketSize-Inapp input[type="number"],
+.MarketSize-Inapp input[type='text'],
+.MarketSize-Inapp input[type='number'],
 .MarketSize-Inapp textarea {
-    width: 100%;
-    padding: 1.5%;
-    font-size: 1.1vw;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 0.5vw;
-    background-color: transparent;
-    color: white;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    outline: none;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 1.5%;
+  font-size: 1.1vw;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0.5vw;
+  background-color: transparent;
+  color: white;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  outline: none;
+  box-sizing: border-box;
 }
 
 /* Input Focus Styles */
-.MarketSize-Inapp input[type="text"]:focus,
-.MarketSize-Inapp input[type="number"]:focus,
+.MarketSize-Inapp input[type='text']:focus,
+.MarketSize-Inapp input[type='number']:focus,
 .MarketSize-Inapp textarea:focus {
-    border-color: #4d8de0;
-    box-shadow: 0 0 0.5vh rgba(41, 160, 208, 0.5);
-    outline: none;
+  border-color: #4d8de0;
+  box-shadow: 0 0 0.5vh rgba(41, 160, 208, 0.5);
+  outline: none;
 }
 
 /* Textarea Styles */
 .MarketSize-Inapp textarea {
-    height: 6vw; /* Adjust as necessary */
-    resize: none; /* Prevent resizing if not needed */
+  height: 6vw; /* Adjust as necessary */
+  resize: none; /* Prevent resizing if not needed */
 }
 
 /* Responsive Design */
 @media (max-width: 600px) {
-    .MarketSize-Inapp {
-        margin-bottom: 4vw;
-    }
+  .MarketSize-Inapp {
+    margin-bottom: 4vw;
+  }
 
-    .MarketSize-Inapp label {
-        font-size: 3vw;
-        margin-bottom: 2vw;
-    }
-   /* Set the text size for the select dropdown */
-    .MarketSize-Inapp select#sector {
+  .MarketSize-Inapp label {
+    font-size: 3vw;
+    margin-bottom: 2vw;
+  }
+  /* Set the text size for the select dropdown */
+  .MarketSize-Inapp select#sector {
     font-size: 3vw; /* Adjust the text size for the dropdown */
-    }
+  }
 
-    /* Set the text size for the options inside the select dropdown */
-    .MarketSize-Inapp select#sector option {
+  /* Set the text size for the options inside the select dropdown */
+  .MarketSize-Inapp select#sector option {
     font-size: 3vw; /* Adjust the text size for the options */
-}
+  }
 
-    
+  .MarketSize-Inapp select,
+  .MarketSize-Inapp input[type='text'],
+  .MarketSize-Inapp input[type='number'],
+  .MarketSize-Inapp textarea {
+    padding: 4vw;
+    font-size: 3vw;
+  }
 
-    .MarketSize-Inapp select,
-    .MarketSize-Inapp input[type="text"],
-    .MarketSize-Inapp input[type="number"],
-    .MarketSize-Inapp textarea {
-        padding: 4vw;
-        font-size: 3vw;
-    }
-
-    .MarketSize-Inapp textarea {
-        height: 20vw; /* Adjust as necessary for mobile */
-    }
-    
+  .MarketSize-Inapp textarea {
+    height: 20vw; /* Adjust as necessary for mobile */
+  }
 }

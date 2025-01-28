@@ -1,8 +1,7 @@
 /* components/shared/Navbar.css */
 .history-nav {
-  background-color: #001723;
+  background-color: #17191a;
   z-index: 1;
-  border-bottom: 1px solid #004264;
 }
 
 .history-navbar-container {
@@ -67,8 +66,8 @@
   margin-top: 13px;
   border: none;
   border-radius: 5px;
-  background-color: #eab308;
-  background-color: #eab308;
+  background-color: #5480c1;
+  background-color: #5480c1;
   color: #ffffff;
   font-size: 1.2vw;
   cursor: pointer;
@@ -76,7 +75,7 @@
 }
 
 .dropdown-menu-history button:hover {
-  background-color: #cd9c07;
+  background-color: #5480c1;
 }
 
 .history-navbar-logo-container {
@@ -118,15 +117,15 @@
   border-radius: 50px;
   font-size: 100%;
   font-weight: 600;
-  background-color: #e6a500;
+  background-color: #5480c1;
   color: rgb(255, 255, 255, 1);
-  border: 1px solid #e6a500;
+  border: 1px solid #5480c1;
   z-index: 10;
   transition: all;
 }
 
 .history-navbar-generateppt-container button:hover {
-  color: #e6a500;
+  color: #5480c1;
   background-color: rgb(255, 255, 255, 1);
 }
 
@@ -225,7 +224,7 @@
     display: block;
   }
   .dropdown-menu.show button {
-    background-color: #e6a500;
+    background-color: #5480c1;
     color: rgb(15, 15, 63);
     border: none;
     padding: 10px 20px;
@@ -245,9 +244,9 @@
     border-radius: 50px;
     font-size: 84%;
     font-weight: 600;
-    background-color: #e6a500;
+    background-color: #5480c1;
     color: rgb(255, 255, 255, 1);
-    border: 1px solid #e6a500;
+    border: 1px solid #5480c1;
     z-index: 10;
     transition: all;
   }

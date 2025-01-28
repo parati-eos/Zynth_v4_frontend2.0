@@ -55,7 +55,7 @@ const Googleslides = () => {
           visible={true}
           height="80"
           width="80"
-          color="#E6A500"
+          color="#5480c1"
           ariaLabel="grid-loading"
           radius="12.5"
           wrapperStyle={{}}
@@ -92,7 +92,7 @@ const Googleslides = () => {
                   style={{
                     height: "100%",
                     width: `${progress}%`,
-                    backgroundColor: "#e6a500",
+                    backgroundColor: "#5480c1",
                     borderRadius: "inherit",
                     transition: "width .2s ease-in",
                   }}

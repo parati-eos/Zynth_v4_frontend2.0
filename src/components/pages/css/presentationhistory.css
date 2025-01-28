@@ -1,5 +1,5 @@
 /* .historypage{
-    background-color: #001B28;
+    background-color: #17191A;
     
 }
 .history-component{
@@ -15,7 +15,7 @@
 @media (max-width: 600px) {
     .historypage{
         width: 100vw;
-        background-color: #001B28;
+        background-color: #17191A;
         
     }
     .HistoryCards{

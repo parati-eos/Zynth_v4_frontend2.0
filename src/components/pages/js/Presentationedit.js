@@ -85,7 +85,6 @@
 //     }
 // }, []);
 
-
 //   const handleDownload = async () => {
 //     try {
 //       // const formId = localStorage.getItem("submissionId");
@@ -143,19 +142,17 @@
 //     });
 //   };
 
-
-
 //   const checkPaymentStatusAndProceed = async () => {
 //     try {
 //       const response = await fetch(`https://zynth.ai/api/slides/url?formId=${formId}`);
-  
+
 //       if (!response.ok) {
 //         throw new Error(`HTTP error! Status: ${response.status}`);
 //       }
-  
+
 //       const data = await response.json();
 //       console.log("API response data:", data); // Debugging line
-  
+
 //       if (data && data.paymentStatus === 1) {
 //         // Payment has already been made, run handleDownload
 //         handleDownload();
@@ -170,7 +167,6 @@
 //       alert("Error checking payment status. Please try again.");
 //     }
 //   };
-  
 
 //   const handleTriggerClick = async (section) => {
 //     const data = {
@@ -342,7 +338,7 @@
 //               visible={true}
 //               height={80}
 //               width={80}
-//               color="#E6A500"
+//               color="#5480c1"
 //               ariaLabel="grid-loading"
 //               radius={12.5}
 //               wrapperStyle={{}}
@@ -432,7 +428,7 @@
 //               visible={true}
 //               height={80}
 //               width={80}
-//               color="#E6A500"
+//               color="#5480c1"
 //               ariaLabel="grid-loading"
 //               radius={12.5}
 //               wrapperStyle={{}}
@@ -532,4 +528,3 @@
 // };
 
 // export default PresentationCheck;
-

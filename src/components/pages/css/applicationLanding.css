@@ -9,7 +9,7 @@
   width: 100%;
 }
 .app-landing-container {
-  background-color: #001b28;
+  background-color: #17191a;
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -24,7 +24,7 @@
   flex-direction: row;
   height: 6.8vh;
   width: 22vw;
-  background-color: rgb(230, 165, 0);
+  background-color: #5480c1;
   color: white;
   border: none;
   border-radius: 3.25vw;
@@ -36,9 +36,9 @@
 }
 
 .overlay-button:hover {
-  background-color: #e2af07;
+  background-color: #5480c1;
   transition: 0.3s;
-  box-shadow: 0 0 10px #c59805e8, 0 0 40px #c59805e8, 0 0 80px #c59805e8;
+  box-shadow: 0 0 10px #5d8bd1, 0 0 40px #6797dd, 0 0 80px #6c9be0;
 }
 
 .button-container {
@@ -51,7 +51,7 @@
   align-items: center;
   height: 13vw;
   width: 35.5vw;
-  background-color: rgba(230, 165, 0, 0.06);
+  background-color: #5480c115;
   border-radius: 12vw;
 }
 
@@ -68,7 +68,7 @@
   align-items: center;
   height: 10vw;
   width: 32.5vw;
-  background-color: rgba(230, 165, 0, 0.068);
+  background-color: #5480c121;
   border-radius: 13vw;
 }
 
@@ -78,7 +78,7 @@
   align-items: center;
   height: 8vw;
   width: 28.5vw;
-  background-color: rgba(230, 165, 0, 0.068);
+  background-color: #5480c11e;
   border-radius: 9vw;
 }
 .button-shade3 {
@@ -87,7 +87,7 @@
   align-items: center;
   height: 6vw;
   width: 24.7vw;
-  background-color: rgba(230, 165, 0, 0.075);
+  background-color: #5480c11f;
   border-radius: 9vw;
 }
 

@@ -609,7 +609,7 @@ const PresentationCheck = () => {
                         visible={true}
                         height={80}
                         width={80}
-                        color="#E6A500"
+                        color="#5480c1"
                         ariaLabel="grid-loading"
                         radius={12.5}
                         wrapperStyle={{}}
@@ -719,7 +719,7 @@ const PresentationCheck = () => {
                         visible={true}
                         height={80}
                         width={80}
-                        color="#E6A500"
+                        color="#5480c1"
                         ariaLabel="grid-loading"
                         radius={12.5}
                         wrapperStyle={{}}
@@ -810,7 +810,7 @@ const PresentationCheck = () => {
                     {slide}
                     {!slideContent[slide] && (
                       <IconButton
-                        color={selectedSlide === slide ? 'danger' : 'warning'}
+                        color={selectedSlide === slide ? 'danger' : 'info'}
                         aria-label="add"
                         sx={{ fontSize: 18 }}
                       >

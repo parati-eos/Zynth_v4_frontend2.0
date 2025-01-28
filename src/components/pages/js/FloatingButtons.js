@@ -12,7 +12,7 @@ const FloatingButtons = ({ handleShare, handleExport }) => {
           sx={{
             bgcolor: 'gray.200',
             '&:hover': {
-              bgcolor: '#eab308',
+              bgcolor: '#5480c1',
             },
             boxShadow: '0 0 8px 1px rgba(255, 255, 255, 0.4)',
             height: { xs: '15vw', md: '3.2vw' },
@@ -23,7 +23,7 @@ const FloatingButtons = ({ handleShare, handleExport }) => {
         >
           <ShareIcon
             sx={{
-              color: '#eab308',
+              color: '#5480c1',
               '&:hover': { color: 'white' },
               height: { xs: '10vw', md: '2.2vw' },
               width: { xs: '10vw', md: '2.2vw' },
@@ -36,7 +36,7 @@ const FloatingButtons = ({ handleShare, handleExport }) => {
           sx={{
             bgcolor: 'gray.200',
             '&:hover': {
-              bgcolor: '#eab308',
+              bgcolor: '#5480c1',
             },
             boxShadow: '0 0 8px 1px rgba(255, 255, 255, 0.4)',
             height: { xs: '15vw', md: '3.2vw' },
@@ -48,7 +48,7 @@ const FloatingButtons = ({ handleShare, handleExport }) => {
           <ExportIcon
             id="export-button"
             sx={{
-              color: '#eab308',
+              color: '#5480c1',
               '&:hover': { color: 'white' },
               height: { xs: '10vw', md: '2.2vw' },
               width: { xs: '10vw', md: '2.2vw' },

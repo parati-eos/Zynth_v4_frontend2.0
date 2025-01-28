@@ -1,11 +1,11 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import React, { useState, useRef, useEffect } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 
-import "../css/presentationshare.css";
-import "../css/HistoryOverlay.css";
-import GoogleslidesShare from "../../helper/googlepresentationShare-helper.js";
+import '../css/presentationshare.css'
+import '../css/HistoryOverlay.css'
+import GoogleslidesShare from '../../helper/googlepresentationShare-helper.js'
 
-import ParatiLogo from "../../Asset/parati-logo.png";
+import ParatiLogo from '../../Asset/parati-logo.png'
 
 const GooglePresentation = ({ url }) => {
   return (
@@ -14,41 +14,41 @@ const GooglePresentation = ({ url }) => {
         <GoogleslidesShare />
       </div>
     </div>
-  );
-};
+  )
+}
 
 const PresentationCheck = () => {
-  const historyTimeout = useRef(null);
-  const [currentSlideKey, setCurrentSlideKey] = useState(0);
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const formId = searchParams.get("submissionId");
-  const navigate = useNavigate();
+  const historyTimeout = useRef(null)
+  const [currentSlideKey, setCurrentSlideKey] = useState(0)
+  const location = useLocation()
+  const searchParams = new URLSearchParams(location.search)
+  const formId = searchParams.get('submissionId')
+  const navigate = useNavigate()
   // Company Name--------------->>
 
   useEffect(() => {
     const fetchData = async () => {
-      const apiUrl = `https://zynth.ai/api/slides/url?formId=${formId}`;
+      const apiUrl = `https://zynth.ai/api/slides/url?formId=${formId}`
       try {
         const response = await fetch(apiUrl, {
-          method: "GET",
+          method: 'GET',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
-        });
+        })
         if (!response.ok) {
-          throw new Error("Network response was not ok");
+          throw new Error('Network response was not ok')
         }
-        const data = await response.json();
+        const data = await response.json()
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error('Error fetching data:', error)
       }
-    };
-  }, [formId]);
+    }
+  }, [formId])
 
   const handleLogoClicked = () => {
-    navigate("/applicationLanding");
-  };
+    navigate('/')
+  }
 
   return (
     <div className="main-container">
@@ -72,7 +72,7 @@ const PresentationCheck = () => {
         <div className="presentationshare-viewing-side"></div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default PresentationCheck;
+export default PresentationCheck

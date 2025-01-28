@@ -1,49 +1,51 @@
 // src/components/WebScreen.js
 
-import React, { useState } from "react";
-import uploadFileToS3 from "../utils/uploadFileToS3"; // Import the function to upload files to S3
-import CircularProgress from '@mui/material/CircularProgress';
+import React, { useState } from 'react'
+import uploadFileToS3 from '../utils/uploadFileToS3' // Import the function to upload files to S3
+import CircularProgress from '@mui/material/CircularProgress'
 
-const WebScreen = ({ handleChange,setIsUploading}) => {
-  const [webUploadedImageUrl, setWebUploadedImageUrl] = useState([]);
+const WebScreen = ({ handleChange, setIsUploading }) => {
+  const [webUploadedImageUrl, setWebUploadedImageUrl] = useState([])
 
   const handleFileChange = async (e) => {
-    const files = e.target.files;
-    const uploadedWebImageUrls = [];
+    const files = e.target.files
+    const uploadedWebImageUrls = []
 
     if (files.length > 3) {
-      alert("Maximum 3 files allowed.");
-      return;
+      alert('Maximum 3 files allowed.')
+      return
     }
 
-    
     try {
-      setIsUploading(true);
+      setIsUploading(true)
       for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const imageUrl = await uploadFileToS3(file);
-        uploadedWebImageUrls.push(imageUrl);
+        const file = files[i]
+        const imageUrl = await uploadFileToS3(file)
+        uploadedWebImageUrls.push(imageUrl)
       }
 
       handleChange({
         target: {
-          name: "webScreenshots",
+          name: 'webScreenshots',
           value: uploadedWebImageUrls,
         },
-      });
+      })
 
-      setWebUploadedImageUrl(uploadedWebImageUrls);
+      setWebUploadedImageUrl(uploadedWebImageUrls)
     } catch (error) {
-      console.error("Error uploading file:", error);
+      console.error('Error uploading file:', error)
     } finally {
-      setIsUploading(false);
+      setIsUploading(false)
     }
-  };
+  }
 
   return (
     <div className="webScreenshots p-4">
-      <label htmlFor="webScreenshots" className="block text-[3vw] md:text-[1.2vw] font-medium text-white mb-2">
-        Please upload 3 Web App UI screenshots here * 
+      <label
+        htmlFor="webScreenshots"
+        className="block text-[3vw] md:text-[1.2vw] font-medium text-white mb-2"
+      >
+        Please upload 3 Web App UI screenshots here *
       </label>
       <input
         type="file"
@@ -62,20 +64,24 @@ const WebScreen = ({ handleChange,setIsUploading}) => {
       />
       {/* {isUploading && (
         <div className="flex justify-center mt-4">
-          <CircularProgress sx={{ color: "#eab308" }} />
+          <CircularProgress sx={{ color: "#5480c1" }} />
         </div>
       )} */}
       {webUploadedImageUrl.length > 0 && (
         <div className="uploadedImages grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4">
           {webUploadedImageUrl.map((url, index) => (
             <div key={index} className="uploadedImage">
-              <img src={url} alt={`Uploaded ${index}`} className="w-full h-[16vw] object-contain rounded-lg shadow-md" />
+              <img
+                src={url}
+                alt={`Uploaded ${index}`}
+                className="w-full h-[16vw] object-contain rounded-lg shadow-md"
+              />
             </div>
           ))}
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default WebScreen;
+export default WebScreen
