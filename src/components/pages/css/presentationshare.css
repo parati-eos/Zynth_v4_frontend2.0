@@ -1,156 +1,150 @@
 .main-container {
-    position: absolute;
-    width: 100%;
-    height: 100vh;
-    /* justify-content: center; */
-    align-items: center;
-    z-index: -2;
-  }
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  /* justify-content: center; */
+  align-items: center;
+  z-index: -2;
+}
+
+.PresentationContainer {
+  position: relative;
+  width: 960px; /* Same as iframe width */
+  height: 569px; /* Same as iframe height */
+}
+
+.GooglePresentation {
+  position: relative;
+  overflow: hidden;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  width: 100%;
+  max-width: 960px; /* Maximum width of the presentation */
+}
+
+.GooglePresentation iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.WatermarkOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 3em;
+}
+
+.WatermarkOverlay span {
+  white-space: nowrap;
+}
+
+.presentationshare-viewing-container {
+  height: 88.5vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 3vw;
+}
+.presentationshare-viewing-side {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  gap: 0.5vw;
+  flex-basis: 50%;
+}
+.presentationshare-viewing-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 70vw;
+  height: 100vh;
+}
+.presentationshare-view-slides {
+  transform: translateY(6vh);
+  display: flex;
+  justify-self: center;
+  width: 90%;
+  height: 90vh;
+  background: transparent;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.presentationshareContainer {
+  background-color: black;
+}
+.presentationshare-viewing-side .logo-icon {
+  transform: translateY(2vh);
+}
+.presentationshare-view-slides::-webkit-scrollbar {
+  width: 12px;
+  background-color: black;
+  border-radius: 4cqb; /* Adjust as needed */
+}
+.presentationshare-view-slides::-webkit-scrollbar-thumb {
+  background-color: #5480c1;
+  border-radius: 10px;
+}
+
+.presentationshare-view-slides::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+@media screen and (max-width: 600px) {
+  /* .main-container{
   
-  .PresentationContainer {
-    position: relative;
-    width: 960px; /* Same as iframe width */
-    height: 569px; /* Same as iframe height */
-  }
-  
-  .GooglePresentation {
-    position: relative;
-    overflow: hidden;
-    padding-top: 56.25%; /* 16:9 Aspect Ratio */
-    width: 100%;
-    max-width: 960px; /* Maximum width of the presentation */
-  }
-  
-  .GooglePresentation iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
-  }
-  .WatermarkOverlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 3em;
-  }
-  
-  .WatermarkOverlay span {
-    white-space: nowrap;
-  }
-  
+    } */
   .presentationshare-viewing-container {
-    height: 88.5vh;
-    width: 100vw;
-    display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 3vw;
-  }
-  .presentationshare-viewing-side{
-    width: 100%;
-    height: 100%;
+    height: 80vh;
+    width: 95vw;
     display: flex;
     flex-direction: column;
-    justify-content: start;
-    align-items: center;
-    gap: 0.5vw;
-    flex-basis: 50%;
-   
+  }
+  .presentationshare-viewing-side {
+    height: max-content;
+    padding: 0;
+    justify-content: flex-start;
   }
   .presentationshare-viewing-center {
-    
+    width: 100%;
+    height: 62vh;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 70vw;
-    height: 100vh;
+    z-index: 0;
   }
-  .presentationshare-view-slides{
-    transform: translateY(6vh);
+  .presentationshare-view-slides {
     display: flex;
     justify-self: center;
-    width:90% ;
-    height: 90vh;
-    background: transparent;
+    width: 100%;
+    height: 70vh;
+    border-radius: 2cqb;
     overflow-y: auto;
     overflow-x: hidden;
   }
-  .presentationshareContainer{
-    background-color: black;
+  .PresentationContainer {
+    width: 400px;
+    height: 200px;
   }
-  .presentationshare-viewing-side .logo-icon{
-    transform: translateY(2vh);
-
+  .GooglePresentation {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 960px; /* Maximum width of the presentation */
   }
-  .presentationshare-view-slides::-webkit-scrollbar {
-    width: 12px;
-    background-color: black;
-    border-radius: 4cqb; /* Adjust as needed */
-  }
-  .presentationshare-view-slides::-webkit-scrollbar-thumb {
-    background-color: #e6a500;
-    border-radius: 10px;
-  }
-  
-  .presentationshare-view-slides::-webkit-scrollbar-track {
-    background-color: transparent;
-  }
-
-  @media screen and (max-width: 600px){
-    /* .main-container{
-  
-    } */
-    .presentationshare-viewing-container {
-      justify-content: center;
-      align-items: center;
-      height: 80vh;
-      width: 95vw;
-      display: flex;
-      flex-direction: column;
-    }
-    .presentationshare-viewing-side{
-      height: max-content;
-      padding: 0;
-      justify-content: flex-start;
-    }
-    .presentationshare-viewing-center {
-      width: 100%;
-      height: 62vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      z-index: 0;
-  }
-    .presentationshare-view-slides{
-      display: flex;
-      justify-self: center;
-      width:100%;
-      height: 70vh;
-      border-radius: 2cqb;
-      overflow-y: auto;
-      overflow-x: hidden;
-  }
-    .PresentationContainer {
-      width: 400px; 
-      height: 200px;
-    }
-    .GooglePresentation {
-      position: relative;
-      overflow: hidden;
-      width: 100%;
-      max-width: 960px; /* Maximum width of the presentation */
-    }
-  
-  }
-  
-  
+}

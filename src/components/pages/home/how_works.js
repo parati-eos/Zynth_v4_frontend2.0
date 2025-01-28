@@ -2,7 +2,7 @@ import React from 'react'
 const ZigzagLayout = () => {
   return (
     <>
-      <h1 className="text-[#EAB308] mt-8 lg:mb-5 md:mt-16 lg:text-3xl text-2xl mx-auto font-bold max-lg:px-8 px-12 text-center">
+      <h1 className="text-[#5480c1] mt-8 lg:mb-5 md:mt-16 lg:text-3xl text-2xl mx-auto font-bold max-lg:px-8 px-12 text-center">
         How&nbsp;<span className="textbrown">Zynth Works</span>
       </h1>
 
@@ -10,7 +10,7 @@ const ZigzagLayout = () => {
         <div className="flex flex-col md:flex-row justify-center items-start max-lg:px-8 px-12">
           <div className="w-full max-w-2xl order-2 md:order-1 p-8">
             <div className="flex flex-col lg:text-2xl text-lg mt-4 md:mt-8 mx-4 md:mx-8">
-              <span className="font-bold text-[#EAB308] mb-7">
+              <span className="font-bold text-[#5480c1] mb-7">
                 <strong>Step 1 - Start</strong>
               </span>
 
@@ -28,7 +28,7 @@ const ZigzagLayout = () => {
 
             <div className="flex justify-start mt-6 mx-4 md:mx-8">
               <button
-                className="bg-[#EAB308] text-white font-bold py-2 px-6 rounded-lg shadow-lg hover:bg-white hover:text-yellow-500 transition-colors"
+                className="bg-[#5480c1] text-white font-bold py-2 px-6 rounded-lg shadow-lg hover:bg-white hover:text-[#17191A] transition-colors"
                 onClick={() => (window.location.href = '/auth/login')}
               >
                 Start Creating
@@ -66,7 +66,7 @@ const ZigzagLayout = () => {
 
           <div className="w-full max-w-2xl order-2 md:order-2 p-8">
             <div className="flex flex-col lg:text-2xl text-lg mt-4 md:mt-8 mx-4 md:mx-8">
-              <span className="font-bold text-[#EAB308] mb-7">
+              <span className="font-bold text-[#5480c1] mb-7">
                 <strong>Step 2 - Sit Back</strong>
               </span>
 
@@ -85,7 +85,7 @@ const ZigzagLayout = () => {
 
             <div className="flex justify-start mt-6 mx-4 md:mx-8">
               <button
-                className="bg-[#EAB308] text-white font-bold py-2 px-6 rounded-lg shadow-lg hover:bg-white hover:text-yellow-500 transition-colors"
+                className="bg-[#5480c1] text-white font-bold py-2 px-6 rounded-lg shadow-lg hover:bg-white hover:text-[#17191A] transition-colors"
                 onClick={() => (window.location.href = '/auth/login')}
               >
                 See Magic
@@ -99,7 +99,7 @@ const ZigzagLayout = () => {
         <div className="flex flex-col md:flex-row justify-center items-start max-lg:px-8 px-12">
           <div className="w-full max-w-2xl order-2 md:order-1 p-8">
             <div className="flex flex-col lg:text-2xl text-lg mt-4 md:mt-8 mx-4 md:mx-8">
-              <span className="font-bold text-[#EAB308] mb-7">
+              <span className="font-bold text-[#5480c1] mb-7">
                 <strong>Step 3 - Refine</strong>
               </span>
 
@@ -117,7 +117,7 @@ const ZigzagLayout = () => {
 
             <div className="flex justify-start mt-6 mx-4 md:mx-8">
               <button
-                className="bg-[#EAB308] text-white font-bold py-2 px-6 rounded-lg shadow-lg hover:bg-white hover:text-yellow-500 transition-colors"
+                className="bg-[#5480c1] text-white font-bold py-2 px-6 rounded-lg shadow-lg hover:bg-white hover:text-[#17191A] transition-colors"
                 onClick={() => (window.location.href = '/auth/login')}
               >
                 Start Creating
@@ -155,7 +155,7 @@ const ZigzagLayout = () => {
 
           <div className="w-full max-w-2xl order-2 md:order-2 p-8">
             <div className="flex flex-col lg:text-2xl text-lg mt-4 md:mt-8 mx-4 md:mx-8">
-              <span className="font-bold text-[#EAB308] mb-7">
+              <span className="font-bold text-[#5480c1] mb-7">
                 <strong>Step 4 - Export</strong>
               </span>
 
@@ -171,7 +171,7 @@ const ZigzagLayout = () => {
 
             <div className="flex justify-start mt-6 mx-4 md:mx-8">
               <button
-                className="bg-[#EAB308] text-white font-bold py-2 px-6 rounded-lg shadow-lg hover:bg-white hover:text-yellow-500 transition-colors"
+                className="bg-[#5480c1] text-white font-bold py-2 px-6 rounded-lg shadow-lg hover:bg-white hover:text-[#17191A] transition-colors"
                 onClick={() => (window.location.href = '/auth/login')}
               >
                 Start Sharing

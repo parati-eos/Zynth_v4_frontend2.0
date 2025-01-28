@@ -30,11 +30,11 @@ function History() {
     fetchData()
   }, [userID])
   return (
-    <div className="bg-[#001B28] min-h-screen">
+    <div className="bg-[#17191A] min-h-screen">
       <HistoryNavbar />
 
       <div className="px-3vw mt-5">
-        <h2 className="text-[#e6a500] text-2xl md:text-3xl font-bold mb-8 text-center tracking-wide">
+        <h2 className="text-[#5480c1] text-2xl md:text-3xl font-bold mb-8 text-center tracking-wide">
           History
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 md:ml-5 lg:ml-2">

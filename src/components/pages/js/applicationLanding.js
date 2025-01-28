@@ -2,11 +2,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import ApplicationLandingNavbar from '../../shared/js/ApplicationLandingNavbar.js'
-import img1 from '../../Asset/1.png'
-import img2 from '../../Asset/2.png'
-import img3 from '../../Asset/3.png'
-import img4 from '../../Asset/4.png'
-import presentationImg from '../../Asset/background.jpg'
+
 import magicWand from '../../Asset/magic-wand.png'
 import '../css/applicationLanding.css'
 import '../css/HistoryOverlay.css'
@@ -19,28 +15,10 @@ function ApplicationLanding() {
   const [showHistory, setShowHistory] = useState(false)
   const historyTimeout = useRef(null) // Ref for the timeout
 
-  const handleCheckHistory = () => {
-    // console.log("Checking History...");
-    // Add your logic to fetch and display history here
-  }
-
-  const handleBuildPresentation = () => {
-    // console.log("working");
-    // Redirect to the 'form.js' page upon clicking "Build Presentation"
-    navigate('/Pages/Nativeform', { state: { user } })
-  }
-
   const handleGeneratePPTWithZynth = () => {
     // console.log("Generate PPT with Zynth");
     // Implement logic for generating PPT with Zynth
     navigate('/pages/shortform', { state: { user } })
-  }
-
-  const handleLogout = () => {
-    // Clear the user's session and redirect to the login page
-    // You can implement your logout logic here
-    // For example, clearing tokens, cookies, or any other user data
-    navigate('/auth/login')
   }
 
   // History-Preview Code

@@ -1,6 +1,5 @@
 .home-nav {
-  background-color: #001723;
-  border-bottom: 1px solid #004264;
+  background-color: #17191a;
 }
 .home-navbar-container {
   display: flex;
@@ -39,7 +38,7 @@
   width: 10vw;
   height: fit-content;
   background-color: transparent;
-  color: #e6a500;
+  color: #5480c1;
   text-align: center;
   font-weight: 700;
   text-decoration: none;
@@ -49,12 +48,12 @@
 }
 
 .home-navbar-button1 {
-  border: 1.5px solid #e6a500;
+  border: 1.5px solid #5480c1;
 }
 
 .home-navbar-button2 {
-  background-color: #e6a500;
-  border: 2px solid #e6a500;
+  background-color: #5480c1;
+  border: 2px solid #5480c1;
   color: white;
 }
 
@@ -74,7 +73,7 @@
   height: fit-content;
   background-color: transparent;
   border: none;
-  color: #e6a500;
+  color: #5480c1;
   text-align: center;
   font-weight: 700;
   text-decoration: none;
@@ -90,7 +89,7 @@
 }
 
 .dropdown-content a {
-  color: #e6a500;
+  color: #5480c1;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
@@ -111,9 +110,9 @@
   width: 10vw;
   height: fit-content;
   background-color: transparent;
-  border: 1.5px solid #e6a500;
+  border: 1.5px solid #5480c1;
   border-radius: 5px;
-  color: #e6a500;
+  color: #5480c1;
   text-align: center;
   font-weight: 700;
   text-decoration: none;
@@ -121,14 +120,14 @@
 }
 
 .home-navbar-button2 {
-  background-color: #e6a500;
-  border: 2px solid #e6a500;
+  background-color: #5480c1;
+  border: 2px solid #5480c1;
   color: white;
 }
 
 .home-navbar-button2:hover {
   background-color: #f9f9f9;
-  color: #e6a500;
+  color: #5480c1;
   border: none;
 }
 

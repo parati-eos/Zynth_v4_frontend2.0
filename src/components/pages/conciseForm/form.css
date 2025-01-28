@@ -1,6 +1,6 @@
 .conciseform {
   font-family: Arial, sans-serif;
-  background-color: #0d2438;
+  background-color: #17191a;
   color: white;
   display: flex;
   flex-direction: column;
@@ -14,7 +14,7 @@
   /* margin-bottom: 100%; */
   width: 40vw;
   height: 60vh;
-  background-color: #0a1c2d;
+  background-color: #17191a;
   border: 1px solid #5e6b77;
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
@@ -62,7 +62,7 @@
 
 .progress-bar__fill {
   height: 100%;
-  background-color: #cd9c07;
+  background-color: #5480c1;
   width: 0;
   transition: width 0.3s ease;
 }
@@ -101,7 +101,7 @@
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 5px;
-  background-color: #eab308;
+  background-color: #5480c1;
   color: #ffffff;
   font-size: 1.2vw;
   cursor: pointer;
@@ -113,7 +113,7 @@
 }
 
 .form-navigation button:hover {
-  background-color: #cd9c07;
+  background-color: #6e98d8;
 }
 
 /* Logo Section */
@@ -245,18 +245,18 @@
 
 /* Track */
 .form-section textarea::-webkit-scrollbar-track {
-  background: #001b28;
+  background: #17191a;
 }
 
 /* Handle */
 .form-section textarea::-webkit-scrollbar-thumb {
-  background: #eab308;
+  background: #5480c1;
   border-radius: 12px;
 }
 
 /* Handle on hover */
 .form-section textarea::-webkit-scrollbar-thumb:hover {
-  background: #eab308; /* Change color on hover if needed */
+  background: #5480c1; /* Change color on hover if needed */
 }
 
 .form-navigation button:disabled {

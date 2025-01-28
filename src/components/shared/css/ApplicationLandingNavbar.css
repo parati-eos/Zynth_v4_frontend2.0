@@ -1,8 +1,8 @@
 /* components/shared/Navbar.css */
 .appLanding-nav {
-  background-color: #001723;
+  background-color: #17191a;
   z-index: 1;
-  border-bottom: 1px solid #004264;
+  border-bottom: 1px solid #17191a;
 }
 .appLanding-userIcon-container {
   display: flex;
@@ -58,8 +58,8 @@
   margin-top: 13px;
   border: none;
   border-radius: 5px;
-  background-color: #eab308;
-  background-color: #eab308;
+  background-color: #5480c1;
+  background-color: #5480c1;
   color: #ffffff;
   font-size: 1.2vw;
   cursor: pointer;
@@ -67,7 +67,7 @@
 }
 
 .dropdown-menu-applicationLanding button:hover {
-  background-color: #cd9c07;
+  background-color: #5480c1;
 }
 
 .appLanding-navbar-container {

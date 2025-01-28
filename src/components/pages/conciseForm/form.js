@@ -391,7 +391,7 @@ const ConciseForm = () => {
 
           <div className="form-navigation">
             {isLogoLoading ? (
-              <CircularProgress sx={{ color: '#eab308' }} />
+              <CircularProgress sx={{ color: '#5480c1' }} />
             ) : (
               <button
                 type="submit"

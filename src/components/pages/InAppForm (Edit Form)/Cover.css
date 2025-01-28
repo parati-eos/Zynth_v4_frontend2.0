@@ -1,111 +1,111 @@
 /* Main Container for Input Fields */
 .Cover-Inapp {
-    width: 100%;
-    margin-bottom: 1.5vw;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5vw;
+  width: 100%;
+  margin-bottom: 1.5vw;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5vw;
 }
 
 /* Label Styles */
 .Cover-Inapp label {
-    font-size: 1.1vw;
-    font-weight: 400;
-    color: white;
-    margin-bottom: 0.5vw;
+  font-size: 1.1vw;
+  font-weight: 400;
+  color: white;
+  margin-bottom: 0.5vw;
 }
 
 /* Input Styles */
-.Cover-Inapp input[type="text"],
-.Cover-Inapp input[type="file"] {
-    width: 100%;
-    padding: 1.5%;
-    font-size: 1.1vw;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 0.5vw;
-    background-color: transparent;
-    color: white;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    outline: none;
-    box-sizing: border-box;
+.Cover-Inapp input[type='text'],
+.Cover-Inapp input[type='file'] {
+  width: 100%;
+  padding: 1.5%;
+  font-size: 1.1vw;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0.5vw;
+  background-color: transparent;
+  color: white;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  outline: none;
+  box-sizing: border-box;
 }
 
 /* Input Focus Styles */
-.Cover-Inapp input[type="text"]:focus,
-.Cover-Inapp input[type="file"]:focus {
-    border-color: #4d8de0;
-    box-shadow: 0 0 0.5vh rgba(41, 160, 208, 0.5);
-    outline: none;
+.Cover-Inapp input[type='text']:focus,
+.Cover-Inapp input[type='file']:focus {
+  border-color: #4d8de0;
+  box-shadow: 0 0 0.5vh rgba(41, 160, 208, 0.5);
+  outline: none;
 }
 
 /* Logo Display Container */
 .text-input-logo {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: rgba(0, 0, 0, 0.3);
-    border-radius: 0.5vw;
-    padding: 1.5%;
-    margin-top: 0.5vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 0.5vw;
+  padding: 1.5%;
+  margin-top: 0.5vw;
 }
 
 /* Logo Filename Display */
 .text-input-logo-filename {
-    font-size: 1.1vw;
-    color: white;
-    display: flex;
-    align-items: center;
+  font-size: 1.1vw;
+  color: white;
+  display: flex;
+  align-items: center;
 }
 
 /* Logo Remove Button Styles */
 .text-input-logo-remove button {
-    background-color: #eab308;
-    color: white;
-    border: none;
-    border-radius: 0.4vw;
-    padding: 0.5vw 1vw;
-    font-size: 1vw;
-    cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: #5480c1;
+  color: white;
+  border: none;
+  border-radius: 0.4vw;
+  padding: 0.5vw 1vw;
+  font-size: 1vw;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .text-input-logo-remove button:hover {
-    background-color: #d69e08; /* Darker yellow on hover */
-    box-shadow: 0 0 0.5vh rgba(41, 160, 208, 0.5);
+  background-color: #d69e08; /* Darker yellow on hover */
+  box-shadow: 0 0 0.5vh rgba(41, 160, 208, 0.5);
 }
 
 .text-input-logo-remove button:focus {
-    outline: none;
+  outline: none;
 }
 
 /* Responsive Design */
 @media (max-width: 600px) {
-    .Cover-Inapp {
-        margin-bottom: 4vw;
-    }
+  .Cover-Inapp {
+    margin-bottom: 4vw;
+  }
 
-    .Cover-Inapp label {
-        font-size: 3vw;
-        margin-bottom: 2vw;
-    }
+  .Cover-Inapp label {
+    font-size: 3vw;
+    margin-bottom: 2vw;
+  }
 
-    .Cover-Inapp input[type="text"],
-    .Cover-Inapp input[type="file"] {
-        padding: 1vw;
-        font-size: 3vw;
-    }
+  .Cover-Inapp input[type='text'],
+  .Cover-Inapp input[type='file'] {
+    padding: 1vw;
+    font-size: 3vw;
+  }
 
-    .text-input-logo {
-        padding: 4vw;
-        margin-top: 2vw;
-    }
+  .text-input-logo {
+    padding: 4vw;
+    margin-top: 2vw;
+  }
 
-    .text-input-logo-filename {
-        font-size: 3.5vw;
-    }
+  .text-input-logo-filename {
+    font-size: 3.5vw;
+  }
 
-    .text-input-logo-remove button {
-        padding: 2vw 4vw;
-        font-size: 3vw;
-    }
+  .text-input-logo-remove button {
+    padding: 2vw 4vw;
+    font-size: 3vw;
+  }
 }
