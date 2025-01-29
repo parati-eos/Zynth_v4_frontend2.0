@@ -61,7 +61,7 @@ function App() {
       // }
 
 
-      const isZynthAI = window.location.hostname === 'zynth.ai';
+      const isZynthAI = window.location.hostname === 'pitch.zynth.ai';
 
       if (isZynthAI) {
         const handleContextMenu = (event) => {
