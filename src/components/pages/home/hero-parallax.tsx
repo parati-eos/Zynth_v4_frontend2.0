@@ -7,7 +7,7 @@ import {
   useSpring,
   MotionValue,
 } from 'framer-motion'
-import AnimatedButon from '../Buttons/button.tsx'
+import AnimatedButon from '../Buttons/button.js'
 import { useNavigate } from 'react-router-dom'
 
 export const HeroParallax = ({

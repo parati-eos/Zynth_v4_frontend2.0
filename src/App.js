@@ -10,7 +10,7 @@ import ReviewResponses from './components/pages/js/ReviewResponses';
 import History from './components/pages/js/presentationhistory';
 import About from './components/pages/home/about.js';
 import Contact from './components/pages/home/Contact.js';
-import PresentationShare from './components/pages/js/presentationshare';
+import PresentationShare from './components/pages/js/presentationshare.js';
 import Presentationedit from './components/pages/js/Presentationedit';
 import PaymentSuccess from './components/pages/Payment/Payment_success.js';
 import ConciseForm from './components/pages/conciseForm/form';
