@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import { useMotionValueEvent, useScroll } from 'framer-motion'
 import { motion } from 'framer-motion'
 import { cn } from '../../Utils/cn.ts'
-import AnimatedButon from '../Buttons/button.tsx'
+import AnimatedButon from '../Buttons/button.js'
 import { useNavigate } from 'react-router-dom'
 
 export const StickyScroll = ({
