@@ -7,7 +7,7 @@ export function HeroParallaxDemo() {
   const products = [
     {
       title: 'Facebook',
-      link: 'http://localhost:3000/share?submissionId=Parati-1713502679562',
+      link: 'https://zynth.ai/share?submissionId=Parati-1713502679562',
       thumbnail:
         'https://d2zu6flr7wd65l.cloudfront.net/uploads/Facebook+Team+5.png',
     },
