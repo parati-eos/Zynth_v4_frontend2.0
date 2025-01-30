@@ -114,13 +114,13 @@ function SectionForm({ Title, onClose, onSubmit, setSectionSubmitStatus }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setIsLoading(true)
     // Example phase validation check
     if (section === 'Track Record' && !validatePhases(formData.trackRecord)) {
       setIsSubmitting(false)
       return
     }
     setIsSubmitting(true)
-    setIsLoading(true)
 
     const formId = searchParams.get('submissionID')
     const generatedPresentationId = localStorage.getItem(
