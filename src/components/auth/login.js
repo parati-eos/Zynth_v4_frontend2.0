@@ -76,7 +76,7 @@ function Login() {
     try {
       // Fetch IP and country information
       const ipInfoResponse = await fetch(
-        'https://ipinfo.io/json?token=f0e9cf876d422e'
+        'https://cors-anywhere.herokuapp.com/https://ipinfo.io/json?token=f0e9cf876d422e'
       )
       const ipInfoData = await ipInfoResponse.json()
       const signupLink = localStorage.getItem('sign_up_link') || '' // Default to empty string if not found
@@ -90,7 +90,7 @@ function Login() {
       }
 
       // Save user data along with IP and country information
-      const response = await fetch(`${serverurl}/users`, {
+      const response = await fetch(`https://zynth.ai/api/users`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
