@@ -126,13 +126,13 @@ function InAppForm({ Title, onClose, onSubmit }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setIsLoading(true)
     // Example phase validation check
     if (section === 'Track Record' && !validatePhases(formData.trackRecord)) {
       setIsSubmitting(false)
       return
     }
     setIsSubmitting(true) // Disable the button immediately
-    setIsLoading(true)
 
     const formId = searchParams.get('submissionID')
     const generatedPresentationId = localStorage.getItem(

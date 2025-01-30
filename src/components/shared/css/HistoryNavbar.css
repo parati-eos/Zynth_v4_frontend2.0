@@ -75,7 +75,8 @@
 }
 
 .dropdown-menu-history button:hover {
-  background-color: #5480c1;
+  background-color: white;
+  color: black;
 }
 
 .history-navbar-logo-container {

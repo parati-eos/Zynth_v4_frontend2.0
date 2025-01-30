@@ -67,7 +67,8 @@
 }
 
 .dropdown-menu-applicationLanding button:hover {
-  background-color: #5480c1;
+  background-color: white;
+  color: black;
 }
 
 .appLanding-navbar-container {

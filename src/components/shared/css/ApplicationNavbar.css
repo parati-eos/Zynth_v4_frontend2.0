@@ -120,7 +120,8 @@
 }
 
 .dropdown-menu-application button:hover {
-  background-color: #5480c1;
+  background-color: white;
+  color: black;
 }
 
 .app-button-inner {

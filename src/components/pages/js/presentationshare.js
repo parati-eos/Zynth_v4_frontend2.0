@@ -99,7 +99,11 @@ const PresentationShare = () => {
           target="_blank"
           className="transition-all duration-300 transform hover:scale-110 active:scale-95 active:opacity-80"
         >
-          <img src={ParatiLogo} alt="Parati Logo" className="h-10 w-28 mt-2" />
+          <img
+            src="https://zynthimage.s3.amazonaws.com/uploads/1738213693038_parati-logo.png"
+            alt="Parati Logo"
+            className="h-10 w-28 mt-2"
+          />
         </a>
       </div>
       <div className="bg-[#17191a] py-2 h-full w-full share-no-no-scrollbar::-webkit-scrollbar">
