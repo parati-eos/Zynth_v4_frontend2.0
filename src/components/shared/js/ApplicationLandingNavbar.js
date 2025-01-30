@@ -51,7 +51,7 @@ function Navbar() {
       <div className="appLanding-navbar-container">
         <div className="appLanding-navbar-logo-container">
           <img
-            src={ParatiLogo}
+            src="https://zynthimage.s3.amazonaws.com/uploads/1738213693038_parati-logo.png"
             alt="Parati logo"
             className="desktop-logo"
             onClick={handleLogoClicked}

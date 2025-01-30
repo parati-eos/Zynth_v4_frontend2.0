@@ -1,28 +1,36 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-scroll";
-import ParatiLogo from "../../Asset/parati-logo.png";
-import "../css/home_login.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import React, { useState, useEffect } from 'react'
+import { Link } from 'react-scroll'
+import ParatiLogo from '../../Asset/parati-logo.png'
+import '../css/home_login.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 
 function Navbar() {
-  const [isSticky, setIsSticky] = useState(false);
+  const [isSticky, setIsSticky] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsSticky(window.scrollY > 100);
-    };
+      setIsSticky(window.scrollY > 100)
+    }
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
-    <nav className={`home-nav ${isSticky ? 'fixed top-0 w-full z-10 bg-white shadow-lg' : ''}`}>
+    <nav
+      className={`home-nav ${
+        isSticky ? 'fixed top-0 w-full z-10 bg-white shadow-lg' : ''
+      }`}
+    >
       <div className="home-navbar-container">
-        <div className="home-icon">
+        <div className="home-icon ">
           <Link to="/" className="home-icon-img">
-            <img src={ParatiLogo} alt="Parati Logo" className="home-navbar-logo" />
+            <img
+              src="https://zynthimage.s3.amazonaws.com/uploads/1738213693038_parati-logo.png"
+              alt="Parati Logo"
+              className="home-navbar-logo hover:scale-105 active:scale-95"
+            />
           </Link>
         </div>
         <div className="home-navbar-buttons">
@@ -31,23 +39,42 @@ function Navbar() {
               <FontAwesomeIcon className="hamburger-icon" icon={faBars} />
             </button>
             <div className="dropdown-content">
-              <Link to="features" smooth={true} offset={-70} className="dropdown-link">
+              <Link
+                to="features"
+                smooth={true}
+                offset={-70}
+                className="dropdown-link"
+              >
                 Features
               </Link>
-              <Link to="samples" smooth={true} offset={-70} className="dropdown-link">
+              <Link
+                to="samples"
+                smooth={true}
+                offset={-70}
+                className="dropdown-link"
+              >
                 Samples
               </Link>
-              <Link to="blogs" smooth={true} offset={-70} className="dropdown-link">
+              <Link
+                to="blogs"
+                smooth={true}
+                offset={-70}
+                className="dropdown-link"
+              >
                 Blogs
               </Link>
-              <a href="/auth/login" className="home-navbar-button-mobile">Sign In</a>
+              <a href="/auth/login" className="home-navbar-button-mobile">
+                Sign In
+              </a>
             </div>
           </div>
-          <a href="/auth/login" className="home-navbar-button2">Sign In</a>
+          <a href="/auth/login" className="home-navbar-button2">
+            Sign In
+          </a>
         </div>
       </div>
     </nav>
-  );
+  )
 }
 
-export default Navbar;
+export default Navbar
