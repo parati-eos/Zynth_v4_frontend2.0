@@ -285,7 +285,7 @@ const PresentationCheck = () => {
   //
   // Function to handle the share button click
   const handleShare = () => {
-    const uniqueShareableUrl = `https://zynth.ai/share?submissionId=${formId}`
+    const uniqueShareableUrl = `https://pitch.zynth.ai/share?submissionId=${formId}`
     if (navigator.share) {
       navigator
         .share({

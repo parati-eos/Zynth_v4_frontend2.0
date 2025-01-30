@@ -8,7 +8,11 @@ export const Footer = () => {
         <div class="max-w-screen-xl px-4 py-16 mx-auto sm:px-6 lg:px-8">
           <div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
             <div>
-              <img src={image} class="mr-5 h-6 sm:h-9" alt="logo" />
+              <img
+                src="https://zynthimage.s3.amazonaws.com/uploads/1738213693038_parati-logo.png"
+                class="mr-5 h-6 sm:h-9"
+                alt="logo"
+              />
               <p class="max-w-xs mt-4 text-sm text-gray-300">
                 Create your investor presentations in a few minutes using our AI
                 powered pitch deck builder. No design skills needed.
