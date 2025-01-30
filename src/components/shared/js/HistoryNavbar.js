@@ -50,7 +50,7 @@ function Navbar() {
       <div className="history-navbar-container">
         <div className="history-navbar-logo-container">
           <img
-            src={ParatiLogo}
+            src="https://zynthimage.s3.amazonaws.com/uploads/1738213693038_parati-logo.png"
             alt="Parati logo"
             className="desktop-logo"
             onClick={handleLogoClicked}
