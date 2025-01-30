@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.bb8d9b8b.css",
-    "main.js": "/static/js/main.fbaa3319.js",
+    "main.css": "/static/css/main.ac896f8b.css",
+    "main.js": "/static/js/main.f02c4a34.js",
     "static/js/845.f5169d8e.chunk.js": "/static/js/845.f5169d8e.chunk.js",
     "static/media/Landing Page Poster.png": "/static/media/Landing Page Poster.c75fdc2d8b156e51ba24.png",
     "static/media/parati-team.jpeg": "/static/media/parati-team.e64170235a3959bffd1e.jpeg",
@@ -13,9 +13,12 @@
     "static/media/slick.ttf": "/static/media/slick.c94f7671dcc99dce43e2.ttf",
     "index.html": "/index.html",
     "static/media/slick.woff": "/static/media/slick.295183786cd8a1389865.woff",
-    "main.bb8d9b8b.css.map": "/static/css/main.bb8d9b8b.css.map",
-    "main.fbaa3319.js.map": "/static/js/main.fbaa3319.js.map",
+    "main.ac896f8b.css.map": "/static/css/main.ac896f8b.css.map",
+    "main.f02c4a34.js.map": "/static/js/main.f02c4a34.js.map",
     "845.f5169d8e.chunk.js.map": "/static/js/845.f5169d8e.chunk.js.map"
   },
-  "entrypoints": ["static/css/main.bb8d9b8b.css", "static/js/main.fbaa3319.js"]
+  "entrypoints": [
+    "static/css/main.ac896f8b.css",
+    "static/js/main.f02c4a34.js"
+  ]
 }
