@@ -19,6 +19,7 @@ const PresentationShare = () => {
   const desktopScrollContainerRef = useRef(null)
   const mobileSlideRefs = useRef([])
   const mobileScrollContainerRef = useRef(null)
+  const [logo, setLogo] = useState('')
 
   // MEDIUM LARGE SCREENS: Sidebar Outline Select
   const handleOutlineSelect = (title, isMobile) => {
@@ -68,6 +69,9 @@ const PresentationShare = () => {
         setPresentationID(data.id)
         setSlidesData(data.data)
         setCurrentOutline(data.data[0][2])
+        if (data.logo && data.logo !== '' && data.logo !== null) {
+          setLogo(data.logo)
+        }
         setLoading(false)
       } catch (error) {
         console.error('Error fetching slides data:', error.message)
@@ -100,7 +104,10 @@ const PresentationShare = () => {
           className="transition-all duration-300 transform hover:scale-110 active:scale-95 active:opacity-80"
         >
           <img
-            src="https://zynthimage.s3.amazonaws.com/uploads/1738213693038_parati-logo.png"
+            src={
+              logo ||
+              'https://zynthimage.s3.amazonaws.com/uploads/1738213693038_parati-logo.png'
+            }
             alt="Parati Logo"
             className="h-10 w-28 mt-2"
           />

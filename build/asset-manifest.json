@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.c9758728.css",
-    "main.js": "/static/js/main.7d2ee59c.js",
+    "main.js": "/static/js/main.4a1f6c21.js",
     "static/js/845.f5169d8e.chunk.js": "/static/js/845.f5169d8e.chunk.js",
     "static/media/Landing Page Poster.png": "/static/media/Landing Page Poster.c75fdc2d8b156e51ba24.png",
     "static/media/parati-team.jpeg": "/static/media/parati-team.e64170235a3959bffd1e.jpeg",
@@ -14,11 +14,11 @@
     "index.html": "/index.html",
     "static/media/slick.woff": "/static/media/slick.295183786cd8a1389865.woff",
     "main.c9758728.css.map": "/static/css/main.c9758728.css.map",
-    "main.7d2ee59c.js.map": "/static/js/main.7d2ee59c.js.map",
+    "main.4a1f6c21.js.map": "/static/js/main.4a1f6c21.js.map",
     "845.f5169d8e.chunk.js.map": "/static/js/845.f5169d8e.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c9758728.css",
-    "static/js/main.7d2ee59c.js"
+    "static/js/main.4a1f6c21.js"
   ]
 }
