@@ -95,11 +95,9 @@ function App() {
        gtagScript.async = true;
        gtagScript.src = "https://www.googletagmanager.com/gtag/js?id=AW-667504395";
        document.head.appendChild(gtagScript);
-   
+     
        window.dataLayer = window.dataLayer || [];
-       window.gtag = function() {
-         dataLayer.push(arguments);
-       };
+       window.gtag = function() { dataLayer.push(arguments); };
        window.gtag('js', new Date());
        window.gtag('config', 'AW-667504395');
     const INACTIVITY_THRESHOLD = 2 * 60 * 60 * 1000; // 2 hours in milliseconds
